@@ -110,9 +110,13 @@ if ! [ -d $GIT ]; then
  cd $GITMAIN
  if $translationServe ; then
   # download the translations git repo and place the set sql file for serving
+  echo "Placing OpenEMR Development translation set"
+  echo "Placing OpenEMR Development translation set" >> $LOG
   git clone $TRANSLATIONSREPO
   mkdir -p $TRANSSERVEDIR
   cp $GITTRANS/languageTranslations_utf8.sql $TRANSSERVEDIR/
+  echo "Done Placing OpenEMR Development translation set"
+  echo "Done Placing OpenEMR Development translation set" >> $LOG
  fi
 else
  echo "ERROR, The OpenEMR git repository already exist"
