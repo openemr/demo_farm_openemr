@@ -1,0 +1,3 @@
+ip address	branch	serve_development_translations	use_development_translations	serve_packages
+192.168.1.111	master	1	1	1
+192.168.1.125	rel-412	0	0	1
