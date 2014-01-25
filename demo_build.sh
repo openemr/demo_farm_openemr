@@ -9,6 +9,10 @@
 #This script is for the OpenEMR demo farms
 #
 
+# PUBLIC REPOS
+OPENEMRREPO=https://github.com/openemr/openemr.git
+TRANSLATIONSREPO=https://github.com/openemr/translations_development_openemr.git
+
 # PATH VARIABLES
 WEB=/var/www
 OPENEMR=$WEB/openemr
@@ -94,13 +98,13 @@ if ! [ -d $GITMAIN ]; then
  echo "Downloading the OpenEMR git repository" >> $LOG
  mkdir -p $GITMAIN
  cd $GITMAIN
- git clone git://github.com/openemr/openemr.git
+ git clone $OPENEMRREPO
  cd $GIT
  git checkout origin/$GITBRANCH
  cd $GITMAIN
  if $translationServe ; then
   # download the translations git repo and place the set sql file for serving
-  git clone git://github.com/openemr/translations_development_openemr.git
+  git clone $TRANSLATIONSREPO
   mkdir -p $TRANSSERVEDIR
   cp $GITTRANS/languageTranslations_utf8.sql $TRANSSERVEDIR/
  fi
