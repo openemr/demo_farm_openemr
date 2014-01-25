@@ -87,7 +87,7 @@ fi
 if [ "$udt" == "1"  ]; then
  translationsDevelopment=true;
 else
- translationDevelopment=false;
+ translationsDevelopment=false;
 fi
 # set if serve packages
 if [ "$sp" == "1"  ]; then
