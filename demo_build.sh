@@ -152,9 +152,13 @@ chown -R www-data:www-data $OPENEMR/gacl/admin/templates_c
 # Run installer class for the demo (note to avoid malicious use, script is activated by removing an exit command,
 #   and the active script is then removed after completion.
 sed -e 's@^exit;@ @' <$INST >$INSTTEMP
-if $translationsDevelopment  ; then
+if $translationsDevelopment ; then
+ echo "Using online development translation set"
+ echo "Using online development translation set" >> $LOG
  php -f $INSTTEMP development_translations=yes >> $LOG
 else
+ echo "Using included translation set"
+ echo "Using included translation set" >> $LOG
  php -f $INSTTEMP >> $LOG
 fi
 rm -f $INSTTEMP
