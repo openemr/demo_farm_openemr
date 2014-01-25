@@ -41,35 +41,35 @@ tempx=`/sbin/ifconfig`
 tempy=${tempx#*inet addr:}
 IPADDRESS=${tempy%% *}
 echo -n "IP ADDRESS is "
-echo $IPADDRESS
+echo "$IPADDRESS"
 echo -n "IP ADDRESS is " >> $LOG
-echo $IPADDRESS
+echo "$IPADDRESS" >> $LOG
 
 # COLLECT MAPPED BRANCH AND OPTIONS
 # Grab branch
 GITBRANCH=${cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 2}
 echo -n "git branch is "
-echo $GITBRANCH
+echo "$GITBRANCH"
 echo -n "git branch is " >> $LOG
-echo $GITBRANCH
+echo "$GITBRANCH" >> $LOG
 # Grab serve development translation set option
 sdt=${cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 3}
 echo -n "sdt option is "
-echo $sdt
+echo "$sdt"
 echo -n "sdt option is " >> $LOG
-echo $sdt
+echo "$sdt" >> $LOG
 # Grab use development translation set option
 udt=${cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 4}
 echo -n "udt option is "
-echo $udt
+echo "$udt"
 echo -n "udt option is " >> $LOG
-echo $udt
+echo "$udt" >> $LOG
 # Grab serve packages option
 sp=${cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 5}
 echo -n "sp option is "
-echo $sp
+echo "$sp"
 echo -n "sp option is " >> $LOG
-echo $sp
+echo "$sp" >> $LOG
 
 # SET OPTIONS
 # set if serve development translation set
@@ -93,7 +93,7 @@ fi
 
 
 # COLLECT THE GIT REPO (it should not exist yet, but will check)
-if ! [ -d $GITMAIN ]; then
+if ! [ -d $GIT ]; then
  echo "Downloading the OpenEMR git repository"
  echo "Downloading the OpenEMR git repository" >> $LOG
  mkdir -p $GITMAIN
