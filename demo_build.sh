@@ -31,7 +31,7 @@ INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
 
 # Turn off apache to avoid users messing up while setting up
 #  (start it again below after install/configure openemr
-service httpd stop
+/etc/init.d/apache2 stop
 
 # Placemarker for installing new needed modules and other config issues
 # that arise in the future
@@ -148,6 +148,9 @@ rm -f $INSTTEMP
 chmod 644 $OPENEMR/sites/default/sqlconf.php
 echo "Done configuring OpenEMR"
 echo "Done configuring OpenEMR" >> $LOG
+
+#restart apache
+/etc/init.d/apache2 start
 
 if $packageServe ; then
  #Package the development version into a tarball and zip file to be available thru web browser
