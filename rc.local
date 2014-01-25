@@ -1,0 +1,28 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+# This is to set a OpenEMR Development Demo. To set up demo:
+# 1. Change this to true
+# 2. Set a static ip address
+# 3. Shutdown and set a snapshot in vmware and have it revert to
+#    snapshot on shutdown.
+# 4. Place ip address along with git branch and options in
+#    in the https://github.com/bradymiller/demo_farm_openemr.git repo
+# 5. Start the appliance
+triggerOpenemrDevelopmentDemo=false
+if $triggerOpenemrDevelopmentDemo ; then
+ mkdir -p /home/openemr/git
+ cd /home/openemr/git
+ git clone https://github.com/bradymiller/demo_farm_openemr.git
+ bash /home/openemr/git/demo_farm_openemr/demo_build.sh
+fi
