@@ -1,24 +1,25 @@
 
 The repo will hold the pieces for an OpenEMR demo farm.
 
-Set up a ubuntu appliance
+Set up a ubuntu pre-trigger appliance
 -------------------------
-1. Install and remove the ubuntu development package at:
+1. Install a ubuntu appliance on vmware
+2. Install and remove the ubuntu development package at:
    http://www.open-emr.org/wiki/index.php/Ubuntu-Debian_OpenEMR_Development_Package_Installation
-2. Config php and apache
-3. Set up /etc/rc.local file from:
+3. Config php and apache
+4. Set up /etc/rc.local file from:
    https://github.com/bradymiller/demo_farm_openemr.git repo
-4. At some point will hopefully offer a download link with this appliance.
+5. At some point will hopefully offer a download link with this appliance.
 
-Configure the ubuntu appliance
+Trigger the ubuntu appliance
 ------------------------------
-1. Change triggerOpenemrDevelopmentDemo in /etc/rc.local  to true
+1. Change triggerOpenemrDevelopmentDemo in /etc/rc.local to true
 2. Set a static ip address in appliance
 3. Shutdown appliance and set a snapshot in vmware and have it revert to
    snapshot on shutdown.
 4. Place ip address along with git branch and options in
-   in the ip_map_branch.txt file in the:
-   https://github.com/bradymiller/demo_farm_openemr.git repo
+   in the ip_map_branch.txt file in the repo:
+   https://github.com/bradymiller/demo_farm_openemr.git
 5. Start the appliance
 
 Description of ip_map_branch.txt configuration file
@@ -36,6 +37,6 @@ How to grow your own OpenEMR demo farm
 --------------------------------------
 1. Fork the https://github.com/bradymiller/demo_farm_openemr.git repo and make it your own
 2. Configure ip_map_branch.txt
-3. Set up the appliance, as above (or download it when available)
-4. Configure the appliance, as above. In the /etc/rc.local, place link to your custom demo_farm_openemr repo.
+3. Set up the pre-trigger appliance, as above (or download it when available)
+4. Trigger the appliance, as above. In the /etc/rc.local, place link to your custom demo_farm_openemr repo.
 
