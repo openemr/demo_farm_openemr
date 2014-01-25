@@ -73,19 +73,19 @@ echo "$sp" >> $LOG
 
 # SET OPTIONS
 # set if serve development translation set
-if [ "$sdt" eq 1  ]; then
+if [ "$sdt" == "1"  ]; then
  translationServe=true;
 else
  translationServe=false;
 fi
 # set if use development translation set
-if [ "$udt" eq 1  ]; then
+if [ "$udt" == "1"  ]; then
  translationsDevelopment=true;
 else
  translationDevelopment=false;
 fi
 # set if serve packages
-if [ "$sp" eq 1  ]; then
+if [ "$sp" == "1"  ]; then
  packageServe=true;
 else
  packageServe=false;
