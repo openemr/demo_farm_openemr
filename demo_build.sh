@@ -91,6 +91,12 @@ else
  packageServe=false;
 fi
 
+# COLLECT and output demo description
+desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 6`
+echo -n "Demo description: "
+echo "$desc"
+echo -n "Demo description: " >> $LOG
+echo "$desc" >> $LOG
 
 # COLLECT THE GIT REPO (it should not exist yet, but will check)
 if ! [ -d $GIT ]; then
@@ -125,14 +131,14 @@ echo "Configuring OpenEMR" >> $LOG
 #
 # Set file and directory permissions
 chmod 666 $OPENEMR/sites/default/sqlconf.php
-chown -R apache:apache $OPENEMR/sites/default/documents
-chown -R apache:apache $OPENEMR/sites/default/edi
-chown -R apache:apache $OPENEMR/sites/default/era
-chown -R apache:apache $OPENEMR/library/freeb
-chown -R apache:apache $OPENEMR/sites/default/letter_templates
-chown -R apache:apache $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
-chown -R apache:apache $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
-chown -R apache:apache $OPENEMR/gacl/admin/templates_c
+chown -R www-data:www-data $OPENEMR/sites/default/documents
+chown -R www-data:www-data $OPENEMR/sites/default/edi
+chown -R www-data:www-data $OPENEMR/sites/default/era
+chown -R www-data:www-data $OPENEMR/library/freeb
+chown -R www-data:www-data $OPENEMR/sites/default/letter_templates
+chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
+chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
+chown -R www-data:www-data $OPENEMR/gacl/admin/templates_c
 #
 # Run installer class for the demo (note to avoid malicious use, script is activated by removing an exit command,
 #   and the active script is then removed after completion.
