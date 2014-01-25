@@ -25,8 +25,17 @@ Description of ip_map_branch.txt configuration file
 ---------------------------------------------------
 This file is a tab delimited file for configuration of demos in the demo farm with following settings:
 - ip address: local ip address of the OpenEMR demo
+- openemr_repo: set it to the openemr repo you want to grab code from
 - branch: git branch of the OpenEMR github repository
 - serve_development_translations: set to 1 to have demo serve the daily build of translation set for download, set to 0 to turn this off
 - use_development_translations: set to 1 to have demo use the daily build of translatio set, set to 0 to turn this off
 - serve_packages: set to 1 to have demo serve zip/tgz packages of the build for download, set to 0 to turn this off
 - description: place description of the demo here
+
+How to grow your own OpenEMR demo farm
+--------------------------------------
+1. Fork the https://github.com/bradymiller/demo_farm_openemr.git repo and make it your own
+2. Configure ip_map_branch.txt
+3. Set up the appliance, as above (or download it when available)
+4. Configure the appliance, as above. In the /etc/rc.local, place link to your custom demo_farm_openemr repo.
+

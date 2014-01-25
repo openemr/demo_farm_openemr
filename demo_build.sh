@@ -9,8 +9,7 @@
 #This script is for the OpenEMR demo farms
 #
 
-# PUBLIC REPOS
-OPENEMRREPO=https://github.com/openemr/openemr.git
+# PUBLIC REPOS (note the openemr repo is mapped in GITDEMOFARMMAP
 TRANSLATIONSREPO=https://github.com/openemr/translations_development_openemr.git
 
 # PATH VARIABLES
@@ -46,26 +45,32 @@ echo -n "IP ADDRESS is " >> $LOG
 echo "$IPADDRESS" >> $LOG
 
 # COLLECT MAPPED BRANCH AND OPTIONS
+# Grab repo link
+OPENEMRREPO=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 2`
+echo -n "git repo is "
+echo "$OPENEMRREPO"
+echo -n "git repo is " >> $LOG
+echo "$OPENEMRREPO" >> $LOG
 # Grab branch
-GITBRANCH=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 2`
+GITBRANCH=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 3`
 echo -n "git branch is "
 echo "$GITBRANCH"
 echo -n "git branch is " >> $LOG
 echo "$GITBRANCH" >> $LOG
 # Grab serve development translation set option
-sdt=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 3`
+sdt=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 4`
 echo -n "sdt option is "
 echo "$sdt"
 echo -n "sdt option is " >> $LOG
 echo "$sdt" >> $LOG
 # Grab use development translation set option
-udt=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 4`
+udt=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 5`
 echo -n "udt option is "
 echo "$udt"
 echo -n "udt option is " >> $LOG
 echo "$udt" >> $LOG
 # Grab serve packages option
-sp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 5`
+sp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 6`
 echo -n "sp option is "
 echo "$sp"
 echo -n "sp option is " >> $LOG
@@ -92,7 +97,7 @@ else
 fi
 
 # COLLECT and output demo description
-desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 6`
+desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 7`
 echo -n "Demo description: "
 echo "$desc"
 echo -n "Demo description: " >> $LOG

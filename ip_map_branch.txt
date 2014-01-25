@@ -1,5 +1,5 @@
-ip address	branch	serve_development_translations	use_development_translations	serve_packages	description
-192.168.1.111	master	1	1	1	Public OpenEMR Development Demo (Daily Build) That Serves Development Translations Set and Development Packages
-192.168.1.129	master	0	1	0	Public OpenEMR Development Demo (Weekly Build)
-192.168.1.125	rel-412	0	0	1	Public OpenEMR 4.1.2 Development Demo (Daily Build)
-192.168.174.129	master	1	1	1	Local Testing Instance
+ip address	openemr_repo	branch	serve_development_translations	use_development_translations	serve_packages	description
+192.168.1.111	https://github.com/openemr/openemr.git	master	1	1	1	Public OpenEMR Development Demo (Daily Build)
+192.168.1.129	https://github.com/openemr/openemr.git	master	0	1	0	Public OpenEMR Development Demo (Weekly Build)
+192.168.1.125	https://github.com/openemr/openemr.git	rel-412	0	0	1	Public OpenEMR 4.1.2 Development Demo (Daily Build)
+192.168.174.129	https://github.com/openemr/openemr.git	master	1	1	1	Local Testing Instance
