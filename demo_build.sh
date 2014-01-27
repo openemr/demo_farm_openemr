@@ -134,6 +134,10 @@ echo "Copy git OpenEMR to web directory" >> $LOG
 rm -fr $OPENEMR/*
 rsync --recursive --exclude .git $GIT/* $OPENEMR/
 
+#restart apache
+#need to do this in case same appliance is serving the development translation set
+/etc/init.d/apache2 start
+
 #INSTALL AND CONFIGURE OPENEMR
 echo "Configuring OpenEMR"
 echo "Configuring OpenEMR" >> $LOG
@@ -167,9 +171,6 @@ rm -f $INSTTEMP
 chmod 644 $OPENEMR/sites/default/sqlconf.php
 echo "Done configuring OpenEMR"
 echo "Done configuring OpenEMR" >> $LOG
-
-#restart apache
-/etc/init.d/apache2 start
 
 if $packageServe ; then
  #Package the development version into a tarball and zip file to be available thru web browser
