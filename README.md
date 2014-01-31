@@ -14,7 +14,9 @@ Set up a ubuntu pre-trigger appliance
 Trigger the ubuntu appliance
 ------------------------------
 1. Change triggerOpenemrDevelopmentDemo in /etc/rc.local to true
-2. Set a static ip address in appliance
+2. Set a static ip address in appliance (ubuntu 12.04, see example 
+   the example /etc/network/interfaces file, which is interfaces
+   file in this repo)
 3. Shutdown appliance and set a snapshot in vmware and have it revert to
    snapshot on shutdown.
 4. Place ip address along with git branch and options in
