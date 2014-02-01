@@ -11,7 +11,7 @@ How do I set one of the "UP FOR GRABS" OpenEMR demos?
 4. After I bring in your github pull request, then place your repo and branch
    information in the pertinent UP FOR GRABS demo entries here:
    http://www.open-emr.org/wiki/index.php/Development_Demo#UP_FOR_GRABS_Development_Demos
-5. When the demo resets (which is daily) and will now be using your selected repo branch.
+5. When the demo resets (which is daily), it will now be using your selected repo branch!!
 
 Set up a ubuntu pre-trigger appliance
 ------------------------------------
