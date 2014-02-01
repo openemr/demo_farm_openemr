@@ -45,6 +45,7 @@ This file is a tab delimited file for configuration of demos in the demo farm wi
 - serve_development_translations: set to 1 to have demo serve the daily build of translation set for download, set to 0 to turn this off
 - use_development_translations: set to 1 to have demo use the daily build of translation set(this option only works with code based on master/4.1.3), set to 0 to turn this off
 - serve_packages: set to 1 to have demo serve zip/tgz packages of the build for download, set to 0 to turn this off
+- legacy_patching (set to 1 if you are using a legacy patched branch, such as rel-411,rel-410 etc. Note that rel-412 and above should be set to 0.)
 - description: place description of the demo here
 
 How to grow your own OpenEMR demo farm

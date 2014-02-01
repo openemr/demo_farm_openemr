@@ -75,6 +75,12 @@ echo -n "sp option is "
 echo "$sp"
 echo -n "sp option is " >> $LOG
 echo "$sp" >> $LOG
+# Grab legacy patching option
+lp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 7`
+echo -n "lp option is "
+echo "$lp"
+echo -n "lp option is " >> $LOG
+echo "$lp" >> $LOG
 
 # SET OPTIONS
 # set if serve development translation set
@@ -95,9 +101,15 @@ if [ "$sp" == "1"  ]; then
 else
  packageServe=false;
 fi
+# set if legacy patching
+if [ "$lp" == "1"  ]; then
+ legacyPatch=true;
+else
+ legacyPatch=false;
+fi
 
 # COLLECT and output demo description
-desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 7`
+desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 8`
 echo -n "Demo description: "
 echo "$desc"
 echo -n "Demo description: " >> $LOG
@@ -166,6 +178,20 @@ else
  php -f $INSTTEMP >> $LOG
 fi
 rm -f $INSTTEMP
+
+if $legacyPatch; then
+ #Run the patching script to bring in database changes for script via
+ # legacy method. (patch branches rel-412 and higher do not need to
+ # do this)
+ echo "Upgrading via legacy patch"
+ echo "Upgrading via legacy patch" >> $LOG
+ echo "<?php \$_GET['site'] = 'default'; ?>" > $OPENEMR/TEMPsql_patch.php
+ cat $OPENEMR/sql_patch.php >> $OPENEMR/TEMPsql_patch.php
+ php -f $OPENEMR/TEMPsql_patch.php >> $LOG
+ rm -f $OPENEMR/TEMPsql_patch.php
+ echo "Completed upgrading via legacy patch"
+ echo "Completed upgrading via legacy patch" >> $LOG
+fi
 
 #reinstitute file permissions
 chmod 644 $OPENEMR/sites/default/sqlconf.php
