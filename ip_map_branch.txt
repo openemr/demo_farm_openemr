@@ -1,4 +1,4 @@
-ip address	openemr_repo	branch	serve_development_translations	use_development_translations	serve_packages	description
+ip_address	openemr_repo	branch	serve_development_translations	use_development_translations	serve_packages	description
 192.168.1.130	https://github.com/zhhealthcare/openemr.git	ModuleInstaller-V8	0	0	0	Anything goes. Demo is reset daily and anybody can request their repo/branch with a github pull request.
 192.168.1.131	https://github.com/zhhealthcare/openemr.git	ModuleInstaller-V8	0	0	0	Anything goes. Demo is reset daily and anybody can request their repo/branch with a github pull request.
 192.168.1.132	https://github.com/zhhealthcare/openemr.git	ModuleInstaller-V8	0	0	0	Anything goes. Demo is reset daily and anybody can request their repo/branch with a github pull request.

@@ -1,8 +1,20 @@
 
 The repo will hold the pieces for an OpenEMR demo farm.
 
+How do I set one of the "UP FOR GRABS" OpenEMR demos?
+-----------------------------------------------------
+1. Fork the https://github.com/bradymiller/demo_farm_openemr.git repo and make it your own
+2. Place your OpenEMR git repo information in the openemr_repo and branch items in
+   your ip_map_branch.txt for one of the UP FOR GRABS demo entries (192.168.1.130 or
+   192.168.1.131 or 192.168.1.132).
+3. Place a github pull request on your commit for number 2 above.
+4. After I bring in your github pull request, then place your repo and branch
+   information in the pertinent UP FOR GRABS demo entries here:
+   http://www.open-emr.org/wiki/index.php/Development_Demo#UP_FOR_GRABS_Development_Demos
+5. When the demo resets (which is daily) and will now be using your selected repo branch.
+
 Set up a ubuntu pre-trigger appliance
--------------------------
+------------------------------------
 1. Install a ubuntu appliance on vmware
 2. Install and remove the ubuntu development package at:
    http://www.open-emr.org/wiki/index.php/Ubuntu-Debian_OpenEMR_Development_Package_Installation
@@ -12,7 +24,7 @@ Set up a ubuntu pre-trigger appliance
 5. At some point will hopefully offer a download link with this appliance.
 
 Trigger the ubuntu appliance
-------------------------------
+----------------------------
 1. Change triggerOpenemrDevelopmentDemo in /etc/rc.local to true
 2. Set a static ip address in appliance (ubuntu 12.04, see example 
    the example /etc/network/interfaces file, which is interfaces
@@ -27,7 +39,7 @@ Trigger the ubuntu appliance
 Description of ip_map_branch.txt configuration file
 ---------------------------------------------------
 This file is a tab delimited file for configuration of demos in the demo farm with following settings:
-- ip address: local ip address of the OpenEMR demo
+- ip_address: local ip address of the OpenEMR demo
 - openemr_repo: set it to the openemr repo you want to grab code from
 - branch: git branch of the OpenEMR github repository
 - serve_development_translations: set to 1 to have demo serve the daily build of translation set for download, set to 0 to turn this off
