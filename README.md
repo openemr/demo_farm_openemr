@@ -1,5 +1,5 @@
 
-The repo will hold the pieces for an OpenEMR demo farm.
+The repo holds the mechanism for an OpenEMR demo farm.
 
 How do I set one of the "UP FOR GRABS" OpenEMR demos?
 -----------------------------------------------------
