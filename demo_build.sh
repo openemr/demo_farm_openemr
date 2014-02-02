@@ -136,7 +136,7 @@ if ! [ -d $GIT ]; then
  cd $GITMAIN
  git clone $OPENEMRREPO
  cd $GIT
- git checkout origin/$GITBRANCH
+ git checkout $GITBRANCH
  cd $GITMAIN
  if $translationServe ; then
   # download the translations git repo and place the set sql file for serving
