@@ -47,6 +47,7 @@ This file is a tab delimited file for configuration of demos in the demo farm wi
 - serve_packages: set to 1 to have demo serve zip/tgz packages of the build for download, set to 0 to turn this off
 - legacy_patching: set to 1 if you are using a legacy patched branch, such as rel-411,rel-410 etc. Note that rel-412 and above should be set to 0.
 - demo_data: set to 0 if no sql demo data file. If have a sql demo data file, then place the name of it here and place the file in the 'pieces' directory.
+- demo_ssh: set to the ssh package if using the offsite portal. Set to 0 if not connecting to offsite portal.
 - description: place description of the demo here
 
 How to grow your own OpenEMR demo farm

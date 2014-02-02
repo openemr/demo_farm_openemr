@@ -87,7 +87,13 @@ dd=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 8`
 echo -n "dd option is "
 echo "$dd"
 echo -n "dd option is " >> $LOG
-echo "$dd" >> $LOG 
+echo "$dd" >> $LOG
+# Grab demo ssh option
+ds=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 9`
+echo -n "ds option is "
+echo "$ds"
+echo -n "ds option is " >> $LOG
+echo "$ds" >> $LOG
 
 # SET OPTIONS
 # set if serve development translation set
@@ -114,15 +120,21 @@ if [ "$lp" == "1"  ]; then
 else
  legacyPatch=false;
 fi
-# set if legacy patching
+# set if using demo sample data
 if [ "$dd" == "0"  ]; then
  demoData=false;
 else
  demoData=true;
 fi
+# set if using ssh offsite portal connection
+if [ "$ds" == "0"  ]; then
+ demoSSH=false;
+else
+ demoSSH=true;
+fi
 
 # COLLECT and output demo description
-desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 9`
+desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 10`
 echo -n "Demo description: "
 echo "$desc"
 echo -n "Demo description: " >> $LOG
@@ -234,6 +246,29 @@ if [ -f $OPENEMR/library/openflashchart/php-ofc-library/ofc_upload_image.php ]; 
  echo "Removed ofc_upload_image.php file"
  echo "Removed ofc_upload_image.php file" >> $LOG
 fi
+
+#set up ssh if this is turned on, which is stored in $ds
+if $demoSSH; then
+ echo "Setting up $ds ssh"
+ echo "Setting up $ds ssh" >> $LOG
+ #ensure the file exists
+ if [ -f "$GITDEMOFARM/ssh/$ds.zip"]; then
+  cd "$GITDEMOFARM/ssh/"
+  unzip "$ds.zip"
+  cd "$ds"
+  #install openvpn
+  sudo apt-get -y install openvpn >> $LOG
+  #initiate up ssh tunnel
+  sudo bash connect.sh >> $LOG
+  cd ~
+  echo "Done setting up $ds ssh"
+  echo "Done setting up $ds ssh" >> $LOG
+ else
+  echo "Error, $ds data does not exist"
+  echo "Error, $ds data does not exist" >> $LOG
+ fi
+fi
+
 
 if $packageServe ; then
  #Package the development version into a tarball and zip file to be available thru web browser
