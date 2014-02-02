@@ -18,7 +18,8 @@ OPENEMR=$WEB/openemr
 LOG=$WEB/log/logSetup.txt
 GITMAIN=/home/openemr/git
 GIT=$GITMAIN/openemr
-GITDEMOFARMMAP=$GITMAIN/demo_farm_openemr/ip_map_branch.txt
+GITDEMOFARM=$GITMAIN/demo_farm_openemr
+GITDEMOFARMMAP=$GITDEMOFARM/ip_map_branch.txt
 GITTRANS=$GITMAIN/translations_development_openemr
 TRANSSERVEDIR=$WEB/translations
 FILESSERVEDIR=$WEB/files
@@ -81,6 +82,12 @@ echo -n "lp option is "
 echo "$lp"
 echo -n "lp option is " >> $LOG
 echo "$lp" >> $LOG
+# Grab demo data option
+dd=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 8`
+echo -n "dd option is "
+echo "$dd"
+echo -n "dd option is " >> $LOG
+echo "$dd" >> $LOG 
 
 # SET OPTIONS
 # set if serve development translation set
@@ -107,9 +114,15 @@ if [ "$lp" == "1"  ]; then
 else
  legacyPatch=false;
 fi
+# set if legacy patching
+if [ "$dd" == "0"  ]; then
+ demoData=false;
+else
+ demoData=true;
+fi
 
 # COLLECT and output demo description
-desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 8`
+desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 9`
 echo -n "Demo description: "
 echo "$desc"
 echo -n "Demo description: " >> $LOG
@@ -193,10 +206,34 @@ if $legacyPatch; then
  echo "Completed upgrading via legacy patch" >> $LOG
 fi
 
+if $demoData; then
+ # Need to insert the demo data, which is in $dd item in the pieces directory
+ echo "Inserting demo data from $dd"
+ echo "Inserting demo data from $dd" >> $LOG
+ # First, check to ensure the file exists
+ if [ -f "$GITDEMOFARM/pieces/$dd" ]; then
+  # Now insert the data
+  mysql -u root < "$GITDEMOFARM/pieces/$dd"
+  echo "Completed inserting demo data from $dd"
+  echo "Completed inserting demo data from $dd" >> $LOG
+ else
+  echo "Error, $dd data does not exist"
+  echo "Error, $dd data does not exist" >> $LOG
+ fi
+fi
+
 #reinstitute file permissions
 chmod 644 $OPENEMR/sites/default/sqlconf.php
 echo "Done configuring OpenEMR"
 echo "Done configuring OpenEMR" >> $LOG
+
+#Security stuff
+#1. remove the library/openflashchart/php-ofc-library/ofc_upload_image.php file if it exists
+if [ -f $OPENEMR/library/openflashchart/php-ofc-library/ofc_upload_image.php ]; then
+ rm -f $OPENEMR/library/openflashchart/php-ofc-library/ofc_upload_image.php
+ echo "Removed ofc_upload_image.php file"
+ echo "Removed ofc_upload_image.php file" >> $LOG
+fi
 
 if $packageServe ; then
  #Package the development version into a tarball and zip file to be available thru web browser
