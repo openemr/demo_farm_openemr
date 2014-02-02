@@ -259,7 +259,7 @@ if $demoSSH; then
   #install openvpn
   sudo apt-get -y install openvpn >> $LOG
   #initiate up ssh tunnel
-  sudo bash connect.sh >> $LOG
+  sudo bash connect.sh
   cd ~
   echo "Done setting up $ds ssh"
   echo "Done setting up $ds ssh" >> $LOG
@@ -315,3 +315,7 @@ if $packageServe ; then
  echo "Done creating OpenEMR Development packages"
  echo "Done creating OpenEMR Development packages" >> $LOG
 fi
+
+echo "Demo install script is complete"
+echo "Demo install script is complete" >> $LOG
+
