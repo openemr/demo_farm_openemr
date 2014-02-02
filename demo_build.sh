@@ -213,7 +213,7 @@ if $demoData; then
  # First, check to ensure the file exists
  if [ -f "$GITDEMOFARM/pieces/$dd" ]; then
   # Now insert the data
-  mysql -u root < "$GITDEMOFARM/pieces/$dd"
+  mysql -u root openemr < "$GITDEMOFARM/pieces/$dd"
   echo "Completed inserting demo data from $dd"
   echo "Completed inserting demo data from $dd" >> $LOG
  else
