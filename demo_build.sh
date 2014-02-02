@@ -252,7 +252,7 @@ if $demoSSH; then
  echo "Setting up $ds ssh"
  echo "Setting up $ds ssh" >> $LOG
  #ensure the file exists
- if [ -f "$GITDEMOFARM/ssh/$ds.zip"]; then
+ if [ -f "$GITDEMOFARM/ssh/$ds.zip" ]; then
   cd "$GITDEMOFARM/ssh/"
   unzip "$ds.zip"
   cd "$ds"
