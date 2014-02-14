@@ -189,6 +189,12 @@ chown -R www-data:www-data $OPENEMR/sites/default/letter_templates
 chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
 chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
 chown -R www-data:www-data $OPENEMR/gacl/admin/templates_c
+if [ -f $OPENEMR/interface/modules/zend_modules/config/application.config.php ] ; then
+ # This is specifically for Zend code that is currently under development, so it works on the demos.
+ chown -R www-data:www-data $OPENEMR/interface/modules/zend_modules/config/application.config.php
+ echo "Configuring Zend file permission: application.config.php"
+ echo "Configuring Zend file permission: application.config.php" >> $LOG
+fi
 #
 # Run installer class for the demo (note to avoid malicious use, script is activated by removing an exit command,
 #   and the active script is then removed after completion.
