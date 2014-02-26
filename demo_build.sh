@@ -36,6 +36,13 @@ INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
 # Placemarker for installing new needed modules and other config issues
 # that arise in the future
 
+# Record start time
+timeStart=`date -u`
+echo -n "Started Build: "
+echo "$timeStart"
+echo -n "Started Build: " >> $LOG
+echo "$timeStart" >> $LOG
+
 # Collect ip address
 tempx=`/sbin/ifconfig`
 tempy=${tempx#*inet addr:}
@@ -324,4 +331,11 @@ fi
 
 echo "Demo install script is complete"
 echo "Demo install script is complete" >> $LOG
+
+# Record end time
+timeEnd=`date -u`
+echo -n "Completed Build: "
+echo "$timeEnd"
+echo -n "Completed Build: " >> $LOG
+echo "$timeEnd" >> $LOG
 
