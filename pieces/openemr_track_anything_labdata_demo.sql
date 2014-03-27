@@ -21,9 +21,32 @@ SET time_zone = "+00:00";
 --
 
 --
+-- Miscellaneous stuff added by bradymiller for demo to work
+--
+CREATE TABLE IF NOT EXISTS form_track_anything (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  pid varchar(255) DEFAULT NULL,
+  procedure_type_id bigint(20) DEFAULT NULL,
+  comment varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+CREATE TABLE IF NOT EXISTS form_track_anything_results (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  track_anything_id bigint(20) DEFAULT NULL,
+  track_timestamp datetime DEFAULT NULL,
+  itemid bigint(20) DEFAULT NULL,
+  result varchar(255) DEFAULT NULL,
+  comment varchar(255) DEFAULT NULL,
+  notes varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+INSERT INTO `registry` VALUES ('Track anything', 1, 'track_anything', 17, 1, 1, '2014-03-03 00:16:35', 0, NULL, NULL);
+
+
+--
 -- Daten für Tabelle `forms`
 --
-
 INSERT INTO `forms` (`id`, `date`, `encounter`, `form_name`, `form_id`, `pid`, `user`, `groupname`, `authorized`, `deleted`, `formdir`) VALUES
 (96, '2014-03-19 09:09:14', 16, 'Track: 24h Urin', 20, 2, 'produnis', 'Default', 1, 0, 'track_anything'),
 (97, '2014-03-19 09:13:05', 36, 'Track: 24h Urin', 21, 2, 'produnis', 'Default', 1, 0, 'track_anything'),
