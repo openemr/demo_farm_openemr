@@ -20,17 +20,16 @@ SET time_zone = "+00:00";
 -- Datenbank: `openemr`
 --
 
---
--- Miscellaneous stuff added by bradymiller for demo to work
---
+
 CREATE TABLE IF NOT EXISTS form_track_anything (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  pid varchar(255) DEFAULT NULL,
+  pid int(11) DEFAULT NULL,
   procedure_type_id bigint(20) DEFAULT NULL,
   comment varchar(255) DEFAULT NULL,
   PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM;
+
 CREATE TABLE IF NOT EXISTS form_track_anything_results (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   track_anything_id bigint(20) DEFAULT NULL,
@@ -40,87 +39,101 @@ CREATE TABLE IF NOT EXISTS form_track_anything_results (
   comment varchar(255) DEFAULT NULL,
   notes varchar(255) DEFAULT NULL,
   PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-INSERT INTO `registry` VALUES ('Track anything', 1, 'track_anything', 17, 1, 1, '2014-03-03 00:16:35', 0, NULL, NULL);
+) ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS form_track_anything_type (
+  track_anything_type_id bigint(20) NOT NULL AUTO_INCREMENT,
+  name varchar(255) DEFAULT NULL,
+  description varchar(255) DEFAULT NULL,
+  parent bigint(20) DEFAULT NULL,
+  active int(11) DEFAULT NULL,
+  PRIMARY KEY (track_anything_type_id)
+) ENGINE=MyISAM;
 
 
 --
 -- Daten für Tabelle `forms`
 --
+
 INSERT INTO `forms` (`id`, `date`, `encounter`, `form_name`, `form_id`, `pid`, `user`, `groupname`, `authorized`, `deleted`, `formdir`) VALUES
-(96, '2014-03-19 09:09:14', 16, 'Track: 24h Urin', 20, 2, 'produnis', 'Default', 1, 0, 'track_anything'),
-(97, '2014-03-19 09:13:05', 36, 'Track: 24h Urin', 21, 2, 'produnis', 'Default', 1, 0, 'track_anything'),
-(98, '2014-03-19 10:53:24', 40, 'Track: Gloodglucose', 22, 2, 'produnis', 'Default', 1, 0, 'track_anything'),
-(99, '2014-03-19 10:55:32', 41, 'Track: Gloodglucose', 23, 2, 'produnis', 'Default', 1, 0, 'track_anything'),
-(101, '2014-03-19 14:37:35', 36, 'Track: Gloodglucose', 25, 2, 'produnis', 'Default', 1, 0, 'track_anything'),
-(100, '2014-03-19 10:56:56', 69, 'Track: Gloodglucose', 24, 2, 'produnis', 'Default', 1, 0, 'track_anything');
+(1, '2014-04-02 15:20:33', 71, 'Track: Meal', 36, 2, 'produnis', 'Default', 1, 0, 'track_anything'),
+(2, '2014-04-02 15:22:17', 72, 'Track: Bloodglucose', 37, 2, 'produnis', 'Default', 1, 0, 'track_anything'),
+(3, '2014-04-02 15:18:36', 71, 'Track: Bloodglucose', 34, 2, 'produnis', 'Default', 1, 0, 'track_anything'),
+(4, '2014-04-02 15:19:41', 71, 'Track: Bloodglucose', 35, 2, 'produnis', 'Default', 1, 0, 'track_anything');
 
 --
 -- Daten für Tabelle `form_track_anything`
 --
 
-INSERT INTO `form_track_anything` (`id`, `date`, `pid`, `procedure_type_id`, `comment`) VALUES
-(25, '2014-03-19 13:37:35', NULL, 17, NULL),
-(24, '2014-03-19 09:56:56', NULL, 17, NULL),
-(23, '2014-03-19 09:55:32', NULL, 17, NULL),
-(22, '2014-03-19 09:53:24', NULL, 17, NULL),
-(21, '2014-03-19 08:13:05', NULL, 62, NULL),
-(20, '2014-03-19 08:09:14', NULL, 62, NULL);
+INSERT INTO `form_track_anything` (`id`, `date`, `user`, `procedure_type_id`, `comment`) VALUES
+(1, '2014-04-02 13:22:17', NULL, 1, NULL),
+(2, '2014-04-02 13:20:33', NULL, 2, NULL),
+(3, '2014-04-02 13:19:41', NULL, 1, NULL),
+(4, '2014-04-02 13:18:36', NULL, 1, NULL);
 
 --
 -- Daten für Tabelle `form_track_anything_results`
 --
 
 INSERT INTO `form_track_anything_results` (`id`, `track_anything_id`, `track_timestamp`, `itemid`, `result`, `comment`, `notes`) VALUES
-(1562, 21, '2014-03-16 09:13:21', 65, '49', NULL, NULL),
-(1561, 21, '2014-03-16 09:13:21', 64, '41', NULL, NULL),
-(1560, 21, '2014-03-16 09:13:21', 63, '410', NULL, NULL),
-(1559, 21, '2014-03-15 09:13:05', 65, '50', NULL, NULL),
-(1558, 21, '2014-03-15 09:13:05', 64, '40', NULL, NULL),
-(1557, 21, '2014-03-15 09:13:05', 63, '400', NULL, NULL),
-(1556, 20, '2014-03-14 09:10:26', 65, '25', NULL, NULL),
-(1555, 20, '2014-03-14 09:10:26', 64, '32', NULL, NULL),
-(1554, 20, '2014-03-14 09:10:26', 63, '250', NULL, NULL),
-(1553, 20, '2014-03-13 09:10:00', 65, '20', NULL, NULL),
-(1552, 20, '2014-03-13 09:10:00', 64, '30', NULL, NULL),
-(1551, 20, '2014-03-13 09:10:00', 63, '270', NULL, NULL),
-(1550, 20, '2014-03-12 09:09:33', 65, '27', NULL, NULL),
-(1549, 20, '2014-03-12 09:09:33', 64, '39', NULL, NULL),
-(1548, 20, '2014-03-12 09:09:33', 63, '220', NULL, NULL),
-(1547, 20, '2014-03-11 09:09:14', 65, '28', NULL, NULL),
-(1546, 20, '2014-03-11 09:09:14', 64, '24', NULL, NULL),
-(1545, 20, '2014-03-11 09:09:14', 63, '300', NULL, NULL),
-(1585, 25, '2014-03-19 18:37:56', 19, '120', NULL, NULL),
-(1584, 25, '2014-03-19 14:37:51', 19, '77', NULL, NULL),
-(1583, 25, '2014-03-19 12:37:35', 19, '89', NULL, NULL),
-(1582, 24, '2014-03-19 07:57:04', 19, '184', NULL, NULL),
-(1581, 24, '2014-03-19 10:57:02', 19, '100', NULL, NULL),
-(1580, 24, '2014-03-19 10:57:00', 19, '120', NULL, NULL),
-(1579, 24, '2014-03-19 10:56:56', 19, '180', NULL, NULL),
-(1578, 23, '2014-03-09 22:53:51', 19, '89', NULL, NULL),
-(1577, 23, '2014-03-09 18:53:51', 19, '153', NULL, NULL),
-(1576, 23, '2014-03-09 14:53:51', 19, '143', NULL, NULL),
-(1575, 23, '2014-03-09 11:53:51', 19, '88', NULL, NULL),
-(1574, 23, '2014-03-09 08:53:51', 19, '65', NULL, NULL),
-(1573, 22, '2014-03-08 22:53:51', 19, '79', NULL, NULL),
-(1572, 22, '2014-03-08 18:53:51', 19, '170', NULL, NULL),
-(1570, 22, '2014-03-08 12:53:51', 19, '120', NULL, NULL),
-(1569, 22, '2014-03-08 08:53:51', 19, '88', NULL, NULL),
-(1568, 21, '2014-03-18 09:14:08', 65, '50', NULL, NULL),
-(1567, 21, '2014-03-18 09:14:08', 64, '44', NULL, NULL),
-(1566, 21, '2014-03-18 09:14:08', 63, '390', NULL, NULL),
-(1571, 22, '2014-03-08 14:53:51', 19, '101', NULL, NULL),
-(1565, 21, '2014-03-17 09:13:56', 65, '51', NULL, NULL),
-(1564, 21, '2014-03-17 09:13:56', 64, '42', NULL, NULL),
-(1563, 21, '2014-03-17 09:13:56', 63, '420', NULL, NULL);
+(1, 34, '2014-04-02 08:18:36', 4, '', NULL, NULL),
+(2, 34, '2014-04-02 08:18:36', 3, '85', NULL, NULL),
+(3, 34, '2014-04-02 10:18:49', 4, 'breakfast', NULL, NULL),
+(4, 34, '2014-04-02 10:18:49', 3, '178', NULL, NULL),
+(5, 34, '2014-04-02 15:18:59', 4, 'Insulin s.c.', NULL, NULL),
+(6, 34, '2014-04-02 15:18:59', 3, '87', NULL, NULL),
+(7, 34, '2014-04-02 18:19:14', 4, '', NULL, NULL),
+(8, 34, '2014-04-02 18:19:14', 3, '112', NULL, NULL),
+(9, 34, '2014-04-02 21:19:20', 4, '', NULL, NULL),
+(10, 34, '2014-04-02 21:19:20', 3, '134', NULL, NULL),
+(11, 35, '2014-04-01 08:19:41', 4, '', NULL, NULL),
+(12, 35, '2014-04-01 08:19:41', 3, '77', NULL, NULL),
+(13, 35, '2014-04-01 10:19:50', 4, '', NULL, NULL),
+(14, 35, '2014-04-01 10:19:50', 3, '98', NULL, NULL),
+(15, 35, '2014-04-01 15:19:57', 4, '', NULL, NULL),
+(16, 35, '2014-04-01 15:19:57', 3, '187', NULL, NULL),
+(17, 35, '2014-04-01 18:20:05', 4, '', NULL, NULL),
+(18, 35, '2014-04-01 18:20:05', 3, '120', NULL, NULL),
+(19, 35, '2014-04-01 21:20:14', 4, '', NULL, NULL),
+(20, 35, '2014-04-01 21:20:14', 3, '78', NULL, NULL),
+(21, 36, '2014-04-02 08:20:33', 7, '', NULL, NULL),
+(22, 36, '2014-04-02 08:20:33', 5, 'Ham and eggs', NULL, NULL),
+(23, 36, '2014-04-02 08:20:33', 6, 'breakfast', NULL, NULL),
+(24, 36, '2014-04-02 12:20:54', 7, '', NULL, NULL),
+(25, 36, '2014-04-02 12:20:54', 5, 'Soup', NULL, NULL),
+(26, 36, '2014-04-02 12:20:54', 6, 'lunch', NULL, NULL),
+(27, 36, '2014-04-02 15:21:10', 7, 'got very sick', NULL, NULL),
+(28, 36, '2014-04-02 15:21:10', 5, 'banana', NULL, NULL),
+(29, 36, '2014-04-02 15:21:10', 6, 'snack', NULL, NULL),
+(30, 36, '2014-04-02 15:21:25', 7, 'very very sick', NULL, NULL),
+(31, 36, '2014-04-02 15:21:25', 5, '', NULL, NULL),
+(32, 36, '2014-04-02 15:21:25', 6, 'dinner', NULL, NULL),
+(33, 37, '2014-04-03 08:22:17', 4, '', NULL, NULL),
+(34, 37, '2014-04-03 08:22:17', 3, '78', NULL, NULL),
+(35, 37, '2014-04-03 10:22:20', 4, '', NULL, NULL),
+(36, 37, '2014-04-03 10:22:20', 3, '98', NULL, NULL),
+(37, 37, '2014-04-03 21:22:24', 4, '', NULL, NULL),
+(38, 37, '2014-04-03 21:22:24', 3, '117', NULL, NULL),
+(39, 37, '2014-04-03 15:22:26', 4, '', NULL, NULL),
+(40, 37, '2014-04-03 15:22:26', 3, '345', NULL, NULL);
+
+
+INSERT INTO `form_track_anything_type` (`track_anything_type_id`, `name`, `description`, `parent`, `active`) VALUES
+(1, 'Bloodglucose', 'Blood glucose', 0, 1),
+(2, 'Meal', 'what did patient eat', 0, 1),
+(3, 'Glucose', 'Glucose', 1, 1),
+(4, 'Comment', 'optional Comment', 1, 1),
+(5, 'Meal', 'what did patient eat', 2, 1),
+(6, 'Type', 'breakfast / lunch / dinner / supper / snack', 2, 1),
+(7, 'Comment', 'any comment', 2, 1);
 
 --
 -- Daten für Tabelle `patient_data`
 --
 
 INSERT INTO `patient_data` (`id`, `title`, `language`, `financial`, `fname`, `lname`, `mname`, `DOB`, `street`, `postal_code`, `city`, `state`, `country_code`, `drivers_license`, `ss`, `occupation`, `phone_home`, `phone_biz`, `phone_contact`, `phone_cell`, `pharmacy_id`, `status`, `contact_relationship`, `date`, `sex`, `referrer`, `referrerID`, `providerID`, `email`, `ethnoracial`, `race`, `ethnicity`, `interpretter`, `migrantseasonal`, `family_size`, `monthly_income`, `homeless`, `financial_review`, `pubpid`, `pid`, `genericname1`, `genericval1`, `genericname2`, `genericval2`, `hipaa_mail`, `hipaa_voice`, `hipaa_notice`, `hipaa_message`, `hipaa_allowsms`, `hipaa_allowemail`, `squad`, `fitness`, `referral_source`, `usertext1`, `usertext2`, `usertext3`, `usertext4`, `usertext5`, `usertext6`, `usertext7`, `usertext8`, `userlist1`, `userlist2`, `userlist3`, `userlist4`, `userlist5`, `userlist6`, `userlist7`, `pricelevel`, `regdate`, `contrastart`, `completed_ad`, `ad_reviewed`, `vfc`, `mothersname`, `guardiansname`, `allow_imm_reg_use`, `allow_imm_info_share`, `allow_health_info_ex`, `allow_patient_portal`, `deceased_date`, `deceased_reason`, `soap_import_status`, `ref_providerID`, `email_direct`) VALUES
-(1, '', 'german', '', 'Sophia', 'Loren', '', '1965-09-12', '', '', '', 'NRW', 'Deutschland', '', '', '', '', '', '', '', 0, '', '', '2014-03-19 08:58:25', 'Female', '', '', 0, '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00', '1', 1, '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'standard', NULL, NULL, 'NO', NULL, '', '', '', '', '', '', '', '0000-00-00 00:00:00', '', NULL, 0, ''),
-(2, 'Herr', 'german', '', 'Zoid', 'Berg', '', '1976-09-14', '', '45881', '', 'NRW', 'Deutschland', '', '', 'Selbstständig', '', '', '', '', 0, 'married', '', '2014-03-19 09:08:19', 'Male', '', '', 0, '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00', '2', 2, '', '', '', '', '', '', '', '', '', 'YES', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'standard', NULL, NULL, 'NO', NULL, '', '', '', '', '', 'YES', 'YES', '0000-00-00 00:00:00', '', NULL, 0, '');
+(1, '', 'italian', '', 'Sophia', 'Loren', '', '1965-09-12', '', '', '', 'NRW', 'Deutschland', '', '', '', '', '', '', '', 0, '', '', '2014-03-19 08:58:25', 'Female', '', '', 0, '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00', '1', 1, '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'standard', NULL, NULL, 'NO', NULL, '', '', '', '', '', '', '', '0000-00-00 00:00:00', '', NULL, 0, ''),
+(2, 'Mr', 'german', '', 'Zoid', 'Berg', '', '1976-09-14', '', '45881', '', 'NRW', 'Deutschland', '', '', 'Selbstständig', '', '', '', '', 0, 'married', '', '2014-03-19 09:08:19', 'Male', '', '', 0, '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00', '2', 2, '', '', '', '', '', '', '', '', '', 'YES', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'standard', NULL, NULL, 'NO', NULL, '', '', '', '', '', 'YES', 'YES', '0000-00-00 00:00:00', '', NULL, 0, '');
 
 --
 -- Daten für Tabelle `procedure_order`
@@ -186,10 +199,10 @@ INSERT INTO `procedure_result` (`procedure_result_id`, `procedure_report_id`, `d
 (66, 3, NULL, '', 'units_l', '69', '33 - 193', 'no', '', 0, 'final', 'S', 'Fe', 'Eisen'),
 (63, 3, NULL, '', 'units_l', '165', '< 200', '', '', 0, 'final', 'S', 'Chol', 'Cholesterin'),
 (60, 3, NULL, '', 'mg_dl', '< 0.1', '< 0.500', 'no', '', 0, 'final', 'S', 'crP', 'C-reakt. Protein'),
-(59, 3, NULL, '', 'units_l', '78', '55 - 115', 'no', '', 0, 'final', 'S', 'BZ', 'Blutzucker-Serum'),
+(59, 3, NULL, '', 'units_l', '78', '55 - 115', 'no', '', 0, 'final', 'S', 'BZ', 'Bloodsugar-Serum'),
 (57, 3, NULL, '', 'mg_dl', '0.2', '0.120 - 1.11', 'no', '', 0, 'final', 'S', 'Bilir', 'Bilirubin'),
-(78, 3, NULL, '', 'mg_dl', '0.7', '0.50 - 0.90', 'no', '', 0, 'final', 'S', 'Kreatinin', 'Kreatinin'),
-(80, 3, NULL, '', 'units_l', '9.0', '4.30 - 10.0', 'no', '', 0, 'final', 'S', 'Leukoz', 'Leukozyten'),
+(78, 3, NULL, '', 'mg_dl', '0.7', '0.50 - 0.90', 'no', '', 0, 'final', 'S', 'Creatinin', 'Creatinin'),
+(80, 3, NULL, '', 'units_l', '9.0', '4.30 - 10.0', 'no', '', 0, 'final', 'S', 'Leukoz', 'Leukocyten'),
 (82, 3, NULL, '', 'pg', '26', '27 - 34', 'low', '', 0, 'final', 'S', 'MCH', 'MCH'),
 (83, 3, NULL, '', 'g_dl', '33', '31.5 - 36', 'no', '', 0, 'final', 'S', 'MCHC', 'MCHC'),
 (84, 3, NULL, '', 'fl', '78', '82 - 101', 'low', '', 0, 'final', 'S', 'MCV', 'MCV'),
@@ -197,7 +210,7 @@ INSERT INTO `procedure_result` (`procedure_result_id`, `procedure_report_id`, `d
 (93, 3, NULL, '', 'oth', '325', '150 - 400', 'no', '', 0, 'final', 'S', 'Trombz', 'Thrombocyten'),
 (94, 3, NULL, '', 'oth', '1.39', '0.30-2.5/4.0', 'no', '', 0, 'final', 'S', 'TSHbasal', 'TSH basal'),
 (95, 3, NULL, '', 'mg_dl', '290', '300 - 910', 'low', 'leichter Mangel', 0, 'final', 'S', 'Vit-B12', 'Vitamin B12'),
-(413, 9, NULL, '', '', '', '60.0 - 120.0', '', '', 0, 'final', 'S', 'Zink', 'Zink'),
+(413, 9, NULL, '', '', '', '60.0 - 120.0', '', '', 0, 'final', 'S', 'Zinc', 'Zinc'),
 (412, 9, NULL, '', '', '74', '30 - 100', 'no', 'guter Wert,~VitaminD-Mangel damit behoben', 0, 'final', 'S', 'Vit-D3', 'Vitamin D3'),
 (411, 9, NULL, '', '', '', '300 - 910', '', '', 0, 'final', 'S', 'Vit-B12', 'Vitamin B12'),
 (410, 9, NULL, '', '', '', '9.30 - 17.00', '', '', 0, 'final', 'S', 'FT4', 'TSH-FT4'),
@@ -210,16 +223,16 @@ INSERT INTO `procedure_result` (`procedure_result_id`, `procedure_report_id`, `d
 (409, 9, NULL, '', 'oth', '', '2.20 - 4.40', '', '', 0, 'final', 'S', 'FT3', 'TSH-FT3'),
 (140, 4, NULL, '', '', '30', '< 200', 'no', '', 0, 'final', 'S', 'ASL', 'ASL'),
 (141, 4, NULL, '', 'mg_dl', '0.5', '0.120 - 1.11', 'no', '', 0, 'final', 'S', 'Bilir', 'Bilirubin'),
-(142, 4, NULL, '', '', '9.5', '< 70', 'no', '', 0, 'final', 'S', 'Plumbum', 'Blei im EDTA-Blut'),
-(143, 4, NULL, '', '', '71', '55 - 115', 'no', '', 0, 'final', 'S', 'BZ', 'Blutzucker-Serum'),
+(142, 4, NULL, '', '', '9.5', '< 70', 'no', '', 0, 'final', 'S', 'Plumbum', 'Lead im EDTA-Blut'),
+(143, 4, NULL, '', '', '71', '55 - 115', 'no', '', 0, 'final', 'S', 'BZ', 'Bloodsugar-Serum'),
 (144, 4, NULL, '', 'mg_dl', '< 0.01', '< 0.500', 'no', '', 0, 'final', 'S', 'crP', 'C-reakt. Protein'),
 (145, 4, NULL, '', 'hmol_l', '2.29', '2.15 - 2.50', 'no', '', 0, 'final', 'S', 'Calc', 'Calcium'),
-(146, 4, NULL, '', 'hmol_l', '106', '98 - 106', 'no', '', 0, 'final', 'S', 'Chlorid', 'Chlorid'),
-(147, 4, NULL, '', '', '156', '< 200', 'no', '', 0, 'final', 'S', 'Chol', 'Cholesterin'),
+(146, 4, NULL, '', 'hmol_l', '106', '98 - 106', 'no', '', 0, 'final', 'S', 'Chloride', 'Chloride'),
+(147, 4, NULL, '', '', '156', '< 200', 'no', '', 0, 'final', 'S', 'Chol', 'Cholesterol'),
 (149, 4, NULL, '', '', '1.0', '< 7', 'no', '', 0, 'final', 'S', 'ccP-AK', 'cyc. citrulliniert. Peptid-AK'),
 (402, 9, NULL, '', 'percent', '', '12 -14', '', '', 0, 'final', 'S', 'RDW-CV', 'RDW-CV'),
 (151, 4, NULL, '', '', '5.11', '4.10 - 5.10', 'high', 'evtl bedingt durch viele Blutabnahmen', 0, 'final', 'S', 'Ery', 'Erythrozyten'),
-(153, 4, NULL, '', '', '9.5', '> 5.4', 'no', '', 0, 'final', 'S', 'Fols', 'Folsaeure'),
+(153, 4, NULL, '', '', '9.5', '> 5.4', 'no', '', 0, 'final', 'S', 'Fols', 'Folic acid'),
 (401, 9, NULL, '', 'percent', '', '70 - 120', '', '', 0, 'final', 'S', 'Quick', 'Quick'),
 (400, 9, NULL, '', 'oth', '', '26 - 40', '', '', 0, 'final', 'S', 'PTT', 'PTT'),
 (156, 4, NULL, '', 'units_l', '14', '10 - 35', 'no', '', 0, 'final', 'S', 'GOT', 'GOT'),
@@ -369,22 +382,22 @@ INSERT INTO `procedure_type` (`procedure_type_id`, `parent`, `name`, `lab_id`, `
 (51, 1, 'TSH-FT3', 1, 'FT3', 'res', '', '', '', '', 'freies T3', '', '', 'oth', '2.20 - 4.40', 0, 1, ''),
 (52, 1, 'TSH-FT4', 1, 'FT4', 'res', '', '', '', '', 'freies T4', '', '', '', '9.30 - 17.00', 0, 1, ''),
 (7, 1, 'Ferritin', 1, 'Ferritin', 'res', '', '', '', '', 'Ferritin', '', '', '', '10 -291', 0, 1, ''),
-(8, 1, 'Folsaeure', 1, 'Fols', 'res', '', '', '', '', 'Folsäure', '', '', '', '> 5.4', 0, 1, ''),
+(8, 1, 'Folic acid', 1, 'Fols', 'res', '', '', '', '', 'Folsäure', '', '', '', '> 5.4', 0, 1, ''),
 (9, 1, 'Vitamin B12', 1, 'Vit-B12', 'res', '', '', '', '', 'Vitamin B12', '', '', '', '300 - 910', 0, 1, ''),
 (10, 1, 'Vitamin D3', 1, 'Vit-D3', 'res', '', '', '', '', 'Vitamin D3', '', '', '', '30 - 100', 0, 1, ''),
-(11, 1, 'Zink', 1, 'Zink', 'res', '', '', '', '', 'Zink', '', '', '', '60.0 - 120.0', 0, 1, ''),
+(11, 1, 'Zinc', 1, 'Zink', 'res', '', '', '', '', 'Zink', '', '', '', '60.0 - 120.0', 0, 1, ''),
 (12, 1, 'Selen im Serum', 1, 'Selen', 'res', '', '', '', '', 'Selen im Serum', '', '', '', '50 -120', 0, 1, ''),
-(13, 1, 'Blei im EDTA-Blut', 1, 'Plumbum', 'res', '', '', '', '', 'Blei im EDTA-Blut', '', '', '', '< 70', 0, 1, ''),
+(13, 1, 'lead in EDTA-Blood', 1, 'Plumbum', 'res', '', '', '', '', 'Blei im EDTA-Blut', '', '', '', '< 70', 0, 1, ''),
 (14, 1, 'ASL', 1, 'ASL', 'res', '', '', '', '', 'Anti Streptolysin-Titer', '', '', '', '< 200', 0, 1, ''),
 (15, 1, 'Rheumafaktor', 1, 'Rheuma', 'res', '', '', '', '', 'IgG IgA IgM', '', '', '', '< 14', 0, 1, ''),
 (16, 1, 'cyc. citrulliniert. Peptid-AK', 1, 'ccP-AK', 'res', '', '', '', '', 'cyc. citrulliniert. Peptid-AK', '', '', '', '< 7', 0, 1, ''),
-(17, 0, 'Gloodglucose', 1, 'BZtest', 'ord', 'arm', 'blood', 'inj', '', 'Blutzucker (Glycose)', '', '', 'oth', '55 - 115', 0, 1, ''),
-(18, 1, 'Blutzucker-Serum', 1, 'BZ', 'res', '', '', '', '', 'Blutzucker-Serum', '', '', '', '55 - 115', 0, 1, ''),
+(17, 0, 'Bloodglucose', 1, 'BZtest', 'ord', 'arm', 'blood', 'inj', '', 'Blutzucker (Glycose)', '', '', 'oth', '55 - 115', 0, 1, ''),
+(18, 1, 'Bloodsugar-Serum', 1, 'BZ', 'res', '', '', '', '', 'Blutzucker-Serum', '', '', '', '55 - 115', 0, 1, ''),
 (19, 17, 'Glucose', 1, 'Glucose', 'res', '', '', '', '', 'Glucose', '', '', '', '55 - 115', 0, 1, ''),
-(20, 1, 'Leukozyten', 1, 'Leukoz', 'res', '', '', '', '', 'Leukozyten', '', '', '', '4.30 - 10.0', 0, 1, ''),
-(21, 1, 'Erythrozyten', 1, 'Ery', 'res', '', '', '', '', 'Erythrozyten', '', '', '', '4.10 - 5.10', 0, 1, ''),
+(20, 1, 'Leukocyten', 1, 'Leukoz', 'res', '', '', '', '', 'Leukozyten', '', '', '', '4.30 - 10.0', 0, 1, ''),
+(21, 1, 'Erythrocyten', 1, 'Ery', 'res', '', '', '', '', 'Erythrozyten', '', '', '', '4.10 - 5.10', 0, 1, ''),
 (22, 1, 'Hämoglobin', 1, 'Hglobin', 'res', '', '', '', '', 'Hämoglobin', '', '', 'g_dl', '12.3 - 15.3', 0, 1, ''),
-(23, 1, 'Hämatokrit', 1, 'Hkrit', 'res', '', '', '', '', 'Hämatokrit', '', '', 'percent', '35 - 45', 0, 1, ''),
+(23, 1, 'Hämatocrit', 1, 'Hkrit', 'res', '', '', '', '', 'Hämatokrit', '', '', 'percent', '35 - 45', 0, 1, ''),
 (24, 1, 'MCV', 1, 'MCV', 'res', '', '', '', '', 'MCV', '', '', 'fl', '82 - 101', 0, 1, ''),
 (25, 1, 'MCH', 1, 'MCH', 'res', '', '', '', '', 'MCH', '', '', 'pg', '27 - 34', 0, 1, ''),
 (26, 1, 'MCHC', 1, 'MCHC', 'res', '', '', '', '', 'MCHC', '', '', 'g_dl', '31.5 - 36', 0, 1, ''),
@@ -392,9 +405,9 @@ INSERT INTO `procedure_type` (`procedure_type_id`, `parent`, `name`, `lab_id`, `
 (28, 1, 'PTT', 1, 'PTT', 'res', '', '', '', '', 'Gerinnung PTT', '', '', 'oth', '26 - 40', 0, 1, ''),
 (29, 1, 'Bilirubin', 1, 'Bilir', 'res', '', '', '', '', 'Bilirubin', '', '', 'mg_dl', '0.120 - 1.11', 0, 1, ''),
 (30, 1, 'Quick', 1, 'Quick', 'res', '', '', '', '', 'Gerinnung Quick', '', '', 'percent', '70 - 120', 0, 1, ''),
-(31, 1, 'Gerinnung INR', 1, 'INR', 'res', '', '', '', '', 'Gerinnung INR', '', '', 'oth', '0.85 - 1.30', 0, 1, ''),
-(32, 1, 'Harnstoff', 1, 'Harnst', 'res', '', '', '', '', 'Harnstoff', '', '', 'mg_dl', '10.2 - 49.9', 0, 1, ''),
-(33, 1, 'Kreatinin', 1, 'Kreatinin', 'res', '', '', '', '', 'Kreatinin', '', '', 'mg_dl', '0.50 - 0.90', 0, 1, ''),
+(31, 1, 'Coagulation INR', 1, 'INR', 'res', '', '', '', '', 'Gerinnung INR', '', '', 'oth', '0.85 - 1.30', 0, 1, ''),
+(32, 1, 'Urea', 1, 'Harnst', 'res', '', '', '', '', 'Harnstoff', '', '', 'mg_dl', '10.2 - 49.9', 0, 1, ''),
+(33, 1, 'Creatinin', 1, 'Kreatinin', 'res', '', '', '', '', 'Kreatinin', '', '', 'mg_dl', '0.50 - 0.90', 0, 1, ''),
 (34, 1, 'GOT', 1, 'GOT', 'res', '', '', '', '', 'GOT', '', '', 'units_l', '10 - 35', 0, 1, ''),
 (35, 1, 'GPT', 1, 'GPT', 'res', '', '', '', '', 'GPT', '', '', 'units_l', '10 -35', 0, 1, ''),
 (36, 1, 'Gamma-GT', 1, 'G-GT', 'res', '', '', '', '', 'Gamma-GT', '', '', 'units_l', '< 40', 0, 1, ''),
@@ -405,23 +418,23 @@ INSERT INTO `procedure_type` (`procedure_type_id`, `parent`, `name`, `lab_id`, `
 (41, 1, 'Kalium', 1, 'Kalium', 'res', '', '', '', '', 'Kalium', '', '', 'hmol_l', '3.6 - 4.8', 0, 1, ''),
 (42, 1, 'Natrium', 1, 'Na', 'res', '', '', '', '', 'Natrium', '', '', 'hmol_l', '135 - 144', 0, 1, ''),
 (43, 1, 'Calcium', 1, 'Calc', 'res', '', '', '', '', 'Calcium', '', '', 'hmol_l', '2.15 - 2.50', 0, 1, ''),
-(44, 1, 'Chlorid', 1, 'Chlorid', 'res', '', '', '', '', 'Chlorid', '', '', 'hmol_l', '98 - 106', 0, 1, ''),
+(44, 1, 'Chloride', 1, 'Chlorid', 'res', '', '', '', '', 'Chlorid', '', '', 'hmol_l', '98 - 106', 0, 1, ''),
 (45, 1, 'C-reakt. Protein', 1, 'crP', 'res', '', '', '', '', 'C-reakt. Protein', '', '', 'mg_dl', '< 0.500', 0, 1, ''),
-(46, 1, 'Cholesterin', 1, 'Chol', 'res', '', '', '', '', 'Cholesterin', '', '', '', '< 200', 0, 1, ''),
-(47, 1, 'Eisen', 1, 'Fe', 'res', '', '', '', '', 'Eisen', '', '', '', '33 - 193', 0, 1, ''),
+(46, 1, 'Cholesterol', 1, 'Chol', 'res', '', '', '', '', 'Cholesterin', '', '', '', '< 200', 0, 1, ''),
+(47, 1, 'Iron', 1, 'Fe', 'res', '', '', '', '', 'Eisen', '', '', '', '33 - 193', 0, 1, ''),
 (48, 1, 'HBA1c', 1, 'HBA1c', 'res', '', '', '', '', 'HBA1c', '', '', 'percent', '4.0 - 6.0', 0, 1, ''),
 (49, 1, 'HBA1Cif', 1, 'HBA1Cif', 'res', '', '', '', '', 'HBA1Cif', '', '', 'oth', '20 - 42', 0, 1, ''),
 (50, 1, 'Phosphat Anor', 1, 'PhosAnor', 'res', '', '', '', '', 'Phosphat Anor', '', '', 'hmol_l', '0.87 - 1.45', 0, 1, ''),
 (53, 1, 'TPO', 1, 'TPO', 'res', '', '', '', '', 'TPO', '', '', 'oth', '0 - 35', 0, 1, ''),
-(54, 1, 'TSH Rezeptor AK', 1, 'TSH-R-AK', 'res', '', '', '', '', 'TSH Rezeptor AK', '', '', 'units_l', '0 - 1.0', 0, 1, ''),
+(54, 1, 'TSH Receptor AK', 1, 'TSH-R-AK', 'res', '', '', '', '', 'TSH Rezeptor AK', '', '', 'units_l', '0 - 1.0', 0, 1, ''),
 (55, 1, 'ACTH', 1, 'ACTH', 'res', '', '', '', '', 'ACTH', '', '', 'oth', '4.70 - 48.80', 0, 1, ''),
 (56, 1, 'Cortisol', 1, 'Cortisol', 'res', '', '', '', '', 'Cortisol', '', '', '', '62.0 - 194.0', 0, 1, ''),
 (57, 1, 'GGT', 1, 'GGT', 'res', '', '', '', '', 'GGT', '', '', 'units_l', '< 40', 0, 1, ''),
 (58, 1, 'GFR nach MDRD-Formel', 1, 'GFR-MDRD', 'res', '', '', '', '', 'GFR nach MDRD-Formel', '', '', '', '> 80', 0, 1, ''),
-(59, 1, 'Harnsäure', 1, 'Harnsäure', 'res', '', '', '', '', 'Harnsäure', '', '', '', '< 6.0', 0, 1, ''),
+(59, 1, 'Uric Acid', 1, 'Harnsäure', 'res', '', '', '', '', 'Harnsäure', '', '', '', '< 6.0', 0, 1, ''),
 (60, 1, 'Magnesium', 1, 'Magnesium', 'res', '', '', '', '', 'Magnesium', '', '', 'hmol_l', '0.53 - 1.11', 0, 1, ''),
 (61, 1, 'HBE', 1, 'HBE', 'res', '', '', '', '', 'HBE', '', '', 'pg', '27.0 - 34.9', 0, 1, ''),
-(62, 0, '24h Urin', 1, '24hUrin', 'ord', '', 'urine', '', '', '24h Urin', '', '', '', '', 0, 1, ''),
+(62, 0, '24h Urine', 1, '24hUrin', 'ord', '', 'urine', '', '', '24h Urin', '', '', '', '', 0, 1, ''),
 (63, 62, 'Ammount', 1, 'Ammount', 'res', '', '', '', '', 'Ammount', '', '', 'ml', '', 0, 1, ''),
 (64, 62, 'Natrium', 1, 'Natrium', 'res', '', '', '', '', 'Natrium', '', '', 'mmol/L', '64 - 172', 0, 1, ''),
 (65, 62, 'Natrium 24h', 1, 'Natrium24h', 'res', '', '', '', '', 'Natrium 24h', '', '', 'mmol/24h', '40 - 220', 0, 1, '');
@@ -429,3 +442,4 @@ INSERT INTO `procedure_type` (`procedure_type_id`, `parent`, `name`, `lab_id`, `
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
