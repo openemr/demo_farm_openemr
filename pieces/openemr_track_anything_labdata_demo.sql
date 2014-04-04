@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS form_track_anything_type (
   PRIMARY KEY (track_anything_type_id)
 ) ENGINE=MyISAM;
 
+INSERT INTO `registry` VALUES ('Track anything', 1, 'track_anything', 17, 1, 1, '2014-03-03 00:16:35', 0, NULL, NULL);
 
 --
 -- Daten für Tabelle `forms`
