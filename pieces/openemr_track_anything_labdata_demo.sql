@@ -66,11 +66,11 @@ INSERT INTO `forms` (`id`, `date`, `encounter`, `form_name`, `form_id`, `pid`, `
 -- Daten für Tabelle `form_track_anything`
 --
 
-INSERT INTO `form_track_anything` (`id`, `date`, `user`, `procedure_type_id`, `comment`) VALUES
-(1, '2014-04-02 13:22:17', NULL, 1, NULL),
-(2, '2014-04-02 13:20:33', NULL, 2, NULL),
-(3, '2014-04-02 13:19:41', NULL, 1, NULL),
-(4, '2014-04-02 13:18:36', NULL, 1, NULL);
+INSERT INTO `form_track_anything` (`id`, `date`, `pid`, `procedure_type_id`, `comment`) VALUES
+(34, '2014-04-02 13:22:17', NULL, 1, NULL),
+(36, '2014-04-02 13:20:33', NULL, 2, NULL),
+(35, '2014-04-02 13:19:41', NULL, 1, NULL),
+(37, '2014-04-02 13:18:36', NULL, 1, NULL);
 
 --
 -- Daten für Tabelle `form_track_anything_results`
