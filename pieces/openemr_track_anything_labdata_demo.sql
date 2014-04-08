@@ -20,7 +20,6 @@ SET time_zone = "+00:00";
 -- Datenbank: `openemr`
 --
 
-
 CREATE TABLE IF NOT EXISTS form_track_anything (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -46,6 +45,7 @@ CREATE TABLE IF NOT EXISTS form_track_anything_type (
   name varchar(255) DEFAULT NULL,
   description varchar(255) DEFAULT NULL,
   parent bigint(20) DEFAULT NULL,
+  position int(11) DEFAULT NULL,
   active int(11) DEFAULT NULL,
   PRIMARY KEY (track_anything_type_id)
 ) ENGINE=MyISAM;
