@@ -5,8 +5,7 @@ How do I set one of the "UP FOR GRABS" OpenEMR demos?
 -----------------------------------------------------
 1. Fork the https://github.com/bradymiller/demo_farm_openemr.git repo and make it your own
 2. Place your OpenEMR git repo information in the openemr_repo and branch items in
-   your ip_map_branch.txt for one of the UP FOR GRABS demo entries (192.168.1.130 or
-   192.168.1.131 or 192.168.1.132).
+   your ip_map_branch.txt for one of the UP FOR GRABS demo entries (192.168.1.130-192.168.1.135).
 3. Place a github pull request on your commit for number 2 above.
 4. After I bring in your github pull request, then place your repo and branch
    information in the pertinent UP FOR GRABS demo entries here:
