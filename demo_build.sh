@@ -302,6 +302,10 @@ if $packageServe ; then
  chmod -R a+w $TMPDIR/openemr/interface/main/calendar/modules/PostCalendar/pntemplates/cache
  chmod -R a+w $TMPDIR/openemr/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
  chmod -R a+w $TMPDIR/openemr/gacl/admin/templates_c
+ if [ -f $TMPDIR/openemr/interface/modules/zend_modules/config/application.config.php ] ; then
+  # This is specifically for Zend code that is currently under development(added in version 4.1.3).
+  chmod   a+w $TMPDIR/openemr/interface/modules/zend_modules/config/application.config.php
+ fi
 
  # Create the web file directory
  mkdir $FILESSERVEDIR
