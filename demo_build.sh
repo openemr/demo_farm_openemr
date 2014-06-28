@@ -198,7 +198,7 @@ chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar
 chown -R www-data:www-data $OPENEMR/gacl/admin/templates_c
 if [ -f $OPENEMR/interface/modules/zend_modules/config/application.config.php ] ; then
  # This is specifically for Zend code that is currently under development, so it works on the demos.
- chown -R www-data:www-data $OPENEMR/interface/modules/zend_modules/config/application.config.php
+ chown www-data:www-data $OPENEMR/interface/modules/zend_modules/config/application.config.php
  echo "Configuring Zend file permission: application.config.php"
  echo "Configuring Zend file permission: application.config.php" >> $LOG
 fi
