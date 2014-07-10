@@ -356,7 +356,7 @@ if $wordpressDemo; then
 
  # Install wordpress file stuff
  mkdir -p $WORDPRESS
- cp -r $GITDEMOWORDPRESSDEMOWEB/* $WORDPRESS/*
+ cp -r $GITDEMOWORDPRESSDEMOWEB/* $WORDPRESS/
 
  # Install wordpress database stuff
  mysqladmin -u root create wordpress
