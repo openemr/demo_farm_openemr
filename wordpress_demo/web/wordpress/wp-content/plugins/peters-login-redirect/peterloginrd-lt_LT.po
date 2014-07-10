@@ -1,0 +1,357 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: peters login redirect v2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-06 18:51-0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Peter <peter@keung.biz>\n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;esc_attr_e;"
+"esc_attr__\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: wplogin_redirect.php:568
+msgid "Register"
+msgstr "Registruotis"
+
+#: wplogin_redirect.php:572
+msgid "Site Admin"
+msgstr "Svetainės Administratorius"
+
+#: wplogin_redirect.php:693
+msgid "ERROR: Non-existent username submitted "
+msgstr "KLAIDA: Pateiktas neegzistuojantis vartotojo vardas"
+
+#: wplogin_redirect.php:703
+msgid "ERROR: Non-existent role submitted "
+msgstr "KLAIDA: Pateikta neegzistuojanti funkcija"
+
+#: wplogin_redirect.php:714
+msgid "ERROR: Non-existent level submitted "
+msgstr "KLAIDA: Pateiktas neegzistuojantis lygmuo"
+
+#: wplogin_redirect.php:745 wplogin_redirect.php:807
+#, fuzzy, php-format
+msgid "ERROR: Non-local or invalid URL submitted for %s %s"
+msgstr ""
+"KLAIDA: Vartotojui priskirta nevietinė arba neteisinga Universalioji nuoroda"
+
+#: wplogin_redirect.php:771
+#, fuzzy, php-format
+msgid "ERROR: Unknown error adding %s-specific redirect for %s %s"
+msgstr ""
+"KLAIDA: Nežinoma klaida, atnaujinant specifinio vartotojo Universaliąją "
+"nuorodą vartotojui"
+
+#: wplogin_redirect.php:778
+#, fuzzy, php-format
+msgid "Successfully added %s-specific redirect rule for %s"
+msgstr "Sėkmingai atnaujintos specifinio vartotojo Universaliosios nuorodos"
+
+#: wplogin_redirect.php:836
+#, fuzzy, php-format
+msgid "ERROR: Unknown error editing %s-specific redirect for %s %s"
+msgstr ""
+"KLAIDA: Nežinoma klaida, atnaujinant specifinio vartotojo Universaliąją "
+"nuorodą vartotojui"
+
+#: wplogin_redirect.php:843
+#, fuzzy, php-format
+msgid "Successfully edited %s-specific redirect rule for %s"
+msgstr "Sėkmingai atnaujintos specifinio vartotojo Universaliosios nuorodos"
+
+#: wplogin_redirect.php:871
+#, fuzzy, php-format
+msgid "ERROR: Unknown error deleting %s-specific redirect for %s %s"
+msgstr ""
+"KLAIDA: Nežinoma klaida, atnaujinant specifinio vartotojo Universaliąją "
+"nuorodą vartotojui"
+
+#: wplogin_redirect.php:877
+#, fuzzy, php-format
+msgid "Successfully deleted %s-specific redirect rule for %s"
+msgstr "Sėkmingai atnaujintos specifinio vartotojo Universaliosios nuorodos"
+
+#: wplogin_redirect.php:912
+msgid ""
+"ERROR: Unknown database problem removing URL for &#34;all other users&#34; "
+msgstr ""
+"KLAIDA: Nežinoma duomenų bazės problema šalinant universaliąją nuorodą &#34;"
+"visiems kitiems vartotojams&#34; "
+
+#: wplogin_redirect.php:916
+msgid "Successfully removed URL for &#34;all other users&#34; "
+msgstr "Sėkmingai pašalinta &#34;all other users&#34;  Universalioji nuoroda"
+
+#: wplogin_redirect.php:927 wplogin_redirect.php:996
+msgid "ERROR: Non-local or invalid URL submitted "
+msgstr "KLAIDA: Pateikta nevietinė arba neteisinga Universalioji nuoroda"
+
+#: wplogin_redirect.php:940
+msgid ""
+"ERROR: Unknown database problem updating URL for &#34;all other users&#34; "
+msgstr ""
+"KLAIDA: Nežinoma duomenų bazės problema atnaujinant Universaliąją nuorodą "
+"&#34;visiems kitiems vartotojams&#34; "
+
+#: wplogin_redirect.php:944
+msgid "Successfully updated URL for &#34;all other users&#34;"
+msgstr ""
+"Universalioji nuoroda &#34;visiems kitiems vartotojams&#34; sėkmingai "
+"atnaujinta."
+
+#: wplogin_redirect.php:983
+msgid ""
+"ERROR: Unknown database problem removing URL for &#34;post-registration&#34; "
+msgstr ""
+"KLAIDA: Nežinoma duomenų bazės problema, pašalinant &#34;post-"
+"registration&#34;  Universaliąją nuorodą"
+
+#: wplogin_redirect.php:986
+msgid "Successfully removed URL for &#34;post-registration&#34; "
+msgstr "Sėkminga pašalinta  &#34;po_registracijos&#34; Universalioji nuoroda"
+
+#: wplogin_redirect.php:1009
+msgid ""
+"ERROR: Unknown database problem updating URL for &#34;post-registration&#34; "
+msgstr ""
+"KLAIDA: Nežinoma duomenų bazės problema atnaujinant  &#34;po-"
+"registracijos&#34;  Universaliąją nuorodą"
+
+#: wplogin_redirect.php:1013
+msgid "Successfully updated URL for &#34;post-registration&#34;"
+msgstr "Sėkmingai atnaujinta  &#34;po-registracijos&#34; Universalioji nuoroda"
+
+#: wplogin_redirect.php:1039
+msgid "Successfully updated plugin settings"
+msgstr "Papildinio nuostatos sėkmingai atnaujintos"
+
+#: wplogin_redirect.php:1188 wplogin_redirect.php:1206
+#: wplogin_redirect.php:1223
+#, fuzzy
+msgid "Login URL"
+msgstr "Atsijungimo Universalioji nuoroda:"
+
+#: wplogin_redirect.php:1189 wplogin_redirect.php:1207
+#: wplogin_redirect.php:1224
+#, fuzzy
+msgid "Logout URL"
+msgstr "Atsijungimo Universalioji nuoroda:"
+
+#: wplogin_redirect.php:1191 wplogin_redirect.php:1209
+#: wplogin_redirect.php:1227
+msgid "Edit"
+msgstr ""
+
+#: wplogin_redirect.php:1191 wplogin_redirect.php:1209
+#: wplogin_redirect.php:1227 wplogin_redirect.php:1335
+#: wplogin_redirect.php:1343
+msgid "Delete"
+msgstr "Ištrinti"
+
+#: wplogin_redirect.php:1250
+msgid "Manage redirect rules"
+msgstr "Valdyti peradresavimo taisykles"
+
+#: wplogin_redirect.php:1252
+msgid ""
+"Define custom URLs to which different users, users with specific roles, "
+"users with specific levels, and all other users will be redirected upon "
+"login."
+msgstr ""
+"Nurodykite individualizuotas Universaliasias nuorodas, į kurias skirtingi "
+"vartotojai, vartotojai su specifinėmis funkcijoms, specifinių lygmenų "
+"vartotojai ir visi kiti vartotojai bus nukreipti prisijungimo metu."
+
+#: wplogin_redirect.php:1253
+msgid "Define a custom URL to which all users will be redirected upon logout"
+msgstr ""
+"Nurodykite individualizuotą Universaliąją nuorodą, į kurią visi vartotojai, "
+"atsijungimo metu bus peradresuojami"
+
+#: wplogin_redirect.php:1254
+msgid ""
+"Note that you can use the syntax <strong>[variable]username[/variable]</"
+"strong> in your URLs so that the system will build a dynamic URL upon each "
+"login, replacing that text with the users username."
+msgstr ""
+"Žinokite, kad galite naudoti sintaksę <strong>[kintamasis]vartotojo vardas[/"
+"kintamasis]</strong> Jūsų universaliojoje nuorodoje, todėl sistema sukurs "
+"dinaminę Universaliąją nuorodą, pakeičiant šį tekstą vartotojo vardu."
+
+#: wplogin_redirect.php:1256
+msgid "Specific users"
+msgstr "Specifiniai vartotojai"
+
+#: wplogin_redirect.php:1267 wplogin_redirect.php:1289
+#: wplogin_redirect.php:1319
+msgid "Add:"
+msgstr "Pridėti:"
+
+#: wplogin_redirect.php:1269
+msgid "Select a username"
+msgstr "Pasirinkite vartotojo vardą"
+
+#: wplogin_redirect.php:1272 wplogin_redirect.php:1294
+#: wplogin_redirect.php:1325 wplogin_redirect.php:1333
+#: wplogin_redirect.php:1342
+msgid "URL:"
+msgstr "Universalioji nuoroda:"
+
+#: wplogin_redirect.php:1273 wplogin_redirect.php:1295
+#: wplogin_redirect.php:1326 wplogin_redirect.php:1334
+msgid "Logout URL:"
+msgstr "Atsijungimo Universalioji nuoroda:"
+
+#: wplogin_redirect.php:1275
+msgid "Add username rule"
+msgstr ""
+
+#: wplogin_redirect.php:1278
+msgid "Specific roles"
+msgstr "Specifinės funkcijos"
+
+#: wplogin_redirect.php:1291
+msgid "Select a role"
+msgstr "Pasirinkite funkciją"
+
+#: wplogin_redirect.php:1297
+msgid "Add role rule"
+msgstr ""
+
+#: wplogin_redirect.php:1300
+msgid "Specific levels"
+msgstr "Specifiniai lygmenys"
+
+#: wplogin_redirect.php:1309
+msgid "Order"
+msgstr "Tvarka"
+
+#: wplogin_redirect.php:1321
+msgid "Select a level"
+msgstr "Pasirinkite lygmenį"
+
+#: wplogin_redirect.php:1324
+msgid "Order:"
+msgstr "Tvarka:"
+
+#: wplogin_redirect.php:1328
+msgid "Add level rule"
+msgstr ""
+
+#: wplogin_redirect.php:1331
+msgid "All other users"
+msgstr "Visi kiti vartotojai"
+
+#: wplogin_redirect.php:1335 wplogin_redirect.php:1343
+#: wplogin_redirect.php:1420
+msgid "Update"
+msgstr "Atnaujinti"
+
+#: wplogin_redirect.php:1340
+msgid "Post-registration"
+msgstr "Po registracijos"
+
+#: wplogin_redirect.php:1348
+msgid "Customize plugin settings"
+msgstr "Individualizuoti papildinio nuostatas"
+
+#: wplogin_redirect.php:1353
+msgid "Redirect restrictions"
+msgstr "Peradresavimo apribojimai"
+
+#: wplogin_redirect.php:1357
+msgid "Any http or https URL"
+msgstr "Bet koks http adresas arba https Universalioji nuoroda"
+
+#: wplogin_redirect.php:1358
+msgid "Any URL"
+msgstr "Bet kokia Universalioji nuoroda"
+
+#: wplogin_redirect.php:1359
+msgid "Any URL on the same domain"
+msgstr "Bet kokia universalioji nuorda toje pačioje srityje"
+
+#: wplogin_redirect.php:1365
+msgid ""
+"Allow a POST or GET &#34;redirect_to&#34; variable to take redirect "
+"precedence"
+msgstr ""
+"Leisti POST arba GET &#34;peradresuoti_į&#34; kintamuosius, suteikiant "
+"peradresavimo pirmenybę"
+
+#: wplogin_redirect.php:1369 wplogin_redirect.php:1380
+#: wplogin_redirect.php:1392
+msgid "Yes"
+msgstr "Taip"
+
+#: wplogin_redirect.php:1370 wplogin_redirect.php:1381
+#: wplogin_redirect.php:1393
+msgid "No"
+msgstr "Ne"
+
+#: wplogin_redirect.php:1376
+msgid ""
+"Allow a POST or GET &#34;redirect_to&#34; logout variable to take redirect "
+"precedence"
+msgstr ""
+"Leisti POST arba GET &#34;peradresuoti_į&#34; atsijungimo kintamuosius, "
+"suteikiant peradresavimo pirmenybę"
+
+#: wplogin_redirect.php:1388
+#, php-format
+msgid ""
+"Use external redirect file. Set this to &#34;Yes&#34; if you are using a "
+"plugin such as Gigya that bypasses the regular WordPress redirect process "
+"(and allows only one fixed redirect URL). Then, set the redirect URL to %s"
+msgstr ""
+
+#: wplogin_redirect.php:1399
+msgid "Permission level required to edit redirect URLs"
+msgstr "Reikiamas peradresavimo Universaliųjų nuorodų redagavimo leidimo lygis"
+
+#~ msgid "ERROR: Non-local or invalid URL submitted for role "
+#~ msgstr ""
+#~ "KLAIDA: Funkcijai priskirta nevietinė arba neteisinga Universalioji "
+#~ "nuoroda"
+
+#~ msgid "ERROR: Unknown error updating role-specific URL for role "
+#~ msgstr ""
+#~ "KLAIDA: Nežinoma klaida, atnaujinant specifinės funkcijos Universaliąją "
+#~ "nuorodą funkcijai"
+
+#~ msgid "Successfully updated role-specific URLs"
+#~ msgstr "Sėkmingai atnaujintos specifinio vartotojo Universaliosios nuorodos"
+
+#~ msgid "ERROR: Non-local or invalid URL submitted for level "
+#~ msgstr ""
+#~ "KLAIDA: Lygmeniui priskirta nevietinė arba neteisinga Universalioji "
+#~ "nuoroda"
+
+#~ msgid "ERROR: Unknown error updating level-specific URL for level "
+#~ msgstr ""
+#~ "KLAIDA: Nežinoma klaida, atnaujinant specifinio lygmens Universaliąją "
+#~ "nuorodą lygmeniui"
+
+#~ msgid "Successfully updated level-specific URLs"
+#~ msgstr "Sėkmingai atnaujintos specifinio lygmens Universaliosios nuorodos"
+
+#~ msgid "Username"
+#~ msgstr "Vartotojo vardas"
+
+#~ msgid "URL"
+#~ msgstr "Universalioji nuoroda"
+
+#~ msgid "Role"
+#~ msgstr "Funkcija"
+
+#~ msgid "Level"
+#~ msgstr "Lygmuo"

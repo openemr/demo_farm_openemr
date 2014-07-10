@@ -1,0 +1,359 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cartpauj PM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-06-01 00:39-0700\n"
+"PO-Revision-Date: 2012-12-11 17:24-0700\n"
+"Last-Translator: Cartpauj <cartpauj@prettylinkpro.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\\js\n"
+
+#: pm-class.php:55
+msgid "Messages"
+msgstr "Messages"
+
+#: pm-class.php:57
+msgid "Login to view your messages"
+msgstr "Connectez-vous pour consulter vos messages"
+
+#: pm-class.php:63
+#: pm-class.php:608
+msgid "You have"
+msgstr "Vous avez"
+
+#: pm-class.php:63
+#: pm-class.php:608
+msgid "new messages"
+msgstr "nouveaux messages"
+
+#: pm-class.php:64
+msgid "View Message Box"
+msgstr "Voir Boîte de Messagerie"
+
+#: pm-class.php:146
+msgid "Options successfully saved"
+msgstr "Options sauvegardées avec succès"
+
+#: pm-class.php:149
+msgid "Cartpauj PM Settings"
+msgstr "Réglages Cartpauj PM"
+
+#: pm-class.php:153
+msgid "Setting"
+msgstr "Réglages"
+
+#: pm-class.php:153
+msgid "Value"
+msgstr "Valeur"
+
+#: pm-class.php:155
+msgid "Max messages a user can keep in box? (0 = Unlimited)"
+msgstr "Nombre maximum de messages qu'un utilisateur peut garder dans sa bopite de messagerie (0 = Illimité)"
+
+#: pm-class.php:155
+msgid "Admins always have Unlimited"
+msgstr "Les administrateurs ont toujours l'illimité"
+
+#: pm-class.php:155
+#: pm-class.php:156
+msgid "Default"
+msgstr "Par défaut"
+
+#: pm-class.php:156
+msgid "Messages to show per page"
+msgstr "Messages à afficher par page"
+
+#: pm-class.php:156
+msgid "Do not set this to 0!"
+msgstr "Ne pas mettre à 0!"
+
+#: pm-class.php:157
+#: pm-class.php:218
+msgid "Save Options"
+msgstr "Sauvegarder les options"
+
+#: pm-class.php:160
+msgid "Setup Instructions"
+msgstr "Instructions d'installation"
+
+#: pm-class.php:161
+msgid "Create a new page."
+msgstr "Créez une nouvelle page."
+
+#: pm-class.php:162
+msgid "Paste [cartpauj-pm] under the HTML tab of the page editor"
+msgstr "Coller [cartpauj-pm] dans l'onglet HTML de l'éditeur de page"
+
+#: pm-class.php:163
+msgid "Publish the page"
+msgstr "Publier la page"
+
+#: pm-class.php:205
+msgid "Your settings have been saved!"
+msgstr "Vos paramètres ont été sauvés!"
+
+#: pm-class.php:207
+msgid "Set your preferences below"
+msgstr "Définissez vos préférences ci-dessous"
+
+#: pm-class.php:212
+msgid "Allow others to send me messages?"
+msgstr "Autoriser les autres à m'envoyer des messages?"
+
+#: pm-class.php:217
+msgid "Email me when I get new messages?"
+msgstr "Envoyez-moi un email quand je reçois de nouveaux messages?"
+
+#: pm-class.php:268
+msgid "Create New Message"
+msgstr "Créer un nouveau message"
+
+#: pm-class.php:270
+msgid "To"
+msgstr "À"
+
+#: pm-class.php:273
+#: pm-class.php:326
+msgid "Subject"
+msgstr "Sujet"
+
+#: pm-class.php:275
+#: pm-class.php:304
+msgid "Message"
+msgstr "Message"
+
+#: pm-class.php:280
+#: pm-class.php:344
+msgid "Send Message"
+msgstr "Envoyer un message"
+
+#: pm-class.php:287
+#: pm-class.php:396
+#: pm-class.php:403
+#: pm-class.php:410
+msgid "Message Error"
+msgstr "Message d'erreur"
+
+#: pm-class.php:288
+#: pm-class.php:397
+#: pm-class.php:404
+#: pm-class.php:411
+#: pm-class.php:431
+#: pm-class.php:581
+msgid "Back To Message Box"
+msgstr "Retour à la boîte de messagerie"
+
+#: pm-class.php:289
+msgid "You cannot send messages because your message box is full!"
+msgstr "Vous ne pouvez pas envoyer de messages car votre boîte de messagerie est pleine!"
+
+#: pm-class.php:303
+msgid "Message Thread"
+msgstr "Fil du message"
+
+#: pm-class.php:304
+msgid "Sender"
+msgstr "Expéditeur"
+
+#: pm-class.php:315
+#: pm-class.php:316
+msgid "Re:"
+msgstr "Rep:"
+
+#: pm-class.php:335
+msgid "Add Reply"
+msgstr "Ajouter une réponse"
+
+#: pm-class.php:389
+msgid "You must enter a valid recipient!"
+msgstr "Vous devez entrer un destinataire valide!"
+
+#: pm-class.php:391
+msgid "You must enter a valid subject!"
+msgstr "Vous devez entrer un sujet valide!"
+
+#: pm-class.php:393
+msgid "You must enter some message content!"
+msgstr "Vous devez entrer du contenu à votre message!"
+
+#: pm-class.php:395
+msgid "You do not have permission to send this message!"
+msgstr "Vous n'avez pas la permission pour envoyer ce message!"
+
+#: pm-class.php:405
+msgid "This user does not want to recieve messages!"
+msgstr "Cet utilisateur ne souhaite pas recevoir de messages!"
+
+#: pm-class.php:412
+msgid "The Recipients Message Box Is Full!"
+msgstr "La boîte de message des bénéficiaires est pleine!"
+
+#: pm-class.php:430
+msgid "Message Sent"
+msgstr "Message envoyé"
+
+#: pm-class.php:432
+msgid "Your message was succesfully sent!"
+msgstr "Votre message a été envoyé avec succès!"
+
+#: pm-class.php:465
+msgid "You have recieved a new message from"
+msgstr "Vous avez reçu un nouveau message de"
+
+#: pm-class.php:465
+msgid "follow this link to view it"
+msgstr "Suivez ce lien pour le voir"
+
+#: pm-class.php:468
+#: pm-class.php:622
+msgid "New Message"
+msgstr "Nouveau Message"
+
+#: pm-class.php:492
+msgid "Your Messages"
+msgstr "Vos messages"
+
+#: pm-class.php:496
+msgid "Page"
+msgstr "Page"
+
+#: pm-class.php:506
+msgid "Started By"
+msgstr "Commencé par"
+
+#: pm-class.php:507
+msgid "Title"
+msgstr "Titre"
+
+#: pm-class.php:508
+msgid "Last Reply By"
+msgstr "Dernière réponse par"
+
+#: pm-class.php:509
+#: pm-class.php:522
+msgid "Delete"
+msgstr "Effacer"
+
+#: pm-class.php:514
+msgid "Unread"
+msgstr "Non lus"
+
+#: pm-class.php:516
+msgid "Read"
+msgstr "Lire"
+
+#: pm-class.php:531
+msgid "No Messages"
+msgstr "Aucun Messages"
+
+#: pm-class.php:532
+msgid "Refresh Message Box"
+msgstr "Actualiser la boîte de messagerie"
+
+#: pm-class.php:533
+msgid "Your message box is empty!"
+msgstr "Votre boîte de messagerie est vide!"
+
+#: pm-class.php:580
+msgid "Message Deleted"
+msgstr "Message supprimé"
+
+#: pm-class.php:582
+msgid "Your message was successfully deleted!"
+msgstr "Votre message a été supprimé avec succès!"
+
+#: pm-class.php:601
+msgid "Unlimited"
+msgstr "Illimité"
+
+#: pm-class.php:607
+msgid "Welcome"
+msgstr "Accueil"
+
+#: pm-class.php:610
+msgid "Message box size"
+msgstr "Taille de la boîte de messagerie"
+
+#: pm-class.php:610
+msgid "of"
+msgstr "de"
+
+#: pm-class.php:612
+msgid "Your Message Box Is Full!"
+msgstr "Votre boîte de messagerie est pleine!"
+
+#: pm-class.php:621
+msgid "Message Box"
+msgstr "Boîte de messagerie "
+
+#: pm-class.php:623
+msgid "Settings"
+msgstr "Paramètres"
+
+#: pm-class.php:692
+msgid "You must be logged-in to view this page."
+msgstr "Vous devez être connecté pour voir cette page."
+
+#: pm-class.php:708
+msgid "Bold"
+msgstr "Gras"
+
+#: pm-class.php:709
+msgid "Italic"
+msgstr "Italique"
+
+#: pm-class.php:710
+msgid "Underline"
+msgstr "Souligner"
+
+#: pm-class.php:711
+msgid "Strikethrough"
+msgstr "Barré"
+
+#: pm-class.php:712
+msgid "Code"
+msgstr "Code"
+
+#: pm-class.php:713
+msgid "Quote"
+msgstr "Citer"
+
+#: pm-class.php:714
+msgid "List"
+msgstr "Liste"
+
+#: pm-class.php:715
+msgid "List item"
+msgstr "Elément de la liste"
+
+#: pm-class.php:716
+msgid "Link"
+msgstr "Lien"
+
+#: pm-class.php:717
+msgid "Image"
+msgstr "Image"
+
+#: pm-class.php:718
+msgid "Email"
+msgstr "Email"
+
+#: pm-class.php:719
+msgid "Add Hex Color"
+msgstr "Ajoutez de la couleur via Hex"
+
+#: pm-main.php:54
+msgid "Cartpauj-PM Widget"
+msgstr "Cartpauj-PM Widget"
+
+#: js/search.php:23
+#: .\js/search.php:23
+msgid "No Matches Found"
+msgstr "Aucune correspondance trouvée"
+

@@ -25,6 +25,11 @@ TRANSSERVEDIR=$WEB/translations
 FILESSERVEDIR=$WEB/files
 TMPDIR=/tmp/openemr-tmp
 
+# WORDPRESS PATIENT PORTAL VARIABLES
+WORDPRESS=$WEB/wordpress
+GITDEMOWORDPRESSDEMOWEB=$GITDEMOFARM/wordpress_demo/web/wordpress
+GITDEMOWORDPRESSDEMOSQL=$GITDEMOFARM/wordpress_demo/database/wordpress.sql
+
 # PATH OF INSTALL SCRIPT
 INST=$OPENEMR/contrib/util/installScripts/InstallerAuto.php
 INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
@@ -101,6 +106,11 @@ echo -n "ds option is "
 echo "$ds"
 echo -n "ds option is " >> $LOG
 echo "$ds" >> $LOG
+wp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 10`
+echo -n "wp option is "
+echo "$wp"
+echo -n "wp option is " >> $LOG
+echo "$wp" >> $LOG
 
 # SET OPTIONS
 # set if serve development translation set
@@ -138,6 +148,12 @@ if [ "$ds" == "0"  ]; then
  demoSSH=false;
 else
  demoSSH=true;
+fi
+# set if setting up wordpress patient portal
+if [ "$wp" == "0"  ]; then
+ wordpressDemo=false;
+else
+ wordpressDemo=true;
 fi
 
 # COLLECT and output demo description
@@ -331,6 +347,24 @@ if $packageServe ; then
  rm -fr $TMPDIR
  echo "Done creating OpenEMR Development packages"
  echo "Done creating OpenEMR Development packages" >> $LOG
+fi
+
+if $wordpressDemo; then
+ # This will install and set up the wordpress patient portal
+ echo "Setting up wordpress patient portal"
+ echo "Setting up wordpress patient portal" >> $LOG
+
+ # Install wordpress file stuff
+ mkdir -p $WORDPRESS
+ cp -r $GITDEMOWORDPRESSDEMOWEB/* $WORDPRESS/*
+
+ # Install wordpress database stuff
+ mysqladmin -u root create wordpress
+ mysql -u root --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
+ mysql -u root wordpress < "$GITDEMOWORDPRESSDEMOSQL"
+
+ echo "Done setting up wordpress patient portal"
+ echo "Done setting up wordpress patient portal" >> $LOG
 fi
 
 echo "Demo install script is complete"

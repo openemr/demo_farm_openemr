@@ -1,0 +1,443 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cartpauj PM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-04 11:28-0700\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Paul <cartpauj@yahoo.com>\n"
+"Language-Team: Team Blogos <wordpress@blogos.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2;plural=n != 1;\n"
+"X-Poedit-Language: Danish\n"
+"X-Poedit-Country: DENMARK\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_c;_e;__ngettext:1,2;__ngettext_noop:1,2;_n:1,2;_nc:1,2;_n_noop:1,2;esc_html__;esc_html_e;esc_attr__;esc_attr_e;_x:\n"
+"X-Poedit-Basepath: c:\\wamp\\www\\plugintester\\wp-content\\plugins\\cartpauj-pm\n"
+"X-Poedit-SearchPath-0: c:\\wamp\\www\\plugintester\\wp-content\\plugins\\cartpauj-pm\n"
+
+#: pm-class.php:55
+msgid "Messages"
+msgstr "Beskeder"
+
+#: pm-class.php:57
+msgid "Login to view your messages"
+msgstr "Log ind for at se dine beskeder"
+
+#: pm-class.php:63
+msgid "Hi"
+msgstr "Hej"
+
+#: pm-class.php:64
+#: pm-class.php:738
+msgid "You have"
+msgstr "Du har"
+
+#: pm-class.php:64
+#: pm-class.php:738
+msgid "new messages"
+msgstr "nye beskeder"
+
+#: pm-class.php:65
+msgid "There are"
+msgstr "Der er"
+
+#: pm-class.php:65
+#: pm-class.php:739
+msgid "announcement(s)"
+msgstr "annoncering(er)"
+
+#: pm-class.php:66
+msgid "View Message Box"
+msgstr "Se beskedboks"
+
+#: pm-class.php:148
+msgid "Options successfully saved"
+msgstr "Indstillinger gemt med succes"
+
+#: pm-class.php:151
+msgid "Cartpauj PM Settings"
+msgstr "Cartpauj PM-opsætning"
+
+#: pm-class.php:155
+msgid "Setting"
+msgstr "Opsætning"
+
+#: pm-class.php:155
+msgid "Value"
+msgstr "Værdi"
+
+#: pm-class.php:157
+msgid "Max messages a user can keep in box? (0 = Unlimited)"
+msgstr "Max antal beskeder, en bruger kan have i sin boks (0 = ubegrænset)"
+
+#: pm-class.php:157
+msgid "Admins always have Unlimited"
+msgstr "Admins har altid et ubegrænset antal"
+
+#: pm-class.php:157
+#: pm-class.php:158
+msgid "Default"
+msgstr "Standard"
+
+#: pm-class.php:158
+msgid "Messages to show per page"
+msgstr "Antal beskeder, der skal vises pr. side"
+
+#: pm-class.php:158
+msgid "Do not set this to 0!"
+msgstr "Sæt ikke denne til 0!"
+
+#: pm-class.php:159
+#: pm-class.php:220
+msgid "Save Options"
+msgstr "Gem indstillinger"
+
+#: pm-class.php:162
+msgid "Setup Instructions"
+msgstr "Opsætnings&shy;instruktioner"
+
+#: pm-class.php:163
+msgid "Create a new page."
+msgstr "Opret ny side."
+
+#: pm-class.php:164
+msgid "Paste [cartpauj-pm] under the HTML tab of the page editor"
+msgstr "Indsæt [cartpauj-pm] under HTML-fanen i sideeditoren"
+
+#: pm-class.php:165
+msgid "Publish the page"
+msgstr "Udgiv siden"
+
+#: pm-class.php:207
+msgid "Your settings have been saved!"
+msgstr "Din opsætning er blevet gemt!"
+
+#: pm-class.php:209
+msgid "Set your preferences below"
+msgstr "Sæt dine præferencer nedenfor"
+
+#: pm-class.php:214
+msgid "Allow others to send me messages?"
+msgstr "Tillad andre at sende beskeder til mig?"
+
+#: pm-class.php:219
+msgid "Email me when I get new messages?"
+msgstr "E-mail mig, når jeg får en ny besked?"
+
+#: pm-class.php:270
+msgid "Create New Message"
+msgstr "Opret ny besked"
+
+#: pm-class.php:272
+msgid "To"
+msgstr "Til"
+
+#: pm-class.php:275
+#: pm-class.php:337
+#: pm-class.php:649
+#: pm-class.php:667
+msgid "Subject"
+msgstr "Emne"
+
+#: pm-class.php:277
+#: pm-class.php:306
+#: pm-class.php:654
+msgid "Message"
+msgstr "Besked"
+
+#: pm-class.php:282
+#: pm-class.php:356
+msgid "Send Message"
+msgstr "Send besked"
+
+#: pm-class.php:289
+#: pm-class.php:408
+#: pm-class.php:415
+#: pm-class.php:422
+msgid "Message Error"
+msgstr "Besked-fejl"
+
+#: pm-class.php:290
+#: pm-class.php:314
+#: pm-class.php:409
+#: pm-class.php:416
+#: pm-class.php:423
+#: pm-class.php:443
+#: pm-class.php:594
+msgid "Back To Message Box"
+msgstr "Tilbage til beskedboks"
+
+#: pm-class.php:291
+msgid "You cannot send messages because your message box is full!"
+msgstr "Du kan ikke sende beskeder, fordi din beskedboks er fuld!"
+
+#: pm-class.php:305
+msgid "Message Thread"
+msgstr "Beskedtråd"
+
+#: pm-class.php:306
+msgid "Sender"
+msgstr "Afsender"
+
+#: pm-class.php:313
+msgid "Privacy Error"
+msgstr "Privatlivsfejl"
+
+#: pm-class.php:315
+msgid "You do not have permission to view this message!"
+msgstr "Du har ikke tilladelse til at se denne besked!"
+
+#: pm-class.php:326
+#: pm-class.php:327
+msgid "Re:"
+msgstr "Sv:"
+
+#: pm-class.php:347
+msgid "Add Reply"
+msgstr "Tilføj svar"
+
+#: pm-class.php:401
+msgid "You must enter a valid recipient!"
+msgstr "Du skal indtaste en gyldig modtager!"
+
+#: pm-class.php:403
+msgid "You must enter a valid subject!"
+msgstr "Du skal indtaste et gyldigt emne!"
+
+#: pm-class.php:405
+msgid "You must enter some message content!"
+msgstr "Du skal indtaste noget i beskedens indhold!"
+
+#: pm-class.php:407
+msgid "You do not have permission to send this message!"
+msgstr "Du har ikke tilladelse til at sende denne besked!"
+
+#: pm-class.php:417
+msgid "This user does not want to recieve messages!"
+msgstr "Denne bruger ønsker ikke at modtage beskeder!"
+
+#: pm-class.php:424
+msgid "The Recipients Message Box Is Full!"
+msgstr "Modtagerens beskedboks er fuld!"
+
+#: pm-class.php:442
+msgid "Message Sent"
+msgstr "Besked sendt"
+
+#: pm-class.php:444
+msgid "Your message was succesfully sent!"
+msgstr "Din besked blev sendt med succes!"
+
+#: pm-class.php:477
+#: cron/pm-cron.php:38
+msgid "You have recieved a new message from"
+msgstr "Du har modtaget en ny besked fra"
+
+#: pm-class.php:477
+#: cron/pm-cron.php:38
+msgid "follow this link to view it"
+msgstr "følg dette link for at se den"
+
+#: pm-class.php:480
+#: pm-class.php:753
+#: cron/pm-cron.php:41
+msgid "New Message"
+msgstr "Ny besked"
+
+#: pm-class.php:504
+msgid "Your Messages"
+msgstr "Dine beskeder"
+
+#: pm-class.php:508
+msgid "Page"
+msgstr "Side"
+
+#: pm-class.php:518
+msgid "Started By"
+msgstr "Oprettet af"
+
+#: pm-class.php:519
+msgid "To: Subject"
+msgstr "Til: Emne"
+
+#: pm-class.php:520
+msgid "Last Reply By"
+msgstr "Seneste svar af"
+
+#: pm-class.php:521
+#: pm-class.php:535
+#: pm-class.php:652
+msgid "Delete"
+msgstr "Slet"
+
+#: pm-class.php:526
+msgid "Unread"
+msgstr "Ulæst"
+
+#: pm-class.php:528
+msgid "Read"
+msgstr "Læst"
+
+#: pm-class.php:544
+msgid "No Messages"
+msgstr "Ingen beskeder"
+
+#: pm-class.php:545
+msgid "Refresh Message Box"
+msgstr "Opdatér beskedboks"
+
+#: pm-class.php:546
+msgid "Your message box is empty!"
+msgstr "Din beskedboks er tom!"
+
+#: pm-class.php:593
+msgid "Message Deleted"
+msgstr "Besked slettet"
+
+#: pm-class.php:595
+msgid "Your message was successfully deleted!"
+msgstr "Din besked blev slettet med succes!"
+
+#: pm-class.php:615
+msgid "Announcement Added"
+msgstr "Annoncering tilføjet"
+
+#: pm-class.php:616
+#: pm-class.php:624
+msgid "Back To Announcements"
+msgstr "Tilbage til annonceringer"
+
+#: pm-class.php:617
+msgid "The announcement was successfully added!"
+msgstr "Annonceringen blev tilføjet med succes!"
+
+#: pm-class.php:623
+msgid "Announcement Deleted"
+msgstr "Annoncering slettet"
+
+#: pm-class.php:625
+msgid "The announcement was successfully deleted!"
+msgstr "Annonceringen blev slettet med succes!"
+
+#: pm-class.php:631
+#: pm-class.php:640
+#: pm-class.php:752
+msgid "Announcements"
+msgstr "Annonceringer"
+
+#: pm-class.php:636
+msgid "There are no announcements!"
+msgstr "Der er ingen annonceringer!"
+
+#: pm-class.php:650
+msgid "Date"
+msgstr "Dato"
+
+#: pm-class.php:665
+msgid "Add a new announcement below"
+msgstr "Tilføj en ny annoncering nedenfor"
+
+#: pm-class.php:672
+msgid "Submit"
+msgstr "Indsend"
+
+#: pm-class.php:731
+#: pm-class.php:740
+msgid "Unlimited"
+msgstr "Ubegrænset"
+
+#: pm-class.php:737
+msgid "Welcome"
+msgstr "Velkommen"
+
+#: pm-class.php:739
+msgid "and"
+msgstr "og"
+
+#: pm-class.php:741
+msgid "Message box size"
+msgstr "Størrelse på beskedboks"
+
+#: pm-class.php:741
+msgid "of"
+msgstr "af"
+
+#: pm-class.php:743
+msgid "Your Message Box Is Full!"
+msgstr "Din beskedboks er fuld!"
+
+#: pm-class.php:751
+msgid "Message Box"
+msgstr "Beskedboks"
+
+#: pm-class.php:754
+msgid "Settings"
+msgstr "Opsætning"
+
+#: pm-class.php:824
+msgid "You must be logged-in to view this page."
+msgstr "Du skal være logget ind for at se denne side."
+
+#: pm-class.php:840
+msgid "Bold"
+msgstr "Fed"
+
+#: pm-class.php:841
+msgid "Italic"
+msgstr "Kursiv"
+
+#: pm-class.php:842
+msgid "Underline"
+msgstr "Understregning"
+
+#: pm-class.php:843
+msgid "Strikethrough"
+msgstr "Gennemstregning"
+
+#: pm-class.php:844
+msgid "Code"
+msgstr "Kode"
+
+#: pm-class.php:845
+msgid "Quote"
+msgstr "Citat"
+
+#: pm-class.php:846
+msgid "List"
+msgstr "Liste"
+
+#: pm-class.php:847
+msgid "List item"
+msgstr "Punkt på liste"
+
+#: pm-class.php:848
+msgid "Link"
+msgstr "Link"
+
+#: pm-class.php:849
+msgid "Image"
+msgstr "Billede"
+
+#: pm-class.php:850
+msgid "Email"
+msgstr "E-mail"
+
+#: pm-class.php:851
+msgid "Add Hex Color"
+msgstr "Tilføj hex farve"
+
+#: pm-class.php:852
+msgid "Embed"
+msgstr "Indsæt"
+
+#: pm-main.php:54
+msgid "Cartpauj-PM Widget"
+msgstr "Cartpauj-PM Widget"
+
+#: js/search.php:23
+#: .\js/search.php:23
+msgid "No Matches Found"
+msgstr "Der var intet, der matchede"
+

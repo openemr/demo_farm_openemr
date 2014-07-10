@@ -1,0 +1,233 @@
+/*The main wrapper*/
+#pm-wrapper
+{
+	margin: 5px;
+	position: relative;
+	/*background-color: white;*/ /*Uncomment this if you have dark background and can't see the text*/
+}
+
+/*Header styling*/
+#pm-header
+{
+	border: 1px solid #333;
+	height: 70px;
+	width: 100%;
+	color: white;
+}
+
+#pm-header strong
+{
+	color: #333;
+	font-size: 20px;
+}
+
+#pm-header p
+{
+	padding: 0px;
+	margin: 3px;
+	color: #333;
+	font-size: 12px;
+	line-height:20px;
+}
+
+#pm-header .avatar
+{
+	float: left;
+	border: none;
+	margin: 5px !important;
+	padding: 0 !important;
+}
+
+/*Menu Styling*/
+#pm-menu
+{
+	color: #333;
+	width: 100%;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#pm-menu a, #pm-menu a:hover, #pm-menu a:visited
+{
+	color: #333;
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+/*Notify Styling*/
+#pm-notify
+{
+	color: black;
+	background-color: #FFFF66;
+	border: 1px solid black;
+	height: 20px;
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+/*Content styling*/
+#pm-content
+{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 0px;
+	height: auto;
+	width: 100%;
+	border: 1px solid #333;
+	color: #333;
+}
+
+#pm-content p, #pm-content form
+{
+	margin: 5px;
+}
+
+#pm-content  hr
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+
+#pm-content .pmtext p
+{
+	margin-left: 0px;
+}
+
+#pm-content textarea
+{
+	width: 90%;
+	height: 200px;
+}
+
+#pm-content input[type=text]
+{
+	width: 45%;
+}
+
+#pm-content table
+{
+	width: 100%;
+	border-collapse: collapse;
+	border: 0px;
+	text-align: left;
+}
+
+#pm-content th, #pm-content td
+{
+	padding-left: 5px;
+	border: 1px solid #333;
+	vertical-align: top;
+	white-space: pre-line;
+}
+
+#pm-content .trodd0{}
+#pm-content .trodd1
+{
+	background-color: #ddd;
+}
+
+#pm-content img
+{
+	max-width: 400px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#pm-content a
+{
+	color: navy;
+	text-decoration: underline;
+}
+
+#pm-content small
+{
+	font-size: 10px;
+}
+
+#pm-content .avatar
+{
+	float: left;
+	border: none;
+	margin: 0px;
+	margin-bottom: 5px;
+}
+
+#pm-content blockquote
+{
+	color: #666;
+	width: 90%;
+	background: #eee;
+	border: 1px solid #333;
+	padding-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+pre.code
+{
+	width: 90%;
+	background: #eee;
+	border: solid 1px #ccc;
+	padding: 5px;
+	overflow: auto;
+	white-space: pre-wrap;
+	font-size: 95%; /*If font is too small try increasing this*/
+}
+
+/*Footer styling*/
+#pm-footer
+{
+	text-align: center;
+	font-size: 10px;
+	border: 1px solid #333;
+	width: 100%;
+	color: #333;
+}
+
+#pm-footer a, #pm-footer a:hover, #pm-footer a:visited
+{
+	color: #333;
+	text-decoration: underline;
+}
+
+/*Auto-suggest*/
+#results
+{
+	width:250px;
+	border: solid 1px #333;
+	display: none;
+	position: absolute;
+	background: white;
+}
+
+#results ul, #results li
+{
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	list-style: none;
+}
+
+#results li
+{
+	border-top: solid 1px #333;
+}
+
+#results li a
+{
+	display: block;
+	padding: 5px;
+	text-decoration: none;
+	color: #333;
+	font-weight: normal;
+}
+
+#results li a:hover
+{
+	background: #333;
+	color: white;
+}

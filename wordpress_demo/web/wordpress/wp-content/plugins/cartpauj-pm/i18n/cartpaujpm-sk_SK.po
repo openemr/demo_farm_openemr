@@ -1,0 +1,405 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cartpauj PM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-06-29 16:46-0700\n"
+"PO-Revision-Date: 2012-12-11 18:23-0700\n"
+"Last-Translator: Cartpauj <cartpauj@prettylinkpro.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\\js\n"
+
+#: pm-class.php:55
+msgid "Messages"
+msgstr "Správy"
+
+#: pm-class.php:57
+msgid "Login to view your messages"
+msgstr "Na prezeranie správ sa musíš prihlásiť"
+
+#: pm-class.php:63
+msgid "Hi"
+msgstr "Ahoj"
+
+#: pm-class.php:64 pm-class.php:738
+msgid "You have"
+msgstr "Máš"
+
+#: pm-class.php:64 pm-class.php:738
+msgid "new messages"
+msgstr "nových správ"
+
+#: pm-class.php:65
+msgid "There are"
+msgstr "Máš"
+
+#: pm-class.php:65 pm-class.php:739
+msgid "announcement(s)"
+msgstr "oznámení"
+
+#: pm-class.php:66
+msgid "View Message Box"
+msgstr "Zobraz schránku správ"
+
+#: pm-class.php:148
+msgid "Options successfully saved"
+msgstr "Nastavenia boli úspešne uložené!"
+
+#: pm-class.php:151
+msgid "Cartpauj PM Settings"
+msgstr "Nastavenia správ"
+
+#: pm-class.php:155
+msgid "Setting"
+msgstr "Nastavenie"
+
+#: pm-class.php:155
+msgid "Value"
+msgstr "Hodnota"
+
+#: pm-class.php:157
+msgid "Max messages a user can keep in box? (0 = Unlimited)"
+msgstr "Maximálny počet správ v schránke? (0 = neobmedzený počet)"
+
+#: pm-class.php:157
+msgid "Admins always have Unlimited"
+msgstr "Admin má vždy neobmedzenú kapacitu"
+
+#: pm-class.php:157 pm-class.php:158
+msgid "Default"
+msgstr "Prvotné nastavenie"
+
+#: pm-class.php:158
+msgid "Messages to show per page"
+msgstr "Zobraziť správ na stranu"
+
+#: pm-class.php:158
+msgid "Do not set this to 0!"
+msgstr "Toto nastavenie nesmie byť 0!"
+
+#: pm-class.php:159 pm-class.php:220
+msgid "Save Options"
+msgstr "Uložiť nastavenia"
+
+#: pm-class.php:162
+msgid "Setup Instructions"
+msgstr "Inštalačné pokyny"
+
+#: pm-class.php:163
+msgid "Create a new page."
+msgstr "Vytvorte novú stránku"
+
+#: pm-class.php:164
+msgid "Paste [cartpauj-pm] under the HTML tab of the page editor"
+msgstr "Vložte [cartpauj-pm] pri použití HTML editora do správy"
+
+#: pm-class.php:165
+msgid "Publish the page"
+msgstr "Publikovať stránku"
+
+#: pm-class.php:207
+msgid "Your settings have been saved!"
+msgstr "Tvoje nastavenia boli uložené!"
+
+#: pm-class.php:209
+msgid "Set your preferences below"
+msgstr "Nastav svoje preferencie"
+
+#: pm-class.php:214
+msgid "Allow others to send me messages?"
+msgstr "Povoliť ostatným posielať ti správy?"
+
+#: pm-class.php:219
+msgid "Email me when I get new messages?"
+msgstr "Pošlať email keď dostaneš novú správu?"
+
+#: pm-class.php:270
+msgid "Create New Message"
+msgstr "Nová správa"
+
+#: pm-class.php:272
+msgid "To"
+msgstr "Pre"
+
+#: pm-class.php:275 pm-class.php:337 pm-class.php:649 pm-class.php:667
+msgid "Subject"
+msgstr "Predmet"
+
+#: pm-class.php:277 pm-class.php:306 pm-class.php:654
+msgid "Message"
+msgstr "Správa"
+
+#: pm-class.php:282 pm-class.php:356
+msgid "Send Message"
+msgstr "Odoslať"
+
+#: pm-class.php:289 pm-class.php:408 pm-class.php:415 pm-class.php:422
+msgid "Message Error"
+msgstr "Chyba správy"
+
+#: pm-class.php:290 pm-class.php:314 pm-class.php:409 pm-class.php:416
+#: pm-class.php:423 pm-class.php:443 pm-class.php:594
+msgid "Back To Message Box"
+msgstr "Naspäť do schránky správ"
+
+#: pm-class.php:291
+msgid "You cannot send messages because your message box is full!"
+msgstr "Nepodarilo sa odoslať správu, pretože tvoja schránka je plná!"
+
+#: pm-class.php:305
+msgid "Message Thread"
+msgstr "Vlákno správ"
+
+#: pm-class.php:306
+msgid "Sender"
+msgstr "Odosielateľ"
+
+#: pm-class.php:313
+msgid "Privacy Error"
+msgstr "Chyba súkromia"
+
+#: pm-class.php:315
+msgid "You do not have permission to view this message!"
+msgstr "Nemáš povolenie na čítanie tejto správy!"
+
+#: pm-class.php:326 pm-class.php:327
+msgid "Re:"
+msgstr "Re:"
+
+#: pm-class.php:347
+msgid "Add Reply"
+msgstr "Odpovedaj"
+
+#: pm-class.php:401
+msgid "You must enter a valid recipient!"
+msgstr "Musíš zadať správneho príjimateľa!"
+
+#: pm-class.php:403
+msgid "You must enter a valid subject!"
+msgstr "Musíš zadať predmet správy!"
+
+#: pm-class.php:405
+msgid "You must enter some message content!"
+msgstr "Nevyplnil si text správy!"
+
+#: pm-class.php:407
+msgid "You do not have permission to send this message!"
+msgstr "Nemáš povolenia na odoslanie tejto správy!"
+
+#: pm-class.php:417
+msgid "This user does not want to recieve messages!"
+msgstr "Tento užívateľ si nepraje príjimať správy!"
+
+#: pm-class.php:424
+msgid "The Recipients Message Box Is Full!"
+msgstr "Schránka príjimateľa je plná!"
+
+#: pm-class.php:442
+msgid "Message Sent"
+msgstr "Správa odoslaná"
+
+#: pm-class.php:444
+msgid "Your message was succesfully sent!"
+msgstr "Tvoja správa bola úspešne odoslaná!"
+
+#: pm-class.php:477 cron/pm-cron.php:38
+msgid "You have recieved a new message from"
+msgstr "Dostal si novú správu od"
+
+#: pm-class.php:477 cron/pm-cron.php:38
+msgid "follow this link to view it"
+msgstr "môžeš si ju prečítať na tejto adrese"
+
+#: pm-class.php:480 pm-class.php:753 cron/pm-cron.php:41
+msgid "New Message"
+msgstr "Nová správa"
+
+#: pm-class.php:504
+msgid "Your Messages"
+msgstr "schránka tvojich správ"
+
+#: pm-class.php:508
+msgid "Page"
+msgstr "strana"
+
+#: pm-class.php:518
+msgid "Started By"
+msgstr "konverzáciu začal"
+
+#: pm-class.php:519
+msgid "To: Subject"
+msgstr "správa pre: predmet"
+
+#: pm-class.php:520
+msgid "Last Reply By"
+msgstr "posledná odpoveď"
+
+#: pm-class.php:521 pm-class.php:535 pm-class.php:652
+msgid "Delete"
+msgstr "vymazať"
+
+#: pm-class.php:526
+msgid "Unread"
+msgstr "neprečítaná"
+
+#: pm-class.php:528
+msgid "Read"
+msgstr "prečítaná"
+
+#: pm-class.php:544
+msgid "No Messages"
+msgstr "Žiadne správy"
+
+#: pm-class.php:545
+msgid "Refresh Message Box"
+msgstr "Obnov schránku správ"
+
+#: pm-class.php:546
+msgid "Your message box is empty!"
+msgstr "Tvoja schránka správ je prázdna!"
+
+#: pm-class.php:593
+msgid "Message Deleted"
+msgstr "Správa odstránená"
+
+#: pm-class.php:595
+msgid "Your message was successfully deleted!"
+msgstr "Správa bola úspešne vymazaná!"
+
+#: pm-class.php:615
+msgid "Announcement Added"
+msgstr "Oznámenie bolo pridané"
+
+#: pm-class.php:616 pm-class.php:624
+msgid "Back To Announcements"
+msgstr "Naspäť na oznámenia"
+
+#: pm-class.php:617
+msgid "The announcement was successfully added!"
+msgstr "Oznámenie bolo úspešne odoslané!"
+
+#: pm-class.php:623
+msgid "Announcement Deleted"
+msgstr "Oznámenie bolo vymazané"
+
+#: pm-class.php:625
+msgid "The announcement was successfully deleted!"
+msgstr "Oznámenie bolo úspešne vymazané!"
+
+#: pm-class.php:631 pm-class.php:640 pm-class.php:752
+msgid "Announcements"
+msgstr "Oznámenia"
+
+#: pm-class.php:636
+msgid "There are no announcements!"
+msgstr "Nemáš žiadne oznámenia!"
+
+#: pm-class.php:650
+msgid "Date"
+msgstr "Dátum"
+
+#: pm-class.php:665
+msgid "Add a new announcement below"
+msgstr "Pridaj nové oznámenie"
+
+#: pm-class.php:672
+msgid "Submit"
+msgstr "Odoslať"
+
+#: pm-class.php:731 pm-class.php:740
+msgid "Unlimited"
+msgstr " "
+
+#: pm-class.php:737
+msgid "Welcome"
+msgstr "Ahoj"
+
+#: pm-class.php:739
+msgid "and"
+msgstr "a"
+
+#: pm-class.php:741
+msgid "Message box size"
+msgstr "Celkový počet správ"
+
+#: pm-class.php:741
+msgid "of"
+msgstr " "
+
+#: pm-class.php:743
+msgid "Your Message Box Is Full!"
+msgstr "Tvoja schránka správ je plná!"
+
+#: pm-class.php:751
+msgid "Message Box"
+msgstr "Schránka správ"
+
+#: pm-class.php:754
+msgid "Settings"
+msgstr "Nastavenia"
+
+#: pm-class.php:824
+msgid "You must be logged-in to view this page."
+msgstr "Na zobrazenie tejto stránky musíš byť prihlásený."
+
+#: pm-class.php:840
+msgid "Bold"
+msgstr "Hrubé"
+
+#: pm-class.php:841
+msgid "Italic"
+msgstr "Šikmé"
+
+#: pm-class.php:842
+msgid "Underline"
+msgstr "Podčiarknuté písmo"
+
+#: pm-class.php:843
+msgid "Strikethrough"
+msgstr "Preškrtnuté písmo"
+
+#: pm-class.php:844
+msgid "Code"
+msgstr "Kód"
+
+#: pm-class.php:845
+msgid "Quote"
+msgstr "Citovať"
+
+#: pm-class.php:846
+msgid "List"
+msgstr "Zoznam"
+
+#: pm-class.php:847
+msgid "List item"
+msgstr "Položka zoznamu"
+
+#: pm-class.php:848
+msgid "Link"
+msgstr "Odkaz"
+
+#: pm-class.php:849
+msgid "Image"
+msgstr "Obrázok"
+
+#: pm-class.php:850
+msgid "Email"
+msgstr "Email"
+
+#: pm-class.php:851
+msgid "Add Hex Color"
+msgstr "Pridaj farbu v HEX"
+
+#: pm-main.php:54
+msgid "Cartpauj-PM Widget"
+msgstr "Cartpauj-PM "
+
+#: js/search.php:23 .\js/search.php:23
+msgid "No Matches Found"
+msgstr "Nebol nájdený žiadny užívateľ s takýmto nickom"

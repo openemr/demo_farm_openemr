@@ -1,0 +1,444 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cartpauj PM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-04 11:28-0700\n"
+"PO-Revision-Date: 2010-08-09 16:31-0700\n"
+"Last-Translator: Paul <cartpauj@yahoo.com>\n"
+"Language-Team: PLAYBOY（fac6.com) <i@fac6.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: CHINA\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\\js\n"
+
+#: pm-class.php:55
+msgid "Messages"
+msgstr "消息"
+
+#: pm-class.php:57
+msgid "Login to view your messages"
+msgstr "登录查看消息"
+
+#: pm-class.php:63
+msgid "Hi"
+msgstr "你好"
+
+#: pm-class.php:64
+#: pm-class.php:738
+msgid "You have"
+msgstr "您有"
+
+#: pm-class.php:64
+#: pm-class.php:738
+msgid "new messages"
+msgstr "条新消息"
+
+#: pm-class.php:65
+msgid "There are"
+msgstr "有"
+
+#: pm-class.php:65
+#: pm-class.php:739
+msgid "announcement(s)"
+msgstr "条公告"
+
+#: pm-class.php:66
+msgid "View Message Box"
+msgstr "查看收信箱"
+
+#: pm-class.php:148
+msgid "Options successfully saved"
+msgstr "选项保存成功"
+
+#: pm-class.php:151
+msgid "Cartpauj PM Settings"
+msgstr "Cartpauj PM设置"
+
+#: pm-class.php:155
+msgid "Setting"
+msgstr "设置"
+
+#: pm-class.php:155
+msgid "Value"
+msgstr "值"
+
+#: pm-class.php:157
+msgid "Max messages a user can keep in box? (0 = Unlimited)"
+msgstr "用户可保存的最多消息"
+
+#: pm-class.php:157
+msgid "Admins always have Unlimited"
+msgstr "管理员通常不受限制"
+
+#: pm-class.php:157
+#: pm-class.php:158
+msgid "Default"
+msgstr "默认"
+
+#: pm-class.php:158
+msgid "Messages to show per page"
+msgstr "每页显示消息数量"
+
+#: pm-class.php:158
+msgid "Do not set this to 0!"
+msgstr "不要设置成0！"
+
+#: pm-class.php:159
+#: pm-class.php:220
+msgid "Save Options"
+msgstr "保存选项"
+
+#: pm-class.php:162
+msgid "Setup Instructions"
+msgstr "安装指导"
+
+#: pm-class.php:163
+msgid "Create a new page."
+msgstr "创建一个新页面"
+
+#: pm-class.php:164
+msgid "Paste [cartpauj-pm] under the HTML tab of the page editor"
+msgstr "在编辑器的HTML代码模式下粘贴[cartpauj-pm]"
+
+#: pm-class.php:165
+msgid "Publish the page"
+msgstr "发表页面"
+
+#: pm-class.php:207
+msgid "Your settings have been saved!"
+msgstr "设置已保存！"
+
+#: pm-class.php:209
+msgid "Set your preferences below"
+msgstr "设置您的偏好"
+
+#: pm-class.php:214
+msgid "Allow others to send me messages?"
+msgstr "允许其他人给我发送消息"
+
+#: pm-class.php:219
+msgid "Email me when I get new messages?"
+msgstr "当我收到新消息时邮件通知我"
+
+#: pm-class.php:270
+msgid "Create New Message"
+msgstr "创建新消息"
+
+#: pm-class.php:272
+msgid "To"
+msgstr "收信人"
+
+#: pm-class.php:275
+#: pm-class.php:337
+#: pm-class.php:649
+#: pm-class.php:667
+msgid "Subject"
+msgstr "标题"
+
+#: pm-class.php:277
+#: pm-class.php:306
+#: pm-class.php:654
+msgid "Message"
+msgstr "内容"
+
+#: pm-class.php:282
+#: pm-class.php:356
+msgid "Send Message"
+msgstr "发送消息"
+
+#: pm-class.php:289
+#: pm-class.php:408
+#: pm-class.php:415
+#: pm-class.php:422
+msgid "Message Error"
+msgstr "消息错误"
+
+#: pm-class.php:290
+#: pm-class.php:314
+#: pm-class.php:409
+#: pm-class.php:416
+#: pm-class.php:423
+#: pm-class.php:443
+#: pm-class.php:594
+msgid "Back To Message Box"
+msgstr "回到收信箱"
+
+#: pm-class.php:291
+msgid "You cannot send messages because your message box is full!"
+msgstr "您的信箱已满，无法发送消息！"
+
+#: pm-class.php:305
+msgid "Message Thread"
+msgstr "消息主题"
+
+#: pm-class.php:306
+msgid "Sender"
+msgstr "发送人"
+
+#: pm-class.php:313
+msgid "Privacy Error"
+msgstr "隐私错误"
+
+#: pm-class.php:315
+msgid "You do not have permission to view this message!"
+msgstr "您无权查看该消息！"
+
+#: pm-class.php:326
+#: pm-class.php:327
+msgid "Re:"
+msgstr "回复"
+
+#: pm-class.php:347
+msgid "Add Reply"
+msgstr "添加回复"
+
+#: pm-class.php:401
+msgid "You must enter a valid recipient!"
+msgstr "您必须输入有效的收信人！"
+
+#: pm-class.php:403
+msgid "You must enter a valid subject!"
+msgstr "您必须输入有效的主题！"
+
+#: pm-class.php:405
+msgid "You must enter some message content!"
+msgstr "您必须输入消息内容！"
+
+#: pm-class.php:407
+msgid "You do not have permission to send this message!"
+msgstr "您没有权限发送该消息！"
+
+#: pm-class.php:417
+msgid "This user does not want to recieve messages!"
+msgstr "该用户不愿接收消息！"
+
+#: pm-class.php:424
+msgid "The Recipients Message Box Is Full!"
+msgstr "收信箱已满！"
+
+#: pm-class.php:442
+msgid "Message Sent"
+msgstr "消息已发送"
+
+#: pm-class.php:444
+msgid "Your message was succesfully sent!"
+msgstr "消息发送成功！"
+
+#: pm-class.php:477
+#: cron/pm-cron.php:38
+msgid "You have recieved a new message from"
+msgstr "您收到一条新消息，来自："
+
+#: pm-class.php:477
+#: cron/pm-cron.php:38
+msgid "follow this link to view it"
+msgstr "打开该链接查看"
+
+#: pm-class.php:480
+#: pm-class.php:753
+#: cron/pm-cron.php:41
+msgid "New Message"
+msgstr "新消息"
+
+#: pm-class.php:504
+msgid "Your Messages"
+msgstr "您的消息"
+
+#: pm-class.php:508
+msgid "Page"
+msgstr "页面"
+
+#: pm-class.php:518
+msgid "Started By"
+msgstr "开始于"
+
+#: pm-class.php:519
+msgid "To: Subject"
+msgstr "收信人：标题"
+
+#: pm-class.php:520
+msgid "Last Reply By"
+msgstr "最后由该用户回复："
+
+#: pm-class.php:521
+#: pm-class.php:535
+#: pm-class.php:652
+msgid "Delete"
+msgstr "删除"
+
+#: pm-class.php:526
+msgid "Unread"
+msgstr "未读"
+
+#: pm-class.php:528
+msgid "Read"
+msgstr "已读"
+
+#: pm-class.php:544
+msgid "No Messages"
+msgstr "没有消息"
+
+#: pm-class.php:545
+msgid "Refresh Message Box"
+msgstr "刷新信箱"
+
+#: pm-class.php:546
+msgid "Your message box is empty!"
+msgstr "您的信箱为空！"
+
+#: pm-class.php:593
+msgid "Message Deleted"
+msgstr "消息已删除"
+
+#: pm-class.php:595
+msgid "Your message was successfully deleted!"
+msgstr "消息删除成功！"
+
+#: pm-class.php:615
+msgid "Announcement Added"
+msgstr "公告已添加"
+
+#: pm-class.php:616
+#: pm-class.php:624
+msgid "Back To Announcements"
+msgstr "返回公告"
+
+#: pm-class.php:617
+msgid "The announcement was successfully added!"
+msgstr "公告添加成功！"
+
+#: pm-class.php:623
+msgid "Announcement Deleted"
+msgstr "公告已删除"
+
+#: pm-class.php:625
+msgid "The announcement was successfully deleted!"
+msgstr "公告删除成功！"
+
+#: pm-class.php:631
+#: pm-class.php:640
+#: pm-class.php:752
+msgid "Announcements"
+msgstr "公告"
+
+#: pm-class.php:636
+msgid "There are no announcements!"
+msgstr "没有公告！"
+
+#: pm-class.php:650
+msgid "Date"
+msgstr "日期"
+
+#: pm-class.php:665
+msgid "Add a new announcement below"
+msgstr "添加公告"
+
+#: pm-class.php:672
+msgid "Submit"
+msgstr "提交"
+
+#: pm-class.php:731
+#: pm-class.php:740
+msgid "Unlimited"
+msgstr "没有限制"
+
+#: pm-class.php:737
+msgid "Welcome"
+msgstr " 欢迎"
+
+#: pm-class.php:739
+msgid "and"
+msgstr "和"
+
+#: pm-class.php:741
+msgid "Message box size"
+msgstr "信箱大小"
+
+#: pm-class.php:741
+msgid "of"
+msgstr " "
+
+#: pm-class.php:743
+msgid "Your Message Box Is Full!"
+msgstr "您的信箱已满！"
+
+#: pm-class.php:751
+msgid "Message Box"
+msgstr "信箱"
+
+#: pm-class.php:754
+msgid "Settings"
+msgstr "设置"
+
+#: pm-class.php:824
+msgid "You must be logged-in to view this page."
+msgstr "登录后才能查看该页面。"
+
+#: pm-class.php:840
+msgid "Bold"
+msgstr "粗体"
+
+#: pm-class.php:841
+msgid "Italic"
+msgstr "斜体"
+
+#: pm-class.php:842
+msgid "Underline"
+msgstr "下划线"
+
+#: pm-class.php:843
+msgid "Strikethrough"
+msgstr "删除线"
+
+#: pm-class.php:844
+msgid "Code"
+msgstr "代码"
+
+#: pm-class.php:845
+msgid "Quote"
+msgstr "引用"
+
+#: pm-class.php:846
+msgid "List"
+msgstr "表单"
+
+#: pm-class.php:847
+msgid "List item"
+msgstr "表单项"
+
+#: pm-class.php:848
+msgid "Link"
+msgstr "链接"
+
+#: pm-class.php:849
+msgid "Image"
+msgstr "图像"
+
+#: pm-class.php:850
+msgid "Email"
+msgstr "邮箱"
+
+#: pm-class.php:851
+msgid "Add Hex Color"
+msgstr "添加16进制颜色"
+
+#: pm-class.php:852
+msgid "Embed"
+msgstr "已嵌入"
+
+#: pm-main.php:54
+msgid "Cartpauj-PM Widget"
+msgstr "Cartpauj-PM边栏"
+
+#: js/search.php:23
+#: .\js/search.php:23
+msgid "No Matches Found"
+msgstr "没有找到匹配项"
+
+#~ msgid "Title"
+#~ msgstr "题目"

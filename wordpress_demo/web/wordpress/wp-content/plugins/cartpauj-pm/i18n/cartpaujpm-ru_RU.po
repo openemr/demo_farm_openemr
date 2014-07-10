@@ -1,0 +1,414 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cartpauj PM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-04-14 20:28-0700\n"
+"PO-Revision-Date: 2012-12-11 18:33-0700\n"
+"Last-Translator: Cartpauj <cartpauj@prettylinkpro.com>\n"
+"Language-Team: pro-neylon.ru <jabboroff@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"Language: ru\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\\js\n"
+
+#: pm-class.php:55
+msgid "Messages"
+msgstr "Сообщения"
+
+#: pm-class.php:57
+msgid "Login to view your messages"
+msgstr "Авторизуйтесь чтобы прочитать сообщение"
+
+#: pm-class.php:63
+msgid "Hi"
+msgstr "Здравствуйте"
+
+#: pm-class.php:64 pm-class.php:738
+msgid "You have"
+msgstr "У вас"
+
+#: pm-class.php:64 pm-class.php:738
+msgid "new messages"
+msgstr "Новые сообщения"
+
+#: pm-class.php:65
+msgid "There are"
+msgstr "Имя"
+
+#: pm-class.php:65 pm-class.php:739
+msgid "announcement(s)"
+msgstr "Уведомление"
+
+#: pm-class.php:66
+msgid "View Message Box"
+msgstr "Открыть окно сообщения"
+
+#: pm-class.php:148
+msgid "Options successfully saved"
+msgstr "Функции успешно сохранены"
+
+#: pm-class.php:151
+msgid "Cartpauj PM Settings"
+msgstr "Cartpauj PM Настройки"
+
+#: pm-class.php:155
+msgid "Setting"
+msgstr "Настройки"
+
+#: pm-class.php:155
+msgid "Value"
+msgstr "Значение"
+
+#: pm-class.php:157
+msgid "Max messages a user can keep in box? (0 = Unlimited)"
+msgstr ""
+"Пользователь может хранить максимум сообщений в окне? (0 = Неограничено)"
+
+#: pm-class.php:157
+msgid "Admins always have Unlimited"
+msgstr "Администраторы имеют неограниченные"
+
+#: pm-class.php:157 pm-class.php:158
+msgid "Default"
+msgstr "По подразбиране"
+
+#: pm-class.php:158
+msgid "Messages to show per page"
+msgstr "Сколько сообщения отображаются на"
+
+#: pm-class.php:158
+msgid "Do not set this to 0!"
+msgstr "Не устанавливайте значение 0!"
+
+#: pm-class.php:159 pm-class.php:220
+msgid "Save Options"
+msgstr "Сохранить настройки"
+
+#: pm-class.php:162
+msgid "Setup Instructions"
+msgstr "Инструкции по установке"
+
+#: pm-class.php:163
+msgid "Create a new page."
+msgstr "Создать новую страницу."
+
+#: pm-class.php:164
+msgid "Paste [cartpauj-pm] under the HTML tab of the page editor"
+msgstr "Вставить [cartpauj-PM] вкладке HTML редактор страницы"
+
+#: pm-class.php:165
+msgid "Publish the page"
+msgstr "Публикация страниц"
+
+#: pm-class.php:207
+msgid "Your settings have been saved!"
+msgstr "Ваши настройки были сохранены!"
+
+#: pm-class.php:209
+msgid "Set your preferences below"
+msgstr "Установите ваши предпочтения ниже"
+
+#: pm-class.php:214
+msgid "Allow others to send me messages?"
+msgstr "Разрешить другим пользователям отправлять мне сообщения?"
+
+#: pm-class.php:219
+msgid "Email me when I get new messages?"
+msgstr "Сообщите мне по электронной почте при получении новых сообщений?"
+
+#: pm-class.php:270
+msgid "Create New Message"
+msgstr "Новое сообщение"
+
+#: pm-class.php:272
+msgid "To"
+msgstr "К"
+
+#: pm-class.php:275 pm-class.php:337 pm-class.php:649 pm-class.php:667
+msgid "Subject"
+msgstr "Тема"
+
+#: pm-class.php:277 pm-class.php:306 pm-class.php:654
+msgid "Message"
+msgstr "Сообщение"
+
+#: pm-class.php:282 pm-class.php:356
+msgid "Send Message"
+msgstr "Отправить сообщение"
+
+#: pm-class.php:289 pm-class.php:408 pm-class.php:415 pm-class.php:422
+msgid "Message Error"
+msgstr "Произошла ошибка при отправке сообщения"
+
+#: pm-class.php:290 pm-class.php:314 pm-class.php:409 pm-class.php:416
+#: pm-class.php:423 pm-class.php:443 pm-class.php:594
+msgid "Back To Message Box"
+msgstr "Вернуться в ваш почтовый ящик"
+
+#: pm-class.php:291
+msgid "You cannot send messages because your message box is full!"
+msgstr "Не удается отправить сообщение, поскольку Ваш почтовый ящик полна!"
+
+#: pm-class.php:305
+msgid "Message Thread"
+msgstr "Тема сообщения"
+
+#: pm-class.php:306
+msgid "Sender"
+msgstr "Отправитель"
+
+#: pm-class.php:313
+msgid "Privacy Error"
+msgstr "Ошибка безопасности"
+
+#: pm-class.php:315
+msgid "You do not have permission to view this message!"
+msgstr "У вас нет разрешения на просмотр этого сообщения!"
+
+#: pm-class.php:326 pm-class.php:327
+msgid "Re:"
+msgstr "Ответ:"
+
+#: pm-class.php:347
+msgid "Add Reply"
+msgstr "Ответить"
+
+#: pm-class.php:401
+msgid "You must enter a valid recipient!"
+msgstr "Вы должны ввести действительного получателя!"
+
+#: pm-class.php:403
+msgid "You must enter a valid subject!"
+msgstr "Вы должны ввести действительную тему! "
+
+#: pm-class.php:405
+msgid "You must enter some message content!"
+msgstr "Вы должны ввести контент в сообщение!"
+
+#: pm-class.php:407
+msgid "You do not have permission to send this message!"
+msgstr "У вас нет разрешения отправить это сообщение!"
+
+#: pm-class.php:417
+msgid "This user does not want to recieve messages!"
+msgstr "Этот пользователь не хочет получать сообщения!"
+
+#: pm-class.php:424
+msgid "The Recipients Message Box Is Full!"
+msgstr "Почтовый ящик получателя переполнен!"
+
+#: pm-class.php:442
+msgid "Message Sent"
+msgstr "Сообщение отправлено"
+
+#: pm-class.php:444
+msgid "Your message was succesfully sent!"
+msgstr "Ваше сообщение было успешно отправлено!"
+
+#: pm-class.php:477 cron/pm-cron.php:38
+msgid "You have recieved a new message from"
+msgstr "Вы получили новое сообщение от"
+
+#: pm-class.php:477 cron/pm-cron.php:38
+msgid "follow this link to view it"
+msgstr "перейдите по ссылке, для просмотра"
+
+#: pm-class.php:480 pm-class.php:753 cron/pm-cron.php:41
+msgid "New Message"
+msgstr "Новое сообщение"
+
+#: pm-class.php:504
+msgid "Your Messages"
+msgstr "Ваши письма"
+
+#: pm-class.php:508
+msgid "Page"
+msgstr "Страница"
+
+#: pm-class.php:518
+msgid "Started By"
+msgstr "Первое сообщение"
+
+#: pm-class.php:519
+msgid "To: Subject"
+msgstr "Получатель, Тема"
+
+#: pm-class.php:520
+msgid "Last Reply By"
+msgstr "Последний ответ от"
+
+#: pm-class.php:521 pm-class.php:535 pm-class.php:652
+msgid "Delete"
+msgstr "Удалить"
+
+#: pm-class.php:526
+msgid "Unread"
+msgstr "Непрочитанный"
+
+#: pm-class.php:528
+msgid "Read"
+msgstr "Читать"
+
+#: pm-class.php:544
+msgid "No Messages"
+msgstr "Нет сообщений"
+
+#: pm-class.php:545
+msgid "Refresh Message Box"
+msgstr "Обновить Ваш почтовый ящик"
+
+#: pm-class.php:546
+msgid "Your message box is empty!"
+msgstr "Ваш почтовый ящик пуст!"
+
+#: pm-class.php:593
+msgid "Message Deleted"
+msgstr "Удалить сообщение"
+
+#: pm-class.php:595
+msgid "Your message was successfully deleted!"
+msgstr "Ваше сообщение было успешно удалено!"
+
+#: pm-class.php:615
+msgid "Announcement Added"
+msgstr "Объявление добавлено"
+
+#: pm-class.php:616 pm-class.php:624
+msgid "Back To Announcements"
+msgstr "Вернуться к объявлениям"
+
+#: pm-class.php:617
+msgid "The announcement was successfully added!"
+msgstr "Ваше объявление было успешно добавлено!"
+
+#: pm-class.php:623
+msgid "Announcement Deleted"
+msgstr "Объявление удалено"
+
+#: pm-class.php:625
+msgid "The announcement was successfully deleted!"
+msgstr "Ваше сообщение было успешно удалено!"
+
+#: pm-class.php:631 pm-class.php:640 pm-class.php:752
+msgid "Announcements"
+msgstr "Объявления"
+
+#: pm-class.php:636
+msgid "There are no announcements!"
+msgstr "Тем не менее нет объявлений!"
+
+#: pm-class.php:650
+msgid "Date"
+msgstr "Дата"
+
+#: pm-class.php:665
+msgid "Add a new announcement below"
+msgstr "Добавить объявление ниже"
+
+#: pm-class.php:672
+msgid "Submit"
+msgstr "Отправить"
+
+#: pm-class.php:731 pm-class.php:740
+msgid "Unlimited"
+msgstr "Неограниченный"
+
+#: pm-class.php:737
+msgid "Welcome"
+msgstr "Привет"
+
+#: pm-class.php:739
+msgid "and"
+msgstr "и"
+
+#: pm-class.php:741
+msgid "Message box size"
+msgstr "Допустимое количество сообщений"
+
+#: pm-class.php:741
+msgid "of"
+msgstr "из"
+
+#: pm-class.php:743
+msgid "Your Message Box Is Full!"
+msgstr "Ваш почтовый ящик переполнен!"
+
+#: pm-class.php:751
+msgid "Message Box"
+msgstr "Почтовый ящик"
+
+#: pm-class.php:754
+msgid "Settings"
+msgstr "Настройки"
+
+#: pm-class.php:824
+msgid "You must be logged-in to view this page."
+msgstr "Вы должны быть авторизованы для просмотра этой страницы."
+
+#: pm-class.php:840
+msgid "Bold"
+msgstr "Bold"
+
+#: pm-class.php:841
+msgid "Italic"
+msgstr "Italic"
+
+#: pm-class.php:842
+msgid "Underline"
+msgstr "Подчеркнутый шрифт"
+
+#: pm-class.php:843
+msgid "Strikethrough"
+msgstr "Зачеркнутый шрифт"
+
+#: pm-class.php:844
+msgid "Code"
+msgstr "Код"
+
+#: pm-class.php:845
+msgid "Quote"
+msgstr "Цитата"
+
+#: pm-class.php:846
+msgid "List"
+msgstr "List"
+
+#: pm-class.php:847
+msgid "List item"
+msgstr "List item"
+
+#: pm-class.php:848
+msgid "Link"
+msgstr "Ссылка"
+
+#: pm-class.php:849
+msgid "Image"
+msgstr "Изображение"
+
+#: pm-class.php:850
+msgid "Email"
+msgstr "e-mail"
+
+#: pm-class.php:851
+msgid "Add Hex Color"
+msgstr "Добавить цвет Hex "
+
+#: pm-class.php:852
+msgid "Embed"
+msgstr "Вставить"
+
+#: pm-main.php:54
+msgid "Cartpauj-PM Widget"
+msgstr "Cartpauj-PM Виджет"
+
+#: js/search.php:23 .\js/search.php:23
+msgid "No Matches Found"
+msgstr "Не найдено"
+
+#~ msgid "Title"
+#~ msgstr "Название"

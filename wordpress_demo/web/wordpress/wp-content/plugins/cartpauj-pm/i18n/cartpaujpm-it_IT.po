@@ -1,0 +1,414 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cartpauj PM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-04 11:28-0700\n"
+"PO-Revision-Date: 2012-12-11 18:29-0700\n"
+"Last-Translator: Cartpauj <cartpauj@prettylinkpro.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\\js\n"
+
+#: pm-class.php:55
+msgid "Messages"
+msgstr "Messaggi:"
+
+#: pm-class.php:57
+msgid "Login to view your messages"
+msgstr "Devi essere Loggato per vedere i tuoi messaggi"
+
+#: pm-class.php:63
+msgid "Hi"
+msgstr "Ciao "
+
+#: pm-class.php:64 pm-class.php:738
+msgid "You have"
+msgstr "Hai "
+
+#: pm-class.php:64 pm-class.php:738
+msgid "new messages"
+msgstr "nuovi messaggi "
+
+#: pm-class.php:65
+msgid "There are"
+msgstr "Ci sono"
+
+#: pm-class.php:65 pm-class.php:739
+msgid "announcement(s)"
+msgstr "Comunicato(i) "
+
+#: pm-class.php:66
+msgid "View Message Box"
+msgstr "Apri il Box dei messaggi "
+
+#: pm-class.php:148
+msgid "Options successfully saved"
+msgstr "Opzioni salvate con successo"
+
+#: pm-class.php:151
+msgid "Cartpauj PM Settings"
+msgstr "Settaggi di Cartpauj PM"
+
+#: pm-class.php:155
+msgid "Setting"
+msgstr "Settaggio"
+
+#: pm-class.php:155
+msgid "Value"
+msgstr "Valore "
+
+#: pm-class.php:157
+msgid "Max messages a user can keep in box? (0 = Unlimited)"
+msgstr "Quanti messaggi un Utente può conservare nel suo Box?. (0 = Infinito)"
+
+#: pm-class.php:157
+msgid "Admins always have Unlimited"
+msgstr "L'Amministratore è illimitato "
+
+#: pm-class.php:157 pm-class.php:158
+msgid "Default"
+msgstr "Default"
+
+#: pm-class.php:158
+msgid "Messages to show per page"
+msgstr "Messaggi da mostrare per pagina "
+
+#: pm-class.php:158
+msgid "Do not set this to 0!"
+msgstr "Non settare questo a 0!. "
+
+#: pm-class.php:159 pm-class.php:220
+msgid "Save Options"
+msgstr "Salva le Opzioni "
+
+#: pm-class.php:162
+msgid "Setup Instructions"
+msgstr "Istruzioni per l'Installazione"
+
+#: pm-class.php:163
+msgid "Create a new page."
+msgstr "Crea una nuova pagina. "
+
+#: pm-class.php:164
+msgid "Paste [cartpauj-pm] under the HTML tab of the page editor"
+msgstr ""
+"Incolla [cartpauj-pm] con il Tab dell'HTML selezionato nell'Editor della "
+"Pagina "
+
+#: pm-class.php:165
+msgid "Publish the page"
+msgstr "Pubblica la Pagina."
+
+#: pm-class.php:207
+msgid "Your settings have been saved!"
+msgstr "I tuoi settaggi sono stati salvati!. "
+
+#: pm-class.php:209
+msgid "Set your preferences below"
+msgstr "Setta le tue preferenze qui sotto "
+
+#: pm-class.php:214
+msgid "Allow others to send me messages?"
+msgstr "Permetto agli altri di inviarmi messaggi?."
+
+#: pm-class.php:219
+msgid "Email me when I get new messages?"
+msgstr "Voglio essere informato se mi arriva un nuovo messaggio?. "
+
+#: pm-class.php:270
+msgid "Create New Message"
+msgstr "Crea un Nuovo Messaggio "
+
+#: pm-class.php:272
+msgid "To"
+msgstr "A (nickname utilizzato dall'Utente al quale intendi scrivere)"
+
+#: pm-class.php:275 pm-class.php:337 pm-class.php:649 pm-class.php:667
+msgid "Subject"
+msgstr "Oggetto "
+
+#: pm-class.php:277 pm-class.php:306 pm-class.php:654
+msgid "Message"
+msgstr "Messaggio "
+
+#: pm-class.php:282 pm-class.php:356
+msgid "Send Message"
+msgstr "Invia Messaggio "
+
+#: pm-class.php:289 pm-class.php:408 pm-class.php:415 pm-class.php:422
+msgid "Message Error"
+msgstr "Errore Messaggio "
+
+#: pm-class.php:290 pm-class.php:314 pm-class.php:409 pm-class.php:416
+#: pm-class.php:423 pm-class.php:443 pm-class.php:594
+msgid "Back To Message Box"
+msgstr "Torna al Box dei Messaggi "
+
+#: pm-class.php:291
+msgid "You cannot send messages because your message box is full!"
+msgstr ""
+"Non puoi più inviare messaggi, poichè il tuo Box dei Messaggi è pieno!. "
+
+#: pm-class.php:305
+msgid "Message Thread"
+msgstr "Motivo del Messaggio "
+
+#: pm-class.php:306
+msgid "Sender"
+msgstr "Mittente "
+
+#: pm-class.php:313
+msgid "Privacy Error"
+msgstr "Errore Privacy "
+
+#: pm-class.php:315
+msgid "You do not have permission to view this message!"
+msgstr "Non hai il permesso di vedere questo messaggio!."
+
+#: pm-class.php:326 pm-class.php:327
+msgid "Re:"
+msgstr "Ref: "
+
+#: pm-class.php:347
+msgid "Add Reply"
+msgstr "Rispondi "
+
+#: pm-class.php:401
+msgid "You must enter a valid recipient!"
+msgstr "Devi digitare un valido destinatario!. "
+
+#: pm-class.php:403
+msgid "You must enter a valid subject!"
+msgstr "Devi digitare un valido oggetto!. "
+
+#: pm-class.php:405
+msgid "You must enter some message content!"
+msgstr "Devi ancora digitare il teso del messaggio "
+
+#: pm-class.php:407
+msgid "You do not have permission to send this message!"
+msgstr "Non hai il permesso per inviare questo messaggio!."
+
+#: pm-class.php:417
+msgid "This user does not want to recieve messages!"
+msgstr "L'utente destinatario non vuole ricevere messaggi!. "
+
+#: pm-class.php:424
+msgid "The Recipients Message Box Is Full!"
+msgstr "Il Box dei Messaggi dei Destinatari è pieno!."
+
+#: pm-class.php:442
+msgid "Message Sent"
+msgstr "Messaggio Inviato "
+
+#: pm-class.php:444
+msgid "Your message was succesfully sent!"
+msgstr "Il tuo messaggio è stato inviato!. "
+
+#: pm-class.php:477 cron/pm-cron.php:38
+msgid "You have recieved a new message from"
+msgstr "Hai ricevuto un nuovo messaggio da"
+
+#: pm-class.php:477 cron/pm-cron.php:38
+msgid "follow this link to view it"
+msgstr ""
+"segui (clicca) questo link per vederlo (ma ricordati che devi essere Loggato "
+"per vederlo) "
+
+#: pm-class.php:480 pm-class.php:753 cron/pm-cron.php:41
+msgid "New Message"
+msgstr "Nuovo Messaggio "
+
+#: pm-class.php:504
+msgid "Your Messages"
+msgstr "I tuoi Messaggi "
+
+#: pm-class.php:508
+msgid "Page"
+msgstr "Pagina "
+
+#: pm-class.php:518
+msgid "Started By"
+msgstr "Iniziato da: "
+
+#: pm-class.php:519
+msgid "To: Subject"
+msgstr "A: _ _ _   Oggetto:_ _ _"
+
+#: pm-class.php:520
+msgid "Last Reply By"
+msgstr "Ultima Risposta di:"
+
+#: pm-class.php:521 pm-class.php:535 pm-class.php:652
+msgid "Delete"
+msgstr "Elimina "
+
+#: pm-class.php:526
+msgid "Unread"
+msgstr "Non Letto "
+
+#: pm-class.php:528
+msgid "Read"
+msgstr "Letto "
+
+#: pm-class.php:544
+msgid "No Messages"
+msgstr "Nessun Messaggio "
+
+#: pm-class.php:545
+msgid "Refresh Message Box"
+msgstr "Aggiorna il Box dei Messaggi "
+
+#: pm-class.php:546
+msgid "Your message box is empty!"
+msgstr "Il Box dei Messaggi è vuoto!. "
+
+#: pm-class.php:593
+msgid "Message Deleted"
+msgstr "Messaggio Eliminato "
+
+#: pm-class.php:595
+msgid "Your message was successfully deleted!"
+msgstr "Il Messaggio è stato eliminato con successo!. "
+
+#: pm-class.php:615
+msgid "Announcement Added"
+msgstr "Comunicato Aggiunto "
+
+#: pm-class.php:616 pm-class.php:624
+msgid "Back To Announcements"
+msgstr "Torna ai Comunicati"
+
+#: pm-class.php:617
+msgid "The announcement was successfully added!"
+msgstr "Il Comunicato è stato aggiunto con successo!. "
+
+#: pm-class.php:623
+msgid "Announcement Deleted"
+msgstr "Comunicato Eliminato "
+
+#: pm-class.php:625
+msgid "The announcement was successfully deleted!"
+msgstr "il Comunicato è stato Eliminato con successo!. "
+
+#: pm-class.php:631 pm-class.php:640 pm-class.php:752
+msgid "Announcements"
+msgstr "Comunicati "
+
+#: pm-class.php:636
+msgid "There are no announcements!"
+msgstr "Non ci sono Comunicati"
+
+#: pm-class.php:650
+msgid "Date"
+msgstr "Data "
+
+#: pm-class.php:665
+msgid "Add a new announcement below"
+msgstr "Aggiungi un nuovo Comunicato qui sotto "
+
+#: pm-class.php:672
+msgid "Submit"
+msgstr "Invia "
+
+#: pm-class.php:731 pm-class.php:740
+msgid "Unlimited"
+msgstr "Illimitato "
+
+#: pm-class.php:737
+msgid "Welcome"
+msgstr "Benvenuto a"
+
+#: pm-class.php:739
+msgid "and"
+msgstr "e"
+
+#: pm-class.php:741
+msgid "Message box size"
+msgstr "Numero dei messaggi nel Box"
+
+#: pm-class.php:741
+msgid "of"
+msgstr "di"
+
+#: pm-class.php:743
+msgid "Your Message Box Is Full!"
+msgstr "Il tuo Box dei Messaggi è Pieno!. "
+
+#: pm-class.php:751
+msgid "Message Box"
+msgstr "Box dei Messaggi "
+
+#: pm-class.php:754
+msgid "Settings"
+msgstr "Settaggi "
+
+#: pm-class.php:824
+msgid "You must be logged-in to view this page."
+msgstr "Devi essere Loggato per vedere questa pagina. "
+
+#: pm-class.php:840
+msgid "Bold"
+msgstr "Grassetto "
+
+#: pm-class.php:841
+msgid "Italic"
+msgstr "Corsivo "
+
+#: pm-class.php:842
+msgid "Underline"
+msgstr "Sottolineato "
+
+#: pm-class.php:843
+msgid "Strikethrough"
+msgstr "Barrato "
+
+#: pm-class.php:844
+msgid "Code"
+msgstr "Codice "
+
+#: pm-class.php:845
+msgid "Quote"
+msgstr "Quota "
+
+#: pm-class.php:846
+msgid "List"
+msgstr "Lista "
+
+#: pm-class.php:847
+msgid "List item"
+msgstr "Lista elementi "
+
+#: pm-class.php:848
+msgid "Link"
+msgstr "Link "
+
+#: pm-class.php:849
+msgid "Image"
+msgstr "Immagine"
+
+#: pm-class.php:850
+msgid "Email"
+msgstr "E-mail "
+
+#: pm-class.php:851
+msgid "Add Hex Color"
+msgstr "Aggiungi Colore Hex "
+
+#: pm-class.php:852
+msgid "Embed"
+msgstr "Incorporare "
+
+#: pm-main.php:54
+msgid "Cartpauj-PM Widget"
+msgstr "Widget di Cartpauj-PM "
+
+#: js/search.php:23 .\js/search.php:23
+msgid "No Matches Found"
+msgstr "Nessun Elemento Trovato "

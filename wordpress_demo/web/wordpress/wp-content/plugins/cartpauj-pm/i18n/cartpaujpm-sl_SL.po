@@ -1,0 +1,406 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cartpauj-PM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-04 11:28-0700\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Cartpauj <cartpauj@prettylinkpro.com>\n"
+"Language-Team: Tadej Trstenjak <tadej.trstenjak@gmail.com>\n"
+"Language: sl_SI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: pm-class.php:55
+msgid "Messages"
+msgstr "Sporočila"
+
+#: pm-class.php:57
+msgid "Login to view your messages"
+msgstr "Za ogled sporočil se prijavi"
+
+#: pm-class.php:63
+msgid "Hi"
+msgstr "Pozdravljen"
+
+#: pm-class.php:64 pm-class.php:738
+msgid "You have"
+msgstr "Imaš"
+
+#: pm-class.php:64 pm-class.php:738
+msgid "new messages"
+msgstr "novih sporočil"
+
+#: pm-class.php:65
+msgid "There are"
+msgstr "Obstaja"
+
+#: pm-class.php:65 pm-class.php:739
+msgid "announcement(s)"
+msgstr "najav"
+
+#: pm-class.php:66
+msgid "View Message Box"
+msgstr "Pojdi v Prejeto"
+
+#: pm-class.php:148
+msgid "Options successfully saved"
+msgstr "Možnosti so bile uspešno shranjene."
+
+#: pm-class.php:151
+msgid "Cartpauj PM Settings"
+msgstr "Nastavitve Cartpauj PM"
+
+#: pm-class.php:155
+msgid "Setting"
+msgstr "Nastavitve"
+
+#: pm-class.php:155
+msgid "Value"
+msgstr "Vrednost"
+
+#: pm-class.php:157
+msgid "Max messages a user can keep in box? (0 = Unlimited)"
+msgstr "Največje število sporočil, ki jih lahko ima uporabnik (0 = neomejeno)"
+
+#: pm-class.php:157
+msgid "Admins always have Unlimited"
+msgstr "Administratorji imajo vedno neomejeno število sporočil"
+
+#: pm-class.php:157 pm-class.php:158
+msgid "Default"
+msgstr "Privzeto"
+
+#: pm-class.php:158
+msgid "Messages to show per page"
+msgstr "Število sporočil na stran"
+
+#: pm-class.php:158
+msgid "Do not set this to 0!"
+msgstr "Ne nastavi tega na 0!"
+
+#: pm-class.php:159 pm-class.php:220
+msgid "Save Options"
+msgstr "Shrani možnosti"
+
+#: pm-class.php:162
+msgid "Setup Instructions"
+msgstr "Navodila za nastavitev"
+
+#: pm-class.php:163
+msgid "Create a new page."
+msgstr "> Ustvari novo stran."
+
+#: pm-class.php:164
+msgid "Paste [cartpauj-pm] under the HTML tab of the page editor"
+msgstr "> Prilepi [cartpauj-pm] pod HTML zavihek v urejevalniku strani."
+
+#: pm-class.php:165
+msgid "Publish the page"
+msgstr "> Objavi stran."
+
+#: pm-class.php:207
+msgid "Your settings have been saved!"
+msgstr "Nastavitve so bile shranjene!"
+
+#: pm-class.php:209
+msgid "Set your preferences below"
+msgstr "Uredite nastavitve sporočil"
+
+#: pm-class.php:214
+msgid "Allow others to send me messages?"
+msgstr "Dovolim ostalim, da mi pošiljajo sporočila."
+
+#: pm-class.php:219
+msgid "Email me when I get new messages?"
+msgstr "Pošlji mi email, ko prejmem novo sporočilo."
+
+#: pm-class.php:270
+msgid "Create New Message"
+msgstr "Ustvari novo sporočilo"
+
+#: pm-class.php:272
+msgid "To"
+msgstr "Prejemnik"
+
+#: pm-class.php:275 pm-class.php:337 pm-class.php:649 pm-class.php:667
+msgid "Subject"
+msgstr "Zadeva"
+
+#: pm-class.php:277 pm-class.php:306 pm-class.php:654
+msgid "Message"
+msgstr "Sporočilo"
+
+#: pm-class.php:282 pm-class.php:356
+msgid "Send Message"
+msgstr "Pošlji sporočilo"
+
+#: pm-class.php:289 pm-class.php:408 pm-class.php:415 pm-class.php:422
+msgid "Message Error"
+msgstr "Napaka Sporočila"
+
+#: pm-class.php:290 pm-class.php:314 pm-class.php:409 pm-class.php:416
+#: pm-class.php:423 pm-class.php:443 pm-class.php:594
+msgid "Back To Message Box"
+msgstr "Nazaj v Prejeto"
+
+#: pm-class.php:291
+msgid "You cannot send messages because your message box is full!"
+msgstr "Sporočil ne morete prejeti, ker je vaš nabiralnik poln!"
+
+#: pm-class.php:305
+msgid "Message Thread"
+msgstr "Vsebina sporočila"
+
+#: pm-class.php:306
+msgid "Sender"
+msgstr "Pošiljatelj"
+
+#: pm-class.php:313
+msgid "Privacy Error"
+msgstr "Napaka zasebnosti"
+
+#: pm-class.php:315
+msgid "You do not have permission to view this message!"
+msgstr "Za ogled tega sporočila nimate dovoljenj!"
+
+#: pm-class.php:326 pm-class.php:327
+msgid "Re:"
+msgstr "Odg:"
+
+#: pm-class.php:347
+msgid "Add Reply"
+msgstr "Dodaj odgovor"
+
+#: pm-class.php:401
+msgid "You must enter a valid recipient!"
+msgstr "Vpišite veljavnega Prejemnika!"
+
+#: pm-class.php:403
+msgid "You must enter a valid subject!"
+msgstr "Vpište veljavno Zadevo!"
+
+#: pm-class.php:405
+msgid "You must enter some message content!"
+msgstr "Vpište besedilo v Polje besedila!"
+
+#: pm-class.php:407
+msgid "You do not have permission to send this message!"
+msgstr "Za pošiljanje tega sporočila nimate dovoljenj!"
+
+#: pm-class.php:417
+msgid "This user does not want to recieve messages!"
+msgstr "Ta uporabnik ne želi prejemati sporočil!"
+
+#: pm-class.php:424
+msgid "The Recipients Message Box Is Full!"
+msgstr "Prjemnikov nabiralnik je poln!"
+
+#: pm-class.php:442
+msgid "Message Sent"
+msgstr "Sporočilo poslano"
+
+#: pm-class.php:444
+msgid "Your message was succesfully sent!"
+msgstr "Vaše sporočilo je bilo uspešno poslano!"
+
+#: pm-class.php:477 cron/pm-cron.php:38
+msgid "You have recieved a new message from"
+msgstr "Prejeli ste novo sporočilo od"
+
+#: pm-class.php:477 cron/pm-cron.php:38
+msgid "follow this link to view it"
+msgstr "sledite tej povezavi, da si ga ogledate."
+
+#: pm-class.php:480 pm-class.php:753 cron/pm-cron.php:41
+msgid "New Message"
+msgstr "Novo sporočilo"
+
+#: pm-class.php:504
+msgid "Your Messages"
+msgstr "Vaša sporočila"
+
+#: pm-class.php:508
+msgid "Page"
+msgstr "Stran"
+
+#: pm-class.php:518
+msgid "Started By"
+msgstr "Začel"
+
+#: pm-class.php:519
+msgid "To: Subject"
+msgstr "Prejemnik: Zadeva"
+
+#: pm-class.php:520
+msgid "Last Reply By"
+msgstr "Zadnji odgovor"
+
+#: pm-class.php:521 pm-class.php:535 pm-class.php:652
+msgid "Delete"
+msgstr "Izbriši"
+
+#: pm-class.php:526
+msgid "Unread"
+msgstr "Neprebrano"
+
+#: pm-class.php:528
+msgid "Read"
+msgstr "Prebrano"
+
+#: pm-class.php:544
+msgid "No Messages"
+msgstr "Ni sporočil"
+
+#: pm-class.php:545
+msgid "Refresh Message Box"
+msgstr "Osveži prejeta sporočila"
+
+#: pm-class.php:546
+msgid "Your message box is empty!"
+msgstr "Vaš nabiralnik je prazen!"
+
+#: pm-class.php:593
+msgid "Message Deleted"
+msgstr "Sporočilo izbrisano"
+
+#: pm-class.php:595
+msgid "Your message was successfully deleted!"
+msgstr "Vaše sporočilo je bilo uspešno izbrisano!"
+
+#: pm-class.php:615
+msgid "Announcement Added"
+msgstr "Dodane nove Najave"
+
+#: pm-class.php:616 pm-class.php:624
+msgid "Back To Announcements"
+msgstr "Nazaj na Najave"
+
+#: pm-class.php:617
+msgid "The announcement was successfully added!"
+msgstr "Najava je bila uspešno dodana"
+
+#: pm-class.php:623
+msgid "Announcement Deleted"
+msgstr "Najava izbrisana"
+
+#: pm-class.php:625
+msgid "The announcement was successfully deleted!"
+msgstr "Najava je bila uspešno izbrisana!"
+
+#: pm-class.php:631 pm-class.php:640 pm-class.php:752
+msgid "Announcements"
+msgstr "Najave"
+
+#: pm-class.php:636
+msgid "There are no announcements!"
+msgstr "Ni novih najav!"
+
+#: pm-class.php:650
+msgid "Date"
+msgstr "Datum"
+
+#: pm-class.php:665
+msgid "Add a new announcement below"
+msgstr "Dodaj novo najavo"
+
+#: pm-class.php:672
+msgid "Submit"
+msgstr "Pošlji"
+
+#: pm-class.php:731 pm-class.php:740
+msgid "Unlimited"
+msgstr "Neomejeno"
+
+#: pm-class.php:737
+msgid "Welcome"
+msgstr "Pozdravljen"
+
+#: pm-class.php:739
+msgid "and"
+msgstr "in"
+
+#: pm-class.php:741
+msgid "Message box size"
+msgstr "Zasedenost mape s sporočili"
+
+#: pm-class.php:741
+msgid "of"
+msgstr "od"
+
+#: pm-class.php:743
+msgid "Your Message Box Is Full!"
+msgstr "Mapa Prejeto je polna!"
+
+#: pm-class.php:751
+msgid "Message Box"
+msgstr "Prejeto"
+
+#: pm-class.php:754
+msgid "Settings"
+msgstr "Nastavitve"
+
+#: pm-class.php:824
+msgid "You must be logged-in to view this page."
+msgstr "Za ogled te strani se prijavite."
+
+#: pm-class.php:840
+msgid "Bold"
+msgstr "Krepko"
+
+#: pm-class.php:841
+msgid "Italic"
+msgstr "Ležeče"
+
+#: pm-class.php:842
+msgid "Underline"
+msgstr "Podčrtano"
+
+#: pm-class.php:843
+msgid "Strikethrough"
+msgstr "Prečrtano"
+
+#: pm-class.php:844
+msgid "Code"
+msgstr "Koda"
+
+#: pm-class.php:845
+msgid "Quote"
+msgstr "Citat"
+
+#: pm-class.php:846
+msgid "List"
+msgstr "Seznam"
+
+#: pm-class.php:847
+msgid "List item"
+msgstr "Polje seznama"
+
+#: pm-class.php:848
+msgid "Link"
+msgstr "Povezava"
+
+#: pm-class.php:849
+msgid "Image"
+msgstr "Slika"
+
+#: pm-class.php:850
+msgid "Email"
+msgstr "Email"
+
+#: pm-class.php:851
+msgid "Add Hex Color"
+msgstr "Dodaj Hex kodo za barvo"
+
+#: pm-class.php:852
+msgid "Embed"
+msgstr "Vdelaj"
+
+#: pm-main.php:54
+msgid "Cartpauj-PM Widget"
+msgstr "Cartpauj-PM Widget"
+
+#: js/search.php:23 .\js/search.php:23
+msgid "No Matches Found"
+msgstr "Ni ujemanj"
