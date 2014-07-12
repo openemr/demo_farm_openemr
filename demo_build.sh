@@ -20,6 +20,7 @@ GITMAIN=/home/openemr/git
 GIT=$GITMAIN/openemr
 GITDEMOFARM=$GITMAIN/demo_farm_openemr
 GITDEMOFARMMAP=$GITDEMOFARM/ip_map_branch.txt
+OPENEMRAPACHECONF=$GITDEMOFARM/openemr.conf
 GITTRANS=$GITMAIN/translations_development_openemr
 TRANSSERVEDIR=$WEB/translations
 FILESSERVEDIR=$WEB/files
@@ -36,7 +37,7 @@ INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
 
 # Turn off apache to avoid users messing up while setting up
 #  (start it again below after install/configure openemr
-/etc/init.d/apache2 stop
+/etc/init.d/apache2 stop >> $LOG
 
 # Placemarker for installing new needed modules and other config issues
 # that arise in the future
@@ -196,7 +197,12 @@ rsync --recursive --exclude .git $GIT/* $OPENEMR/
 
 #restart apache
 #need to do this in case same appliance is serving the development translation set
-/etc/init.d/apache2 start
+#first secure things to stop hackers from placing .htaccess files and secure patient directories
+echo "Setting OpenEMR configuration script"
+echo "Setting OpenEMR configuration script" >> $LOG
+cp $OPENEMRAPACHECONF /etc/apache2/sites-available/
+a2ensite openemr.conf >> $LOG
+/etc/init.d/apache2 start >> $LOG
 
 #INSTALL AND CONFIGURE OPENEMR
 echo "Configuring OpenEMR"
