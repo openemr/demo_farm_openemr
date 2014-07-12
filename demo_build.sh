@@ -363,6 +363,9 @@ if $wordpressDemo; then
  mysql -u root --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
  mysql -u root wordpress < "$GITDEMOWORDPRESSDEMOSQL"
 
+ # Install Postfix to allow email registration on wordpress patient portal demo
+ sudo apt-get -y install postfix
+
  echo "Done setting up wordpress patient portal"
  echo "Done setting up wordpress patient portal" >> $LOG
 fi
