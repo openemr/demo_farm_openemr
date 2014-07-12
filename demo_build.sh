@@ -372,7 +372,7 @@ if $wordpressDemo; then
 
  # Install Postfix to allow email registration on wordpress patient portal demo
  apt-get update >> $LOG
- debconf-set-selections <<< "postfix postfix/mailname string 'demo.open-emr.org'"
+ debconf-set-selections <<< "postfix postfix/mailname string opensourceemr.com"
  debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
  apt-get -y install postfix >> $LOG
 
