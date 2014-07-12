@@ -3,7 +3,7 @@
 Plugin Name: Sunset Patient Portal
 Plugin URI: http://www.sunsetsystems.com/
 Description: Patient interface to a medical clinic EHR system.
-Version: 1.0
+Version: 1.1
 Author: Rod Roark
 Author URI: http://www.sunsetsystems.com/
 License: Not yet specified

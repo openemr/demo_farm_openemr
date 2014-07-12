@@ -32,8 +32,9 @@ $user = wp_authenticate($_REQUEST['login'], $_REQUEST['password']);
 if (is_wp_error($user)) {
   $out['errmsg'] = "Portal authentication failed.";
 }
-else if (!$user->has_cap('create_users')) {
-  // This capability is arbitrary. Might want a new one for portal access.
+// Portal administrator must have one of these capabilities.
+// Note manage_portal is a custom capability added via User Role Editor.
+else if (!$user->has_cap('create_users') && !$user->has_cap('manage_portal')) {
   $out['errmsg'] = "This login does not have permission to administer the portal.";
 }
 else {
@@ -288,7 +289,11 @@ function action_delpost($postid) {
 // Logic to process the "adduser" action to create a user as a patient.
 //
 function action_adduser($login, $pass, $email) {
-  global $wpdb, $out;
+  global $wpdb, $out, $user;
+  // if (!$user->has_cap('create_users')) {
+  //   $out['errmsg'] = "Portal administrator does not have permission to create users.";
+  //   return;
+  // }
   if (empty($login)) $login = $email;
   $userid = wp_insert_user(array(
     'user_login' => $login,
