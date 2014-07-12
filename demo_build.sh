@@ -286,7 +286,7 @@ if $demoSSH; then
   unzip "$ds.zip"
   cd "$ds"
   #install openvpn
-  apt-get update
+  apt-get update >> $LOG
   apt-get -y install openvpn >> $LOG
   #initiate up ssh tunnel
   bash connect.sh >> $LOG
@@ -365,7 +365,7 @@ if $wordpressDemo; then
  mysql -u root wordpress < "$GITDEMOWORDPRESSDEMOSQL"
 
  # Install Postfix to allow email registration on wordpress patient portal demo
- apt-get update
+ apt-get update >> $LOG
  debconf-set-selections <<< "postfix postfix/mailname string 'demo.open-emr.org'"
  debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
  apt-get -y install postfix >> $LOG
