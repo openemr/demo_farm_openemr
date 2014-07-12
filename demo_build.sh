@@ -37,7 +37,7 @@ INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
 
 # Turn off apache to avoid users messing up while setting up
 #  (start it again below after install/configure openemr
-/etc/init.d/apache2 stop >> $LOG
+/etc/init.d/apache2 stop
 
 # Placemarker for installing new needed modules and other config issues
 # that arise in the future
@@ -295,7 +295,7 @@ if $demoSSH; then
   apt-get update >> $LOG
   apt-get -y install openvpn >> $LOG
   #initiate up ssh tunnel
-  bash connect.sh >> $LOG
+  bash connect.sh
   cd ~
   echo "Done setting up $ds ssh"
   echo "Done setting up $ds ssh" >> $LOG
