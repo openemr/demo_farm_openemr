@@ -364,7 +364,7 @@ if $wordpressDemo; then
  mysql -u root wordpress < "$GITDEMOWORDPRESSDEMOSQL"
 
  # Install Postfix to allow email registration on wordpress patient portal demo
- sudo apt-get -y install postfix
+ sudo apt-get -y install postfix >> $LOG
 
  echo "Done setting up wordpress patient portal"
  echo "Done setting up wordpress patient portal" >> $LOG
