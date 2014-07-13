@@ -370,9 +370,6 @@ if $portalsDemo; then
  sed -i 's/demo.open-emr.org:2104/'"$EXTERNALLINK"'/g' "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
  sed -i 's/demo.open-emr.org:2104/'"$EXTERNALLINK"'/g' "$GITDEMOWORDPRESSDEMOSQL"
 
- #debug
- cat "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql" >> $LOG
-
  # Install the openemr sql stuff for portals
  mysql -u root openemr < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"  
 
