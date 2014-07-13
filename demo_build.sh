@@ -367,8 +367,8 @@ if $portalsDemo; then
  echo "Setting up patient portals" >> $LOG
 
  # Prepare the sql files with the external link
- sed -i 's/http:\/\/demo.open-emr.org:2104/'"$EXTERNALLINK"'/g' "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
- sed -i 's/http:\/\/demo.open-emr.org:2104/'"$EXTERNALLINK"'/g' "$GITDEMOWORDPRESSDEMOSQL"
+ sed -i 's/demo.open-emr.org:2104/'"$EXTERNALLINK"'/g' "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
+ sed -i 's/demo.open-emr.org:2104/'"$EXTERNALLINK"'/g' "$GITDEMOWORDPRESSDEMOSQL"
 
  #debug
  cat "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql" >> $LOG
