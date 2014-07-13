@@ -155,15 +155,15 @@ if [ "$ds" == "0"  ]; then
 else
  demoSSH=true;
 fi
-# set if setting up wordpress patient portal
+# set if setting up onsite and wordpress patient portals
 if [ "$wp" == "0"  ]; then
- wordpressDemo=false;
+ portalsDemo=false;
 else
- wordpressDemo=true;
+ portalsDemo=true;
 fi
 
 # COLLECT and output demo description
-desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 10`
+desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 12`
 echo -n "Demo description: "
 echo "$desc"
 echo -n "Demo description: " >> $LOG
@@ -361,10 +361,20 @@ if $packageServe ; then
  echo "Done creating OpenEMR Development packages" >> $LOG
 fi
 
-if $wordpressDemo; then
+if $portalsDemo; then
  # This will install and set up the wordpress patient portal
- echo "Setting up wordpress patient portal"
- echo "Setting up wordpress patient portal" >> $LOG
+ echo "Setting up patient portals"
+ echo "Setting up patient portals" >> $LOG
+
+ # Prepare the sql files with the external link
+ sed -i 's/http:\/\/demo.open-emr.org:2104/$EXTERNALLINK/g' "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
+ sed -i 's/http:\/\/demo.open-emr.org:2104/$EXTERNALLINK/g' "$GITDEMOWORDPRESSDEMOSQL"
+
+ #debug
+ cat "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql" >> $LOG
+
+ # Install the openemr sql stuff for portals
+ mysql -u root openemr < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"  
 
  # Install wordpress file stuff
  mkdir -p $WORDPRESS
@@ -381,8 +391,8 @@ if $wordpressDemo; then
  debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
  apt-get -y install postfix >> $LOG
 
- echo "Done setting up wordpress patient portal"
- echo "Done setting up wordpress patient portal" >> $LOG
+ echo "Done setting up patient portals"
+ echo "Done setting up patient portals" >> $LOG
 fi
 
 echo "Demo install script is complete"
