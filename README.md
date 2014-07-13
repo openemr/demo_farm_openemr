@@ -48,6 +48,7 @@ This file is a tab delimited file for configuration of demos in the demo farm wi
 - demo_data: set to 0 if no sql demo data file. If have a sql demo data file, then place the name of it here and place the file in the 'pieces' directory.
 - demo_ssh: set to the ssh package if using the offsite portal. Set to 0 if not connecting to offsite portal.
 - wordpress_demo: set to 0 to not use. set to 1 to use the wordpress patient portal demo.
+- external_link: place the external web address to the demo here
 - description: place description of the demo here
 
 How to grow your own OpenEMR demo farm

@@ -112,6 +112,11 @@ echo -n "wp option is "
 echo "$wp"
 echo -n "wp option is " >> $LOG
 echo "$wp" >> $LOG
+EXTERNALLINK=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 11`
+echo -n "external link is "
+echo "$EXTERNALLINK"
+echo -n "external link is " >> $LOG
+echo "$EXTERNALLINK" >> $LOG
 
 # SET OPTIONS
 # set if serve development translation set
