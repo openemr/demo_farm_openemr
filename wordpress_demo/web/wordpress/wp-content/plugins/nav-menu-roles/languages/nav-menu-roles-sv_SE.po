@@ -1,14 +1,14 @@
 # Copyright (C) 2014 Nav Menu Roles
 # This file is distributed under the same license as the Nav Menu Roles package.
 # Translators:
-# sennbrink <konsult@sennbrink.se>, 2014
+# Björn Sennbrink <konsult@sennbrink.se>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Nav Menu Roles\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/nav-menu-roles\n"
-"POT-Creation-Date: 2014-04-09 20:54:37+00:00\n"
-"PO-Revision-Date: 2014-04-12 15:36+0000\n"
-"Last-Translator: sennbrink <konsult@sennbrink.se>\n"
+"POT-Creation-Date: 2014-06-26 15:17:58+00:00\n"
+"PO-Revision-Date: 2014-08-04 07:46+0000\n"
+"Last-Translator: Björn Sennbrink <konsult@sennbrink.se>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/projects/p/nav-menu-roles/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,51 +130,31 @@ msgid ""
 "it."
 msgstr "Beskrivningen visas i menyn om nuvarande tema har stöd för det."
 
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:209
-msgid "Display Mode"
-msgstr "Synlighet"
-
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:217
-msgid "Logged Out Users"
-msgstr "Ej inloggade användare"
-
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:224
-msgid "Logged In Users"
-msgstr "Inloggade användare"
-
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:231
-msgid "By Role"
-msgstr "via Roll"
-
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:238
-msgid "Access Role"
-msgstr "Behörighetsroll"
-
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:270
+#: inc/class.Walker_Nav_Menu_Edit_Roles.php:196
 msgid "Move"
 msgstr "Flytta"
 
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:271
+#: inc/class.Walker_Nav_Menu_Edit_Roles.php:197
 msgid "Up one"
 msgstr "Upp en"
 
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:272
+#: inc/class.Walker_Nav_Menu_Edit_Roles.php:198
 msgid "Down one"
 msgstr "Ner en"
 
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:275
+#: inc/class.Walker_Nav_Menu_Edit_Roles.php:201
 msgid "To the top"
 msgstr "Till toppen"
 
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:282
+#: inc/class.Walker_Nav_Menu_Edit_Roles.php:208
 msgid "Original: %s"
 msgstr "Original: %s"
 
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:295
+#: inc/class.Walker_Nav_Menu_Edit_Roles.php:221
 msgid "Remove"
 msgstr "Ta bort"
 
-#: inc/class.Walker_Nav_Menu_Edit_Roles.php:296
+#: inc/class.Walker_Nav_Menu_Edit_Roles.php:222
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -186,17 +166,38 @@ msgstr "Fuskar du&#8217; ?"
 msgid "Nav Menu Roles"
 msgstr "Nav Menu Roles"
 
-#: nav-menu-roles.php:158
+#: nav-menu-roles.php:163
 msgid ""
 "Import %snav menu roles%s and other menu item meta skipped by the default "
 "importer"
 msgstr "Importera %nav menu-roller%s och annan menyvalsmeta som hoppades över av standardimporten"
 
-#: nav-menu-roles.php:209
+#: nav-menu-roles.php:219
 msgid ""
-"Nav Menu Roles has detected a conflict with the following functions or "
-"classes: %1$s. Please see the %2$sFAQ%3$s for more information."
-msgstr "Nav Meny Roles har upptäckgt en konflikt med följande funktioner eller klasser: %1$s. Vänligen se %2$sFAQ%3$s för mer information."
+"Nav Menu Roles has detected a possible conflict with the following functions"
+" or classes: %1$s. Please see the %2$sFAQ%3$s for more information and "
+"possible resolution. | %4$sHide Notice%3$s"
+msgstr "Nav Menu Roles har upptäckt en möjlig konflikt med följande funktioner eller klasser: %s1$s. Var god se %2$sFAQ%3$s för mer information och en möjlig lösning.  | %4$sDölj notis%3$s"
+
+#: nav-menu-roles.php:289
+msgid "Display Mode"
+msgstr "Synlighet"
+
+#: nav-menu-roles.php:297
+msgid "Logged Out Users"
+msgstr "Ej inloggade användare"
+
+#: nav-menu-roles.php:304
+msgid "Logged In Users"
+msgstr "Inloggade användare"
+
+#: nav-menu-roles.php:311
+msgid "By Role"
+msgstr "via Roll"
+
+#: nav-menu-roles.php:318
+msgid "Access Role"
+msgstr "Behörighetsroll"
 
 #. Plugin URI of the plugin/theme
 msgid "http://www.kathyisawesome.com/449/nav-menu-roles/"

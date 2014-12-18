@@ -3,7 +3,7 @@
 Plugin Name: Cartpauj PM
 Plugin URI: https://wordpress.org/plugins/cartpauj-pm/
 Description: Cartpauj PM allows you to add a simple Private Messaging system to your WordPress site. The messaging is done entirely through the front-end of your site rather than the Dashboard. This is very helpful if you want to keep your users out of the Dashboard area. Enjoy! :)
-Version: 1.0.11
+Version: 1.0.12
 Author: Cartpauj, Sunset Systems
 Author URI: http://www.sunsetsystems.com/
 Text Domain: cartpaujpm
@@ -49,6 +49,8 @@ if (isset($cartpaujPMS))
 	add_action('init', array(&$cartpaujPMS, "jsInit"));
 	add_action('wp_head', array(&$cartpaujPMS, "addToWPHead"));
 	add_action('admin_menu', array(&$cartpaujPMS, "addAdminPage"));
+  // Required because register_activation_hook() is not called on plugin upgrade:
+	add_action('plugins_loaded', array(&$cartpaujPMS, "pmActivate"));
 
 	//ADD WIDGET
 	register_sidebar_widget(__("Cartpauj-PM Widget", "cartpaujpm"), array(&$cartpaujPMS, "widget"));

@@ -19,14 +19,22 @@
     <div id="ure_tabs" style="clear: left;">
         <ul>
             <li><a href="#ure_tabs-1"><?php esc_html_e('General', 'ure');?></a></li>
-            <li><a href="#ure_tabs-2"><?php esc_html_e('Additional Modules', 'ure');?></a></li>
-            <li><a href="#ure_tabs-3"><?php esc_html_e('Default Roles', 'ure');?></a></li>
 <?php
-    if ($this->lib->multisite) {
+if (!$license_key_only) {
+    if ($this->lib->is_pro() || !$this->lib->multisite) {
 ?>
-            <li><a href="#ure_tabs-4"><?php esc_html_e('Multisite', 'ure');?></a></li>
-<?php            
+            <li><a href="#ure_tabs-2"><?php esc_html_e('Additional Modules', 'ure'); ?></a></li>
+<?php
     }
+?>
+            <li><a href="#ure_tabs-3"><?php esc_html_e('Default Roles', 'ure'); ?></a></li>
+<?php
+    if ( $this->lib->multisite && ($this->lib->is_pro() || is_super_admin()) ) {
+?>
+            <li><a href="#ure_tabs-4"><?php esc_html_e('Multisite', 'ure'); ?></a></li>
+<?php
+    }
+}
 ?>
             <li><a href="#ure_tabs-5"><?php esc_html_e('About', 'ure');?></a></li>
         </ul>
@@ -34,6 +42,9 @@
     <div id="ure-settings-form">
         <form method="post" action="<?php echo $link; ?>?page=settings-<?php echo URE_PLUGIN_FILE; ?>" >   
             <table id="ure_settings">
+<?php
+if (!$license_key_only) {
+?>
                 <tr>
                     <td>
                         <input type="checkbox" name="show_admin_role" id="show_admin_role" value="1" 
@@ -58,8 +69,9 @@
                         <label for="show_deprecated_caps"><?php esc_html_e('Show deprecated capabilities', 'ure'); ?></label></td>
                     <td>                        
                     </td>
-                </tr>   
+                </tr>                   
 <?php
+}
     do_action('ure_settings_show1');
 ?>
             </table>
@@ -72,6 +84,10 @@
         </form>  
     </div>   
     </div> <!-- ure_tabs-1 -->
+<?php
+if (!$license_key_only) {
+    if ($this->lib->is_pro() || !$this->lib->multisite) {
+?>
     
     <div id="ure_tabs-2">
         <form name="ure_additional_modules" method="post" action="<?php echo $link; ?>?page=settings-<?php echo URE_PLUGIN_FILE; ?>" >
@@ -102,7 +118,9 @@ if (!$this->lib->multisite) {
                 
         </form>    
     </div>    
-    
+<?php
+    }
+?>
     
     <div id="ure_tabs-3">
         <form name="ure_default_roles" method="post" action="<?php echo $link; ?>?page=settings-<?php echo URE_PLUGIN_FILE; ?>" >
@@ -134,12 +152,15 @@ if (!$this->lib->multisite) {
     </div> <!-- ure_tabs-3 -->   
     
 <?php
-    if ($this->lib->multisite) {
+    if ( $this->lib->multisite && ($this->lib->is_pro() || is_super_admin())) {
 ?>
     <div id="ure_tabs-4">
         <div id="ure-settings-form-ms">
             <form name="ure_settings_ms" method="post" action="<?php echo $link; ?>?page=settings-<?php echo URE_PLUGIN_FILE; ?>" >
                 <table id="ure_settings_ms">
+<?php
+    if (is_super_admin()) {
+?>
                     <tr>
                          <td>
                              <input type="checkbox" name="allow_edit_users_to_not_super_admin" id="allow_edit_users_to_not_super_admin" value="1" 
@@ -148,9 +169,9 @@ if (!$this->lib->multisite) {
                          </td>
                          <td>
                          </td>
-                    </tr>      
-                    
+                    </tr>                          
 <?php
+    }
                     do_action('ure_settings_ms_show');                    
 ?>                    
                 </table>
@@ -164,6 +185,7 @@ if (!$this->lib->multisite) {
     </div>  <!-- ure_tabs-4 -->
 <?php
     }
+}   // if (!$license_key_only) {
 ?>
         <div id="ure_tabs-5">
             <?php $this->lib->about(); ?>

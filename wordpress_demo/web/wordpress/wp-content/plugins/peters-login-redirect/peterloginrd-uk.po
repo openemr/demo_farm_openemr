@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Peter's Login Redirect\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-06 18:52-0800\n"
+"POT-Creation-Date: 2014-09-06 12:41-0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Iurii <yurqua@gmail.com>\n"
 "Language-Team: theblog.ca\n"
@@ -17,151 +17,156 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: wplogin_redirect.php:568
+#: wplogin_redirect.php:570
 #, fuzzy
 msgid "Register"
 msgstr "Зареєструватись"
 
-#: wplogin_redirect.php:572
+#: wplogin_redirect.php:574
 msgid "Site Admin"
 msgstr "Адміністратор сайта"
 
-#: wplogin_redirect.php:693
+#: wplogin_redirect.php:696
 msgid "ERROR: Non-existent username submitted "
 msgstr "ПОМИЛКА: надано неіснуюче ім’я користувача"
 
-#: wplogin_redirect.php:703
+#: wplogin_redirect.php:706
 msgid "ERROR: Non-existent role submitted "
 msgstr "ПОМИЛКА: зазначено неіснуючу роль користувача"
 
-#: wplogin_redirect.php:714
+#: wplogin_redirect.php:717
 msgid "ERROR: Non-existent level submitted "
 msgstr "ПОМИЛКА: зазначено неіснуючий рівень прав доступу"
 
-#: wplogin_redirect.php:745 wplogin_redirect.php:807
+#: wplogin_redirect.php:734
+#, fuzzy, php-format
+msgid "ERROR: Empty %s submitted "
+msgstr "ПОМИЛКА: зазначено неіснуючу роль користувача"
+
+#: wplogin_redirect.php:763 wplogin_redirect.php:825
 #, fuzzy, php-format
 msgid "ERROR: Non-local or invalid URL submitted for %s %s"
 msgstr ""
 "ПОМИЛКА: під час налаштування перенаправлення за користувачем, введено "
 "хибний або не локальний URL"
 
-#: wplogin_redirect.php:771
+#: wplogin_redirect.php:789
 #, fuzzy, php-format
 msgid "ERROR: Unknown error adding %s-specific redirect for %s %s"
 msgstr ""
 "ПОМИЛКА: невідома помилка встановлення URL перенаправлення за користувачем"
 
-#: wplogin_redirect.php:778
+#: wplogin_redirect.php:796
 #, fuzzy, php-format
 msgid "Successfully added %s-specific redirect rule for %s"
 msgstr "URL перенаправлень за користувачами успішно оновлено"
 
-#: wplogin_redirect.php:836
+#: wplogin_redirect.php:854
 #, fuzzy, php-format
 msgid "ERROR: Unknown error editing %s-specific redirect for %s %s"
 msgstr ""
 "ПОМИЛКА: невідома помилка встановлення URL перенаправлення за користувачем"
 
-#: wplogin_redirect.php:843
+#: wplogin_redirect.php:861
 #, fuzzy, php-format
 msgid "Successfully edited %s-specific redirect rule for %s"
 msgstr "URL перенаправлень за користувачами успішно оновлено"
 
-#: wplogin_redirect.php:871
+#: wplogin_redirect.php:889
 #, fuzzy, php-format
 msgid "ERROR: Unknown error deleting %s-specific redirect for %s %s"
 msgstr ""
 "ПОМИЛКА: невідома помилка встановлення URL перенаправлення за користувачем"
 
-#: wplogin_redirect.php:877
+#: wplogin_redirect.php:895
 #, fuzzy, php-format
 msgid "Successfully deleted %s-specific redirect rule for %s"
 msgstr "URL перенаправлень за користувачами успішно оновлено"
 
-#: wplogin_redirect.php:912
+#: wplogin_redirect.php:930
 msgid ""
 "ERROR: Unknown database problem removing URL for &#34;all other users&#34; "
 msgstr ""
 "ПОМИЛКА: невідома помилка бази даних під час видалення URL перенаправлення "
 "для «решти користувачів»"
 
-#: wplogin_redirect.php:916
+#: wplogin_redirect.php:934
 msgid "Successfully removed URL for &#34;all other users&#34; "
 msgstr "URL перенаправлення для «решти користувачів» успішно видалено"
 
-#: wplogin_redirect.php:927 wplogin_redirect.php:996
+#: wplogin_redirect.php:945 wplogin_redirect.php:1014
 msgid "ERROR: Non-local or invalid URL submitted "
 msgstr "ПОМИЛКА: введено хибний або не локальний URL"
 
-#: wplogin_redirect.php:940
+#: wplogin_redirect.php:958
 msgid ""
 "ERROR: Unknown database problem updating URL for &#34;all other users&#34; "
 msgstr ""
 "ПОМИЛКА: невідома помилка бази даних під час оновлення URL перенаправлення "
 "для «решти користувачів»"
 
-#: wplogin_redirect.php:944
+#: wplogin_redirect.php:962
 msgid "Successfully updated URL for &#34;all other users&#34;"
 msgstr "URL перенаправлення для «решти користувачів» успішно оновлено"
 
-#: wplogin_redirect.php:983
+#: wplogin_redirect.php:1001
 msgid ""
 "ERROR: Unknown database problem removing URL for &#34;post-registration&#34; "
 msgstr ""
 "ПОМИЛКА: невідома помилка бази даних під час видалення URL перенаправлення "
 "для «сторінки, що з’являється після реєстрації»"
 
-#: wplogin_redirect.php:986
+#: wplogin_redirect.php:1004
 msgid "Successfully removed URL for &#34;post-registration&#34; "
 msgstr ""
 "URL перенаправлення для «сторінки, що з’являється після реєстрації» успішно "
 "видалено"
 
-#: wplogin_redirect.php:1009
+#: wplogin_redirect.php:1027
 msgid ""
 "ERROR: Unknown database problem updating URL for &#34;post-registration&#34; "
 msgstr ""
 "ПОМИЛКА: невідома помилка бази даних під час оновлення URL перенаправлення "
 "для «сторінки, що з’являється після реєстрації»"
 
-#: wplogin_redirect.php:1013
+#: wplogin_redirect.php:1031
 msgid "Successfully updated URL for &#34;post-registration&#34;"
 msgstr ""
 "URL перенаправлення для «сторінки, що з’являється після реєстрації» успішно "
 "оновлено"
 
-#: wplogin_redirect.php:1039
+#: wplogin_redirect.php:1057
 msgid "Successfully updated plugin settings"
 msgstr "Налаштування плаґіну успішно оновлено"
 
-#: wplogin_redirect.php:1188 wplogin_redirect.php:1206
-#: wplogin_redirect.php:1223
+#: wplogin_redirect.php:1206 wplogin_redirect.php:1224
+#: wplogin_redirect.php:1241
 #, fuzzy
 msgid "Login URL"
 msgstr "URL виходу:"
 
-#: wplogin_redirect.php:1189 wplogin_redirect.php:1207
-#: wplogin_redirect.php:1224
+#: wplogin_redirect.php:1207 wplogin_redirect.php:1225
+#: wplogin_redirect.php:1242
 #, fuzzy
 msgid "Logout URL"
 msgstr "URL виходу:"
 
-#: wplogin_redirect.php:1191 wplogin_redirect.php:1209
-#: wplogin_redirect.php:1227
+#: wplogin_redirect.php:1209 wplogin_redirect.php:1227
+#: wplogin_redirect.php:1245
 msgid "Edit"
 msgstr ""
 
-#: wplogin_redirect.php:1191 wplogin_redirect.php:1209
-#: wplogin_redirect.php:1227 wplogin_redirect.php:1335
-#: wplogin_redirect.php:1343
+#: wplogin_redirect.php:1209 wplogin_redirect.php:1227
+#: wplogin_redirect.php:1245 wplogin_redirect.php:1353
+#: wplogin_redirect.php:1361
 msgid "Delete"
 msgstr "Видалити"
 
-#: wplogin_redirect.php:1250
+#: wplogin_redirect.php:1268
 msgid "Manage redirect rules"
 msgstr "Керування правилами перенаправлення"
 
-#: wplogin_redirect.php:1252
+#: wplogin_redirect.php:1270
 msgid ""
 "Define custom URLs to which different users, users with specific roles, "
 "users with specific levels, and all other users will be redirected upon "
@@ -171,13 +176,13 @@ msgstr ""
 "користувачів: користувачів із визначеними ролями, правами доступу, та решту "
 "всіх користувачів."
 
-#: wplogin_redirect.php:1253
+#: wplogin_redirect.php:1271
 msgid "Define a custom URL to which all users will be redirected upon logout"
 msgstr ""
 "Вкажіть власний URL, на який після виходу буде перенаправлено усіх "
 "користувачів"
 
-#: wplogin_redirect.php:1254
+#: wplogin_redirect.php:1272
 msgid ""
 "Note that you can use the syntax <strong>[variable]username[/variable]</"
 "strong> in your URLs so that the system will build a dynamic URL upon each "
@@ -188,100 +193,100 @@ msgstr ""
 "кожного входу створювати динамічні URL, на льоту заміняючи такий код на "
 "лоґіни користувачів."
 
-#: wplogin_redirect.php:1256
+#: wplogin_redirect.php:1274
 msgid "Specific users"
 msgstr "Визначені користувачі"
 
-#: wplogin_redirect.php:1267 wplogin_redirect.php:1289
-#: wplogin_redirect.php:1319
+#: wplogin_redirect.php:1285 wplogin_redirect.php:1307
+#: wplogin_redirect.php:1337
 msgid "Add:"
 msgstr "Додати:"
 
-#: wplogin_redirect.php:1269
+#: wplogin_redirect.php:1287
 msgid "Select a username"
 msgstr "Оберіть користувача"
 
-#: wplogin_redirect.php:1272 wplogin_redirect.php:1294
-#: wplogin_redirect.php:1325 wplogin_redirect.php:1333
-#: wplogin_redirect.php:1342
+#: wplogin_redirect.php:1290 wplogin_redirect.php:1312
+#: wplogin_redirect.php:1343 wplogin_redirect.php:1351
+#: wplogin_redirect.php:1360
 msgid "URL:"
 msgstr "URL:"
 
-#: wplogin_redirect.php:1273 wplogin_redirect.php:1295
-#: wplogin_redirect.php:1326 wplogin_redirect.php:1334
+#: wplogin_redirect.php:1291 wplogin_redirect.php:1313
+#: wplogin_redirect.php:1344 wplogin_redirect.php:1352
 msgid "Logout URL:"
 msgstr "URL виходу:"
 
-#: wplogin_redirect.php:1275
+#: wplogin_redirect.php:1293
 msgid "Add username rule"
 msgstr ""
 
-#: wplogin_redirect.php:1278
+#: wplogin_redirect.php:1296
 msgid "Specific roles"
 msgstr "Визначені ролі користувачів"
 
-#: wplogin_redirect.php:1291
+#: wplogin_redirect.php:1309
 msgid "Select a role"
 msgstr "Оберіть роль користувача"
 
-#: wplogin_redirect.php:1297
+#: wplogin_redirect.php:1315
 msgid "Add role rule"
 msgstr ""
 
-#: wplogin_redirect.php:1300
+#: wplogin_redirect.php:1318
 msgid "Specific levels"
 msgstr "Визначені рівні доступу"
 
-#: wplogin_redirect.php:1309
+#: wplogin_redirect.php:1327
 msgid "Order"
 msgstr "Порядок"
 
-#: wplogin_redirect.php:1321
+#: wplogin_redirect.php:1339
 msgid "Select a level"
 msgstr "Оберіть права доступу"
 
-#: wplogin_redirect.php:1324
+#: wplogin_redirect.php:1342
 msgid "Order:"
 msgstr "Порядок:"
 
-#: wplogin_redirect.php:1328
+#: wplogin_redirect.php:1346
 msgid "Add level rule"
 msgstr ""
 
-#: wplogin_redirect.php:1331
+#: wplogin_redirect.php:1349
 msgid "All other users"
 msgstr "Решта користувачів"
 
-#: wplogin_redirect.php:1335 wplogin_redirect.php:1343
-#: wplogin_redirect.php:1420
+#: wplogin_redirect.php:1353 wplogin_redirect.php:1361
+#: wplogin_redirect.php:1438
 msgid "Update"
 msgstr "Оновити"
 
-#: wplogin_redirect.php:1340
+#: wplogin_redirect.php:1358
 msgid "Post-registration"
 msgstr "Сторінка, що з’являється після реєстрації"
 
-#: wplogin_redirect.php:1348
+#: wplogin_redirect.php:1366
 msgid "Customize plugin settings"
 msgstr "Змінити налаштування плаґіну"
 
-#: wplogin_redirect.php:1353
+#: wplogin_redirect.php:1371
 msgid "Redirect restrictions"
 msgstr "Обмеження перенаправлення"
 
-#: wplogin_redirect.php:1357
+#: wplogin_redirect.php:1375
 msgid "Any http or https URL"
 msgstr "Будь-який http чи https URL"
 
-#: wplogin_redirect.php:1358
+#: wplogin_redirect.php:1376
 msgid "Any URL"
 msgstr "Будь-який URL"
 
-#: wplogin_redirect.php:1359
+#: wplogin_redirect.php:1377
 msgid "Any URL on the same domain"
 msgstr "Будь-який URL на тому ж домені"
 
-#: wplogin_redirect.php:1365
+#: wplogin_redirect.php:1383
 msgid ""
 "Allow a POST or GET &#34;redirect_to&#34; variable to take redirect "
 "precedence"
@@ -289,17 +294,17 @@ msgstr ""
 "Віддавати POST чи GET змінній &#34;redirect_to&#34; право першочергової "
 "обробки перенаправлення"
 
-#: wplogin_redirect.php:1369 wplogin_redirect.php:1380
-#: wplogin_redirect.php:1392
+#: wplogin_redirect.php:1387 wplogin_redirect.php:1398
+#: wplogin_redirect.php:1410
 msgid "Yes"
 msgstr "Так"
 
-#: wplogin_redirect.php:1370 wplogin_redirect.php:1381
-#: wplogin_redirect.php:1393
+#: wplogin_redirect.php:1388 wplogin_redirect.php:1399
+#: wplogin_redirect.php:1411
 msgid "No"
 msgstr "Ні"
 
-#: wplogin_redirect.php:1376
+#: wplogin_redirect.php:1394
 msgid ""
 "Allow a POST or GET &#34;redirect_to&#34; logout variable to take redirect "
 "precedence"
@@ -307,19 +312,20 @@ msgstr ""
 "Віддавати POST чи GET змінній виходу &#34;redirect_to&#34; право "
 "першочергової обробки перенаправлення"
 
-#: wplogin_redirect.php:1388
-#, php-format
+#: wplogin_redirect.php:1406
+#, fuzzy, php-format
 msgid ""
 "Use external redirect file. Set this to &#34;Yes&#34; if you are using a "
 "plugin such as Gigya that bypasses the regular WordPress redirect process "
-"(and allows only one fixed redirect URL). Then, set the redirect URL to %s"
+"(and allows only one fixed redirect URL). Then, set the redirect URL in the "
+"other plugin to %s"
 msgstr ""
 "Використовувати зовнішній файл перенаправлень. Вкажіть «Так», якщо ви "
 "використовуєте плаґіни на кшталт Gigya, які обходять звичайний процес "
 "перенаправлень WordPress і встановлюють лише один фіксований URL "
 "перенаправлення. У такому разі, встановіть перенаправлення на %s"
 
-#: wplogin_redirect.php:1399
+#: wplogin_redirect.php:1417
 msgid "Permission level required to edit redirect URLs"
 msgstr "Права доступу, необхідні для зміни URL перенаправлень"
 

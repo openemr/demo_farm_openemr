@@ -4,8 +4,8 @@ Contributors: helgatheviking
 Donate link: https://inspirepay.com/pay/helgatheviking
 Tags: menu, menus, nav menu, nav menus
 Requires at least: 3.8
-Tested up to: 3.9.1
-Stable tag: 1.6.0
+Tested up to: 4.0
+Stable tag: 1.6.3
 License: GPLv3
 
 Hide custom menu items based on user roles
@@ -56,12 +56,15 @@ WordPress does not have sufficient hooks in this area of the admin and until the
 
 **A non-exhaustive list of known conflicts:**
 
-1. UberMenu Mega Menus plugin
-2. Menu Icons plugin
-3. Add Descendants As Submenu Items
-4. Menu Item Custom Fields
-5. Navception
-6. Avada theme
+1. UberMenu 2.x Mega Menus plugin
+2. Add Descendants As Submenu Items plugin
+3. Navception plugin
+4. Suffusion theme
+5. BeTheme
+6. Yith Menu
+7. Kleo Theme
+8. Jupiter Theme
+
 
 = <a name="compatibility"></a>Workaround #1 =
 Shazdeh, the author of Menu Item Visibility Control plugin had the [genius idea](http://shazdeh.me/2014/06/25/custom-fields-nav-menu-items/) to not wait for a core hook and simply add the hook ourselves. If all plugin and theme authors use the same hook, we can make our plugins play together.
@@ -128,7 +131,7 @@ function kia_item_visibility( $visible, $item ){
 add_filter( 'nav_menu_roles_item_visibility', 'kia_item_visibility', 10, 2 );
 `
 
-Note that you have to generate your own if/then logic. I can't provide free support for custom integration with another plugin. You may [contact me](http://kathyisawesome.com/contact) to discuss hiring me, or I would suggest using a plugin that supports WordPress' roles, such as Justin Tadlock's [Membership](http://wordpress.org/extend/plugins/membership).
+Note that you have to generate your own if/then logic. I can't provide free support for custom integration with another plugin. You may [contact me](http://kathyisawesome.com/contact) to discuss hiring me, or I would suggest using a plugin that supports WordPress' roles, such as Justin Tadlock's [Members](http://wordpress.org/plugins/members).
 
 = What happened to my menu roles on import/export? =
 
@@ -145,6 +148,16 @@ However, the Import plugin only imports certain post meta for menu items.  As of
 1. No duplicate posts will be created but all menu post meta (including your Nav Menu Roles info) will be imported
 
 == Changelog ==
+
+= 1.6.3 =
+* Try again to add languages. Where'd they all go?
+
+= 1.6.2 =
+* Add French translation. Props @Philippe Gilles
+
+= 1.6.1 =
+* Update list of conflits
+* Don't display radio buttons if no roles - allows for granular permissions control
 
 = 1.6.0 =
 * Feature: Hiding a parent menu item will automatically hide all its children

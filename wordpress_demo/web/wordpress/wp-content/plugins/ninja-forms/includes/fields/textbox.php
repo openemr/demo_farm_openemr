@@ -13,23 +13,23 @@ function ninja_forms_register_field_textbox(){
 			array(
 				'type' => 'checkbox',
 				'name' => 'email',
-				'label' => __( 'Is this an email address?', 'ninja-forms' ),
+				'label' => __( 'Validate as an email address? (Field must be required)', 'ninja-forms' ),
 			),
-			array(
-				'type' => 'checkbox',
-				'name' => 'send_email',
-				'label' => __( 'Send a response email to this email address?', 'ninja-forms' ),
-			),
+			// array(
+			// 	'type' => 'checkbox',
+			// 	'name' => 'send_email',
+			// 	'label' => __( 'Send a response email to this email address?', 'ninja-forms' ),
+			// ),
 			// array(
 			// 	'type' => 'checkbox',
 			// 	'name' => 'from_email',
 			// 	'label' => __( 'Use this as the "From" email address for Administrative recipients of this form?', 'ninja-forms' ),
 			// ),
-			array(
-				'type' => 'checkbox',
-				'name' => 'replyto_email',
-				'label' => __( 'Use this email address as the Reply-To address?', 'ninja-forms' ),
-			),
+			// array(
+			// 	'type' => 'checkbox',
+			// 	'name' => 'replyto_email',
+			// 	'label' => __( 'Use this email address as the Reply-To address?', 'ninja-forms' ),
+			// ),
 			array(
 				'type' => 'hidden',
 				'name' => 'first_name',
@@ -38,11 +38,11 @@ function ninja_forms_register_field_textbox(){
 				'type' => 'hidden',
 				'name' => 'last_name',
 			),
-			array(
-				'type' => 'checkbox',
-				'name' => 'from_name',
-				'label' => __( 'Use this as the "From" and Reply-To email name for Administrative recipients of this form?', 'ninja-forms' ),
-			),
+			// array(
+			// 	'type' => 'checkbox',
+			// 	'name' => 'from_name',
+			// 	'label' => __( 'Use this as the "From" and Reply-To email name for Administrative recipients of this form?', 'ninja-forms' ),
+			// ),
 			array(
 				'type' => 'hidden',
 				'name' => 'user_address_1',
@@ -95,6 +95,8 @@ function ninja_forms_register_field_textbox(){
 			),
 		),
 		'pre_process' => 'ninja_forms_field_text_pre_process',
+		'edit_sub_value' => 'nf_field_text_edit_sub_value',
+		'sub_table_value' => 'nf_field_text_sub_table_value',
 	);
 
 	ninja_forms_register_field( '_text', $args );
@@ -195,11 +197,11 @@ function ninja_forms_field_text_edit( $field_id, $data ){
 	<?php
 }
 
-function ninja_forms_field_text_display( $field_id, $data ){
+function ninja_forms_field_text_display( $field_id, $data, $form_id = '' ){
 	global $current_user;
-	$field_class = ninja_forms_get_field_class( $field_id );
+	$field_class = ninja_forms_get_field_class( $field_id, $form_id );
 
-	if ( isset( $data['email'] ) ) {
+	if ( isset( $data['email'] ) && $data['email'] == 1 ) {
 		$field_class .= ' email';
 	}
 
@@ -283,6 +285,7 @@ function ninja_forms_field_text_pre_process( $field_id, $user_value ){
 	if( isset( $data['email'] ) AND $data['email'] == 1 AND $user_value != '' ){
 		if ( ! is_email( $user_value ) ) {
     		$ninja_forms_processing->add_error( 'email-'.$field_id, $invalid_email, $field_id );
+    		$ninja_forms_processing->add_error( 'email-general', $invalid_email );
 		}
 	}
 
@@ -301,4 +304,31 @@ function ninja_forms_field_text_pre_process( $field_id, $user_value ){
 		}
 		$ninja_forms_processing->update_form_setting( 'admin_email_name', $admin_email_name );
 	}
+}
+
+/**
+ * Edit submission value output function
+ *
+ * @since 2.7
+ * @return void
+ */
+function nf_field_text_edit_sub_value( $field_id, $user_value ) {
+	?>
+	<input type="text" name="fields[<?php echo $field_id; ?>]" value="<?php echo $user_value; ?>">
+	<?php
+}
+
+/**
+ * Output the value that shows up in the submissions table
+ *
+ * @since 2.7
+ * @return void
+ */
+function nf_field_text_sub_table_value( $field_id, $user_value ) {
+	// Cut down our string if it is longer than 140 characters.
+	$max_len = apply_filters( 'nf_sub_table_user_value_max_len', 140, $field_id );
+	if ( strlen( $user_value ) > 140 )
+		$user_value = substr( $user_value, 0, 140 );
+
+	echo nl2br( $user_value );
 }

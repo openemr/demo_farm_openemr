@@ -44,6 +44,7 @@ function ninja_forms_register_field_textarea(){
 				'type' => 'textarea',
 			),
 		),
+		'edit_sub_value' => 'nf_field_textarea_edit_sub_value'
 	);
 
 	ninja_forms_register_field('_textarea', $args);
@@ -51,7 +52,7 @@ function ninja_forms_register_field_textarea(){
 
 add_action('init', 'ninja_forms_register_field_textarea');
 
-function ninja_forms_field_textarea_display($field_id, $data){
+function ninja_forms_field_textarea_display( $field_id, $data, $form_id = '' ){
 	if(isset($data['default_value'])){
 		$default_value = $data['default_value'];
 	}else{
@@ -94,7 +95,7 @@ function ninja_forms_field_textarea_display($field_id, $data){
 		$input_limit_msg = '';
 	}
 
-	$field_class = ninja_forms_get_field_class( $field_id );
+	$field_class = ninja_forms_get_field_class( $field_id, $form_id );
 
 	if($textarea_rte == 1){
 		$settings = array( 'media_buttons' => $textarea_media );
@@ -105,4 +106,16 @@ function ninja_forms_field_textarea_display($field_id, $data){
 		<textarea name="ninja_forms_field_<?php echo $field_id;?>" id="ninja_forms_field_<?php echo $field_id;?>" class="<?php echo $field_class;?>" rel="<?php echo $field_id;?>" data-input-limit="<?php echo $input_limit;?>" data-input-limit-type="<?php echo $input_limit_type;?>" data-input-limit-msg="<?php echo $input_limit_msg;?>"><?php echo $default_value;?></textarea>
 		<?php
 	}
+}
+
+/**
+ * Edit submission value output function
+ *
+ * @since 2.7
+ * @return void
+ */
+function nf_field_textarea_edit_sub_value( $field_id, $user_value ) {
+	?>
+	<textarea name="fields[<?php echo $field_id; ?>]"><?php echo $user_value; ?></textarea>
+	<?php
 }

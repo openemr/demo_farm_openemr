@@ -45,7 +45,7 @@ function ninja_forms_output_tab_metabox($form_id = '', $slug, $metabox){
 		?>
 		<div id="ninja_forms_metabox_<?php echo $slug;?>" class="postbox ">
 			<span class="item-controls">
-				<a class="item-edit metabox-item-edit" id="edit_id" title="Edit Menu Item" href="#">Edit Menu Item</a>
+				<a class="item-edit metabox-item-edit" id="edit_id" title="<?php _e( 'Edit Menu Item', 'ninja-forms' ); ?>" href="#"><?php _e( 'Edit Menu Item', 'ninja-forms' ); ?></a>
 			</span>
 			<h3 class="hndle"><span><?php _e($title, 'ninja-forms');?></span></h3>
 			<div class="inside" style="<?php echo $state;?>">
@@ -147,7 +147,7 @@ function ninja_forms_output_tab_metabox($form_id = '', $slug, $metabox){
 						}
 					}
 				}
-				$value = $tmp;
+				$value = (!is_array ($tmp) && !is_object ($tmp)) ? $tmp : '';
 			}else{
 				if(isset($current_settings[$name])){
 					if(is_array($current_settings[$name])){
@@ -183,7 +183,7 @@ function ninja_forms_output_tab_metabox($form_id = '', $slug, $metabox){
 					<input type="text" class="code widefat <?php echo $class;?>" name="<?php echo $name;?>" id="<?php echo $name;?>" value="<?php echo $value;?>" />
 					<?php if( $help_text != ''){ ?>
 					<a href="#" class="tooltip">
-					    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>/images/question-ico.gif" title="">
+					    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>images/question-ico.gif" title="">
 					    <span>
 					        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>/images/callout.gif" />
 					        <?php echo $help_text;?>
@@ -198,7 +198,7 @@ function ninja_forms_output_tab_metabox($form_id = '', $slug, $metabox){
 					<input type="number" class="code <?php echo $class;?>" name="<?php echo $name;?>" id="<?php echo $name;?>" value="<?php echo $value;?>" min="<?php echo $min; ?>" max="<?php echo $max; ?>" />
 					<?php if( $help_text != ''){ ?>
 					<a href="#" class="tooltip">
-					    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>/images/question-ico.gif" title="">
+					    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>images/question-ico.gif" title="">
 					    <span>
 					        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>/images/callout.gif" />
 					        <?php echo $help_text;?>
@@ -220,9 +220,9 @@ function ninja_forms_output_tab_metabox($form_id = '', $slug, $metabox){
 					</select>
 					<?php if( $help_text != ''){ ?>
 						<a href="#" class="tooltip">
-						    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>/images/question-ico.gif" title="">
+						    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>images/question-ico.gif" title="">
 						    <span>
-						        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>/images/callout.gif" />
+						        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>images/callout.gif" />
 						        <?php echo $help_text;?>
 						    </span>
 						</a>
@@ -247,7 +247,7 @@ function ninja_forms_output_tab_metabox($form_id = '', $slug, $metabox){
 					</select>
 					<?php if( $help_text != ''){ ?>
 						<a href="#" class="tooltip">
-						    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>/images/question-ico.gif" title="">
+						    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>images/question-ico.gif" title="">
 						    <span>
 						        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>/images/callout.gif" />
 						        <?php echo $help_text;?>
@@ -261,9 +261,9 @@ function ninja_forms_output_tab_metabox($form_id = '', $slug, $metabox){
 					<input type="checkbox" name="<?php echo $name;?>" value="1" <?php checked($value, 1);?> id="<?php echo $name;?>" class="<?php echo $class;?>">
 					<?php if( $help_text != ''){ ?>
 						<a href="#" class="tooltip">
-						    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>/images/question-ico.gif" title="">
+						    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>images/question-ico.gif" title="">
 						    <span>
-						        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>/images/callout.gif" />
+						        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>images/callout.gif" />
 						        <?php echo $help_text;?>
 						    </span>
 						</a>
@@ -330,9 +330,9 @@ function ninja_forms_output_tab_metabox($form_id = '', $slug, $metabox){
 							<input type="radio" name="<?php echo $name;?>" value="<?php echo $option['value'];?>" id="<?php echo $name."_".$x;?>" <?php checked($value, $option['value']);?> class="<?php echo $class;?>"> <label for="<?php echo $name."_".$x;?>"><?php echo $option['name'];?></label>
 								<?php if( $help_text != ''){ ?>
 									<a href="#" class="tooltip">
-									    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>/images/question-ico.gif" title="">
+									    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>images/question-ico.gif" title="">
 									    <span>
-									        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>/images/callout.gif" />
+									        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>images/callout.gif" />
 									        <?php echo $help_text;?>
 									    </span>
 									</a>

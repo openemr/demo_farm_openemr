@@ -16,5 +16,6 @@ function ninja_forms_edit_field_output_ul( $form_id ){
 			?>
 		</ul>
 	</div>
-	<?php
+		<?php
+
 }

@@ -84,7 +84,7 @@ function ninja_forms_display_screen_options($content){
 		<br class="clear">
 		<input type="hidden" name="ninja_forms_save_screen_options" value="1">
 		<?php wp_nonce_field('ninja_forms_update_options'); ?>
-		<input name="Submit" type="submit" class="button-primary" value=" Save Options">
+		<input name="Submit" type="submit" class="button-primary" value="<?php _e( 'Save Options', 'ninja-forms' ); ?>">
 		<?php
 	}
 }

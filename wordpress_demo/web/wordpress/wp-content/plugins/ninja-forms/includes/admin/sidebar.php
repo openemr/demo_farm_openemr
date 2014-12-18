@@ -42,7 +42,7 @@ function ninja_forms_display_sidebars($data){
 			foreach($ninja_forms_sidebars[$current_page][$current_tab] as $slug => $sidebar){
 
 				if((isset($opt['screen_options']['tab'][$current_tab]['sidebars'][$slug]['visible']) AND $opt['screen_options']['tab'][$current_tab]['sidebars'][$slug]['visible'] == 1) OR !isset($opt['screen_options']['tab'][$current_tab]['sidebars'][$slug]['visible'])){
-				
+
 				if ( isset ( $plugin_settings['metabox_state'][$current_page][$current_tab][$slug] ) ) {
 					$state = $plugin_settings['metabox_state'][$current_page][$current_tab][$slug];
 				} else {
@@ -110,7 +110,6 @@ function ninja_forms_display_sidebars($data){
 								case 'radio':
 									?>
 									<label for="<?php echo $name;?>"><?php _e($option['label'], 'ninja-forms');?></label>
-									<br>
 									<?php
 									if(isset($option['options'])){
 											$x = 0;
@@ -118,7 +117,6 @@ function ninja_forms_display_sidebars($data){
 												?>
 												<input type="radio" id="<?php echo $name.'_'.$x;?>" value="<?php echo $option['value'];?>" <?php checked($option['value'], $value);?> name="<?php echo $name;?>">
 												<label for="<?php echo $name.'_'.$x;?>"><?php echo $option['name'];?></label>
-												<br>
 												<?php
 												$x++;
 											}
@@ -149,7 +147,6 @@ function ninja_forms_display_sidebars($data){
 								case 'textarea':
 									?>
 									<label for="<?php echo $name;?>"><?php _e($option['label'], 'ninja-forms');?></label>
-									<br>
 									<textarea name="<?php echo $name;?>" id="<?php echo $name;?>"><?php echo $value;?></textarea>
 									<?php
 									break;
@@ -162,7 +159,7 @@ function ninja_forms_display_sidebars($data){
 							if(isset($option['help']) AND !empty($option['help'])){
 								?>
 								<a href="#" class="tooltip">
-								    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>/images/question-ico.gif" title="">
+								    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>images/question-ico.gif" title="">
 								    <span>
 								        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>/images/callout.gif" />
 								        <?php _e($option['help'], 'ninja-forms');?>
@@ -184,7 +181,6 @@ function ninja_forms_display_sidebars($data){
 				}
 				?>
 			</div>
-			<br />
 
 		</div>
 		<?php

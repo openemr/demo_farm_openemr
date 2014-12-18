@@ -13,7 +13,7 @@ function ninja_forms_display_tabs(){
 		foreach($ninja_forms_tabs[$current_page] as $slug => $tab){
 			if((isset($opt['screen_options']['tab'][$slug]['visible']) AND $opt['screen_options']['tab'][$slug]['visible'] == 1) OR !isset($opt['screen_options']['tab'][$slug]['visible'])){
 				if($tab['add_form_id'] == 1){
-					$link = remove_query_arg( 'update_message' );
+					$link = remove_query_arg( array( 'update_message','notification-action' ) );
 					if($form_id != ''){
 						$link = esc_url( add_query_arg( array( 'tab' => $slug, 'form_id' => $form_id ), $link ) );
 					}else{

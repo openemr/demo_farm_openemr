@@ -90,9 +90,7 @@ jQuery(document).ready(function($) {
 	/* * * General JS * * */
 
 
-	$(".ninja-forms-admin-date").datepicker({
-		dateFormat: ninja_forms_settings.date_format
-	});
+	$(".ninja-forms-admin-date").datepicker( ninja_forms_settings.datepicker_args );
 
 	//Select All Checkbox
 	$(".ninja-forms-select-all").click(function(){
@@ -136,7 +134,7 @@ jQuery(document).ready(function($) {
 				var state = 'display:none;'
 			}
 
-			$.post( ajaxurl, { page: page, tab: tab, slug: slug, state: state, action:"ninja_forms_save_metabox_state" } );
+			$.post( ajaxurl, { page: page, tab: tab, slug: slug, state: state, action:"ninja_forms_save_metabox_state", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce } );
 		}
 	});
 
@@ -149,7 +147,7 @@ jQuery(document).ready(function($) {
 			var order = $("#side-sortables").sortable("toArray");
 			var page = $("#_page").val();
 			var tab = $("#_tab").val();
-			$.post( ajaxurl, { order: order, page: page, tab: tab, action:"ninja_forms_side_sortable"}, function(response){
+			$.post( ajaxurl, { order: order, page: page, tab: tab, action:"ninja_forms_side_sortable", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, function(response){
 
 			});
 		},
@@ -272,7 +270,7 @@ jQuery(document).ready(function($) {
 
 		if((limit != '' && current_count < limit) || limit == '' || current_count == '' || current_count == 0){
 
-			$.post( ajaxurl, { type: type, form_id: form_id, action:"ninja_forms_new_field"}, ninja_forms_new_field_response );
+			$.post( ajaxurl, { type: type, form_id: form_id, action:'ninja_forms_new_field', nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, ninja_forms_new_field_response );
 
 		}else{
 			$(this).addClass('disabled');
@@ -331,7 +329,7 @@ jQuery(document).ready(function($) {
 		var form_id = this.id.replace('ninja_forms_delete_form_', '');
 		var answer = confirm('Really delete this form? (Irreversible)');
 		if(answer){
-			$.post(ajaxurl, { form_id: form_id, action:"ninja_forms_delete_form"}, function(response){
+			$.post(ajaxurl, { form_id: form_id, action:"ninja_forms_delete_form", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, function(response){
 				$("#ninja_forms_form_" + form_id + "_tr").css("background-color", "#FF0000").fadeOut('slow', function(){
 					$(this).remove();
 				});
@@ -346,7 +344,7 @@ jQuery(document).ready(function($) {
 		field_id = field_id.replace("_remove", "");
 		var answer = confirm("Remove this field? It will be removed even if you do not save.");
 		if(answer){
-			$.post(ajaxurl, { field_id: field_id, action:"ninja_forms_remove_field"}, function(){
+			$.post(ajaxurl, { field_id: field_id, action:"ninja_forms_remove_field", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, function(){
 				$("#ninja_forms_field_" + field_id).remove();
 				$(document).trigger('removeField', [ field_id ]);
 				$(".ninja-forms-field-conditional-cr-field").each(function(){
@@ -366,7 +364,7 @@ jQuery(document).ready(function($) {
 		var sub_id = this.id.replace("ninja_forms_sub_", "");
 		var answer = confirm("Permenantly delete this item?");
 		if(answer){
-			$.post(ajaxurl, { sub_id: sub_id, action:"ninja_forms_delete_sub"}, function(response){
+			$.post(ajaxurl, { sub_id: sub_id, action:"ninja_forms_delete_sub", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, function(response){
 				$("#ninja_forms_sub_" + sub_id + "_tr").css("background-color", "#FF0000").fadeOut('slow', function(){
 					$(this).remove();
 				});
@@ -576,7 +574,7 @@ jQuery(document).ready(function($) {
 			hidden_value = 0;
 		}
 
-		$.post(ajaxurl, { field_id: field_id, x: x, hidden_value: hidden_value, action:"ninja_forms_add_list_option"}, function(response){
+		$.post(ajaxurl, { field_id: field_id, x: x, hidden_value: hidden_value, action:"ninja_forms_add_list_option", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, function(response){
 			$("#ninja_forms_field_" + field_id + "_list_options").append(response);
 			$("#ninja_forms_field_" + field_id + "_list_option_" + x).fadeIn();
 			$(".ninja-forms-field-conditional-value-list").each(function(){
@@ -714,7 +712,7 @@ jQuery(document).ready(function($) {
 		e.preventDefault();
 		var options = $(this).parent().find("textarea").val();
 		var field_id = $(this).attr("rel");
-		$.post(ajaxurl, { options: options, field_id: field_id, action:"ninja_forms_import_list_options"}, function(response){
+		$.post(ajaxurl, { options: options, field_id: field_id, action:"ninja_forms_import_list_options", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce}, function(response){
 			$("#ninja_forms_field_" + field_id + "_list_options").append( response );
 			tb_remove();
 		});
@@ -726,7 +724,7 @@ jQuery(document).ready(function($) {
 		var field_id = $(this).attr("rel");
 
 		if ( this.value != '' ) {
-			$.post(ajaxurl, { field_id: field_id, tax_name: this.value, from_ajax: 1, action:"ninja_forms_list_terms_checkboxes"}, function(response){
+			$.post(ajaxurl, { field_id: field_id, tax_name: this.value, from_ajax: 1, action:"ninja_forms_list_terms_checkboxes", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce}, function(response){
 				$("#ninja_forms_field_" + field_id + "_exclude_terms").html(response);
 				$("#ninja_forms_field_" + field_id + "_exclude_terms").show();
 			});
@@ -761,7 +759,7 @@ jQuery(document).ready(function($) {
 			x = x + 1;
 		}
 
-		$.post(ajaxurl, { field_id: field_id, x: x, action:"ninja_forms_add_calc_row"}, function(response){
+		$.post(ajaxurl, { field_id: field_id, x: x, action:"ninja_forms_add_calc_row", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, function(response){
 			$("#ninja_forms_field_" + field_id + "_calc").append(response);
 			$(spinner).hide();
 		});
@@ -880,7 +878,7 @@ jQuery(document).ready(function($) {
 
 		var fav_name = prompt("What would you like to name this favorite?", "");
 		if(fav_name.length >= 1){
-			$.post(ajaxurl, { fav_name: fav_name, field_data: field_data, field_id: field_id, action:"ninja_forms_add_fav"}, function(response){
+			$.post(ajaxurl, { fav_name: fav_name, field_data: field_data, field_id: field_id, action:"ninja_forms_add_fav", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, function(response){
 				//document.write(response);
 				$("#ninja_forms_field_" + field_id + "_fav").removeClass("ninja-forms-field-add-fav");
 				$("#ninja_forms_field_" + field_id + "_fav").addClass("ninja-forms-field-remove-fav");
@@ -902,7 +900,7 @@ jQuery(document).ready(function($) {
 		event.preventDefault();
 		var field_id = this.id.replace("ninja_forms_field_", "");
 		field_id = field_id.replace("_fav", "");
-		$.post(ajaxurl, { field_id: field_id, action:"ninja_forms_remove_fav"}, function(response){
+		$.post(ajaxurl, { field_id: field_id, action:"ninja_forms_remove_fav", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, function(response){
 			$("#ninja_forms_insert_fav_field_" + response.fav_id + "_p").remove();
 			$(".ninja-forms-field-fav-id").each(function(){
 				if(this.value == response.fav_id){
@@ -921,7 +919,7 @@ jQuery(document).ready(function($) {
 		event.preventDefault();
 		var fav_id = this.id.replace("ninja_forms_insert_fav_field_", "");
 		var form_id = $("#_form_id").val();
-		$.post(ajaxurl, {fav_id: fav_id, form_id: form_id, action:"ninja_forms_insert_fav"}, ninja_forms_new_field_response)
+		$.post(ajaxurl, {fav_id: fav_id, form_id: form_id, action:"ninja_forms_insert_fav", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, ninja_forms_new_field_response)
 	});
 
 	/* * * End Favorite Fields JS * * */
@@ -949,7 +947,7 @@ jQuery(document).ready(function($) {
 
 		var def_name = prompt("What would you like to name this Defined Field?", "");
 		if(def_name.length >= 1){
-			$.post(ajaxurl, { def_name: def_name, field_data: field_data, field_id: field_id, action:"ninja_forms_add_def"}, function(response){
+			$.post(ajaxurl, { def_name: def_name, field_data: field_data, field_id: field_id, action:"ninja_forms_add_def", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, function(response){
 				$("#ninja_forms_sidebar_def_fields").append(response.link_html);
 				$("#ninja_forms_field_" + field_id + "_title").nextElementInDom('.item-type:first').prop("innerHTML", response.def_name);
 				$("#ninja_forms_field_" + field_id + "_def_id").val(response.def_id);
@@ -967,7 +965,7 @@ jQuery(document).ready(function($) {
 		event.preventDefault();
 		var field_id = this.id.replace("ninja_forms_field_", "");
 		field_id = field_id.replace("_def", "");
-		$.post(ajaxurl, { field_id: field_id, action:"ninja_forms_remove_def"}, function(response){
+		$.post(ajaxurl, { field_id: field_id, action:"ninja_forms_remove_def", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce}, function(response){
 			$("#ninja_forms_insert_def_field_" + response.def_id + "_p").remove();
 		});
 	});
@@ -986,7 +984,7 @@ jQuery(document).ready(function($) {
 			var current_count = '';
 		}
 		if((limit != '' && current_count < limit) || limit == '' || current_count == '' || current_count == 0){
-			$.post(ajaxurl, {def_id: def_id, form_id: form_id, action:"ninja_forms_insert_def"}, ninja_forms_new_field_response);
+			$.post(ajaxurl, {def_id: def_id, form_id: form_id, action:"ninja_forms_insert_def", nf_ajax_nonce:ninja_forms_settings.nf_ajax_nonce }, ninja_forms_new_field_response);
 		}
 	});
 
@@ -1031,16 +1029,14 @@ function ninja_forms_new_field_response( response ){
 			placeholder: "ui-state-highlight",
 		});
 	}
-	if(typeof response.edit_options != 'undefined'){
-		for(var i = 0; i < response.edit_options.length; i++){
-			if(response.edit_options[i].type == 'rte'){
-				var editor_id = 'ninja_forms_field_' + response.new_id + '[' + response.edit_options[i].name + ']';
-
-				tinyMCE.execCommand( 'mceRemoveControl', false, editor_id );
-				tinyMCE.execCommand( 'mceAddControl', true, editor_id );
-			}
-		}
+	if ( typeof nf_ajax_rte_editors !== 'undefined' ) {
+		for (var x = nf_ajax_rte_editors.length - 1; x >= 0; x--) {
+			var editor_id = nf_ajax_rte_editors[x];
+			tinyMCE.init( tinyMCEPreInit.mceInit[ editor_id ] );
+			try { quicktags( tinyMCEPreInit.qtInit[ editor_id ] ); } catch(e){}
+		};
 	}
+
 	jQuery(".ninja-forms-field-conditional-cr-field").each(function(){
 		jQuery(this).append('<option value="' + response.new_id + '">' + response.new_type + '</option>');
 	});

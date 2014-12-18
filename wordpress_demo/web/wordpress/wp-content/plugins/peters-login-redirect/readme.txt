@@ -3,7 +3,7 @@ Contributors: pkthree
 Donate link: http://www.theblog.ca
 Tags: login, logout, redirect, admin, administration, dashboard, users, authentication
 Requires at least: 3.2
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: trunk
 
 Redirect users to different locations after logging in and logging out.
@@ -14,7 +14,7 @@ Define a set of redirect rules for specific users, users with specific roles, us
 
 You can use the syntax **[variable]username[/variable]** in your URLs so that the system will build a dynamic URL upon each login, replacing that text with the user's username. In addition to username, there is "homeurl", "siteurl", "postid-23", "http_referer" and you can also add your own custom URL "variables". See Other Notes / How to Extend for documentation.
 
-If you're using a plugin such as Gigya that bypasses the regular WordPress login redirect process (and only allows one fixed redirect URL), set that plugin to redirect to wp-content/plugins/peters-login-redirect/wplogin_redirect_control.php and set the $rul_use_redirect_controller setting to "true" in the main plugin file.
+If you're using a plugin such as Gigya that bypasses the regular WordPress login redirect process (and only allows one fixed redirect URL), set that plugin to redirect to wp-content/plugins/peters-login-redirect/wplogin_redirect_control.php and set the relevant setting to "Yes" at the bottom of the Settings &gt; Login/Logout redirects page in the WordPress admin panel.
 
 You can add your own code logic before and between any of the plugin's normal redirect checks if needed. See Other Notes / How to Extend for documentation. Some examples include: redirecting the user based on their IP address; and redirect users to a special page on first login.
 
@@ -48,6 +48,19 @@ Redirect rules are configured in the Settings > Login/logout redirects admin men
 == Frequently Asked Questions ==
 
 Please visit the plugin page at http://www.theblog.ca/wplogin-redirect with any questions.
+
+Login redirects not working? This plugin uses WordPress's standard login_redirect hook. The usual cause of problems is that another plugin is using the hook first, or there is a custom login form that isn't even running through the standard WordPress login functions.
+
+These threads might be useful:
+
+* http://www.theblog.ca/peter-forum/peters-login-redirect/logout-works-great-but-log-in-keeps-going-to-my-account-pages
+* http://www.theblog.ca/peter-forum/peters-login-redirect/redirect-not-working
+* http://www.theblog.ca/peter-forum/peters-login-redirect/any-way-to-solve-re-direct-conflict-with-wp-affiliate-plugin
+
+Also see the instructions at the bottom of the settings on the "Settings &gt; Login/logout redirects" page in the WordPress admin panel that says:
+
+"Use external redirect file. Set this to "Yes" if you are using a plugin such as Gigya that bypasses the regular WordPress redirect process (and allows only one fixed redirect URL). Then, set the redirect URL in the other plugin to 
+http://www.yoursite.com/wp-content/plugins/peters-login-redirect/wplogin_redirect_control.php"
 
 == How to Extend ==
 
@@ -193,6 +206,12 @@ For a deeper dive into this feature, please see this video:
 http://www.screenr.com/Gqi8
 
 == Changelog ==
+
+= 2.8.2 =
+* 2014-09-06: Translation string fix.
+
+= 2.8.1 =
+* 2014-08-03: Support the deletion of rules referencing deleted user, roles, or levels.
 
 = 2.8.0 =
 * 2014-07-06: Improved management interface to add specific Edit and Delete buttons per rule, and removed limit around number of rules.

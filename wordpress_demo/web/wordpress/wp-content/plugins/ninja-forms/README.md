@@ -2,9 +2,9 @@
 [Contributors](https://github.com/wpninjas/ninja-forms/graphs/contributors)
 
 Tags: form, forms, contact form, custom form, form builder, form creator, form manager, form creation, contact forms, custom forms, forms builder, forms creator, forms manager, forms creation, form administration,
-Requires at least: 3.6
-Tested up to: 3.9
-Stable tag: 2.6.5
+Requires at least: 3.8
+Tested up to: 4.1
+Stable tag: 2.8.12
 License: GPLv2 or later
 
 Forms created with a simple drag and drop interface. Contact forms, Email collection forms, or any other form you want on your WordPress site.
@@ -31,7 +31,7 @@ Here are just a few of the things you will find in Ninja Forms:
 * Please note that if you are using a version of PHP lower than 5.3, you may experience some problems using AJAX Submissions. These can be minimized by using simple success/error messages without any quotes or special characters.
 
 ## Demo Site
-Please feel free to visit our [demo site](http://demo.wpninjas.com/ninja-forms/) where you can test the features of Ninja Forms and all of our extensions.
+Please feel free to visit our [demo site](http://demo.ninjaforms.com/) where you can test the features of Ninja Forms and all of our extensions.
 
 ## Extensions
 

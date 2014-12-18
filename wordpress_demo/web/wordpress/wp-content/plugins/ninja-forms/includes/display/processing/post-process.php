@@ -12,9 +12,6 @@ function ninja_forms_post_process(){
 		if( !$ninja_forms_processing->get_all_errors() ){
 
 			$ninja_forms_processing->update_form_setting( 'processing_complete', 1 );
-			$success = $ninja_forms_processing->get_form_setting( 'success_msg' );
-
-			$ninja_forms_processing->add_success_msg( 'success_msg', $success );
 
 			$json = ninja_forms_json_response();
 			

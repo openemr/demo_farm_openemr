@@ -70,9 +70,8 @@ function ninja_forms_register_field_checkbox(){
 				),
 			),
 		),
-		//'process' => 'ninja_forms_field_checkbox_pre_process',
-		//'edit_sub_pre_process' => 'ninja_forms_field_checkbox_pre_process',
 		'req_validation' => 'ninja_forms_field_checkbox_validation',
+		'edit_sub_value' => 'nf_field_checkbox_edit_sub_value',
 	);
 
 	ninja_forms_register_field('_checkbox', $args);
@@ -82,9 +81,9 @@ function ninja_forms_register_field_checkbox(){
 add_action('init', 'ninja_forms_register_field_checkbox');
 
 //Checkbox Display Function
-function ninja_forms_field_checkbox_display($field_id, $data){
+function ninja_forms_field_checkbox_display( $field_id, $data, $form_id = '' ){
 
-	$field_class = ninja_forms_get_field_class($field_id);
+	$field_class = ninja_forms_get_field_class( $field_id, $form_id );
 	$default_value = $data['default_value'];
 	if($default_value == 'checked' OR $default_value == 1){
 		$checked = 'checked = "checked"';
@@ -120,4 +119,24 @@ function ninja_forms_field_checkbox_validation( $field_id, $user_value ){
 	}else{
 		return false;
 	}
+}
+
+/**
+ * Edit submission value output function
+ *
+ * @since 2.7
+ * @return void
+ */
+function nf_field_checkbox_edit_sub_value( $field_id, $user_value ) {
+	
+	if ( $user_value == 'checked' ) {
+		$checked = 'checked="checked"';
+	} else {
+		$checked = '';
+	}
+
+	?>
+	<input type="hidden" name="fields[<?php echo $field_id; ?>]" value="unchecked">
+	<input type="checkbox" name="fields[<?php echo $field_id; ?>]" value="checked" <?php echo $checked; ?>>
+	<?php
 }

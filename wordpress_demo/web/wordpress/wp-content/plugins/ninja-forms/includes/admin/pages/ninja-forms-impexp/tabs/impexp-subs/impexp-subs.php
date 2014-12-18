@@ -21,7 +21,7 @@ function ninja_forms_tab_impexp_subs(){
 		<div class="form-section">
 			<label for="">
 				<input type="text" class="code" name="form_title" id="" value="" />
-				<img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>/images/question-ico.gif" title="">
+				<img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>images/question-ico.gif" title="">
 				<br />
 			</label>
 		</div>

@@ -46,10 +46,8 @@ function ninja_forms_edit_field_calc( $field_id ) {
 			ninja_forms_edit_field_el_output($field_id, 'text', __( '<strong>Checked</strong> Calculation Value', 'ninja-forms' ), 'calc_value[checked]', $calc_value['checked'], 'wide', '', '', __( 'This is the value that will be used if <strong>Checked</strong>.', 'ninja-forms' ) );
 			ninja_forms_edit_field_el_output($field_id, 'text', __( '<strong>Unchecked</strong> Calculation Value', 'ninja-forms' ), 'calc_value[unchecked]', $calc_value['unchecked'], 'wide', '', '', __( 'This is the value that will be used if <strong>Unchecked</strong>.', 'ninja-forms' ) );
 		}
-		//if ( $field_type != '_calc' ) {
-			ninja_forms_edit_field_el_output($field_id, 'checkbox', __( 'Include in the auto-total? (If enabled)', 'ninja-forms' ), 'calc_auto_include', $calc_auto_include, 'wide', '', 'ninja-forms-field-auto-total-include');
-		//}
-		//ninja_forms_edit_field_el_output($field_id, 'checkbox', __( 'Include in payment details list?', 'ninja-forms' ), 'calc_option', $calc_option, 'wide', '', '', __( ' - Should this field be considered as pertinant to a payment/product? i.e. an item option, a product size or color, etc.', 'ninja-forms' ) );
+
+		ninja_forms_edit_field_el_output($field_id, 'checkbox', __( 'Include in the auto-total? (If enabled)', 'ninja-forms' ), 'calc_auto_include', $calc_auto_include, 'wide', '', 'ninja-forms-field-auto-total-include');
 	}
 	?>
 		

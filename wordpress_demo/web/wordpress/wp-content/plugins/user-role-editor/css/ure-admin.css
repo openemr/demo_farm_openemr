@@ -176,3 +176,8 @@ input.warning:hover, a.warning:hover {
 .ure-dialog {
     display: none;
 }
+
+#ure_admin_menu_access_table tr:hover {
+    background-color: #2ea2cc;
+    color: #ffffff;
+}

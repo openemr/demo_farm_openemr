@@ -50,7 +50,7 @@ function ninja_forms_edit_field_desc( $field_id ) {
 			$options = $desc_pos_options;
 		}
 
-		$desc_desc = sprintf( __( 'If "desc text" is enabled, there will be a question mark %s placed next to the input field. Hovering over this question mark will show the desc text.', 'ninja-forms' ), '<img src="'.NINJA_FORMS_URL.'/images/question-ico.gif">' );
+		$desc_desc = sprintf( __( 'If "desc text" is enabled, there will be a question mark %s placed next to the input field. Hovering over this question mark will show the desc text.', 'ninja-forms' ), '<img src="'.NINJA_FORMS_URL.'images/question-ico.gif">' );
 		ninja_forms_edit_field_el_output( $field_id, 'checkbox', __( 'Add Description', 'ninja-forms' ), 'show_desc', $show_desc, 'wide', '', 'ninja-forms-show-desc' );
 ?>
 		<span id="ninja_forms_field_<?php echo $field_id;?>_desc_span" <?php echo $display_span;?>>
@@ -63,7 +63,6 @@ function ninja_forms_edit_field_desc( $field_id ) {
 		ninja_forms_edit_field_el_output( $field_id, 'select', __( 'Description Position', 'ninja-forms' ), 'desc_pos', $desc_pos, 'wide', $options, 'wide' );
 		ninja_forms_edit_field_el_output( $field_id, 'rte', __( 'Description Content', 'ninja-forms' ), 'desc_text', $desc_text, 'wide', '', 'widefat' );
 
-		// ninja_forms_edit_field_el_output($field_id, 'desc', $desc_desc, 'desc_desc');
 ?>
 		</span>
 		<?php

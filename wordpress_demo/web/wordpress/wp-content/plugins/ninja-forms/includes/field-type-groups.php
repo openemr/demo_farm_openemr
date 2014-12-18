@@ -2,12 +2,12 @@
 
 function ninja_forms_register_common_field_type_groups(){
 	$args = array(
-		'name' => 'Standard Fields',
+		'name' => __( 'Standard Fields', 'ninja-forms' ),
 	);
 	ninja_forms_register_field_type_group( 'standard_fields', $args );
 
 	$args = array(
-		'name' => 'Layout Elements',
+		'name' => __( 'Layout Elements', 'ninja-forms' ),
 	);
 	ninja_forms_register_field_type_group( 'layout_elements', $args );
 
@@ -16,7 +16,7 @@ function ninja_forms_register_common_field_type_groups(){
 		return false;
 
 	$args = array(
-		'name' => 'Post Creation',
+		'name' => __( 'Post Creation', 'ninja-forms' ),
 	);
 	ninja_forms_register_field_type_group( 'create_post', $args );
 }

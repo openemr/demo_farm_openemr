@@ -3,7 +3,7 @@ Contributors: cartpauj, sunsetsystems
 Tags: private, message, messaging, messages, user message, user messages, user messaging, private message, private messages, private messaging, mail, email, local, users, chat, discussion, post, thread
 Requires at least: 2.7
 Tested up to: 3.9.1
-Stable tag: 1.0.11
+Stable tag: 1.0.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,9 +11,6 @@ Easily add Private Messaging for your users to your WordPress site with Cartpauj
 
 == Description ==
 Cartpauj PM (Private Messages) allows you to easily add a Private Messaging system to your Wordpress blog/site. Unlike other Private Messaging plugins available, Cartpauj PM works through a Page rather than the WP Dashboard -- This is very helpful if you want to keep users out of the Dashboard area! Please see the features and wish lists below for more about what Cartpauj PM currently does and what's been requested for the future.
-
-= Important Note for Upgraders =
-If you are upgrading an existing Cartpaug PM install to version 1.0.11, you will need to deactivate and then re-activate the plugin in order for the required new table to be created. This will be fixed in the next release.
 
 = Features =
 * Works through a Page rather than the dashboard. This is very helpful if you want to keep your users out of the Dashboard area!
@@ -45,6 +42,7 @@ Cartpauj PM includes its own stylesheet to try and make it work with as many the
 * Bulgarian (bg_BG)
 * Czech (cs_CS)
 * Danish (da_DK)
+* Dutch (nl_NL)
 * French (fr_FR)
 * German (de_DE)
 * Italian (it_IT)
@@ -73,6 +71,13 @@ n/a
 n/a
 
 == Changelog ==
+=1.0.12=
+* Fixed display of message timestamps to use local time zone.
+* Fix for failure to create attachments table on upgrade.
+* Added setting to limit attachment sizes or to disable attachments entirely.
+* Dutch translation thanks to ikookmaar.
+* Fixed crash when no function exists to detect mime type of attachment.
+* Fixed security hole where anyone can delete a message.
 = 1.0.11 =
 * New maintainer "sunsetsystems".
 * Added optional support for a messaging administrator who is the only person allowed to message other users.

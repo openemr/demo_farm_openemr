@@ -16,6 +16,8 @@ if (!class_exists("cartpaujPM"))
         $this->convertToID($this->adminOps['admin_user_login']) : 0;
     }
 
+    // See http://codex.wordpress.org/Creating_Tables_with_Plugins for guidance
+    // about creating tables with plugins.
     function pmActivate()
     {
       global $table_prefix, $wpdb;
@@ -29,31 +31,31 @@ if (!class_exists("cartpaujPM"))
           $charset_collate .= " COLLATE $wpdb->collate";
       }
 
-      $sqlMsgs = 	"CREATE TABLE ".$this->tableMsgs."(
-            `id` int(11) NOT NULL auto_increment,
-            `parent_id` int(11) NOT NULL default '0',
-            `from_user` int(11) NOT NULL default '0',
-            `to_user` int(11) NOT NULL default '0',
-            `last_sender` int(11) NOT NULL default '0',
-            `date` datetime NOT NULL default '0000-00-00 00:00:00',
-            `last_date` datetime NOT NULL default '0000-00-00 00:00:00',
-            `message_title` varchar(65) NOT NULL,
-            `message_contents` longtext NOT NULL,
-            `message_read` int(11) NOT NULL default '0',
-            `to_del` int(11) NOT NULL default '0',
-            `from_del` int(11) NOT NULL default '0',
-            PRIMARY KEY (`id`))
-            {$charset_collate};";
+      $sqlMsgs = 	"CREATE TABLE " . $this->tableMsgs . " (
+        id int(11) NOT NULL auto_increment,
+        parent_id int(11) NOT NULL default '0',
+        from_user int(11) NOT NULL default '0',
+        to_user int(11) NOT NULL default '0',
+        last_sender int(11) NOT NULL default '0',
+        date datetime NOT NULL default '0000-00-00 00:00:00',
+        last_date datetime NOT NULL default '0000-00-00 00:00:00',
+        message_title varchar(65) NOT NULL,
+        message_contents longtext NOT NULL,
+        message_read int(11) NOT NULL default '0',
+        to_del int(11) NOT NULL default '0',
+        from_del int(11) NOT NULL default '0',
+        PRIMARY KEY  (id))
+        {$charset_collate};";
 
-      $sqlAtts = "CREATE TABLE {$this->tableAtts} ("          .
-        "`id`         int(11)      NOT NULL auto_increment, " .
-        "`message_id` int(11)      NOT NULL, "                .
-        "`filename`   varchar(255) NOT NULL DEFAULT '', "     .
-        "`mimetype`   varchar(255) NOT NULL DEFAULT '', "     .
-        "`contents`   longblob     NOT NULL, "                .
-        "PRIMARY KEY (`id`), "                                .
-        "KEY `message_id` (`message_id`)"                     .
-        ") $charset_collate;";
+      $sqlAtts = "CREATE TABLE {$this->tableAtts} (
+        id         int(11)      NOT NULL auto_increment,
+        message_id int(11)      NOT NULL,
+        filename   varchar(255) NOT NULL DEFAULT '',
+        mimetype   varchar(255) NOT NULL DEFAULT '',
+        contents   longblob     NOT NULL,
+        PRIMARY KEY  (id),
+        KEY message_id (message_id)
+        ) $charset_collate;";
 
       require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
@@ -150,6 +152,12 @@ if (!class_exists("cartpaujPM"))
       $this->pageURL = get_permalink($this->getPageID());
       $this->actionURL = $this->pageURL.$delim."pmaction=";
     }
+
+    function getMaxUploadSize() {
+      $viewAdminOps = $this->getAdminOps();
+      return intval($viewAdminOps['max_upload_size']);
+    }
+
 /******************************************SETUP END******************************************/
 
 /******************************************ADMIN SETTINGS PAGE BEGIN******************************************/
@@ -177,6 +185,11 @@ if (!class_exists("cartpaujPM"))
           "<br/><small>" . __("If set, only this user may list users or send messages to non-admin users", "cartpaujpm") .
           "</small></td><td><input type='text' size='10' name='admin_user_login' value='" .
           $viewAdminOps['admin_user_login'] . "' /> " . __("Default","cartpaujpm") . ": Empty</td></tr>" .
+          // Support for specifying maximum upload size.
+          "<tr><td>" . __("Maximum uploaded file size in bytes", "cartpaujpm") .
+          "<br/><small>" . __("To disable uploads entirely, set this to 0", "cartpaujpm") .
+          "</small></td><td><input type='text' size='10' name='max_upload_size' value='" .
+          $this->getMaxUploadSize() . "' /> " . __("Default","cartpaujpm") . ": 10000000</td></tr>" .
           //
           "<tr><td colspan='2'><input type='checkbox' name='hide_branding' " .
           checked(!empty($viewAdminOps['hide_branding']), true, false) .
@@ -199,6 +212,7 @@ if (!class_exists("cartpaujPM"))
         $saveAdminOps = array('num_messages' 	=> $_POST['num_messages'],
                               'messages_page' => $_POST['messages_page'],
                               'admin_user_login' => $_POST['admin_user_login'],
+                              'max_upload_size' => intval($_POST['max_upload_size']),
                               'hide_branding' => $_POST['hide_branding']
         );
         update_option($this->adminOpsName, $saveAdminOps);
@@ -212,6 +226,7 @@ if (!class_exists("cartpaujPM"))
       $pmAdminOps = array('num_messages' => 50,
                           'messages_page' => 15,
                           'admin_user_login' => '',
+                          'max_upload_size' => 10000000,
                           'hide_branding' => false
       );
 
@@ -310,9 +325,17 @@ if (!class_exists("cartpaujPM"))
         $newMsg .= __("Subject", "cartpaujpm").":<br/>
         <input type='text' name='message_title' maxlength='65' value='' /><br/>".
         __("Message", "cartpaujpm").":<br/>".$this->get_form_buttons()."<br/>
-        <textarea name='message_content'></textarea>
-        <input type='hidden' name='MAX_FILE_SIZE' value='64000000' />
-        <input type='file' name='attachment[]' multiple='multiple' /><br />
+        <textarea name='message_content'></textarea>";
+        // Attachment support.
+        if ($this->getMaxUploadSize()) {
+          $newMsg .= "
+          <input type='hidden' name='MAX_FILE_SIZE' value='" . $this->getMaxUploadSize() . "' />
+          <input type='file' name='attachment[]' multiple='multiple' />&nbsp;" .
+          sprintf(__("Maximum file size is %d bytes. Larger files will be ignored.", "cartpaujpm"),
+            $this->getMaxUploadSize()) . "<br />";
+        }
+        //
+        $newMsg .= "
         <input type='hidden' name='message_from' value='".$user_ID."' />
         <input type='hidden' name='message_date' value='".current_time('mysql', $gmt = 1)."' />
         <input type='hidden' name='parent_id' value='0' /><br/>
@@ -398,9 +421,17 @@ if (!class_exists("cartpaujPM"))
       <p><strong>".__("Add Reply", "cartpaujpm").":</strong></p>
       <form name='message' action='{$this->actionURL}checkmessage' method='post' enctype='multipart/form-data'>" .
       $this->get_form_buttons() . "<br/>
-      <textarea name='message_content'></textarea>
-      <input type='hidden' name='MAX_FILE_SIZE' value='64000000' />
-      <input type='file' name='attachment[]' multiple='multiple' /><br />
+      <textarea name='message_content'></textarea>";
+      // Attachment support.
+      if ($this->getMaxUploadSize()) {
+        $threadOut .= "
+        <input type='hidden' name='MAX_FILE_SIZE' value='" . $this->getMaxUploadSize() . "' />
+        <input type='file' name='attachment[]' multiple='multiple' />&nbsp;" .
+        sprintf(__("Maximum file size is %d bytes. Larger files will be ignored.", "cartpaujpm"),
+          $this->getMaxUploadSize()) . "<br />";
+      }
+      //
+      $threadOut .= "
       <input type='hidden' name='message_to' value='".$this->convertToUser($to)."' />
       <input type='hidden' name='message_title' value='".$re.$message_title."' />
       <input type='hidden' name='message_from' value='".$user_ID."' />
@@ -513,7 +544,7 @@ if (!class_exists("cartpaujPM"))
             $mimetype = finfo_file($finfo, $filepath);
             finfo_close($finfo);
           }
-          else {
+          else if (function_exists('mime_content_type')) {
             $mimetype = mime_content_type($filepath);
           }
           // Get file contents.
@@ -663,14 +694,14 @@ if (!class_exists("cartpaujPM"))
       global $wpdb, $user_ID;
 
       $delID = $_GET['id'];
-      $toDuser = $wpdb->get_var($wpdb->prepare("SELECT to_user FROM {$this->tableMsgs} WHERE id = %d", $delID));
-      $toDel = $wpdb->get_var($wpdb->prepare("SELECT to_del FROM {$this->tableMsgs} WHERE id = %d", $delID));
-      $fromDel = $wpdb->get_var($wpdb->prepare("SELECT from_del FROM {$this->tableMsgs} WHERE id = %d", $delID));
+      $toDuser   = $wpdb->get_var($wpdb->prepare("SELECT to_user   FROM {$this->tableMsgs} WHERE id = %d", $delID));
+      $fromDuser = $wpdb->get_var($wpdb->prepare("SELECT from_user FROM {$this->tableMsgs} WHERE id = %d", $delID));
+      $toDel     = $wpdb->get_var($wpdb->prepare("SELECT to_del    FROM {$this->tableMsgs} WHERE id = %d", $delID));
+      $fromDel   = $wpdb->get_var($wpdb->prepare("SELECT from_del  FROM {$this->tableMsgs} WHERE id = %d", $delID));
       $sqlAttr = "DELETE FROM a USING {$this->tableMsgs} AS m JOIN {$this->tableAtts} AS a " .
         "WHERE (m.id = %d OR m.parent_id = %d) AND a.message_id = m.id";
 
-      if ($toDuser == $user_ID)
-      {
+      if ($toDuser == $user_ID) {
         if ($fromDel == 0) {
           $wpdb->query($wpdb->prepare("UPDATE {$this->tableMsgs} SET to_del = 1 WHERE id = %d", $delID));
         }
@@ -679,8 +710,7 @@ if (!class_exists("cartpaujPM"))
           $wpdb->query($wpdb->prepare("DELETE FROM {$this->tableMsgs} WHERE id = %d OR parent_id = %d", $delID, $delID));
         }
       }
-      else
-      {
+      else if ($fromDuser == $user_ID) {
         if ($toDel == 0) {
           $wpdb->query($wpdb->prepare("UPDATE {$this->tableMsgs} SET from_del = 1 WHERE id = %d", $delID));
         }
@@ -688,6 +718,13 @@ if (!class_exists("cartpaujPM"))
           $wpdb->query($wpdb->prepare($sqlAttr, $delID, $delID));
           $wpdb->query($wpdb->prepare("DELETE FROM {$this->tableMsgs} WHERE id = %d OR parent_id = %d", $delID, $delID));
         }
+      }
+      else {
+        $error = "<p><strong>" . __("Privacy Error", "cartpaujpm") . ":</strong></p>
+        <p><strong><a href='" . $this->pageURL . "' style='color:navy;'>" .
+        __("Back To Message Box", "cartpaujpm") . "</a></strong></p>";
+        $this->notify = __("You do not have permission to access this message!", "cartpaujpm");
+        return $error;
       }
 
       $deleted = "<p><strong>".__("Message Deleted", "cartpaujpm").":</strong></p>
@@ -1015,7 +1052,7 @@ if (!class_exists("cartpaujPM"))
 
     function formatDate($date)
     {
-      return date('M d, h:i A', strtotime($date));
+      return get_date_from_gmt($date, 'M d, h:i A');
     }
 
     function getNewMsgs()

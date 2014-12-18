@@ -21,13 +21,95 @@ function ninja_forms_register_field_credit_card(){
 		//'post_process' => 'ninja_forms_field_credit_card_test',
 		'save_sub' => false,
 		'process_field' => false,
-		'edit_label_pos' => true,
+		'edit_label' => false,
+		'edit_label_pos' => false,
 		'edit_options' => array(
 			array(
 				'type' => 'hidden',
 				'name' => 'payment_field_group',
 				'default' => 1,
 			),
+			array(
+				'type' 		=> 'text',
+				'name' 		=> 'cc_number_label',
+				'label'		=> __( 'Card Number Label', 'ninja-forms' ),
+				'default' 	=> __( 'Card Number', 'ninja-forms' ),
+				'width' 	=> 'wide',
+				'class' 	=> 'widefat',
+			),
+			array(
+				'type' 		=> 'text',
+				'name' 		=> 'cc_number_desc',
+				'label'		=> __( 'Card Number Description', 'ninja-forms' ),
+				'default' 	=> __( 'The (typically) 16 digits on the front of your credit card.', 'ninja-forms' ),
+				'width' 	=> 'wide',
+				'class' 	=> 'widefat',
+			),
+			array(
+				'type' 		=> 'text',
+				'name' 		=> 'cc_cvc_label',
+				'label'		=> __( 'Card CVC Label', 'ninja-forms' ),
+				'default' 	=> __( 'CVC', 'ninja-forms' ),
+				'width' 	=> 'wide',
+				'class' 	=> 'widefat',
+			),
+			array(
+				'type' 		=> 'text',
+				'name' 		=> 'cc_cvc_desc',
+				'label'		=> __( 'Card CVC Description', 'ninja-forms' ),
+				'default' 	=> __( 'The 3 digit (back) or 4 digit (front) value on your card.', 'ninja-forms' ),
+				'width' 	=> 'wide',
+				'class' 	=> 'widefat',
+			),
+			array(
+				'type' 		=> 'text',
+				'name' 		=> 'cc_name_label',
+				'label'		=> __( 'Card Name Label', 'ninja-forms' ),
+				'default' 	=> __( 'Name on the card', 'ninja-forms' ),
+				'width' 	=> 'wide',
+				'class' 	=> 'widefat',
+			),
+			array(
+				'type' 		=> 'text',
+				'name' 		=> 'cc_name_desc',
+				'label'		=> __( 'Card Name Description', 'ninja-forms' ),
+				'default' 	=> __( 'The name printed on the front of your credit card.', 'ninja-forms' ),
+				'width' 	=> 'wide',
+				'class' 	=> 'widefat',
+			),
+			array(
+				'type' 		=> 'text',
+				'name' 		=> 'cc_exp_month_label',
+				'label'		=> __( 'Card Expiry Month Label', 'ninja-forms' ),
+				'default' 	=> __( 'Expiration month (MM)', 'ninja-forms' ),
+				'width' 	=> 'wide',
+				'class' 	=> 'widefat',
+			),
+			array(
+				'type' 		=> 'text',
+				'name' 		=> 'cc_exp_month_desc',
+				'label'		=> __( 'Card Expiry Month Description', 'ninja-forms' ),
+				'default' 	=> __( 'The month your credit card expires, typically on the front of the card.', 'ninja-forms' ),
+				'width' 	=> 'wide',
+				'class' 	=> 'widefat',
+			),
+			array(
+				'type' 		=> 'text',
+				'name' 		=> 'cc_exp_year_label',
+				'label'		=> __( 'Card Expiry Year Label', 'ninja-forms' ),
+				'default' 	=> __( 'Expiration year (YYYY)', 'ninja-forms' ),
+				'width' 	=> 'wide',
+				'class' 	=> 'widefat',
+			),
+			array(
+				'type' 		=> 'text',
+				'name' 		=> 'cc_exp_year_desc',
+				'label'		=> __( 'Card Expiry Year Description', 'ninja-forms' ),
+				'default' 	=> __( 'The year your credit card expires, typically on the front of the card.', 'ninja-forms' ),
+				'width' 	=> 'wide',
+				'class' 	=> 'widefat',
+			),
+
 		),
 	);
 
@@ -45,7 +127,7 @@ add_action( 'init', 'ninja_forms_register_field_credit_card' );
  * @returns void
  */
 
-function ninja_forms_field_credit_card_display( $field_id, $data ) {
+function ninja_forms_field_credit_card_display( $field_id, $data, $form_id = '' ) {
 	global $ninja_forms_processing;
 
 	if( isset( $data['default_value'] ) ) {
@@ -59,6 +141,21 @@ function ninja_forms_field_credit_card_display( $field_id, $data ) {
 	} else {
 		$label_pos = 'above';
 	}
+
+	$cc_number_label = isset ( $data['cc_number_label'] ) ? $data['cc_number_label'] : __( 'Card Number', 'ninja-forms' );
+	$cc_number_desc = isset ( $data['cc_number_desc'] ) ? $data['cc_number_desc'] : __( 'The (typically) 16 digits on the front of your credit card.', 'ninja-forms' );
+	
+	$cc_cvc_label = isset ( $data['cc_cvc_label'] ) ? $data['cc_cvc_label'] : __( 'CVC', 'ninja-forms' );
+	$cc_cvc_desc = isset ( $data['cc_cvc_desc'] ) ? $data['cc_cvc_desc'] : __( 'The 3 digit (back) or 4 digit (front) value on your card.', 'ninja-forms' );
+
+	$cc_name_label = isset ( $data['cc_name_label'] ) ? $data['cc_name_label'] : __( 'Name on the card', 'ninja-forms' );
+	$cc_name_desc = isset ( $data['cc_name_desc'] ) ? $data['cc_name_desc'] : __( 'The name printed on the front of your credit card.', 'ninja-forms' );
+
+	$cc_exp_month_label = isset ( $data['cc_exp_month_label'] ) ? $data['cc_exp_month_label'] : __( 'Expiration month (MM)', 'ninja-forms' );
+	$cc_exp_month_desc = isset ( $data['cc_exp_month_desc'] ) ? $data['cc_exp_month_desc'] : __( 'The month your credit card expires, typically on the front of the card.', 'ninja-forms' );
+
+	$cc_exp_year_label = isset ( $data['cc_exp_year_label'] ) ? $data['cc_exp_year_label'] : __( 'Expiration year (YYY)', 'ninja-forms' );
+	$cc_exp_year_desc = isset ( $data['cc_exp_year_desc'] ) ? $data['cc_exp_year_desc'] : __( 'The year your credit card expires, typically on the front of the card.', 'ninja-forms' );
 
 	if ( isset ( $ninja_forms_processing ) ){
 		$name = $ninja_forms_processing->get_extra_value( '_credit_card_name' );
@@ -80,7 +177,7 @@ function ninja_forms_field_credit_card_display( $field_id, $data ) {
 		$card_year_errors = '';
 	}
 
-	$field_class = ninja_forms_get_field_class( $field_id );
+	$field_class = ninja_forms_get_field_class( $field_id, $form_id );
 	$post_field = apply_filters( 'ninja_forms_post_credit_card_field', false );
 	$desc_pos = apply_filters( 'ninja_forms_credit_card_field_desc_pos', 'after_label' );
 	$hide_cc_fields = apply_filters( 'ninja_forms_hide_cc_field', array() );
@@ -91,19 +188,19 @@ function ninja_forms_field_credit_card_display( $field_id, $data ) {
 			<?php
 			if ( $desc_pos == 'before_label' or $desc_pos == 'before_everything' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_number_desc', 'The (typically) 16 digits on the front of your credit card.' ), 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_number_desc', $cc_number_desc ); ?></span>
 				<?php
 			}
 
 			if ( $label_pos == 'above' or $label_pos == 'left' ) {
 				?>
-				<label><?php _e( apply_filters( 'ninja_forms_credit_card_number_label', 'Card Number' ) , 'ninja-forms' ); ?></label>
+				<label><?php echo apply_filters( 'ninja_forms_credit_card_cvc_label', $cc_number_label ); ?></label>
 				<?php
 			}
 
 			if ( $desc_pos == 'after_label' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_number_desc', 'The (typically) 16 digits on the front of your credit card.' ), 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_number_desc', $cc_number_desc ); ?></span>
 				<?php
 			}
 			?>
@@ -113,27 +210,29 @@ function ninja_forms_field_credit_card_display( $field_id, $data ) {
 			<?php
 			if ( $label_pos == 'below' or $label_pos == 'right' ) {
 				?>
-				<label><?php _e( apply_filters( 'ninja_forms_credit_card_number_label', 'Card Number' ) , 'ninja-forms' ); ?></label>
+				<label><?php echo apply_filters( 'ninja_forms_credit_card_cvc_label', $cc_number_label ); ?></label>
 				<?php
 			}
 
 			if ( $desc_pos == 'after_everything' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_number_desc', 'The (typically) 16 digits on the front of your credit card.' ), 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_number_desc', $cc_number_desc ); ?></span>
 				<?php
 			}
 			?>
 		</div>
-		<div class="ninja-forms-credit-card-number-error ninja-forms-field-error">
-			<?php
-			if ( $card_number_errors ) {
-				if( is_array( $card_number_errors ) ) {
-					foreach ( $card_number_errors as $error ) {
-						echo '<p>'.$error['msg'].'</p>';
+		<div class="ninja-forms-error">
+			<div class="ninja-forms-credit-card-number-error ninja-forms-field-error">
+				<?php
+				if ( $card_number_errors ) {
+					if( is_array( $card_number_errors ) ) {
+						foreach ( $card_number_errors as $error ) {
+							echo '<p>'.$error['msg'].'</p>';
+						}
 					}
 				}
-			}
-			?>
+				?>
+			</div>
 		</div>
 	<?php
 	
@@ -145,19 +244,19 @@ function ninja_forms_field_credit_card_display( $field_id, $data ) {
 			<?php
 			if ( $desc_pos == 'before_label' or $desc_pos == 'before_everything' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_cvc_desc', 'The 3 digit (back) or 4 digit (front) value on your card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_cvc_desc', $cc_cvc_desc ); ?></span>
 				<?php
 			}
 
 			if ( $label_pos == 'above' or $label_pos == 'left' ) {
 				?>
-				<label><?php _e( apply_filters( 'ninja_forms_credit_card_cvc_label', 'CVC' ) , 'ninja-forms' ); ?></label>
+				<label><?php echo apply_filters( 'ninja_forms_credit_card_cvc_label', $cc_cvc_label ); ?></label>
 				<?php
 			}
 
 			if ( $desc_pos == 'after_label' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_cvc_desc', 'The 3 digit (back) or 4 digit (front) value on your card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_cvc_desc', $cc_cvc_desc ); ?></span>
 				<?php
 			}
 			?>
@@ -167,28 +266,30 @@ function ninja_forms_field_credit_card_display( $field_id, $data ) {
 			<?php
 			if ( $label_pos == 'below' or $label_pos == 'right' ) {
 				?>
-				<label><?php _e( apply_filters( 'ninja_forms_credit_card_cvc_label', 'CVC' ) , 'ninja-forms' ); ?></label>
+				<label><?php echo apply_filters( 'ninja_forms_credit_card_cvc_label', $cc_cvc_label ); ?></label>
 				<?php
 			}
 
 			if ( $desc_pos == 'after_everything' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_cvc_desc', 'The 3 digit (back) or 4 digit (front) value on your card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_cvc_desc', $cc_cvc_desc ); ?></span>
 				<?php
 			}
 			?>
 
 		</div>
-		<div class="ninja-forms-credit-card-cvc-error ninja-forms-field-error">
-			<?php
-			if ( $card_cvc_errors ) {
-				if( is_array( $card_cvc_errors ) ) {
-					foreach ( $card_cvc_errors as $error ) {
-						echo '<p>'.$error['msg'].'</p>';
+		<div class="ninja-forms-error">
+			<div class="ninja-forms-credit-card-cvc-error ninja-forms-field-error">
+				<?php
+				if ( $card_cvc_errors ) {
+					if( is_array( $card_cvc_errors ) ) {
+						foreach ( $card_cvc_errors as $error ) {
+							echo '<p>'.$error['msg'].'</p>';
+						}
 					}
 				}
-			}
-			?>
+				?>
+			</div>
 		</div>
 	<?php
 	
@@ -201,19 +302,19 @@ function ninja_forms_field_credit_card_display( $field_id, $data ) {
 			<?php
 			if ( $desc_pos == 'before_label' or $desc_pos == 'before_everything' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_name_desc', 'The name printed on the front of your credit card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_name_desc', $cc_name_desc ); ?></span>
 				<?php
 			}
 
 			if ( $label_pos == 'above' or $label_pos == 'left' ) {
 				?>
-				<label><?php _e( apply_filters( 'ninja_forms_credit_card_name_label', 'Name on the card' ) , 'ninja-forms' ); ?></label>
+				<label><?php echo apply_filters( 'ninja_forms_credit_card_name_label', $cc_name_label ); ?></label>
 				<?php
 			}
 
 			if ( $desc_pos == 'after_label' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_name_desc', 'The name printed on the front of your credit card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_name_desc', $cc_name_desc ); ?></span>
 				<?php
 			}
 			?>
@@ -223,30 +324,31 @@ function ninja_forms_field_credit_card_display( $field_id, $data ) {
 			<?php
 			if ( $label_pos == 'below' or $label_pos == 'right' ) {
 				?>
-				<label><?php _e( apply_filters( 'ninja_forms_credit_card_name_label', 'Name on the card' ) , 'ninja-forms' ); ?></label>
+				<label><?php echo apply_filters( 'ninja_forms_credit_card_name_label', $cc_name_label ); ?></label>
 				<?php
 			}
 
 			if ( $desc_pos == 'after_everything' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_name_desc', 'The name printed on the front of your credit card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_name_desc', $cc_name_desc ); ?></span>
 				<?php
 			}
 			?>
 
 		</div>
-		<div class="ninja-forms-credit-card-name-error ninja-forms-field-error">
-			<?php
-			if ( $card_name_errors ) {
-				if( is_array( $card_name_errors ) ) {
-					foreach ( $card_name_errors as $error ) {
-						echo '<p>'.$error['msg'].'</p>';
+		<div class="ninja-forms-error">
+			<div class="ninja-forms-credit-card-name-error ninja-forms-field-error">
+				<?php
+				if ( $card_name_errors ) {
+					if( is_array( $card_name_errors ) ) {
+						foreach ( $card_name_errors as $error ) {
+							echo '<p>'.$error['msg'].'</p>';
+						}
 					}
 				}
-			}
-			?>
+				?>
+			</div>
 		</div>
-		
 	<?php
 	
 	}
@@ -257,19 +359,19 @@ function ninja_forms_field_credit_card_display( $field_id, $data ) {
 			<?php
 			if ( $desc_pos == 'before_label' or $desc_pos == 'before_everything' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_exp_month_desc', 'The month your credit card expires, typically on the front of the card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_exp_month_desc', $cc_exp_month_desc ); ?></span>
 				<?php
 			}
 
 			if ( $label_pos == 'above' or $label_pos == 'left' ) {
 				?>
-				<label><?php _e( apply_filters( 'ninja_forms_credit_card_exp_month_label', 'Expiration month (MM)' ) , 'ninja-forms' ); ?></label>
+				<label><?php echo apply_filters( 'ninja_forms_credit_card_exp_month_label', $cc_exp_month_label ); ?></label>
 				<?php
 			}
 
 			if ( $desc_pos == 'after_label' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_exp_month_desc', 'The month your credit card expires, typically on the front of the card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_exp_month_desc', $cc_exp_month_desc ); ?></span>
 				<?php
 			}
 			?>
@@ -279,46 +381,48 @@ function ninja_forms_field_credit_card_display( $field_id, $data ) {
 			<?php
 			if ( $label_pos == 'below' or $label_pos == 'right' ) {
 				?>
-				<label><?php _e( apply_filters( 'ninja_forms_credit_card_exp_month_label', 'Expiration month (MM)' ) , 'ninja-forms' ); ?></label>
+				<label><?php echo apply_filters( 'ninja_forms_credit_card_exp_month_label', $cc_exp_month_label ); ?></label>
 				<?php
 			}
 
 			if ( $desc_pos == 'after_everything' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_exp_month_desc', 'The month your credit card expires, typically on the front of the card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_exp_month_desc', $cc_exp_month_desc ); ?></span>
 				<?php
 			}
 			?>
 
 		</div>
-		<div class="ninja-forms-credit-card-exp-month-error ninja-forms-field-error">
-			<?php
-			if ( $card_month_errors ) {
-				if( is_array( $card_month_errors ) ) {
-					foreach ( $card_month_errors as $error ) {
-						echo '<p>'.$error['msg'].'</p>';
+		<div class="ninja-forms-error">
+			<div class="ninja-forms-credit-card-exp-month-error ninja-forms-field-error">
+				<?php
+				if ( $card_month_errors ) {
+					if( is_array( $card_month_errors ) ) {
+						foreach ( $card_month_errors as $error ) {
+							echo '<p>'.$error['msg'].'</p>';
+						}
 					}
 				}
-			}
-			?>
-		</div> <!-- [close_exp_month_wrap] -->
+				?>
+			</div> <!-- [close_exp_month_wrap] -->
+		</div>
 		<div class="ninja-forms-credit-card-exp-year label-<?php echo $label_pos; ?> field-wrap"> <!-- [open_exp_year_wrap] -->
 			<?php
 			if ( $desc_pos == 'before_label' or $desc_pos == 'before_everything' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_exp_year_desc', 'The year your credit card expires, typically on the front of the card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_exp_year_desc', $cc_exp_year_desc ); ?></span>
 				<?php
 			}
 
 			if ( $label_pos == 'above' or $label_pos == 'left' ) {
 				?>
-				<label><?php _e( apply_filters( 'ninja_forms_credit_card_exp_year_label', 'Expiration year (YYYY)' ) , 'ninja-forms' ); ?></label>
+				<label><?php echo apply_filters( 'ninja_forms_credit_card_exp_year_label', $cc_exp_year_label ); ?></label>
 				<?php
 			}
 
 			if ( $desc_pos == 'after_label' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_exp_year_desc', 'The year your credit card expires, typically on the front of the card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_exp_year_desc', $cc_exp_year_desc ); ?></span>
 				<?php
 			}
 			?>
@@ -328,29 +432,31 @@ function ninja_forms_field_credit_card_display( $field_id, $data ) {
 			<?php
 			if ( $label_pos == 'below' or $label_pos == 'right' ) {
 				?>
-				<label><?php _e( apply_filters( 'ninja_forms_credit_card_exp_year_label', 'Expiration year (YYYY)' ) , 'ninja-forms' ); ?></label>
+				<label><?php echo apply_filters( 'ninja_forms_credit_card_exp_year_label', $cc_exp_year_label ); ?></label>
 				<?php
 			}
 
 			if ( $desc_pos == 'after_everything' ) {
 				?>
-				<span><?php _e( apply_filters( 'ninja_forms_credit_card_exp_year_desc', 'The year your credit card expires, typically on the front of the card.' ) , 'ninja-forms' ); ?></span>
+				<span><?php echo apply_filters( 'ninja_forms_credit_card_exp_year_desc', $cc_exp_year_desc ); ?></span>
 				<?php
 			}
 			?>
 
 		</div>
-		<div class="ninja-forms-credit-card-exp-year-error ninja-forms-field-error">
-			<?php
-			if ( $card_year_errors ) {
-				if( is_array( $card_year_errors ) ) {
-					foreach ( $card_year_errors as $error ) {
-						echo '<p>'.$error['msg'].'</p>';
+		<div class="ninja-forms-error">
+			<div class="ninja-forms-credit-card-exp-year-error ninja-forms-field-error">
+				<?php
+				if ( $card_year_errors ) {
+					if( is_array( $card_year_errors ) ) {
+						foreach ( $card_year_errors as $error ) {
+							echo '<p>'.$error['msg'].'</p>';
+						}
 					}
 				}
-			}
-			?>
-		</div> <!-- [close_exp_month_wrap] -->
+				?>
+			</div> <!-- [close_exp_month_wrap] -->
+		</div>
 	<?php
 	}
 }

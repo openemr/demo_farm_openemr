@@ -15,7 +15,12 @@ function ninja_forms_display_open_form_tag( $form_id ) {
 		$ajax = 0;
 
 	if ( $ajax == 1 ) {
-		$url = admin_url( 'admin-ajax.php' );
+		if( is_ssl() ) {
+			$url = admin_url( 'admin-ajax.php', 'https' );
+		}
+		else {
+			$url = admin_url( 'admin-ajax.php', 'http' );
+		}
 		$url = apply_filters( 'ninja_forms_ajax_url', $url, $form_id );
 		$url = add_query_arg( 'action', 'ninja_forms_ajax_submit', $url );
 		//$url = add_query_arg('action', 'test', $url);

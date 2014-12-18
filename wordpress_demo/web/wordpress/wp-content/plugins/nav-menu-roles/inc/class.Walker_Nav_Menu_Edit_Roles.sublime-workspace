@@ -1,0 +1,734 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ab",
+				"absint"
+			],
+			[
+				"bundle",
+				"bundled_product_id"
+			],
+			[
+				"quantty",
+				"quantity_to_add"
+			],
+			[
+				"mnm_contain",
+				"mnm_container_data"
+			],
+			[
+				"compostied_item",
+				"composited_item_cart_key"
+			],
+			[
+				"quantity",
+				"quantity_in_container"
+			],
+			[
+				"valid",
+				"valid_ids"
+			],
+			[
+				"container",
+				"container_quantity"
+			],
+			[
+				"values",
+				"values_key"
+			],
+			[
+				"contain",
+				"container_qty"
+			],
+			[
+				"wp_enqueu",
+				"wp_enqueue_scripts"
+			],
+			[
+				"subscription",
+				"subscription_terms"
+			],
+			[
+				"billing",
+				"billing_period"
+			],
+			[
+				"plugins",
+				"plugins_loaded"
+			],
+			[
+				"v",
+				"var_dump	var_dump_snippet"
+			],
+			[
+				"Rad",
+				"Radio_Buttons_for_Taxonomies"
+			],
+			[
+				"descen",
+				"descendants_and_self"
+			],
+			[
+				"tag",
+				"tagchecklist"
+			],
+			[
+				"tax",
+				"taxonomy"
+			],
+			[
+				"checked",
+				"checked_categories"
+			],
+			[
+				"load",
+				"load_sample_tax"
+			],
+			[
+				"current",
+				"current_term"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 400.0,
+		"selected_items":
+		[
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Syncing: Enable Syncing"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package control",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"packag",
+				"Package Control: Remove Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Remove Package"
+			],
+			[
+				"pinsta",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 424.0
+	},
+	"console":
+	{
+		"height": 125.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/cart/cart-item-data.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/cart/cart.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/checkout/thankyou.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-order.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/order/order-details.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/checkout/review-order.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/cart/cart-totals.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-cart.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/wc-template-functions.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-shortcodes.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/checkout/form-coupon.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/loop/loop-start.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/single-product.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/content-single-product.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/archive-product.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/includes/admin/class-wc-bto-admin.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/single-product/add-to-cart/variable.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-product-variable.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/includes/admin/class-mix-and-match-admin.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/includes/class-wc-mnm-display.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/admin/class-wc-admin-assets.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/templates/single-product/mnm-items.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/admin/class-wc-admin-meta-boxes.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/includes/class-wc-bto-cart.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/includes/admin/js/mnm-metabox.js",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/includes/admin/js/mnm-metabox.min.js",
+		"/D/VVV/www/wordpress-default/wp-config.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/Gruntfile.js",
+		"/D/VVV/www/wordpress-default/wp-content/themes/wpalchemy-grail/functions.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-query.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-order-item-meta.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/templates/single-product/bto-item.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/templates/single-product/bto-item-options.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/templates/single-product/add-to-cart/bto-cart-button.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-plugins-mine/woocommerce-name-your-price/assets/js/search-author.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/includes/class-wc-product-mnm.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/admin/wc-meta-box-functions.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-product-variation.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-form-handler.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-product-factory.php",
+		"/D/VVV/www/wordpress-default/wp-includes/feed-rss2.php",
+		"/D/VVV/www/wordpress-default/wp-includes/feed.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/radio-buttons-for-taxonomies/readme.txt",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/radio-buttons-for-taxonomies/radio-buttons-for-taxonomies.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/radio-buttons-for-taxonomies/readme.md",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/single-product/add-to-cart/simple.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/single-product/add-to-cart/grouped.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/templates/single-product/summary/bto-product-summary-variable.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/includes/class-wc-product-bto.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/includes/class-wc-bto-display.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/abstracts/abstract-wc-product.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/templates/single-product/add-to-cart/mnm.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-product-data.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/admin/meta-boxes/views/html-variation-admin.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-template-loader.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/woocommerce-mix-and-match-products.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/wc-core-functions.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/woocommerce.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/assets/js/admin/meta-boxes.js",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/admin/reports/class-wc-report-sales-by-product.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-ajax.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/readme.txt",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/package.json",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-plugins-mine/woocommerce-free-gift-coupons/woocommerce-free-gift-coupons.php",
+		"/D/VVV/www/wordpress-default/wp-content/themes/twentyfourteen/sidebar-content.php",
+		"/D/VVV/www/wordpress-default/wp-content/themes/wpalchemy-grail/style.css",
+		"/D/VVV/www/wordpress-default/wp-content/themes/twentyfourteen/sidebar.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/gateways/paypal/class-wc-gateway-paypal.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/includes/class-wc-mnm-order.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/includes/class-wc-mnm-cart.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/node_modules/grunt/lib/grunt/file.js",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/node_modules/grunt-contrib-uglify/node_modules/maxmin/node_modules/gzip-size/node_modules/zlib-browserify/test/zlib.test.js",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/node_modules/load-grunt-tasks/load-grunt-tasks.js",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/node_modules/load-grunt-tasks/node_modules/multimatch/index.js",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/node_modules/load-grunt-tasks/node_modules/multimatch/package.json",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/node_modules/load-grunt-tasks/node_modules/multimatch/readme.md",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/apigen/libs/FSHL/FSHL/Generator.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/apigen/libs/Nette/Nette/Http/Context.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/wc-product-functions.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/admin/class-wc-admin-post-types.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-product-grouped.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-install.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/loop/add-to-cart.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/woocommerce-composite-products.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-post-types.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/wc-order-functions.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/wc-formatting-functions.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/assets/css/woocommerce.less",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/assets/css/mnm-styles.less",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/templates/single-product/bto-item-title.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/assets/js/add-to-cart-mnm.js",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/apigen/ApiGen/Backend.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/assets/js/add-to-cart-bto.js",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-plugins-mine/woocommerce-name-your-price/assets/js/name-your-price.js",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/templates/component-item.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/cart-dump.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-checkout.php",
+		"/D/Google Drive/sublime-text/Packages/User/base16-ocean.dark (SL).tmTheme",
+		"/C/Users/kathy/AppData/Roaming/Sublime Text 3/Packages/BracketHighlighter/bh_core.sublime-settings",
+		"/C/Users/kathy/AppData/Roaming/Sublime Text 3/Packages/User/bh_core.sublime-settings",
+		"/C/Users/kathy/AppData/Roaming/Sublime Text 3/Packages/BracketHighlighter/bh_wrapping.sublime-settings",
+		"/C/Users/kathy/AppData/Roaming/Sublime Text 3/Installed Packages/BracketHighlighter.sublime-package",
+		"/C/Users/kathy/AppData/Roaming/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/C/Users/kathy/AppData/Roaming/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/admin/meta-boxes/views/html-order-item.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-items.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/wc-cart-functions.php",
+		"/D/VVV/www/wordpress-default/wp-content/themes/hustle/includes/theme-options.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/templates/single-product/add-to-cart/bto-cart-button.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/assets/css/bto-frontend.css",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/assets/css/bto-edit-order.css",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-composite-products/includes/class-wc-bto-order.php",
+		"/D/VVV/www/wordpress-default/wp-content/themes/eventcamp-child-for-aobhc/wp-config.php",
+		"/D/VVV/www/wordpress-default/wp-content/themes/eventcamp-child-for-aobhc/testconnect.php",
+		"/C/Users/kathy/AppData/Local/Temp/Rar$DIa0.806/aobhc.org",
+		"/D/VVV/www/wordpress-default/wp-content/themes/eventcamp-child-for-aobhc/.htaccess",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/cart/mini-cart.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/apigen/libs/Nette/Nette/Database/Reflection/DiscoveredReflection.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/assets/css/dashboard.css",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/cart/cart-shipping.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/class-wc-shipping.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/templates/single-product/bto-item-options.php",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/includes/wc-deprecated-functions.php",
+		"/C/Users/kathy/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/templates/cart/cart-empty.php",
+		"/D/VVV/www/wordpress-default/wp-content/themes/twentyfourteen-child/style.css",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce-mix-and-match-products/assets/css/mnm-styles.css",
+		"/D/VVV/www/wordpress-default/wp-content/plugins/woocommerce/apigen/templates/woodocs/resources/style.css"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 134.0,
+		"where_history":
+		[
+			"<open folders>, *.php",
+			"<open folders>, ",
+			"<open folders>, !*.min.js",
+			"<open folders>, *.php",
+			"<open folders>, ",
+			"<open folders>, *.php",
+			"<open folders>, *.js",
+			"<open folders>, *.php",
+			"<open folders>, ",
+			"<open folders>, *.php",
+			"<open folders>, *.js,",
+			"<open folders>, *.php,",
+			"<open folders>, *.php,D:\\VVV\\www\\wordpress-default\\wp-content\\themes\\hustle",
+			"<open folders>, *.php",
+			"<open folders>",
+			"<open folders>,, *.php,",
+			"<open folders>,, *.php, *.js",
+			"<open folders>,D:\\VVV\\www\\wordpress-default\\wp-content, *.php, *.js",
+			"<open folders>",
+			"<open folders>,<open files>,",
+			"<open folders>,<open files>,D:\\VVV\\www\\wordpress-default\\wp-content\\",
+			"<open folders>,<open files>,D:\\VVV\\www\\wordpress-default\\wp-content\\themes\\chicago-inter-new",
+			"<open folders>",
+			"<open folders>,*.php,",
+			"<open folders>,*.php,,D:\\VVV\\www\\wordpress-default\\wp-content\\plugins\\woocommerce-composite-products",
+			"<open folders>,*.php",
+			"<open folders>,*.js ",
+			"<open folders>,*.php, ",
+			"<open folders>,*.js, ",
+			"<open folders>,*.php, ",
+			"<open folders>,*.php, ,D:\\VVV\\www\\wordpress-default\\wp-content\\plugins\\woocommerce",
+			"<open folders>,*.js, ,D:\\VVV\\www\\wordpress-default\\wp-content\\plugins\\woocommerce",
+			"<open folders>,*.php, ,D:\\VVV\\www\\wordpress-default\\wp-content\\plugins\\woocommerce",
+			"<open folders>,*.php, ",
+			"<open folders>,*.php, ,D:\\www\\wordpress\\src\\wp-content\\plugins\\woocommerce",
+			"<open folders>,*.php, ",
+			"<open folders>,*.php, F:\\www\\wordpress\\wp-content\\plugins\\woocommerce",
+			"<open folders>,*.php, F:\\www\\wordpress\\wp-includes",
+			"<open folders>,*.php, F:\\www\\wordpress\\wp-admin",
+			"<open folders>*.php, F:\\www\\wordpress\\wp-admin",
+			"<open folders>*.php",
+			"F:\\www\\wordpress\\wp-includes, *.php",
+			"F:\\www\\wordpress\\wp-content\\plugins\\woocommerce, *.php, <open folders>",
+			"F:\\www\\wordpress\\wp-content\\plugins\\, *.php, <open folders>",
+			"F:\\www\\wordpress\\wp-content\\plugins\\woocommerce, *.php, <open folders>",
+			"F:\\www\\wordpress\\wp-content\\plugins\\woocommerce, *.php",
+			"F:\\www\\wordpress\\wp-includes, *.php, -*.sublime-workspace,  -*.css, -*.mo, -*.pot, -*.po,",
+			"F:\\www\\wordpress\\wp-admin, *.php, -*.sublime-workspace,  -*.css, -*.mo, -*.pot, -*.po,",
+			"F:\\www\\wordpress\\wp-admin, *.php, -*.sublime-workspace,  -*.css, -*.mo, -*.pot, -*.po, ,<open files>,",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-admin, *.php, -*.sublime-workspace,  -*.css, -*.mo, -*.pot, -*.po, ,<open files>",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-includes, *.php, -*.sublime-workspace,  -*.css, -*.mo, -*.pot, -*.po, ,<open files>",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-content\\plugins\\woocommerce, *.php, -*.sublime-workspace,  -*.css, -*.mo, -*.pot, -*.po, ,<open files>",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-content\\plugins\\radio-buttons-for-taxonomies, *.php, -*.sublime-workspace,  -*.css, -*.mo, -*.pot, -*.po, ,<open files>",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\, *.php, -*.sublime-workspace,  -*.css, -*.mo, -*.pot, -*.po, ,<open files>",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\, -*.sublime-workspace, -*.css, -*.mo, -*.pot, -*.po, ,<open files>",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-content\\, -*.sublime-workspace, -*.css, -*.mo, -*.pot, -*.po, ,<open files>",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-content\\plugins\\types, -*.sublime-workspace, -*.css, -*.mo, -*.pot, -*.po, ,<open files>",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-content\\plugins\\woocommerce, -*.sublime-workspace, -*.css, -*.mo, -*.pot, -*.po, ,<open files>",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-admin, -*.sublime-workspace, -*.css, -*.mo, -*.pot, -*.po, ,<open files>",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-admin, -*.sublime-workspace, -*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-includes, -*.sublime-workspace, -*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-content\\plugins\\radio-buttons-for-taxonomies, -*.sublime-workspace, -*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-admin, -*.sublime-workspace, -*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-includes , -*.sublime-workspace, -*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-admin , -*.sublime-workspace,-*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\ , -*.sublime-workspace,-*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\ -*.sublime-workspace,-*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-admin, -*.sublime-workspace,-*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-content\\plugins\\radio-buttons-for-taxonomies, -*.sublime-workspace,-*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-includes, -*.sublime-workspace,-*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\wordpress\\wp-admin, -*.sublime-workspace,-*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin, -*.sublime-workspace,-*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-includes, -*.sublime-workspace,-*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin, -*.sublime-workspace,-*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-content\\plugins\\radio-buttons-for-taxonomies, -*.sublime-workspace,-*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-content\\plugins\\radio-buttons-for-taxonomies, -*.css, -*.mo, -*.pot, -*.po",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-content\\",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-content\\plugins\\radio-buttons-for-taxonomies",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-includes",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-content\\plugins\\radio-buttons-for-taxonomies",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-plugins\\radio-buttons-for-taxonomies",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-includes",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-plugins\\radio-buttons-for-taxonomies",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-includes, C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-includes",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-content\\plugins\\radio-buttons-for-taxonomies",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-includes",
+			"-*.pot,-*.po, -*.css, *.js, C:\\Users\\helga\\wamp\\www\\localhost\\wp-includes",
+			"-*.pot,-*.po, -*.css, *.js, C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin",
+			"-*.pot,-*.po, -*.css, C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin",
+			"-*.pot,-*.po, -*.css, -*.min.js, C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin",
+			"-*.pot,-*.po, -*.css, C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin",
+			"-*.pot,-*.po, -*.css, -*.js, C:\\Users\\helga\\wamp\\www\\localhost\\wp-includes",
+			"-*.pot,-*.po, -*.css, -*.js, C:\\Users\\helga\\wamp\\www\\localhost\\wp-content\\",
+			"-*.pot,-*.po, -*.css, -*.js, C:\\Users\\helga\\wamp\\www\\localhost\\wp-content\\plugins\\woocommerce",
+			"-*.pot,-*.po, -*.css, -*.js, C:\\Users\\helga\\wamp\\www\\localhost\\wp-content\\plugins\\woocommerce-ezprints",
+			"-*.pot,-*.po, -*.css, -*.js, C:\\Users\\helga\\wamp\\www\\localhost\\wp-includes",
+			"-*.pot,-*.po, -*.css, -*.js, C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin",
+			"-*.pot,-*.po, -*.css, -*.js, C:\\Users\\helga\\wamp\\www\\localhost\\",
+			"-*.pot, -*.css, -*.js, C:\\Users\\helga\\wamp\\www\\localhost\\",
+			"-*.pot, -*.css, -*.js C:\\Users\\helga\\wamp\\www\\localhost\\",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\",
+			"C:\\Users\\helga\\wamp\\www\\localhost\\wp-admin"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"woocommerce_get_downloadable_file_urls",
+			"kia",
+			"Order Discount:",
+			"shop_table order_details",
+			"get_coupons",
+			"get_item_subtotal",
+			"[\"",
+			"            ",
+			"    ",
+			"	",
+			"Joe",
+			"function get_coupons",
+			"woocommerce_product_loop_start",
+			"recent_products",
+			"shortcodes",
+			"woocommerce_output_content_wrapper",
+			"<nav",
+			"theme_location",
+			"alongside",
+			"theme_location",
+			"primary",
+			"eg_event",
+			"event",
+			"eg_event",
+			"event",
+			"location",
+			"industry",
+			"woocommerce_template_single_add_to_cart",
+			"function get_children",
+			"get_children",
+			"function get_available_variations",
+			"add-to-cart/",
+			"wc_get_template('single-product/add-to-cart",
+			"This product is currently out of stock and unavailable",
+			"order_again",
+			"echo",
+			"; ?>",
+			"<?php ",
+			"echo",
+			"wp_register_Script",
+			"script",
+			"enque",
+			"write",
+			"wp_register_script",
+			"woocommerce_admin_meta_boxes",
+			"woocommerce-admin-meta-boxes",
+			"_",
+			"in_array( $screen->id, array( 'product' )",
+			"frontend_scripts",
+			"wp_enqueue_script",
+			"wc-admin-meta-boxes",
+			"woocommerce_admin_meta_boxes",
+			"woo_bto_admin_scripts",
+			"wc_bto_writepanel",
+			"wp_register_script",
+			"frontend_scripts",
+			"wp_enqueue_script",
+			"wp_en",
+			"true",
+			"add_to_cart_validation",
+			"quantity",
+			"[\"",
+			"simple_user_listing_after_loop",
+			"    ",
+			"        ",
+			"            ",
+			"                ",
+			"                    ",
+			"                   ",
+			"                  ",
+			"                 ",
+			"                ",
+			"    ",
+			"query",
+			"woocommerce_quantity_input_step",
+			"add_to_cart_validation",
+			"/",
+			"3",
+			"function add_to_cart",
+			"add_items_to_cart",
+			"text",
+			"function woocommerce_wp_text_input",
+			"text_input",
+			"woocommerce_text_input",
+			"$_REQUEST['mnm-quantity'][ $mnm_id ]",
+			"get_formatted",
+			"_product",
+			"get_formatted",
+			"[\"",
+			"$product_id",
+			"class WC_Order_Item_Meta",
+			"selected_attributes",
+			"get_wp_title_rss",
+			"wp_title_rss",
+			"function get_product",
+			"woocommerce_add_to_cart_handler",
+			"add_to_cart_action",
+			"function wc_bto_attribute_order_by",
+			"bto_",
+			"wc_bto_attribute_label",
+			"function wc_bto_attribute_label",
+			"div class=\"variations",
+			"bto",
+			"per_product_pricing",
+			"woocommerce_is_purchasable",
+			"<td class=\"product-name\">",
+			"<td class=\"product-thumbnail\">",
+			"function is_visible",
+			"add_to_cart_template",
+			"bto-cart-button.php",
+			"woocommerce_composite_product_add_to_cart",
+			"woo_bto_addons_display_support",
+			"_add_to_cart",
+			"add_to_cart_template",
+			"output_variations",
+			"output",
+			"WC_Meta_Box_Product_Data",
+			"save_variations",
+			"process",
+			"save::",
+			"output_variations",
+			"html-variation-admin",
+			"variable_regular_price",
+			"variation",
+			"process_",
+			"is_purchasable",
+			"woocommerce_add_to_cart_handler",
+			"-"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"'woocommerce-mix-and-match'",
+			"match' )",
+			"",
+			"'woocommerce-mix-and-match'",
+			"'mix-and-match'",
+			"woocommerce_mnm_update",
+			"woocommerce-mnm-update",
+			"attempt_show_mnm",
+			"wc_mix_and_match",
+			"WC()->",
+			"mnm_item",
+			"mnm_container",
+			"mnm_container_data",
+			"mnm_contents",
+			"mnm_container_data",
+			"/n[\"",
+			"mnm_item_id",
+			"mnm_contents",
+			"'wc-mix-and-match'",
+			"",
+			"WC_Mix_and_Match_Order",
+			"mnm_content",
+			"WC()",
+			"mnm_contents",
+			"mnm_allowed_contents",
+			"mnm_allowed_ids",
+			"mnm_content_ids",
+			"mnm_container",
+			"mnm_content_ids",
+			"container_size",
+			"WC()",
+			"mnm_",
+			"mnm_parent",
+			"$_REQUEST",
+			"mnm_children",
+			"mnm_data",
+			"mnm_config",
+			"mnm_container",
+			"woocomerce_radio_buttons",
+			"anywhere_metabox_control",
+			"delete_image",
+			"upload_image",
+			"anywhere_metabox_control",
+			"Anywhere_Metabox",
+			"AnywhereMetaboxL10n",
+			"_e( '",
+			"anywhere-slider",
+			"anywhere_slider",
+			"anywhere_slider_options",
+			"anywhere-slider",
+			"anywhere_slider_options",
+			"Anywhere_Slider",
+			"KIA_Subtitle",
+			"WC()->cart",
+			"WC()->plugin_url()",
+			"$this",
+			"'kia-subtitle'  ",
+			"'kia-subtitle'",
+			"'radio-buttons-for-taxonomies'",
+			"'kia-subtitle'",
+			"'kia_subtitle'",
+			"$post_type",
+			"$post_types",
+			"kia_subtitle_options",
+			"kia_subtitle",
+			"tax_input",
+			"taxsyncChecks",
+			"taxAddAfter",
+			"taxAddBefore",
+			"localhost",
+			"dummy",
+			"radio_nonce"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 36.0
+	},
+	"input":
+	{
+		"height": 39.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 0.0
+	},
+	"project": "class.Walker_Nav_Menu_Edit_Roles.sublime-project",
+	"replace":
+	{
+		"height": 68.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"bto-item",
+				"woocommerce-composite-products\\templates\\single-product\\bto-item.php"
+			],
+			[
+				"bto-c",
+				"woocommerce-composite-products\\includes\\class-wc-bto-cart.php"
+			],
+			[
+				"display",
+				"woocommerce-mix-and-match-products\\includes\\class-wc-mnm-display.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 251.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
