@@ -8,8 +8,14 @@
 define('WP_USE_THEMES', false);
 require('../../../wp-load.php');
 
-// Specify the forms plug-in used.  Currently only NINJA is supported.
-define('FORMS_METHOD', 'NINJA');
+// Specify the forms plug-in used. Currently we support old and new versions of Ninja Forms.
+$tmp = $wpdb->prefix . "nf_objects";
+if($wpdb->get_var("SHOW TABLES LIKE '$tmp'") == $tmp) {
+  define('FORMS_METHOD', 'NEWNINJA');
+}
+else {
+  define('FORMS_METHOD', 'NINJA');
+}
 
 // For use of the $wpdb object to access the WordPress database, see:
 // http://codex.wordpress.org/Class_Reference/wpdb
@@ -131,24 +137,26 @@ function action_list($date_from='', $date_to='') {
         'type'     => $formtype,
       );
     }
-    // Get list of messages also.
-    $query = "SELECT cm.id, cm.date, cm.message_title, " .
-      "uf.user_login AS from_login, ut.user_login AS to_login " .
-      "FROM {$wpdb->prefix}cartpauj_pm_messages AS cm " .
-      "LEFT JOIN $wpdb->users AS uf ON uf.ID = cm.from_user " .
-      "LEFT JOIN $wpdb->users AS ut ON ut.ID = cm.to_user " .
-      "WHERE (cm.from_del = 0 AND uf.user_login = %s OR " .
-      "cm.to_del = 0 AND ut.user_login = %s)";
-    $qparms = array($admin_user_login, $admin_user_login);
+  }
+  else if (FORMS_METHOD == 'NEWNINJA') {
+    $query =
+      "SELECT p.ID, p.post_date, u.user_login, f.data AS formdata " .
+      "FROM $wpdb->posts AS p " .
+      "JOIN $wpdb->postmeta AS pm ON pm.post_id = p.ID AND pm.meta_key = '_form_id' " .
+      "JOIN {$wpdb->prefix}ninja_forms AS f ON f.id = pm.meta_value " .
+      "LEFT JOIN $wpdb->users AS u ON u.ID = p.post_author " .
+      "WHERE p.post_type = %s";
+    $qparms = array('nf_sub');
     if ($date_from) {
-      $query .= " AND cm.date >= %s";
+      $query .= " AND p.post_date >= %s";
       $qparms[] = "$date_from 00:00:00";
     }
     if ($date_to) {
-      $query .= " AND cm.date <= %s";
+      $query .= " AND p.post_date <= %s";
       $qparms[] = "$date_to 23:59:59";
     }
-    $query .= " ORDER BY cm.date";
+    $query .= " ORDER BY p.post_date";
+
     $query = $wpdb->prepare($query, $qparms);
     if (empty($query)) {
       $out['errmsg'] = "Internal error: wpdb prepare() failed.";
@@ -156,15 +164,50 @@ function action_list($date_from='', $date_to='') {
     }
     $rows = $wpdb->get_results($query, ARRAY_A);
     foreach ($rows as $row) {
-      $out['messages'][] = array(
-        'messageid' => $row['id'],
-        'user'      => ($row['from_login'] == $admin_user_login ? $row['to_login'] : $row['from_login']),
-        'fromuser'  => $row['from_login'],
-        'touser'    => $row['to_login'],
-        'datetime'  => $row['date'],
-        'title'     => $row['message_title'],
+      $formtype = '';
+      $formdata = unserialize($row['formdata']);
+      if (isset($formdata['form_title'])) $formtype = $formdata['form_title'];
+      $out['list'][] = array(
+        'postid'   => $row['ID'],
+        'user'     => (isset($row['user_login']) ? $row['user_login'] : ''),
+        'datetime' => $row['post_date'],
+        'type'     => $formtype,
       );
     }
+  }
+  // Get list of messages also.
+  $query = "SELECT cm.id, cm.date, cm.message_title, " .
+    "uf.user_login AS from_login, ut.user_login AS to_login " .
+    "FROM {$wpdb->prefix}cartpauj_pm_messages AS cm " .
+    "LEFT JOIN $wpdb->users AS uf ON uf.ID = cm.from_user " .
+    "LEFT JOIN $wpdb->users AS ut ON ut.ID = cm.to_user " .
+    "WHERE (cm.from_del = 0 AND uf.user_login = %s OR " .
+    "cm.to_del = 0 AND ut.user_login = %s)";
+  $qparms = array($admin_user_login, $admin_user_login);
+  if ($date_from) {
+    $query .= " AND cm.date >= %s";
+    $qparms[] = "$date_from 00:00:00";
+  }
+  if ($date_to) {
+    $query .= " AND cm.date <= %s";
+    $qparms[] = "$date_to 23:59:59";
+  }
+  $query .= " ORDER BY cm.date";
+  $query = $wpdb->prepare($query, $qparms);
+  if (empty($query)) {
+    $out['errmsg'] = "Internal error: wpdb prepare() failed.";
+    return;
+  }
+  $rows = $wpdb->get_results($query, ARRAY_A);
+  foreach ($rows as $row) {
+    $out['messages'][] = array(
+      'messageid' => $row['id'],
+      'user'      => ($row['from_login'] == $admin_user_login ? $row['to_login'] : $row['from_login']),
+      'fromuser'  => $row['from_login'],
+      'touser'    => $row['to_login'],
+      'datetime'  => $row['date'],
+      'title'     => $row['message_title'],
+    );
   }
 }
 
@@ -246,11 +289,84 @@ function action_getpost($postid) {
       if (!preg_match('/([a-zA-Z0-9_:]+)/', $flddata['desc_text'], $matches)) continue;
       $fldname = $matches[1];
       if (is_string($selval['user_value'])) {
-        // Ninja stupidly stores values encoded for HTML output.
+        // Ninja perversely stores values encoded for HTML output.
         $out['fields'][$fldname] = htmlspecialchars_decode($selval['user_value'], ENT_QUOTES | ENT_HTML401);
       }
       else {
         $out['fields'][$fldname] = $selval['user_value'];
+      }
+      $out['labels'][$fldname] = $flddata['label'];
+    }
+  }
+  else if (FORMS_METHOD == 'NEWNINJA') {
+    // wp_posts has one row for each submitted form.
+    // wp_ninja_forms has one row for each defined form.
+    $query =
+      "SELECT pm.post_id, pm.meta_value, p.post_date, u.user_login, f.data AS formdata " .
+      "FROM $wpdb->posts AS p " .
+      "JOIN $wpdb->postmeta AS pm ON pm.post_id = p.ID AND pm.meta_key = '_form_id' " .
+      "JOIN {$wpdb->prefix}ninja_forms AS f ON f.id = pm.meta_value " .
+      "LEFT JOIN $wpdb->users AS u ON u.ID = p.post_author " .
+      "WHERE p.post_type = %s AND p.ID = %d";
+    $queryp = $wpdb->prepare($query, array('nf_sub', $postid));
+    if (empty($queryp)) {
+      $out['errmsg'] = "Internal error: \"$query\" \"$postid\"";
+      return;
+    }
+    $row = $wpdb->get_row($queryp, ARRAY_A);
+    if (empty($row)) {
+      $out['errmsg'] = "No rows matching: \"$postid\"";
+      return;
+    }
+    $formid = $row['meta_value'];
+    $formdata = unserialize($row['formdata']);
+    $formtype = isset($formdata['form_title']) ? $formdata['form_title'] : '';
+    $out['post'] = array(
+      'postid'   => $row['post_id'],
+      'user'     => (isset($row['user_login']) ? $row['user_login'] : ''),
+      'datetime' => $row['post_date'],
+      'type'     => $formtype,
+    );
+    $out['fields'] = array();
+    $out['labels'] = array();
+    // wp_ninja_forms_fields has one row for each defined form field.
+    $query2 =
+      "SELECT ff.data, pm.meta_value " .
+      "FROM {$wpdb->prefix}ninja_forms_fields AS ff " .
+      "JOIN $wpdb->postmeta AS pm ON pm.post_id = %d AND pm.meta_key = concat('_field_', ff.id) " .
+      "WHERE ff.form_id = %d ORDER BY ff.id";
+    $query2p = $wpdb->prepare($query2, array($postid, $formid));
+    $rows = $wpdb->get_results($query2p, ARRAY_A);
+    foreach ($rows as $fldrow) {
+      $flddata = unserialize($fldrow['data']);
+      // Report uploads, if any.
+      if (isset($flddata['upload_location']) && !empty($fldrow['meta_value'])) {
+        $selval = unserialize($fldrow['meta_value']);
+        if (is_array($selval)) { // should always be true
+          foreach ($selval as $uparr) {
+            if (empty($uparr['upload_id'])) continue;
+            $filepath = $uparr['file_path'] . $uparr['file_name'];
+            // Put the info into the uploads array.
+            $out['uploads'][] = array(
+              'filename' => $uparr['user_file_name'],
+              'mimetype' => get_mime_type($filepath),
+              'id'       => $uparr['upload_id'],
+            );
+          }
+        }
+      }
+      // Each field that matches with a field name in OpenEMR must have that name in
+      // its description text. Normally this is in the form of an HTML comment at the
+      // beginning of this text, e.g. "<!-- field_name -->".  The regular expression
+      // below picks out the name as the first "word" of the description.
+      if (!preg_match('/([a-zA-Z0-9_:]+)/', $flddata['desc_text'], $matches)) continue;
+      $fldname = $matches[1];
+      if (is_string($fldrow['meta_value'])) {
+        // Ninja perversely stores values encoded for HTML output.
+        $out['fields'][$fldname] = htmlspecialchars_decode($fldrow['meta_value'], ENT_QUOTES | ENT_HTML401);
+      }
+      else {
+        $out['fields'][$fldname] = $fldrow['meta_value'];
       }
       $out['labels'][$fldname] = $flddata['label'];
     }
@@ -282,6 +398,32 @@ function action_delpost($postid) {
     $tmp = $wpdb->delete("{$wpdb->prefix}ninja_forms_subs", array('id' => $postid), array('%d'));
     if (empty($tmp)) {
       $out['errmsg'] = "Delete failed for id '$postid'";
+    }
+  }
+  else if (FORMS_METHOD == 'NEWNINJA') {
+    // If this form instance includes any file uploads, then delete the
+    // uploaded files as well as the rows in wp_ninja_forms_uploads.
+    action_getpost($postid);
+    if ($out['errmsg']) return;
+    foreach ($out['uploads'] as $upload) {
+      $query = "SELECT fu.data " .
+        "FROM {$wpdb->prefix}ninja_forms_uploads AS fu WHERE fu.id = %d";
+      $drow = $wpdb->get_row($wpdb->prepare($query,
+      array('id' => $upload['id'])), ARRAY_A);
+      $data = unserialize($drow['data']);
+      // Work around a Ninja bug where the path might have garbage appended.
+      $filepath = $data['file_path'];
+      $filepath = preg_replace("|/ninja-forms/tmp/.*$|", "/ninja-forms/", $filepath);
+      $filepath .= $data['file_name'];
+      //
+      @unlink($filepath);
+      $wpdb->delete("{$wpdb->prefix}ninja_forms_uploads",
+        array('id' => $upload['id']), array('%d'));
+    }
+    $out = array('errmsg' => '');
+    // Finally, delete the form instance.
+    if (wp_delete_post($postid, true) === false) {
+      $out['errmsg'] = "Delete failed for post '$postid'";
     }
   }
 }
@@ -337,6 +479,31 @@ function action_checkptform($patient, $form) {
     $row = $wpdb->get_row($queryp, ARRAY_A);
     $out['postid'] = empty($row['id']) ? '0' : $row['id'];
   }
+  else if (FORMS_METHOD == 'NEWNINJA') {
+    // MySQL pattern for matching the form name in wp_ninja_forms.data.
+    $pattern = '%s:10:"form_title";s:' . strlen($form) . ':"' . $form . '";%';
+    $query =
+      "SELECT p.ID FROM " .
+      "$wpdb->users AS u, " .
+      "$wpdb->posts AS p, " .
+      "$wpdb->postmeta AS pm, " .
+      "{$wpdb->prefix}ninja_forms AS f " .
+      "WHERE u.user_login = %s AND " .
+      "p.post_author = u.id AND " .
+      "p.post_type = 'nf_sub' AND " .
+      "pm.post_id = p.ID AND " .
+      "pm.meta_key = 'form_id' AND " .
+      "f.id = pm.meta_value AND " .
+      "f.data LIKE %s " .
+      "ORDER BY p.ID LIMIT 1";
+    $queryp = $wpdb->prepare($query, array($patient, $pattern));
+    if (empty($queryp)) {
+      $out['errmsg'] = "Internal error: \"$query\" \"$patient\" \"$pattern\"";
+      return;
+    }
+    $row = $wpdb->get_row($queryp, ARRAY_A);
+    $out['postid'] = empty($row['ID']) ? '0' : $row['ID'];
+  }
 }
 
 // Logic to process the "getupload" action.
@@ -344,13 +511,17 @@ function action_checkptform($patient, $form) {
 //
 function action_getupload($uploadid) {
   global $wpdb, $out;
-  if (FORMS_METHOD == 'NINJA') {
+  if (FORMS_METHOD == 'NINJA' || FORMS_METHOD == 'NEWNINJA') {
     $query = "SELECT fu.data " .
       "FROM {$wpdb->prefix}ninja_forms_uploads AS fu WHERE fu.id = %d";
     $row = $wpdb->get_row($wpdb->prepare($query, array($uploadid)), ARRAY_A);
     $data = unserialize($row['data']);
     // print_r($data); // debugging
-    $filepath = $data['file_path'] . $data['file_name'];
+    // Work around a Ninja bug where the path might have garbage appended.
+    $filepath = $data['file_path'];
+    $filepath = preg_replace("|/ninja-forms/tmp/.*$|", "/ninja-forms/", $filepath);
+    $filepath .= $data['file_name'];
+    //
     $contents = file_get_contents($filepath);
     if ($contents === false) {
       $out['errmsg'] = "Unable to read \"$filepath\"";
@@ -520,4 +691,3 @@ function action_putmessage(&$args) {
     }
   }
 }
-

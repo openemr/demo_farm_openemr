@@ -34,35 +34,39 @@ function ninja_forms_display_response_message( $form_id ){
 		$class = '';
 	}
 
-	echo '<div id="ninja_forms_form_' . $form_id . '_response_msg" style="' . $display . '" class="ninja-forms-response-msg '.$class.'">';
-	
-	if ( isset ( $ninja_forms_processing ) && $ninja_forms_processing->get_form_ID() == $form_id ) {
+	//if ( $class != '' ) {
+		echo '<div id="ninja_forms_form_' . $form_id . '_response_msg" style="' . $display . '" class="ninja-forms-response-msg '.$class.'">';
 			
-		if( is_object( $ninja_forms_processing ) ){
-			if( $ninja_forms_processing->get_form_ID() == $form_id ){
-				if( $ninja_forms_processing->get_errors_by_location('general') ){
-					foreach($ninja_forms_processing->get_errors_by_location('general') as $error){
-						echo '<div>';
-						echo $error['msg'];
-						echo '</div>';
+		if ( isset ( $ninja_forms_processing ) && $ninja_forms_processing->get_form_ID() == $form_id ) {
+				
+			if( is_object( $ninja_forms_processing ) ){
+				if( $ninja_forms_processing->get_form_ID() == $form_id ){
+					if( $ninja_forms_processing->get_errors_by_location('general') ){
+						foreach($ninja_forms_processing->get_errors_by_location('general') as $error){
+							echo '<div>';
+							echo $error['msg'];
+							echo '</div>';
+						}
 					}
-				}
 
 
-				if( $ninja_forms_processing->get_all_success_msgs()){
-					foreach($ninja_forms_processing->get_all_success_msgs() as $success){
-						echo '<div>';
-						echo $success;
-						echo '</div>';
+					if( $ninja_forms_processing->get_all_success_msgs()){
+						foreach($ninja_forms_processing->get_all_success_msgs() as $success){
+							echo '<div>';
+							echo $success;
+							echo '</div>';
+						}
 					}
 				}
 			}
 		}
-	}
-		
+			
 
 
-	echo '</div>';
+		echo '</div>';		
+	//}
+
+	
 }
 
 add_action( 'ninja_forms_display_before_form', 'ninja_forms_display_response_message', 10 );

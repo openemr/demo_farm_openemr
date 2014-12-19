@@ -16,7 +16,8 @@ class Garvs_WP_Lib {
   private static $instance = null; // object exemplar reference  
   protected $options_id = ''; // identifire to save/retrieve plugin options to/from wp_option DB table
   protected $options = array(); // plugin options data
-  public $multisite = false;
+  public $multisite = false;  
+  public $active_for_network = false;
   public $blog_ids = null;
   protected $main_blog_id = 0; 
   public $log_to_file = false;  // set to true in order to record data about critical actions to log file
@@ -29,7 +30,7 @@ class Garvs_WP_Lib {
     public function __construct($options_id) {
 
         $this->multisite = function_exists('is_multisite') && is_multisite();
-        if ($this->multisite) {
+        if ($this->multisite) {            
             $this->blog_ids = $this->get_blog_ids();
             // get Id of 1st (main) blog
             $this->main_blog_id = $this->blog_ids[0][0];
@@ -158,6 +159,23 @@ class Garvs_WP_Lib {
   }
   // end of put_option()
 
+  
+  /**
+   * Delete URE option with name option_name
+   * @param string $option_name
+   * @param bool $flush_options
+   */
+  public function delete_option($option_name, $flush_options=false) {
+      if (array_key_exists($option_name, $this->options)) {
+          unset($this->options[$option_name]);
+          if ($flush_options) {
+              $this->flush_options();
+          }
+      }
+      
+  }
+  // end of delete_option()
+  
   
   /**
    * saves options array into WordPress database wp_options table

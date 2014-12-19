@@ -23,9 +23,9 @@ function ninja_forms_display_field_help( $field_id, $data ){
 
 	if($show_help){
 		?>
-		<img class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>/images/question-ico.gif" title="<?php echo $help_text;?>">
+		<img class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>images/question-ico.gif" title="<?php echo $help_text;?>" alt="<?php _e( 'Help Text', 'ninja-forms' ); ?>">
 	<?php
 	}
-}	
+}
 
 add_action( 'ninja_forms_display_field_help', 'ninja_forms_display_field_help', 10, 2 );

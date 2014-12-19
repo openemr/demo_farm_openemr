@@ -8,8 +8,8 @@ function ninja_forms_edit_field($field_id){
 
 }
 
-function ninja_forms_edit_field_el_output($field_id, $type, $label = '', $name = '', $value = '', $width = 'wide', $options = '', $class = '', $desc = '', $label_class = ''){
-	global $ninja_forms_fields;
+function ninja_forms_edit_field_el_output($field_id, $type, $label = '', $name = '', $value = '', $width = 'wide', $options = '', $class = '', $desc = '', $label_class = '' ){
+	global $ninja_forms_fields, $nf_rte_editors;
 
 	$field_row = ninja_forms_get_field_by_id($field_id);
 	$field_type = $field_row['type'];
@@ -114,6 +114,9 @@ function ninja_forms_edit_field_el_output($field_id, $type, $label = '', $name =
 		<?php
 		break;
 		case 'rte':
+			$editor_id = str_replace( '[', '_', $name );
+			$editor_id = str_replace( ']', '', $editor_id );
+			
 			$plugin_settings = nf_get_settings();
 			if ( !isset( $plugin_settings['version_2_2_25_rte_fix'] ) OR $plugin_settings['version_2_2_25_rte_fix'] == '' ) {
 				$value = html_entity_decode( $value );
@@ -121,10 +124,13 @@ function ninja_forms_edit_field_el_output($field_id, $type, $label = '', $name =
 				update_option( 'ninja_forms_settings', $plugin_settings );
 			}
 
-			$editor_id = str_replace( '[', '-', $name );
-			$editor_id = str_replace( ']', '-', $editor_id );
 			$args = apply_filters( 'ninja_forms_edit_field_rte', array( 'textarea_name' => $name ) );
-			wp_editor( $value, $editor_id, $args );
+			wp_editor( $value, $editor_id, $args );				
+
+			// If we're using ajax, add this editor ID to our global var so that we can instantiate it on the front-end.
+			if ( isset ( $_POST['action'] ) && $_POST['action'] == 'ninja_forms_new_field' )
+				$nf_rte_editors[] = $editor_id;
+
 		break;
 	}
 

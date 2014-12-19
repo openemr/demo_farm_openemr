@@ -96,7 +96,6 @@ function ninja_forms_tab_form_list($form_id, $data){
 			<select id="" class="" name="bulk_action">
 				<option value=""><?php _e( 'Bulk Actions', 'ninja-forms' );?></option>
 				<option value="delete"><?php _e( 'Delete', 'ninja-forms' );?></option>
-				<!-- <option value="export"><?php _e( 'Export Forms', 'ninja-forms' );?></option> -->
 			</select>
 			<input type="submit" name="submit" value="<?php _e( 'Apply', 'ninja-forms' ); ?>" class="button-secondary">
 		</div>
@@ -138,7 +137,7 @@ function ninja_forms_tab_form_list($form_id, $data){
 			<span class="pagination-links">
 				<a class="first-page disabled" title="<?php _e( 'Go to the first page', 'ninja-forms' ); ?>" href="<?php echo $first_page;?>">«</a>
 				<a class="prev-page disabled" title="<?php _e( 'Go to the previous page', 'ninja-forms' ); ?>" href="<?php echo $prev_page;?>">‹</a>
-				<span class="paging-input"><input class="current-page" title="Current page" type="text" name="paged" value="<?php echo $current_page;?>" size="2"> of <span class="total-pages"><?php echo $page_count;?></span></span>
+				<span class="paging-input"><input class="current-page" title="<?php _e( 'Current page', 'ninja-forms' ); ?>" type="text" name="paged" value="<?php echo $current_page;?>" size="2"> <?php _e( 'of', 'ninja-forms' ); ?> <span class="total-pages"><?php echo $page_count;?></span></span>
 				<a class="next-page" title="<?php _e( 'Go to the next page', 'ninja-forms' ); ?>" href="<?php echo $next_page;?>">›</a>
 				<a class="last-page" title="<?php _e( 'Go to the last page', 'ninja-forms' ); ?>" href="<?php echo $last_page;?>">»</a>
 			</span>
@@ -166,10 +165,10 @@ function ninja_forms_tab_form_list($form_id, $data){
 			$date_updated = $all_forms[$i]['date_updated'];
 			$date_updated = strtotime( $date_updated );
 			$date_updated = date_i18n( __( 'F d, Y', 'ninja-forms' ), $date_updated );
-			$edit_link = esc_url( add_query_arg( array( 'tab' => 'form_settings', 'form_id' => $form_id ) ) );
-			$subs_link = admin_url( 'admin.php?page=ninja-forms-subs&form_id='.$form_id );
-			$export_link = esc_url( add_query_arg( array( 'export_form' => 1, 'form_id' => $form_id ) ) );
-			$duplicate_link = esc_url( add_query_arg( array( 'duplicate_form' => 1, 'form_id' => $form_id ) ) );
+			$link = remove_query_arg( array( 'paged' ) );
+			$edit_link = esc_url( add_query_arg( array( 'tab' => 'form_settings', 'form_id' => $form_id ), $link ) );
+			$subs_link = admin_url( 'edit.php?post_status=all&post_type=nf_sub&action=-1&m=0&form_id=' . $form_id . '&paged=1&mode=list&action2=-1' );
+			$duplicate_link = esc_url( add_query_arg( array( 'duplicate_form' => 1, 'form_id' => $form_id ), $link ) );
 			$shortcode = apply_filters ( "ninja_forms_form_list_shortcode", "[ninja_forms_display_form id=" .  $form_id . "]", $form_id );
 			$template_function = apply_filters ( "ninja_forms_form_list_template_function", "<pre>if( function_exists( 'ninja_forms_display_form' ) ){ ninja_forms_display_form( " . "$form_id" . " ); }</pre>", $form_id );
 			?>
@@ -184,7 +183,6 @@ function ninja_forms_tab_form_list($form_id, $data){
 					<div class="row-actions">
 						<span class="edit"><a href="<?php echo $edit_link;?>"><?php _e( 'Edit', 'ninja-forms' ); ?></a> | </span>
 						<span class="trash"><a class="ninja-forms-delete-form" title="<?php _e( 'Delete this form', 'ninja-forms' ); ?>" href="#" id="ninja_forms_delete_form_<?php echo $form_id;?>"><?php _e( 'Delete', 'ninja-forms' ); ?></a> | </span>
-						<span class="export"><a href="<?php echo $export_link;?>" title="<?php _e( 'Export Form', 'ninja-forms' ); ?>"><?php _e( 'Export', 'ninja-forms' ); ?></a> | </span>
 						<span class="duplicate"><a href="<?php echo $duplicate_link;?>" title="<?php _e( 'Duplicate Form', 'ninja-forms' ); ?>"><?php _e( 'Duplicate', 'ninja-forms' ); ?></a> | </span>
 						<span class="bleep"><?php echo ninja_forms_preview_link( $form_id ); ?> | </span>
 						<span class="subs"><a href="<?php echo $subs_link;?>" class="" title="<?php _e( 'View Submissions', 'ninja-forms' ); ?>"><?php _e( 'View Submissions', 'ninja-forms' ); ?></a></span>

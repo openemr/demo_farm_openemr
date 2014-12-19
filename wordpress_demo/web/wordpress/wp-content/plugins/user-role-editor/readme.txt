@@ -2,13 +2,13 @@
 Contributors: shinephp
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=vladimir%40shinephp%2ecom&lc=RU&item_name=ShinePHP%2ecom&item_number=User%20Role%20Editor%20WordPress%20plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: user, role, editor, security, access, permission, capability
-Requires at least: 3.5
-Tested up to: 3.9.1
+Requires at least: 4.0
+Tested up to: 4.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-User Role Editor WordPress plugin makes the role capabilities changing easy. You can change any WordPress user role.
+User Role Editor WordPress plugin makes user roles and capabilities changing easy. Edit/add/delete WordPress user roles and capabilities.
 
 == Description ==
 
@@ -25,12 +25,14 @@ To read more about 'User Role Editor' visit [this page](http://www.shinephp.com/
 Русская версия этой статьи доступна по адресу [ru.shinephp.com](http://ru.shinephp.com/user-role-editor-wordpress-plugin-rus/)
 
 Do you need more functionality with quality support in real time? Do you wish remove advertisements from User Role Editor pages? 
-Buy [Pro version](htpp://role-editor.com). 
+Buy [Pro version](https://www.role-editor.com). 
 Pro version includes extra modules:
 <ul>
 <li>Block selected admin menu items for role.</li>
+<li>Block selected widgets under "Appearance" menu for role.</li>
 <li>"Export/Import" module. You can export user roles to the local file and import them then to any WordPress site or other sites of the multi-site WordPress network.</li> 
 <li>Roles and Users permissions management via Network Admin  for multisite configuration. One click Synchronization to the whole network.</li>
+<li>"Other roles access" module allows to define which other roles user with current role may see at WordPress: dropdown menus, e.g assign role to user editing user profile, etc.</li>
 <li>Per posts/pages users access management to post/page editing functionality.</li>
 <li>Per plugin users access management for plugins activate/deactivate operations.</li>
 <li>Per form users access management for Gravity Forms plugin.</li>
@@ -66,25 +68,94 @@ To read full FAQ section visit [this page](http://www.shinephp.com/user-role-edi
 To read more about 'User Role Editor' visit [this page](http://www.shinephp.com/user-role-editor-wordpress-plugin/) at [shinephp.com](shinephp.com).
 
 = Translations =
-* Catalan: [Efraim Bayarri](http://replicantsfactory.com/);
-* Hebrew: [atar4u](http://atar4u.com)
-* Korean: [Taek Yoon](http://www.ajinsys.com)
-* Persian: Morteza
-* Russian: [Vladimir Garagulya](http://role-editor.com)
-* Spanish: [Dario Ferrer](http://darioferrer.com/);
-* Turkish: [Muhammed YILDIRIM](http://ben.muhammed.im);
+* Catalan: [Efraim Bayarri](http://replicantsfactory.com/) - needs update;
+* Dutch: Arjan Bosch - needs update;
+* French: [Transifex](https://www.transifex.com);
+* Hebrew: [atar4u](http://atar4u.com) - needs update;
+* Hungarian: Németh Balázs;
+* Italian: [Giuseppe Velardo](http://www.comprensivoleopardi.gov.it/);
+* Persian: Morteza - needs update;
+* Russian: [Vladimir Garagulya](https://www.role-editor.com)
+* Spanish: [Dario Ferrer](http://darioferrer.com/) - needs update;
+* Turkish: [Transifex](https://www.transifex.com).
 
-Information for translators: All translations (except Russian) are outdated and need update for new added text.
 
 Dear plugin User!
-If you wish to help me with this plugin translation I very appreciate it. Please send your language .po and .mo files to vladimir[at-sign]shinephp.com email. Do not forget include you site link in order I can show it with greetings for the translation help at shinephp.com, plugin settings page and in this readme.txt file.
-If you have better translation for some phrases, send it to me and it will be taken into consideration. You are welcome!
-Share with me new ideas about plugin further development and link to your site will appear here.
+If you wish to help me with this plugin translation I very appreciate it. Please send your language .po and .mo files to vladimir[at-sign]shinephp.com email. Do not forget include you site link in order to show it with greetings for the translation help in this readme.txt file.
+Some translations may be outdated. If you have better translation for some phrases, send it to me and it will be taken into consideration. You are welcome!
 
 
 == Changelog ==
+
+= 4.18.1 =
+* 14.12.2014
+* As activation hook does not fire during bulk plugins update, automatic plugin version check and upgrade execution were added.
+
+= 4.18 =
+* 14.12.2014
+* Own custom user capabilities, e.g. 'ure_edit_roles' are used to restrict access to User Role Editor functionality ([read more](https://www.role-editor.com/user-role-editor-4-18-new-permissions/)).
+* Multisite: You may allow to the users without superadmin privileges to add/create site users without sending them email confirmation request.
+* Bug fix: when non-admin user updated other user profile, that user lost secondary roles.
+* Italian translation was added. Thanks to [Giuseppe Velardo](http://www.comprensivoleopardi.gov.it/).
+
+= 4.17.3 =
+* 23.11.2014
+* French and Turkish translation were updated. Thanks to [Transifex](https://www.transifex.com) translation team.
+
+= 4.17.2 =
+* 21.10.2014
+* Notice: "Undefined property: Ure_Lib::$pro in .../class-user-role-editor.php on line 550" was fixed.
+* Settings help screen text was updated.
+* Russian translation was updated.
+* Hungarian translation was updated. Thanks to Németh Balázs.
+* French and Turkish translation were updated. Thanks to [Transifex](https://www.transifex.com) translation team.
+
+
+= 4.17.1 =
+* 01.10.2014
+* Bug fix for the PHP Fatal error: Call to undefined function is_plugin_active_for_network(). It may take place under multisite only, 
+in case no one of the other active plugins load file with this function already before User Role Editor v. 4.17 tries to call it.
+
+= 4.17 =
+* 01.10.2014
+* Multisite (update for cases when URE was not network activated): It is possible to use own settings for single site activated instances of User Role Editor. 
+  Earlier User Role Editor used the settings values from the main blog only located under "Network Admin - Settings".
+  Some critical options were hidden from the "Multisite" tab for single site administrators and visible to the superadmin only. 
+  Single site admin should not have access to the options which purpose is to restrict him.
+  Important! In case you decide to allow single site administrator activate/deactivate User Role Editor himself, setup this PHP constant at the wp-config.php file:
+  define('URE_ENABLE_SIMPLE_ADMIN_FOR_MULTISITE', 1);
+  Otherwise single site admin will not see User Role Editor in the plugins list after its activation. User Role Editor hides itself under multisite from all users except superadmin by default.
+* Help screen for the Settings page was updated.
+* Hungarian translation was added. Thanks to Németh Balázs.
+* Dutch translation was added. Thanks to Arjan Bosch.
+
+  
+= 4.16 =
+* 11.09.2014
+* "create_sites" user capability was added to the list of built-in WordPress user capabilities for WordPress multisite. It does not exist by default. But it is used to control "Add New" button at the "Sites" page under WordPress multisite network admin.
+* bug fix: WordPress database prefix value was not used in 2 SQL queries related to the "count users without role" module - updated.
+
+= 4.15 =
+* 08.09.2014
+* Rename role button was added to the URE toolbar. It allows to change user role display name (role ID is always the same). Be careful and double think before rename some built-in WordPress role.
+
+= 4.14.4 =
+* 08.08.2014
+* Missed "manage_sites" user capability was added to the list of built-in WordPress capabilities managed by User Role Editor.
+* Russian translation was updated.
+
+= 4.14.3 =
+* 25.07.2014
+* Integer "1" as default capability value for new added empty role was excluded for the better compatibility with WordPress core. Boolean "true" is used instead as WordPress itself does.
+* Integration with Gravity Forms permissions system was enhanced for WordPress multisite.
+
+= 4.14.2 =
+* 18.07.2014
+* The instance of main plugin class User_Role_Editor is available for other developers now via $GLOBALS['user_role_editor']
+* Compatibility issue with the theme ["WD TechGoStore"](http://wpdance.com) is resolved. This theme loads its JS and CSS stuff for admin backend uncoditionally - for all pages. While the problem is caused just by CSS URE unloads all this theme JS and CSS for optimizaiton purpose for WP admin backend pages where conflict is possible.
+
 = 4.14.1 =
-* 11.06.2014
+* 13.06.2014
 * MySQL query optimizing to reduce memory consumption. Thanks to [SebastiaanO](http://wordpress.org/support/topic/allowed-memory-size-exhausted-fixed).
 * Extra WordPress nonce field was removed from the post at main role editor page to exclude nonce duplication.
 * Minor code enhancements.
@@ -129,43 +200,6 @@ what user capability restrict access to what admin menu item.
 * jQuery UI CSS was updated to version 1.10.4.
 * Pro version: Option was added to download jQuery UI CSS from the jQuery CDN.
 * Pro version: Bug was fixed: Plugins activation assess restriction section was not shown for selected user under multi-site environment.
-
-
-= 4.8 =
-* 10.12.2013
-* Role ID validation rule was added to prohibit numeric role ID - WordPress does not support them.
-* Plugin "Options" page was divided into sections (tabs): General, Multisite, About. Section with information about plugin author, his site, etc. was moved from User Role Editor main page to its "Options" page - "About" tab.
-* HTML markup was updated to provide compatibility with upcoming WordPress 3.8 new administrator backend theme "MP6".
-* Restore previous blog 'switch_to_blog($old_blog_id)' call was replaced to 'restore_current_blog()' where it is possible to provide better compatibility with WordPress API.
-After use 'switch_to_blog()' in cycle, URE clears '_wp_switched_stack' global variable directly instead of call 'restore_current_blog()' inside the cycle to work faster.
-* Pro version: It is possible to restrict access of single sites administrators to the selected user capabilities and Add/Delete role operations inside User Role Editor.
-* Pro version:  Shortcode [user_role_editor roles="none"]text for not logged in users[/user_role_editor] is available. Recursive processing of other shortcodes inside enclosed text is available now.
-* Pro version: Gravity Forms available at "Export Entries", "Export Forms" pages is under URE access restriction now, if such one was set for the user.
-* Pro version: Gravity Forms import was set under "gravityforms_import" user capability control.
-* Pro version: Option was added to show/hide help links (question signs) near the capabilities from single site administrators.
-
-= 4.7 =
-* 04.11.2013
-* "Delete Role" menu has "Delete All Unused Roles" menu item now.
-* More detailed warning was added before fulfill "Reset" roles command in order to reduce accident use of this critical operation.
-* Bug was fixed at Ure_Lib::reset_user_roles() method. Method did not work correctly for the rest sites of the network except the main blog.
-* Pro version: Post/Pages editing restriction could be setup for the user by one of two modes: 'Allow' or 'Prohibit'.
-* Pro version: Shortcode [user_role_editor roles="role1, role2, ..."]bla-bla[/user_role_editor] for posts and pages was added. 
-You may restrict access to content inside this shortcode tags this way to the users only who have one of the roles noted at the "roles" attribute.
-* Pro version: If license key was installed it is shown as asterisks at the input field.
-* Pro version: In case site domain change you should input license key at the Settings page again.
-
-= 4.6 =
-* 21.10.2013
-* Multi-site: 'unfiltered_html' capability marked as deprecated one. Read this post for more information (http://shinephp.com/is-unfiltered_html-capability-deprecated/).
-* Multi-site: 'manage_network%' capabilities were included into WordPress core capabilities list.
-* On screen help was added to the "User Role Editor Options" page - click "Help" at the top right corner to read it.
-* Bug fix: turning off capability at the Administrator role fully removed that capability from capabilities list.
-* Various internal code enhancements.
-* Information about GPLv2 license was added to show apparently - "User Role Editor" is licensed under GPLv2 or later.
-* Pro version only: Multi-site: Assign roles and capabilities to the users from one point at the Network Admin. Add user with his permissions together to all sites of your network with one click.
-* Pro version only: 'wp-content/uploads' folder is used now instead of plugin's own one to process file with importing roles data.
-* Pro version only: Bug fix: Nonexistent method was called to notify user about folder write permission error during roles import.
 
 
 Click [here](http://role-editor.com/changelog)</a> to look at [the full list of changes](http://role-editor.com/changelog) of User Role Editor plugin.

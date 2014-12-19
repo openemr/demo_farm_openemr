@@ -87,21 +87,28 @@ function ninja_forms_register_exp_forms_metabox(){
  */
 
 function ninja_forms_serialize_form( $form_id ){
-	if($form_id == '')
+	if ( $form_id == '' )
 		return;
+
 	$plugin_settings = nf_get_settings();
 	$form_row = ninja_forms_get_form_by_id($form_id);
 	$field_results = ninja_forms_get_fields_by_form_id($form_id);
 	$form_row['id'] = NULL;
-	if(is_array($form_row) AND !empty($form_row)){
-		if(is_array($field_results) AND !empty($field_results)){
+	if ( is_array ( $form_row ) AND ! empty ( $form_row ) ) {
+		if ( is_array( $field_results ) AND ! empty( $field_results ) ) {
 			$x = 0;
-			foreach($field_results as $field){
+			foreach( $field_results as $field ) {
 				$form_row['field'][$x] = $field;
 				$x++;
 			}
 		}
 	}
+
+	// Get all of our notifications for this form
+	$notifications = nf_get_notifications_by_form_id( $form_id );
+	$form_row['notifications'] = $notifications;
+
+	$form_row = apply_filters( 'nf_export_form_row', $form_row );
 
 	$form_row = serialize($form_row);
 
@@ -152,30 +159,7 @@ function ninja_forms_save_impexp_forms($data){
 	}elseif($_REQUEST['submit'] == __('Import Form', 'ninja-forms')){
 		if ($_FILES['userfile']['error'] == UPLOAD_ERR_OK AND is_uploaded_file($_FILES['userfile']['tmp_name'])){
 			$file = file_get_contents($_FILES['userfile']['tmp_name']);
-			$form = unserialize( trim( $file ) );
-			$form_fields = isset( $form['field'] ) ? $form['field'] : null;
-
-			unset($form['field']);
-			$form = apply_filters( 'ninja_forms_before_import_form', $form );
-			$form['data'] = serialize( $form['data'] );
-			$wpdb->insert(NINJA_FORMS_TABLE_NAME, $form);
-			$form_id = $wpdb->insert_id;
-			$form['id'] = $form_id;
-			if(is_array($form_fields)){
-				for ($x=0; $x < count( $form_fields ); $x++) {
-					$form_fields[$x]['form_id'] = $form_id;
-					$form_fields[$x]['data'] = serialize( $form_fields[$x]['data'] );
-					$old_field_id = $form_fields[$x]['id'];
-					$form_fields[$x]['id'] = NULL;
-					$wpdb->insert( NINJA_FORMS_FIELDS_TABLE_NAME, $form_fields[$x] );
-					$form_fields[$x]['id'] = $wpdb->insert_id;
-					$form_fields[$x]['old_id'] = $old_field_id;
-					$form_fields[$x]['data'] = unserialize( $form_fields[$x]['data'] );
-				}
-			}
-			$form['data'] = unserialize( $form['data'] );
-			$form['field'] = $form_fields;
-			do_action( 'ninja_forms_after_import_form', $form );
+			ninja_forms_import_form( $file );
 			$update_msg = __( 'Form Imported Successfully.', 'ninja-forms' );
 		}else{
 			//echo $_FILES['userfile']['error'];

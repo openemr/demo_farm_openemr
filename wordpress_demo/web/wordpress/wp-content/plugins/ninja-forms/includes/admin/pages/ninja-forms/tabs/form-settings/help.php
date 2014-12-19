@@ -1,5 +1,5 @@
 <?php
-add_action( 'init', 'ninja_forms_register_form_settings_help' );
+// add_action( 'init', 'ninja_forms_register_form_settings_help' );
 function ninja_forms_register_form_settings_help(){
 	$args = array(
 		'page' => 'ninja-forms',

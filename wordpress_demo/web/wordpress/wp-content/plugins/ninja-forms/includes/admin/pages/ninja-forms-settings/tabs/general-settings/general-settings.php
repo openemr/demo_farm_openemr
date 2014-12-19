@@ -19,7 +19,7 @@ function ninja_forms_register_general_settings_metabox(){
 	if ( isset ( $plugin_settings['version'] ) ) {
 		$current_version = $plugin_settings['version'];
 	} else {
-		$current_version = NINJA_FORMS_VERSION;
+		$current_version = NF_PLUGIN_VERSION;
 	}
 
 	$args = array(

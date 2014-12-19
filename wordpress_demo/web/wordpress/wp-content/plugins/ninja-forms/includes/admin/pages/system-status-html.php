@@ -23,7 +23,7 @@
 		</tr>
 		<tr>
 			<td><?php _e( 'Ninja Forms Version','ninja-forms' ); ?>:</td>
-			<td><?php echo esc_html( NINJA_FORMS_VERSION ); ?></td>
+			<td><?php echo esc_html( NF_PLUGIN_VERSION ); ?></td>
 		</tr>
 		<tr>
 			<td><?php _e( 'WP Version','ninja-forms' ); ?>:</td>
@@ -156,7 +156,7 @@
 			$params = array(
 				'sslverify' 	=> false,
 				'timeout' 		=> 60,
-				'user-agent'	=> 'Ninja Forms/' . NINJA_FORMS_VERSION,
+				'user-agent'	=> 'Ninja Forms/' . NF_PLUGIN_VERSION,
 				'body'			=> $request
 			);
 			$response = wp_remote_post( 'https://www.paypal.com/cgi-bin/webscr', $params );

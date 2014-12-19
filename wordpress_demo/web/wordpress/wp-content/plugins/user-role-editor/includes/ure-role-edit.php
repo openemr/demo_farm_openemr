@@ -23,7 +23,7 @@ if (!defined('URE_PLUGIN_URL')) {
     $checked = '';
   }
   $caps_access_restrict_for_simple_admin = $this->get_option('caps_access_restrict_for_simple_admin', 0);
-  if (is_super_admin() || !$this->multisite || !class_exists('User_Role_Editor_Pro') || !$caps_access_restrict_for_simple_admin) {
+  if (is_super_admin() || !$this->multisite || !$this->is_pro() || !$caps_access_restrict_for_simple_admin) {
 ?>              
             <input type="checkbox" name="ure_caps_readable" id="ure_caps_readable" value="1" 
                 <?php echo $checked; ?> onclick="ure_turn_caps_readable(0);"/>
@@ -40,7 +40,7 @@ if (!defined('URE_PLUGIN_URL')) {
             <label for="ure_show_deprecated_caps"><?php esc_html_e('Show deprecated capabilities', 'ure'); ?></label>              
 <?php
   }
-if (is_multisite() && !is_network_admin() && is_main_site( get_current_blog_id() ) && is_super_admin()) {
+if ($this->multisite && $this->active_for_network && !is_network_admin() && is_main_site( get_current_blog_id() ) && is_super_admin()) {
   $hint = esc_html__('If checked, then apply action to ALL sites of this Network');
   if ($this->apply_to_all) {
     $checked = 'checked="checked"';

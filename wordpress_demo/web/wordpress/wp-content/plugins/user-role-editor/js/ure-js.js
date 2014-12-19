@@ -62,10 +62,7 @@ function ui_button_text(caption) {
 }
 
 
-jQuery("#ure_add_role").button({
-    label: ure_data.add_role
-  }).click(function(event){
-    event.preventDefault();
+function ure_show_add_role_dialog() {
     jQuery(function($) {
       $info = $('#ure_add_role_dialog');
       $info.dialog({                   
@@ -110,8 +107,61 @@ jQuery("#ure_add_role").button({
       $('#dialog-add-role-button').html(ui_button_text(ure_data.add_role));
       $('.ui-dialog-buttonpane button:contains("Cancel")').attr("id", "add-role-dialog-cancel-button");
       $('#add-role-dialog-cancel-button').html(ui_button_text(ure_data.cancel));
+    });    
+}
+
+
+    jQuery("#ure_add_role").button({
+        label: ure_data.add_role
+    }).click(function(event) {
+        event.preventDefault();
+        ure_show_add_role_dialog();
     });
-  });
+
+    
+function ure_show_rename_role_dialog() {
+    jQuery(function($) {
+      $('#ure_rename_role_dialog').dialog({                   
+        dialogClass: 'wp-dialog',           
+        modal: true,
+        autoOpen: true, 
+        closeOnEscape: true,      
+        width: 400,
+        height: 230,
+        resizable: false,
+        title: ure_data.rename_role_title,
+        'buttons'       : {
+            'Rename Role': function () {              
+              var role_id = $('#ren_user_role_id').val();                            
+              var role_name = $('#ren_user_role_name').val();                            
+              $(this).dialog('close');
+              $.ure_postGo( ure_data.page_url, 
+                           { action: 'rename-role', user_role_id: role_id, user_role_name: role_name, ure_nonce: ure_data.wp_nonce} 
+                          );
+            },
+            Cancel: function() {
+                $(this).dialog('close');
+                return false;
+            }
+          }
+      });    
+      $('.ui-dialog-buttonpane button:contains("Rename Role")').attr("id", "dialog-rename-role-button");
+      $('#dialog-rename-role-button').html(ui_button_text(ure_data.rename_role));
+      $('.ui-dialog-buttonpane button:contains("Cancel")').attr("id", "rename-role-dialog-cancel-button");
+      $('#rename-role-dialog-cancel-button').html(ui_button_text(ure_data.cancel));
+      $('#ren_user_role_id').val(ure_current_role);
+      $('#ren_user_role_name').val(ure_current_role_name);
+    });    
+}
+    
+    
+    jQuery("#ure_rename_role").button({
+        label: ure_data.rename_role
+    }).click(function(event) {
+        event.preventDefault();
+        ure_show_rename_role_dialog();
+    });
+  
   
   jQuery("#ure_delete_role").button({
     label: ure_data.delete_role
@@ -266,7 +316,7 @@ jQuery("#ure_add_role").button({
     });
   });
   
-  jQuery("#ure_reset_roles").button({
+  jQuery('#ure_reset_roles_button').button({
     label: ure_data.reset
   }).click(function(){
     event.preventDefault();

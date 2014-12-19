@@ -46,7 +46,7 @@ if ( !function_exists ( 'ninja_forms_edit_field_list_term' ) ) {
                     <?php _e( 'Populate this with the taxonomy', 'ninja-forms' );?>: 
                 </label>
                 <select name="ninja_forms_field_<?php echo $field_id;?>[populate_term]" class="ninja-forms-list-populate-term" rel="<?php echo $field_id;?>">
-                    <option value=""><?php _e( '- None', 'ninja-forms-post-creation' );?></option>
+                    <option value=""><?php _e( '- None', 'ninja-forms' );?></option>
                     <?php
                      // Get a list of terms registered to the post type set above and loop through them.
                     foreach ( get_object_taxonomies( $post_type ) as $tax_name ) {

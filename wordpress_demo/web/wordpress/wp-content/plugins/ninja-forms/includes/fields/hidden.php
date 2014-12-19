@@ -90,9 +90,9 @@ function ninja_forms_field_hidden_edit($field_id, $data){
 			<input type="checkbox" value="1" name="ninja_forms_field_<?php echo $field_id;?>[email]" id="ninja_forms_field_<?php echo $field_id;?>_email" class="ninja-forms-hidden-email" <?php if($email == 1){ echo "checked";}?>>
 		</label>
 		<a href="#" class="tooltip">
-		    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>/images/question-ico.gif" title="">
+		    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>images/question-ico.gif" title="">
 		    <span>
-		        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>/images/callout.gif" />
+		        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>images/callout.gif" />
 		        <?php _e( 'If this box is checked, Ninja Forms will validate this input as an email address.', 'ninja-forms' );?>
 		    </span>
 		</a>
@@ -105,7 +105,7 @@ function ninja_forms_field_hidden_edit($field_id, $data){
 			<input type="checkbox" value="1" name="ninja_forms_field_<?php echo $field_id;?>[send_email]" id="ninja_forms_field_<?php echo $field_id;?>_send_email" class="ninja-forms-hidden-send-email" <?php if($send_email == 1){ echo "checked";}?>>
 			</label>
 			<a href="#" class="tooltip">
-			    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>/images/question-ico.gif" title="">
+			    <img id="" class='ninja-forms-help-text' src="<?php echo NINJA_FORMS_URL;?>images/question-ico.gif" title="">
 			    <span>
 			        <img class="callout" src="<?php echo NINJA_FORMS_URL;?>/images/callout.gif" />
 			        <?php _e( 'If this box is checked, Ninja Forms will send a copy of this form (and any messages attached) to this address.', 'ninja-forms' ); ?>
@@ -116,10 +116,10 @@ function ninja_forms_field_hidden_edit($field_id, $data){
 	<?php
 }
 
-function ninja_forms_field_hidden_display($field_id, $data){
+function ninja_forms_field_hidden_display( $field_id, $data, $form_id = '' ){
 	global $current_user;
 
-	$field_class = ninja_forms_get_field_class($field_id);
+	$field_class = ninja_forms_get_field_class( $field_id, $form_id );
 	if(isset($data['default_value'])){
 		$default_value = $data['default_value'];
 	}else{
@@ -137,7 +137,7 @@ function ninja_forms_field_hidden_edit_sub( $field_id, $data ) {
 		$default_value = $data['default_value'];
 	}else{
 		$default_value = '';
-	}	
+	}
 
 	if(isset($data['label'])){
 		$label = $data['label'];

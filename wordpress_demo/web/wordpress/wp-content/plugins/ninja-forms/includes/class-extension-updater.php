@@ -47,7 +47,6 @@ class NF_Extension_Updater
 
 		$this->add_license_fields();
 		$this->license_status();
-		
 		$this->auto_update();
 
 	} // function constructor

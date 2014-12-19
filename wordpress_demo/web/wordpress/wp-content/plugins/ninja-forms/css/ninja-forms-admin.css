@@ -88,8 +88,11 @@ margin: 0;
 #post-body-content .checkbox {
 	background: none;
 }
+.postbox {
+	margin: 5px 0;
+}
 .postbox .inside, .stuffbox .inside {
-	padding: 5px 10px 0 10px;
+	padding: 5px 10px 10px;
 }
 
 #menu-settings-column .button-controls {
@@ -112,46 +115,6 @@ margin: 0;
 #menu-settings-column .field-controls {
 	margin: 0;
 	padding: 0;
-}
-
-.description label,
-#ninja-forms-conditionals .label {
-	border-radius: 4px;
-	padding: 5px;
-	overflow: hidden;
-}
-
-#ninja-forms-conditionals {
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	clear: both;
-	float: none;
-	overflow: hidden;
-}
-
-#ninja-forms-conditionals .label {
-	background: #ccc;
-	display: block;
-}
-
-.ninja-forms-condition {
-	border: 1px solid #ddd;
-	margin: 10px;
-}
-
-.ninja-forms-condition-title {
-	background: #ddd;
-	padding: 10px;
-}
-
-.ninja-forms-criteria {
-	background: #fff;
-	overflow: hidden;
-}
-
-.single-criteria {
-	border-bottom: 1px solid #ddd;
-	padding: 5px 0 5px 20px;
 }
 
 .ninja-forms-field-list-options {
@@ -638,6 +601,38 @@ a.tooltip span
     box-shadow: 5px 5px 8px #CCC;
 }
 
+.nf-brand-header {
+	background: #EF4748;
+	border-left: 4px solid #424242;
+}
+.nf-brand-header:after {
+	clear: both;
+	content: "";
+	display: block;
+
+}
+.nf-brand-header .nf-logo {
+	background-image: url("https://ninjaforms.com/wp-content/themes/ninja-brand/images/ninja-forms-logo-header.png");
+	background-size: 410px 600px;
+	background-position: 40px 80px;
+	float: left;
+	height: 80px;
+	width: 410px;
+}
+.nf-brand-header .wpn-logo {
+	background: #fff;
+	background-image: url("../images/wpninjas-logo.png");
+	background-size: 83px 70px;
+	background-position: 0 10px;
+	background-repeat: no-repeat;
+	float: right;
+	font-size: 8px;
+	height: 80px;
+	width: 83px;
+	text-align: center;
+}
+
+
 .nf-extend {
 	float: left;
 	margin: 0 20px 20px 0;
@@ -728,7 +723,7 @@ a.tooltip span
 }
 
 #wpfooter {
-	display: none;
+	/*display: none;*/
 }
 
 
@@ -783,23 +778,35 @@ p.debug-report {
 ----------------------------------*/
 
 .branch-3-8 #post-body .menu-item-handle,
-.branch-3-9 #post-body .menu-item-handle {
+.branch-3-9 #post-body .menu-item-handle,
+.branch-4 #post-body .menu-item-handle,
+.branch-4-1 #post-body .menu-item-handle,
+.branch-4-2 #post-body .menu-item-handle {
 	background: #fff;
 	padding: 10px 5px 10px 10px;
 }
 .branch-3-8 #post-body .menu-item-settings,
-.branch-3-9 #post-body .menu-item-settings {
+.branch-3-9 #post-body .menu-item-settings,
+.branch-4 #post-body .menu-item-settings,
+.branch-4-1 #post-body .menu-item-settings,
+.branch-4-2 #post-body .menu-item-settings {
 	background: #fff;
 	padding: 12px;
 }
 .branch-3-8 #post-body #post-body-content h3,
-.branch-3-9 #post-body #post-body-content h3 {
+.branch-3-9 #post-body #post-body-content h3,
+.branch-4 #post-body #post-body-content h3,
+.branch-4-1 #post-body #post-body-content h3,
+.branch-4-2 #post-body #post-body-content h3 {
  margin-top: 0;
 }
 /*.branch-3-8 .item-controls {
 	top: 5px;
 }*/
 .branch-3-8 #TB_window .item-controls,
-.branch-3-9 #TB_window .item-controls {
+.branch-3-9 #TB_window .item-controls,
+.branch-4 #TB_window .item-controls,
+.branch-4-1 #TB_window .item-controls,
+.branch-4-2 #TB_window .item-controls {
 	top: -5px;
 }

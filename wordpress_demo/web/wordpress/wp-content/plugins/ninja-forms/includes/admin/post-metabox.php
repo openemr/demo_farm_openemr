@@ -31,7 +31,7 @@ function ninja_forms_inner_custom_box() {
 	$post_id = ! empty( $_REQUEST['post'] ) ? absint( $_REQUEST['post'] ) : 0;
 
 	// Use nonce for verification
-	wp_nonce_field( plugin_basename(__FILE__), 'ninja_forms_nonce' );
+	wp_nonce_field( 'ninja_forms_append_form', 'nf_append_form' );
 
 	// The actual fields for data entry
 	?>
@@ -57,7 +57,7 @@ function ninja_forms_inner_custom_box() {
 /* When the post is saved, saves our custom data */
 function ninja_forms_save_postdata( $post_id ) {
 	global $wpdb;
-	if(isset($_POST['ninja_forms_nonce'])){
+	if(isset($_POST['nf_append_form'])){
 		// verify if this is an auto save routine.
 		// If it is our form has not been submitted, so we dont want to do anything
 		if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
@@ -66,20 +66,16 @@ function ninja_forms_save_postdata( $post_id ) {
 		// verify this came from the our screen and with proper authorization,
 		// because save_post can be triggered at other times
 
-		if ( !wp_verify_nonce( $_POST['ninja_forms_nonce'], plugin_basename(__FILE__) ) )
+		if ( !wp_verify_nonce( $_POST['nf_append_form'], 'ninja_forms_append_form' ) )
 		  return $post_id;
 
-
 		// Check permissions
-		if ( 'page' == $_POST['post_type'] )
-		{
-		if ( !current_user_can( 'edit_page', $post_id ) )
-			return $post_id;
-		}
-		else
-		{
-		if ( !current_user_can( 'edit_post', $post_id ) )
-			return $post_id;
+		if ( 'page' == $_POST['post_type'] ) {
+			if ( !current_user_can( 'edit_page', $post_id ) )
+				return $post_id;
+		} else {
+			if ( !current_user_can( 'edit_post', $post_id ) )
+				return $post_id;
 		}
 
 		// OK, we're authenticated: we need to find and save the data

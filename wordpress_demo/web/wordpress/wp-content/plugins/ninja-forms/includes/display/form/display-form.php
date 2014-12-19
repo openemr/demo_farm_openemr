@@ -14,7 +14,7 @@ function nf_check_post() {
 			return false;
 
 		// If our nonce doesn't validate, bail
-		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'nf_form_' + absint( $_POST['_form_id'] ) ) )
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'nf_form_' . absint( $_POST['_form_id'] ) ) )
 			return false;
 
 		$form_row = ninja_forms_get_form_by_id( absint( $_POST['_form_id'] ) );

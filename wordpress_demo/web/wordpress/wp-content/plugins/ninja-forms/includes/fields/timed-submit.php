@@ -59,9 +59,9 @@ add_action('init', 'ninja_forms_register_field_timed_submit');
 
 
 
-function ninja_forms_field_timed_submit_display($field_id, $data){
+function ninja_forms_field_timed_submit_display( $field_id, $data, $form_id = '' ){
 
-	$field_class = ninja_forms_get_field_class($field_id);
+	$field_class = ninja_forms_get_field_class( $field_id, $form_id );
 
 	if(isset($data['timer-text']) AND $data['timer-text'] != ''){
 		$label = $data['timer-text'];

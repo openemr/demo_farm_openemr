@@ -23,14 +23,14 @@ function ninja_forms_register_field_hr(){
 
 add_action('init', 'ninja_forms_register_field_hr');
 
-function ninja_forms_field_hr_display($field_id, $data){
+function ninja_forms_field_hr_display( $field_id, $data, $form_id = '' ){
 	if( isset( $data['display_style'] ) ){
 		$display_style = $data['display_style'];
 	}else{
 		$display_style = '';
 	}
 
-	$field_class = ninja_forms_get_field_class($field_id);
+	$field_class = ninja_forms_get_field_class( $field_id, $form_id );
 	?>
 	<hr class="<?php echo $field_class;?>" style="<?php echo $display_style;?>" id="ninja_forms_field_<?php echo $field_id;?>_div_wrap" rel="<?php echo $field_id;?>" />
 	<?php

@@ -20,7 +20,13 @@ function ninja_forms_register_field_honeypot(){
 		'edit_conditional' => false,
 		'display_label' => true,
 		'process_field' => false,
-		'pre_process' => 'ninja_forms_field_honeypot_pre_process'
+		'pre_process' => 'ninja_forms_field_honeypot_pre_process',
+		'edit_options' => array(
+			array(
+				'type' => 'hidden',
+				'name' => 'honeypot_save',
+			),
+		),
 	);
 
 	ninja_forms_register_field('_honeypot', $args);
@@ -30,9 +36,9 @@ add_action('init', 'ninja_forms_register_field_honeypot');
 
 
 
-function ninja_forms_field_honeypot_display($field_id, $data){
+function ninja_forms_field_honeypot_display( $field_id, $data, $form_id = '' ){
 
-	$field_class = ninja_forms_get_field_class($field_id);	?>
+	$field_class = ninja_forms_get_field_class( $field_id, $form_id );	?>
 
 	<input id="ninja_forms_field_<?php echo $field_id;?>" name="ninja_forms_field_<?php echo $field_id;?>" type="text" class="<?php echo $field_class;?>" value="" rel="<?php echo $field_id;?>" />
 	<?php
