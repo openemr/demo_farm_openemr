@@ -71,7 +71,7 @@ echo -n "git repo full name is "
 echo "$OPENEMRREPOFULLNAME"
 echo -n "git repo full name is " >> $LOG
 echo "$OPENEMRREPOFULLNAME" >> $LOG
-OPENEMRREPONAME="${OPENEMRREPOFULLNAME%.*/}"
+OPENEMRREPONAME="${OPENEMRREPOFULLNAME%.*}"
 echo -n "git repo name is "
 echo "$OPENEMRREPONAME"
 echo -n "git repo name is " >> $LOG
