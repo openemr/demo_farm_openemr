@@ -66,7 +66,12 @@ echo "$OPENEMRREPO"
 echo -n "git repo is " >> $LOG
 echo "$OPENEMRREPO" >> $LOG
 # Parse out the repo name and set the $GIT variable
-OPENEMRREPONAME="${OPENEMRREPO##*/}"
+OPENEMRREPOFULLNAME=$(basename "$OPENEMRREPO")
+echo -n "git repo full name is "
+echo "$OPENEMRREPOFULLNAME"
+echo -n "git repo full name is " >> $LOG
+echo "$OPENEMRREPOFULLNAME" >> $LOG
+OPENEMRREPONAME="${OPENEMRREPOFULLNAME%.*/}"
 echo -n "git repo name is "
 echo "$OPENEMRREPONAME"
 echo -n "git repo name is " >> $LOG
