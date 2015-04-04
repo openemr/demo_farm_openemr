@@ -17,7 +17,7 @@ WEB=/var/www
 OPENEMR=$WEB/openemr
 LOG=$WEB/log/logSetup.txt
 GITMAIN=/home/openemr/git
-GIT=$GITMAIN/openemr
+# GIT=$GITMAIN/openemr // Need to instead set this below depending on OPENEMRREPONAME below
 GITDEMOFARM=$GITMAIN/demo_farm_openemr
 GITDEMOFARMMAP=$GITDEMOFARM/ip_map_branch.txt
 OPENEMRAPACHECONF=$GITDEMOFARM/openemr.conf
@@ -65,6 +65,13 @@ echo -n "git repo is "
 echo "$OPENEMRREPO"
 echo -n "git repo is " >> $LOG
 echo "$OPENEMRREPO" >> $LOG
+# Parse out the repo name and set the $GIT variable
+OPENEMRREPONAME="${OPENEMRREPO##*/}"
+echo -n "git repo name is "
+echo "$OPENEMRREPONAME"
+echo -n "git repo name is " >> $LOG
+echo "$OPENEMRREPONAME" >> $LOG
+GIT=$GITMAIN/$OPENEMRREPONAME
 # Grab branch
 GITBRANCH=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 3`
 echo -n "git branch is "
