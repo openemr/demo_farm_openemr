@@ -72,6 +72,10 @@ echo "$OPENEMRREPONAME"
 echo -n "git repo name is " >> $LOG
 echo "$OPENEMRREPONAME" >> $LOG
 GIT=$GITMAIN/$OPENEMRREPONAME
+echo -n "git repo local path is "
+echo "$GIT"
+echo -n "git repo local path is " >> $LOG
+echo "$GIT" >> $LOG
 # Grab branch
 GITBRANCH=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 3`
 echo -n "git branch is "
