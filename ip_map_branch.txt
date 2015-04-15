@@ -1,6 +1,6 @@
 ip_address	openemr_repo	branch	serve_development_translations	use_development_translations	serve_packages	legacy_patching	demo_data	demo_ssh	patient_portals	external_link	description
 192.168.1.130	https://github.com/ophthal/openemr_1.git	master	0	0	0	0	0	0	1	demo.open-emr.org:2104	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
-192.168.1.131	https://github.com/jajalla23/openemr.git	cdr-plans-admin_gui_v2	0	0	0	0	0	0	1	demo.open-emr.org:2105	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
+192.168.1.131	https://github.com/bradymiller/openemr.git	translations-big-constants_1	0	0	0	0	0	0	1	demo.open-emr.org:2105	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
 192.168.1.132	https://github.com/robertdown/openemr.git	ui	0	0	0	0	0	0	0	demo.open-emr.org:2106	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
 192.168.1.133	https://github.com/PFWilliams/openemr.git	Outlook-Calendar-Cleanup	0	0	0	0	0	0	0	demo.open-emr.org:2108	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
 192.168.1.134	https://github.com/zhhealthcare/openemr.git	CareCoordiantionV2	0	0	0	0	0	0	1	demo.open-emr.org:2109	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
