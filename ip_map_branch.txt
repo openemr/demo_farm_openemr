@@ -5,7 +5,7 @@ ip_address	openemr_repo	branch	serve_development_translations	use_development_tr
 192.168.1.133	https://github.com/ophthal/openemr_2.git	current-work-7	0	0	0	0	0	0	1	demo.open-emr.org:2108	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
 192.168.1.134	https://github.com/zhhealthcare/openemr.git	CareCoordinationV3	0	0	0	0	0	0	1	demo.open-emr.org:2109	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
 192.168.1.135	https://github.com/teryhill/openemr.git	statment_dunning	0	0	0	0	0	0	1	demo.open-emr.org:2110	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
-192.168.1.111	https://github.com/openemr/openemr.git	b35c652e838735d94986d303f6b6ccb97dcd7fe3	1	1	1	0	0	0	1	demo.open-emr.org:2089	Public OpenEMR Development Demo (Daily Build)
+192.168.1.111	https://github.com/openemr/openemr.git	bd2d957545ca000162e6dace6e7cba0524f3d23b	1	1	1	0	0	0	1	demo.open-emr.org:2089	Public OpenEMR Development Demo (Daily Build)
 192.168.1.129	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	demo.open-emr.org:2103	Public OpenEMR Development Demo (Weekly Build)
 192.168.1.125	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	demo.open-emr.org:2099	NOT USED FOR ANYTHING YET.
 192.168.1.126	https://github.com/openemr/openemr.git	v4_1_2_3	0	0	0	0	demo_4_1_2_3.sql	openemr_demo_4123	0	demo.open-emr.org:2107	Public OpenEMR 4.1.2 Production Demo (Daily Build)
