@@ -58,3 +58,7 @@ How to grow your own OpenEMR demo farm
 3. Set up the pre-trigger appliance, as above (or download it when available)
 4. Trigger the appliance, as above. In the /etc/rc.local, place link to your custom demo_farm_openemr repo.
 
+
+LICENSE
+--------------------------------------
+GNU GENERAL PUBLIC LICENSE
