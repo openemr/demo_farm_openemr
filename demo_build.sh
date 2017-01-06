@@ -214,7 +214,7 @@ fi
 echo "Copy git OpenEMR to web directory"
 echo "Copy git OpenEMR to web directory" >> $LOG
 rm -fr $OPENEMR/*
-rsync --recursive --exclude .git $GIT/* $OPENEMR/
+rsync --recursive --link --exclude .git $GIT/* $OPENEMR/
 
 #restart apache
 #need to do this in case same appliance is serving the development translation set
@@ -336,7 +336,7 @@ if $packageServe ; then
 
  # Prepare the development package
  mkdir -p $TMPDIR/openemr
- rsync --recursive --exclude .git $GIT/* $TMPDIR/openemr/
+ rsync --recursive --link --exclude .git $GIT/* $TMPDIR/openemr/
  chmod    a+w $TMPDIR/openemr/sites/default/sqlconf.php
  chmod -R a+w $TMPDIR/openemr/sites/default/documents
  chmod -R a+w $TMPDIR/openemr/sites/default/edi
