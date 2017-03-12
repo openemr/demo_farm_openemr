@@ -188,7 +188,7 @@ else
 fi
 
 # COLLECT and output demo description
-desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 12`
+desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 13`
 echo -n "Demo description: "
 echo "$desc"
 echo -n "Demo description: " >> $LOG
