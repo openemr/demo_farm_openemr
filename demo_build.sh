@@ -13,7 +13,11 @@
 TRANSLATIONSREPO=https://github.com/openemr/translations_development_openemr.git
 
 # PATH VARIABLES
-WEB=/var/www
+if [ -d /var/www/html ]; then
+ WEB=/var/www/html
+else
+ WEB=/var/www
+fi
 OPENEMR=$WEB/openemr
 LOG=$WEB/log/logSetup.txt
 GITMAIN=/home/openemr/git
