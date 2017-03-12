@@ -133,6 +133,11 @@ echo -n "external link is "
 echo "$EXTERNALLINK"
 echo -n "external link is " >> $LOG
 echo "$EXTERNALLINK" >> $LOG
+mrp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 12`
+echo -n "mysql p is "
+echo "$mrp"
+echo -n "mysql p is " >> $LOG
+echo "$mrp" >> $LOG
 
 # SET OPTIONS
 # set if serve development translation set
@@ -252,11 +257,19 @@ sed -e 's@^exit;@ @' <$INST >$INSTTEMP
 if $translationsDevelopment ; then
  echo "Using online development translation set"
  echo "Using online development translation set" >> $LOG
- php -f $INSTTEMP development_translations=yes >> $LOG
+ if [ -z "$mrp" ] ; then
+  php -f $INSTTEMP development_translations=yes >> $LOG
+ else
+  php -f $INSTTEMP development_translations=yes rootpass=$mrp >> $LOG
+ fi
 else
  echo "Using included translation set"
  echo "Using included translation set" >> $LOG
- php -f $INSTTEMP >> $LOG
+ if [ -z "$mrp" ] ; then
+  php -f $INSTTEMP >> $LOG
+ else
+  php -f $INSTTEMP rootpass=$mrp >> $LOG
+ fi
 fi
 rm -f $INSTTEMP
 
