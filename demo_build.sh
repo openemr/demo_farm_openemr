@@ -236,7 +236,7 @@ rsync --recursive --exclude .git $GIT/* $OPENEMR/
 #first secure things to stop hackers from placing .htaccess files and secure patient directories
 echo "Setting OpenEMR configuration script"
 echo "Setting OpenEMR configuration script" >> $LOG
-cp $OPENEMRAPACHECONF /etc/apache2/sites-available/
+cp $OPENEMRAPACHECONF /etc/apache2/sites-available/openemr.conf
 a2ensite openemr.conf >> $LOG
 /etc/init.d/apache2 start >> $LOG
 
