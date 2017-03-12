@@ -15,8 +15,10 @@ TRANSLATIONSREPO=https://github.com/openemr/translations_development_openemr.git
 # PATH VARIABLES
 if [ -d /var/www/html ]; then
  WEB=/var/www/html
+ htmlDirApache=true;
 else
  WEB=/var/www
+ htmlDirApache=false;
 fi
 OPENEMR=$WEB/openemr
 LOG=$WEB/log/logSetup.txt
@@ -24,7 +26,11 @@ GITMAIN=/home/openemr/git
 # GIT=$GITMAIN/openemr // Need to instead set this below depending on OPENEMRREPONAME below
 GITDEMOFARM=$GITMAIN/demo_farm_openemr
 GITDEMOFARMMAP=$GITDEMOFARM/ip_map_branch.txt
-OPENEMRAPACHECONF=$GITDEMOFARM/openemr.conf
+if $htmlDirApache ; then
+ OPENEMRAPACHECONF=$GITDEMOFARM/openemr-html.conf
+else
+ OPENEMRAPACHECONF=$GITDEMOFARM/openemr.conf
+fi
 GITTRANS=$GITMAIN/translations_development_openemr
 TRANSSERVEDIR=$WEB/translations
 FILESSERVEDIR=$WEB/files
