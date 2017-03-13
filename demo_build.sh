@@ -416,14 +416,14 @@ if $portalsDemo; then
  sed -i 's/demo.open-emr.org:2104/'"$EXTERNALLINK"'/g' "$GITDEMOWORDPRESSDEMOSQL"
 
  # Install the openemr sql stuff for portals
- mysql -u root openemr < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"  
+ mysql -u root $rpassparam openemr < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"  
 
  # Install wordpress file stuff
  mkdir -p $WORDPRESS
  cp -r $GITDEMOWORDPRESSDEMOWEB/* $WORDPRESS/
 
  # Install wordpress database stuff
- mysqladmin -u root create wordpress
+ mysqladmin -u root $rpassparam create wordpress
  mysql -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
  mysql -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQL"
 
