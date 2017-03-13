@@ -192,6 +192,12 @@ if [ "$wp" == "0"  ]; then
 else
  portalsDemo=true;
 fi
+# set the mysql r pass string if needed
+if [ -z "$mrp" ]; then
+ rpassparam=
+else
+ rpassparam="-p$mrp"
+fi
 
 # COLLECT and output demo description
 desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 13`
@@ -304,7 +310,7 @@ if $demoData; then
  # First, check to ensure the file exists
  if [ -f "$GITDEMOFARM/pieces/$dd" ]; then
   # Now insert the data
-  mysql -u root openemr < "$GITDEMOFARM/pieces/$dd"
+  mysql -u root $rpassparam openemr < "$GITDEMOFARM/pieces/$dd"
   echo "Completed inserting demo data from $dd"
   echo "Completed inserting demo data from $dd" >> $LOG
  else
@@ -418,8 +424,8 @@ if $portalsDemo; then
 
  # Install wordpress database stuff
  mysqladmin -u root create wordpress
- mysql -u root --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
- mysql -u root wordpress < "$GITDEMOWORDPRESSDEMOSQL"
+ mysql -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
+ mysql -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQL"
 
  # Install Postfix to allow email registration on wordpress patient portal demo
  apt-get update >> $LOG
