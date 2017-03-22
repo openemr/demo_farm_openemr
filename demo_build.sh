@@ -260,6 +260,7 @@ chown -R www-data:www-data $OPENEMR/sites/default/letter_templates
 chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
 chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
 chown -R www-data:www-data $OPENEMR/gacl/admin/templates_c
+
 if [ -f $OPENEMR/interface/modules/zend_modules/config/application.config.php ] ; then
  # This is specifically for Zend code that is currently under development, so it works on the demos.
  chown www-data:www-data $OPENEMR/interface/modules/zend_modules/config/application.config.php
@@ -323,6 +324,10 @@ fi
 chmod 644 $OPENEMR/sites/default/sqlconf.php
 echo "Done configuring OpenEMR"
 echo "Done configuring OpenEMR" >> $LOG
+
+# Set up to allow demo and testing of hl7 labs feature
+mkdir $OPENEMR/sites/default/procedure_results
+chown -R www-data:www-data $OPENEMR/sites/default/procedure_results
 
 #Security stuff
 #1. remove the library/openflashchart/php-ofc-library/ofc_upload_image.php file if it exists
