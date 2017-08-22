@@ -59,14 +59,22 @@ echo "$timeStart"
 echo -n "Started Build: " >> $LOG
 echo "$timeStart" >> $LOG
 
-# Collect ip address
-tempx=`/sbin/ifconfig`
-tempy=${tempx#*inet addr:}
-IPADDRESS=${tempy%% *}
-echo -n "IP ADDRESS is "
-echo "$IPADDRESS"
-echo -n "IP ADDRESS is " >> $LOG
-echo "$IPADDRESS" >> $LOG
+# Collect ip address or docker demo number
+if $DOCKERDEMO ; then
+ echo -n "Docker Demo is "
+ echo "$DOCKERDEMO"
+ echo -n "Docker Demo is " >> $LOG
+ echo "$DOCKERDEMO" >> $LOG
+ $IPADDRESS=$DOCKERDEMO
+else
+ tempx=`/sbin/ifconfig`
+ tempy=${tempx#*inet addr:}
+ IPADDRESS=${tempy%% *}
+ echo -n "IP ADDRESS is "
+ echo "$IPADDRESS"
+ echo -n "IP ADDRESS is " >> $LOG
+ echo "$IPADDRESS" >> $LOG
+fi
 
 # COLLECT MAPPED BRANCH AND OPTIONS
 # Grab repo link
@@ -271,21 +279,24 @@ fi
 # Run installer class for the demo (note to avoid malicious use, script is activated by removing an exit command,
 #   and the active script is then removed after completion.
 sed -e 's@^exit;@ @' <$INST >$INSTTEMP
+if $DOCKERDEMO;  then
+ $DOCKERPARAMETERS="server=openemr-mysql loginhost=% login=${DOCKERDEMO} pass=${DOCKERDEMO} dbname=${DOCKERDEMO}" 
+fi
 if $translationsDevelopment ; then
  echo "Using online development translation set"
  echo "Using online development translation set" >> $LOG
  if [ -z "$mrp" ] ; then
-  php -f $INSTTEMP development_translations=yes >> $LOG
+  php -f $INSTTEMP development_translations=yes $DOCKERPARAMETERS >> $LOG
  else
-  php -f $INSTTEMP development_translations=yes rootpass=$mrp >> $LOG
+  php -f $INSTTEMP development_translations=yes rootpass=$mrp $DOCKERPARAMETERS >> $LOG
  fi
 else
  echo "Using included translation set"
  echo "Using included translation set" >> $LOG
  if [ -z "$mrp" ] ; then
-  php -f $INSTTEMP >> $LOG
+  php -f $INSTTEMP $DOCKERPARAMETERS >> $LOG
  else
-  php -f $INSTTEMP rootpass=$mrp >> $LOG
+  php -f $INSTTEMP rootpass=$mrp $DOCKERPARAMETERS >> $LOG
  fi
 fi
 rm -f $INSTTEMP
