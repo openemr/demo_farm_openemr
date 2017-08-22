@@ -12,7 +12,7 @@
 # PUBLIC REPOS (note the openemr repo is mapped in GITDEMOFARMMAP
 TRANSLATIONSREPO=https://github.com/openemr/translations_development_openemr.git
 
-# PATH VARIABLES
+# PATH VARIABLES AND CREATED NEEDED DIRS
 if [ -d /var/www/html ]; then
  WEB=/var/www/html
  htmlDirApache=true;
@@ -22,6 +22,7 @@ else
 fi
 OPENEMR=$WEB/openemr
 LOG=$WEB/log/logSetup.txt
+mkdir -p $WEB/log
 GITMAIN=/home/openemr/git
 # GIT=$GITMAIN/openemr // Need to instead set this below depending on OPENEMRREPONAME below
 GITDEMOFARM=$GITMAIN/demo_farm_openemr
