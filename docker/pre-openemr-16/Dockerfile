@@ -43,8 +43,8 @@ RUN apt-get install -y postfix
 EXPOSE 80
 
 # Commands after run the image
-CMD mkdir -p /home/openemr/git
-CMD cd /home/openemr/git
-CMD git clone https://github.com/bradymiller/demo_farm_openemr.git
-CMD bash /home/openemr/git/demo_farm_openemr/demo_build.sh
-
+CMD mkdir -p /home/openemr/git; \
+    cd /home/openemr/git; \
+    git clone https://github.com/bradymiller/demo_farm_openemr.git; \
+    cd ~/; \
+    bash /home/openemr/git/demo_farm_openemr/demo_build.sh; \

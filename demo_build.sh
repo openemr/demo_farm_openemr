@@ -60,7 +60,7 @@ echo -n "Started Build: " >> $LOG
 echo "$timeStart" >> $LOG
 
 # Collect ip address or docker demo number
-if $DOCKERDEMO ; then
+if [ -z "$DOCKERDEMO" ] ; then
  echo -n "Docker Demo is "
  echo "$DOCKERDEMO"
  echo -n "Docker Demo is " >> $LOG
@@ -279,7 +279,7 @@ fi
 # Run installer class for the demo (note to avoid malicious use, script is activated by removing an exit command,
 #   and the active script is then removed after completion.
 sed -e 's@^exit;@ @' <$INST >$INSTTEMP
-if $DOCKERDEMO;  then
+if [ -z "$DOCKERDEMO" ];  then
  $DOCKERPARAMETERS="server=openemr-mysql loginhost=% login=${DOCKERDEMO} pass=${DOCKERDEMO} dbname=${DOCKERDEMO}" 
 fi
 if $translationsDevelopment ; then
