@@ -65,7 +65,7 @@ if [ -n "$DOCKERDEMO" ] ; then
  echo "$DOCKERDEMO"
  echo -n "Docker Demo is " >> $LOG
  echo "$DOCKERDEMO" >> $LOG
- $IPADDRESS=$DOCKERDEMO
+ IPADDRESS=$DOCKERDEMO
 else
  tempx=`/sbin/ifconfig`
  tempy=${tempx#*inet addr:}
