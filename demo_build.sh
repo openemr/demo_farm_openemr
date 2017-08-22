@@ -282,7 +282,6 @@ fi
 sed -e 's@^exit;@ @' <$INST >$INSTTEMP
 if [ -n "$DOCKERDEMO" ];  then
  DOCKERPARAMETERS="server=openemr-mysql loginhost=${DOCKERDEMO}-openemr login=${DOCKERDEMO} pass=${DOCKERDEMO} dbname=${DOCKERDEMO}" 
- echo $DOCKERPARAMETERS
 fi
 if $translationsDevelopment ; then
  echo "Using online development translation set"
