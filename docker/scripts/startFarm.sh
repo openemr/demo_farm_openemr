@@ -7,7 +7,7 @@
 # the Free Software Foundation; either version 3 of the License, or
 # (at your option) any later version.
 #
-# TODO: -serve the development translations set from here and set up nginx to do this by sharing the volume with "website" on it
+# TODO: -serve the development translations set from ec2 instance host and set up nginx to do this by sharing the volume with "website" on it
 #       -create scripts for each demo to (restartOne.sh etc.)
 #
 
