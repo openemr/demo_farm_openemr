@@ -281,7 +281,7 @@ fi
 #   and the active script is then removed after completion.
 sed -e 's@^exit;@ @' <$INST >$INSTTEMP
 if [ -n "$DOCKERDEMO" ];  then
- DOCKERPARAMETERS="server=mysql-openemr loginhost=% login=${DOCKERDEMO} pass=${DOCKERDEMO} dbname=${DOCKERDEMO}" 
+ DOCKERPARAMETERS="server=${DOCKERMYSQLHOST} loginhost=% login=${DOCKERDEMO} pass=${DOCKERDEMO} dbname=${DOCKERDEMO}" 
 fi
 if $translationsDevelopment ; then
  echo "Using online development translation set"
