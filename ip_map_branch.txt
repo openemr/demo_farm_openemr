@@ -11,4 +11,4 @@ ip_address_or_docker_number	openemr_repo	branch	serve_development_translations	u
 192.168.1.126	https://github.com/openemr/openemr.git	v4_1_2_3	0	0	0	0	demo_4_1_2_3.sql	openemr_demo_4123	0	demo.open-emr.org:2107		Public OpenEMR 4.1.2 Production Demo (Daily Build)
 192.168.1.127	https://github.com/openemr/openemr.git	rel-420	0	0	1	0	0	0	1	demo.open-emr.org:2101		Public OpenEMR 4.2.0 Development Demo (Daily Build)
 192.168.1.128	https://github.com/openemr/openemr.git	rel-422	0	0	1	0	0	0	1	demo.open-emr.org:2102		Public OpenEMR 4.2.2 Development Demo (Daily Build)
-one	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	0	one.opensourceemr.com	hey	Public OpenEMR Development Demo (Daily Build)
+one	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	0	one.openemr.io	hey	Public OpenEMR Demo
