@@ -13,7 +13,7 @@
 #  -install mysql-client
 # in home directory, clone demo_farm_openemr
 
-# for building pre-openemr-16 with the Dockerfile
+# for building pre-openemr-16 with the Dockerfile (cd to path with the Dockerfile)
 #docker build -t pre-openemr-16 .
 
 # to collect the docker images
