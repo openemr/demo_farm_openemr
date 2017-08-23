@@ -9,6 +9,7 @@
 #
 # TODO: -serve the development translations set from here and set up nginx to do this by sharing the volume with "website" on it
 #       -create scripts for each demo to (restartOne.sh etc.)
+#
 
 # create aws ami t2.medium ec2 instance with 50GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
 #  -install docker and git via link: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
