@@ -464,3 +464,7 @@ echo "$timeEnd"
 echo -n "Completed Build: " >> $LOG
 echo "$timeEnd" >> $LOG
 
+if [ -n "$DOCKERDEMO" ] ; then
+# to stop docker image from exiting
+ exec "$@";
+fi
