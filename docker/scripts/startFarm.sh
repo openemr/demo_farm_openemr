@@ -8,7 +8,7 @@
 # (at your option) any later version.
 #
 
-# create aws ami t2.medium ec2 instance with 50GB storage space (can take up lots of storage space)
+# create aws ami t2.medium ec2 instance with 50GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
 #  -install docker and git via link: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
 #  -install mysql-client
 # in home directory, clone demo_farm_openemr
