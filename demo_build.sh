@@ -466,5 +466,6 @@ echo "$timeEnd" >> $LOG
 
 if [ -n "$DOCKERDEMO" ] ; then
 # to stop docker image from exiting
- exec "$@";
+ echo "hold docker open"
+ exec "$@"
 fi
