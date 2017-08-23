@@ -1,23 +1,8 @@
 #!/bin/bash
 #
 
-docker stop one-openemr
-docker stop two-openemr
-docker stop three-openemr
-docker stop four-openemr
-docker stop five-openemr
-docker stop six-openemr
-docker stop phpmyadmin-openemr
-docker stop mysql-openemr
-docker stop reverse-proxy
-docker rm one-openemr
-docker rm two-openemr
-docker rm three-openemr
-docker rm four-openemr
-docker rm five-openemr
-docker rm six-openemr
-docker rm phpmyadmin-openemr
-docker rm mysql-openemr
-docker rm reverse-proxy
+# stop and remove all containers
+docker stop $(docker ps -aq)
+docker rm $(docker ps -aq)
 
 bash ~/demo_farm_openemr/docker/scripts/startFarm.sh
