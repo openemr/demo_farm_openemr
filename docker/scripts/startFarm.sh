@@ -1,6 +1,11 @@
 #!/bin/bash
 #
 
+# create aws ami t2.medium instance with 50GB storage space (can take up lots of storage space)
+#  -install docker and git via link:
+#  -install mysql-client
+# in home directory, clone demo_farm_openemr
+
 # for building pre-openemr-16 with the Dockerfile
 #docker build -t pre-openemr-16 .
 
@@ -12,6 +17,12 @@
 
 # to start network
 #docker network create mynet
+
+# update demo_farm_openemr repo
+cd ~/demo_farm_openemr
+git fetch origin
+git pull origin master
+cd ~/
 
 # bring in the dockers (note reverse-proxy needs to be done last)
 docker run --detach --name mysql-openemr --env "MYSQL_ROOT_PASSWORD=hey" --net mynet mysql
