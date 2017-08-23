@@ -20,4 +20,4 @@ docker rm phpmyadmin-openemr
 docker rm mysql-openemr
 docker rm reverse-proxy
 
-bash startFarm.sh
+bash ~/demo_farm_openemr/docker/scripts/startFarm.sh
