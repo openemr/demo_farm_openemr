@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-# create aws ami t2.medium instance with 50GB storage space (can take up lots of storage space)
+# create aws ami t2.medium ec2 instance with 50GB storage space (can take up lots of storage space)
 #  -install docker and git via link:
 #  -install mysql-client
 # in home directory, clone demo_farm_openemr
