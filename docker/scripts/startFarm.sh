@@ -8,6 +8,7 @@
 # (at your option) any later version.
 #
 # TODO: -create scripts for each demo to (restartOne.sh etc.)
+#       -when restart, leave nginx running to ensure 100% uptime of served files like translation file (test it to ensure still works if do that)
 #
 
 # create aws ami t2.medium ec2 instance with 60GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
