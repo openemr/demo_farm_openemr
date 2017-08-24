@@ -27,7 +27,9 @@
 #docker pull nginx
 #docker pull mysql
 #docker pull phpmyadmin/phpmyadmin
-#docker pull bradymiller/pre-openemr-16
+
+# Always check for a new version of this docker image
+docker pull bradymiller/pre-openemr-16
 
 # to start network
 #docker network create mynet
