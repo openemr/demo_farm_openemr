@@ -324,7 +324,7 @@ if $demoData; then
  if [ -f "$GITDEMOFARM/pieces/$dd" ]; then
   # Now insert the data
   if [ -n "$DOCKERDEMO" ] ; then
-   mysql -h $DOCKERMYSQLHOST -u root $rpassparam openemr < "$GITDEMOFARM/pieces/$dd"
+   mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOFARM/pieces/$dd"
   else
    mysql -u root $rpassparam openemr < "$GITDEMOFARM/pieces/$dd"
   fi
@@ -440,7 +440,7 @@ if $portalsDemo; then
 
  # Install the openemr sql stuff for portals
  if [ -n "$DOCKERDEMO" ] ; then
-  mysql -h $DOCKERMYSQLHOST -u root $rpassparam openemr < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"  
+  mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"  
  else
   mysql -u root $rpassparam openemr < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
  fi
@@ -451,9 +451,9 @@ if $portalsDemo; then
 
  # Install wordpress database stuff
  if [ -n "$DOCKERDEMO" ] ; then
-  mysqladmin -h $DOCKERMYSQLHOST -u root $rpassparam create wordpress
-  mysql -h $DOCKERMYSQLHOST -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
-  mysql -h $DOCKERMYSQLHOST -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQL"
+  mysqladmin -h $DOCKERMYSQLHOST -u root $rpassparam create wordpress-$DOCKERDEMO
+  mysql -h $DOCKERMYSQLHOST -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress-${$DOCKERDEMO}.* TO 'wordpress-${$DOCKERDEMO}'@'%' IDENTIFIED BY 'wordpress-${$DOCKERDEMO}'" wordpress-$DOCKERDEMO
+  mysql -h $DOCKERMYSQLHOST -u root $rpassparam wordpress-$DOCKERDEMO < "$GITDEMOWORDPRESSDEMOSQL"
  else
   mysqladmin -u root $rpassparam create wordpress
   mysql -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
