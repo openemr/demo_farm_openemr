@@ -46,12 +46,54 @@ cd ~/
 cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
 
 # bring in the dockers (note reverse-proxy needs to be done last)
-docker run --detach --name mysql-openemr --env "MYSQL_ROOT_PASSWORD=hey" --net mynet mysql
-docker run --detach --name phpmyadmin-openemr --env "PMA_HOST=mysql-openemr" --net mynet phpmyadmin/phpmyadmin
-docker run --detach --name one-openemr --env "DOCKERDEMO=one" --env "DOCKERMYSQLHOST=mysql-openemr" --net mynet bradymiller/pre-openemr-16
-docker run --detach --name two-openemr --env "DOCKERDEMO=two" --env "DOCKERMYSQLHOST=mysql-openemr" --net mynet bradymiller/pre-openemr-16
-docker run --detach --name three-openemr --env "DOCKERDEMO=three" --env "DOCKERMYSQLHOST=mysql-openemr" --net mynet bradymiller/pre-openemr-16
-docker run --detach --name four-openemr --env "DOCKERDEMO=four" --env "DOCKERMYSQLHOST=mysql-openemr" --net mynet bradymiller/pre-openemr-16
-docker run --detach --name five-openemr --env "DOCKERDEMO=five" --env "DOCKERMYSQLHOST=mysql-openemr" --net mynet bradymiller/pre-openemr-16
-docker run --detach --name six-openemr --env "DOCKERDEMO=six" --env "DOCKERMYSQLHOST=mysql-openemr" --net mynet bradymiller/pre-openemr-16
-docker run --detach -p 80:80 --name reverse-proxy -v ~/demo_farm_openemr/docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro -v ~/html:/usr/share/nginx/html:ro --net mynet nginx
+docker run --detach --name mysql-openemr \
+                    --env "MYSQL_ROOT_PASSWORD=hey" \
+                    --net mynet \
+                    mysql
+docker run --detach --name phpmyadmin-openemr \
+                    --env "PMA_HOST=mysql-openemr" \
+                    --net mynet \
+                     phpmyadmin/phpmyadmin
+docker run --detach --name one-openemr \
+                    --env "DOCKERDEMO=one" \
+                    --env "DOCKERMYSQLHOST=mysql-openemr" \
+                    -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
+                    --net mynet \
+                    bradymiller/pre-openemr-16
+docker run --detach --name two-openemr \
+                    --env "DOCKERDEMO=two" \
+                    --env "DOCKERMYSQLHOST=mysql-openemr" \
+                    -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
+                    --net mynet \
+                    bradymiller/pre-openemr-16
+docker run --detach --name three-openemr \
+                    --env "DOCKERDEMO=three" \
+                    --env "DOCKERMYSQLHOST=mysql-openemr" \
+                    -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
+                    --net mynet \
+                    bradymiller/pre-openemr-16
+docker run --detach --name four-openemr \
+                    --env "DOCKERDEMO=four" \
+                    --env "DOCKERMYSQLHOST=mysql-openemr" \
+                    -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
+                    --net mynet \
+                    bradymiller/pre-openemr-16
+docker run --detach --name five-openemr \
+                    --env "DOCKERDEMO=five" \
+                    --env "DOCKERMYSQLHOST=mysql-openemr" \
+                    -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
+                    --net mynet \
+                    bradymiller/pre-openemr-16
+docker run --detach --name six-openemr \
+                    --env "DOCKERDEMO=six" \
+                    --env "DOCKERMYSQLHOST=mysql-openemr" \
+                    -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
+                    --net mynet \
+                    bradymiller/pre-openemr-16
+docker run --detach --name reverse-proxy \
+                    -p 80:80 \
+                    -v ~/demo_farm_openemr/docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \
+                    -v ~/html:/usr/share/nginx/html:ro \
+                    --net mynet \
+                    nginx
+
