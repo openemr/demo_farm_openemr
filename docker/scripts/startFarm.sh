@@ -10,7 +10,7 @@
 # TODO: -create scripts for each demo to (restartOne.sh etc.)
 #
 
-# create aws ami t2.medium ec2 instance with 50GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
+# create aws ami t2.medium ec2 instance with 60GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
 #  -install docker and git via link: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
 #  -in home directory, clone demo_farm_openemr(https://github.com/bradymiller/demo_farm_openemr.git)
 #  -in home directory, clone translations_development_openemr (https://github.com/openemr/translations_development_openemr.git)
