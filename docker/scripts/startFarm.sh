@@ -16,6 +16,7 @@
 #  -install docker and git via link: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
 #  -in home directory, clone demo_farm_openemr(https://github.com/bradymiller/demo_farm_openemr.git)
 #  -in home directory, clone translations_development_openemr (https://github.com/openemr/translations_development_openemr.git)
+#  -in home directory, make a 'html' directory
 #  -place following cron entry:
 #    00 08 * * * bash ~/demo_farm_openemr/docker/scripts/restartFarm.sh > /dev/null
 
