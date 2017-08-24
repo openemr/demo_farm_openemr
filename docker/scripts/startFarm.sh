@@ -9,7 +9,6 @@
 #
 # TODO: -create scripts for each demo to (restartOne.sh etc.)
 #       -fix wordpress by placing settings in wordpress_demo/web/wordpress/wp-config.php (need done before support official demo)
-#       -support zend (need done before support official demo)
 #
 
 # create aws ami t2.medium ec2 instance with 60GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
