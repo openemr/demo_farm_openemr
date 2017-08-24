@@ -14,10 +14,9 @@
 
 # create aws ami t2.medium ec2 instance with 50GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
 #  -install docker and git via link: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
-#  -install mysql-client
-#  -place following cron entry:
-#    ____
 #  -in home directory, clone demo_farm_openemr
+#  -place following cron entry:
+#    00 08 * * * bash ~/demo_farm_openemr/docker/scripts/restartFarm.sh > /dev/null
 
 # for building pre-openemr-16 with the Dockerfile (cd to path with the Dockerfile)
 #docker build -t pre-openemr-16 .
