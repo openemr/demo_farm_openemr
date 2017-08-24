@@ -246,9 +246,6 @@ echo "Copy git OpenEMR to web directory" >> $LOG
 rm -fr $OPENEMR/*
 rsync --recursive --exclude .git $GIT/* $OPENEMR/
 
-#ensure have support for apache rewrite (needed for Zend and several other things)
-a2enmod rewrite >> $LOG
-
 #restart apache
 #need to do this in case same appliance is serving the development translation set
 #first secure things to stop hackers from placing .htaccess files and secure patient directories

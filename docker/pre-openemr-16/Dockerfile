@@ -48,6 +48,9 @@ RUN bash -c 'debconf-set-selections <<< "postfix postfix/mailname string opensou
 RUN bash -c 'debconf-set-selections <<< "postfix postfix/main_mailer_type string Internet\ Site"'
 RUN apt-get install -y postfix
 
+# Support rewrite in apache
+RUN a2enmod rewrite
+
 # Expose port 80
 EXPOSE 80
 
