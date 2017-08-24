@@ -17,6 +17,7 @@
 #  -in home directory, clone demo_farm_openemr(https://github.com/bradymiller/demo_farm_openemr.git)
 #  -in home directory, clone translations_development_openemr (https://github.com/openemr/translations_development_openemr.git)
 #  -in home directory, make a 'html' directory
+#  -cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/
 #  -place following cron entry:
 #    00 08 * * * bash ~/demo_farm_openemr/docker/scripts/restartFarm.sh > /dev/null
 
