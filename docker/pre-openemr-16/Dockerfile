@@ -8,8 +8,6 @@
 #
 # pre-openemr-16 Dockerfile build
 #
-# TODO: likely need to add mysql-client, zip and tar packages (pending test to see)
-#
 FROM ubuntu:16.04
 
 # Install standard dependencies, except for mysql-server
