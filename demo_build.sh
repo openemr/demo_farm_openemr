@@ -323,7 +323,11 @@ if $demoData; then
  # First, check to ensure the file exists
  if [ -f "$GITDEMOFARM/pieces/$dd" ]; then
   # Now insert the data
-  mysql -u root $rpassparam openemr < "$GITDEMOFARM/pieces/$dd"
+  if [ -n "$DOCKERDEMO" ] ; then
+   mysql -h $DOCKERMYSQLHOST -u root $rpassparam openemr < "$GITDEMOFARM/pieces/$dd"
+  else
+   mysql -u root $rpassparam openemr < "$GITDEMOFARM/pieces/$dd"
+  fi
   echo "Completed inserting demo data from $dd"
   echo "Completed inserting demo data from $dd" >> $LOG
  else
@@ -358,9 +362,11 @@ if $demoSSH; then
   cd "$GITDEMOFARM/ssh/"
   unzip "$ds.zip"
   cd "$ds"
-  #install openvpn
-  apt-get update >> $LOG
-  apt-get -y install openvpn >> $LOG
+  if [ -z "$DOCKERDEMO" ] ; then
+   #install openvpn
+   apt-get update >> $LOG
+   apt-get -y install openvpn >> $LOG
+  fi
   #initiate up ssh tunnel
   bash connect.sh
   cd ~
@@ -433,22 +439,34 @@ if $portalsDemo; then
  sed -i 's/demo.open-emr.org:2104/'"$EXTERNALLINK"'/g' "$GITDEMOWORDPRESSDEMOSQL"
 
  # Install the openemr sql stuff for portals
- mysql -u root $rpassparam openemr < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"  
+ if [ -n "$DOCKERDEMO" ] ; then
+  mysql -h $DOCKERMYSQLHOST -u root $rpassparam openemr < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"  
+ else
+  mysql -u root $rpassparam openemr < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
+ fi
 
  # Install wordpress file stuff
  mkdir -p $WORDPRESS
  cp -r $GITDEMOWORDPRESSDEMOWEB/* $WORDPRESS/
 
  # Install wordpress database stuff
- mysqladmin -u root $rpassparam create wordpress
- mysql -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
- mysql -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQL"
+ if [ -n "$DOCKERDEMO" ] ; then
+  mysqladmin -h $DOCKERMYSQLHOST -u root $rpassparam create wordpress
+  mysql -h $DOCKERMYSQLHOST -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
+  mysql -h $DOCKERMYSQLHOST -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQL"
+ else
+  mysqladmin -u root $rpassparam create wordpress
+  mysql -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
+  mysql -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQL"
+ fi
 
  # Install Postfix to allow email registration on wordpress patient portal demo
- apt-get update >> $LOG
- debconf-set-selections <<< "postfix postfix/mailname string opensourceemr.com"
- debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
- apt-get -y install postfix >> $LOG
+ if [ -z "$DOCKERDEMO" ] ; then
+  apt-get update >> $LOG
+  debconf-set-selections <<< "postfix postfix/mailname string opensourceemr.com"
+  debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
+  apt-get -y install postfix >> $LOG
+ fi
 
  echo "Done setting up patient portals"
  echo "Done setting up patient portals" >> $LOG
