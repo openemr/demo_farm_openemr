@@ -41,7 +41,9 @@ RUN apt-get update && apt-get install -y \
     git \
     wget \
     openvpn \
-    debconf
+    debconf \
+    mysql-client \
+    zip
     
 # Install postfix
 RUN bash -c 'debconf-set-selections <<< "postfix postfix/mailname string opensourceemr.com"'
