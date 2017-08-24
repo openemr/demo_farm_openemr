@@ -8,7 +8,6 @@
 # (at your option) any later version.
 #
 # TODO: -create scripts for each demo to (restartOne.sh etc.)
-#       -when restart, leave nginx running to ensure 100% uptime of served files like translation file (test it to ensure still works if do that)
 #
 
 # create aws ami t2.medium ec2 instance with 60GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
@@ -89,10 +88,11 @@ docker run --detach --name six-openemr \
                     -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
                     --net mynet \
                     bradymiller/pre-openemr-16
-docker run --detach --name reverse-proxy \
-                    -p 80:80 \
-                    -v ~/demo_farm_openemr/docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \
-                    -v ~/html:/usr/share/nginx/html:ro \
-                    --net mynet \
-                    nginx
+# Keep below running, so don't run after do initial start
+#docker run --detach --name reverse-proxy \
+#                    -p 80:80 \
+#                    -v ~/demo_farm_openemr/docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \
+#                    -v ~/html:/usr/share/nginx/html:ro \
+#                    --net mynet \
+#                    nginx
 
