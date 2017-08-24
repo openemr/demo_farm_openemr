@@ -16,8 +16,7 @@
 #  -install docker and git via link: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
 #  -in home directory, clone demo_farm_openemr(https://github.com/bradymiller/demo_farm_openemr.git)
 #  -in home directory, clone translations_development_openemr (https://github.com/openemr/translations_development_openemr.git)
-#  -in home directory, make a 'html' directory
-#  -cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/
+#  -in home directory, make a 'html/translations' directory (mkdir -p ~/html/translations)
 #  -place following cron entry:
 #    00 08 * * * bash ~/demo_farm_openemr/docker/scripts/restartFarm.sh > /dev/null
 
@@ -39,6 +38,13 @@ git fetch origin
 git pull origin master
 cd ~/
 
+# update translations_development_openemr repo and place in html dir
+cd ~/translations_development_openemr
+git fetch origin
+git pull origin master
+cd ~/
+cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
+
 # bring in the dockers (note reverse-proxy needs to be done last)
 docker run --detach --name mysql-openemr --env "MYSQL_ROOT_PASSWORD=hey" --net mynet mysql
 docker run --detach --name phpmyadmin-openemr --env "PMA_HOST=mysql-openemr" --net mynet phpmyadmin/phpmyadmin
@@ -48,4 +54,4 @@ docker run --detach --name three-openemr --env "DOCKERDEMO=three" --env "DOCKERM
 docker run --detach --name four-openemr --env "DOCKERDEMO=four" --env "DOCKERMYSQLHOST=mysql-openemr" --net mynet bradymiller/pre-openemr-16
 docker run --detach --name five-openemr --env "DOCKERDEMO=five" --env "DOCKERMYSQLHOST=mysql-openemr" --net mynet bradymiller/pre-openemr-16
 docker run --detach --name six-openemr --env "DOCKERDEMO=six" --env "DOCKERMYSQLHOST=mysql-openemr" --net mynet bradymiller/pre-openemr-16
-docker run --detach -p 80:80 --name reverse-proxy -v ~/demo_farm_openemr/docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro --net mynet nginx
+docker run --detach -p 80:80 --name reverse-proxy -v ~/demo_farm_openemr/docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro -v ~/html:/usr/share/nginx/html:ro --net mynet nginx
