@@ -452,7 +452,7 @@ if $portalsDemo; then
  # Install wordpress database stuff
  if [ -n "$DOCKERDEMO" ] ; then
   mysqladmin -h $DOCKERMYSQLHOST -u root $rpassparam create ${DOCKERDEMO}wordpress
-  mysql -h $DOCKERMYSQLHOST -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress-${DOCKERDEMO}.* TO 'wordpress-${DOCKERDEMO}'@'%' IDENTIFIED BY 'wordpress-${DOCKERDEMO}'" ${DOCKERDEMO}wordpress
+  mysql -h $DOCKERMYSQLHOST -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON ${DOCKERDEMO}wordpress.* TO '${DOCKERDEMO}wordpress'@'%' IDENTIFIED BY '${DOCKERDEMO}wordpress'" ${DOCKERDEMO}wordpress
   mysql -h $DOCKERMYSQLHOST -u root $rpassparam ${DOCKERDEMO}wordpress < "$GITDEMOWORDPRESSDEMOSQL"
  else
   mysqladmin -u root $rpassparam create wordpress
