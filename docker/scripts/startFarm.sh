@@ -7,9 +7,7 @@
 # the Free Software Foundation; either version 3 of the License, or
 # (at your option) any later version.
 #
-# TODO: -serve the development translations set from ec2 instance host and set up nginx to do this by sharing the volume with "website" on it
-#       -create scripts for each demo to (restartOne.sh etc.)
-#       -set up php conf mechanism like the nginx where bring in conf file via volume (separate for each version of ubuntu)
+# TODO: -create scripts for each demo to (restartOne.sh etc.)
 #
 
 # create aws ami t2.medium ec2 instance with 50GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
