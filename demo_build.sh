@@ -454,6 +454,11 @@ if $portalsDemo; then
   mysqladmin -h $DOCKERMYSQLHOST -u root $rpassparam create ${DOCKERDEMO}wordpress
   mysql -h $DOCKERMYSQLHOST -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON ${DOCKERDEMO}wordpress.* TO '${DOCKERDEMO}wordpress'@'%' IDENTIFIED BY '${DOCKERDEMO}wordpress'" ${DOCKERDEMO}wordpress
   mysql -h $DOCKERMYSQLHOST -u root $rpassparam ${DOCKERDEMO}wordpress < "$GITDEMOWORDPRESSDEMOSQL"
+  # Modify $WORDPRESS/wp-config.php to match credentials created above
+  sed -i 's@'DB_NAME', 'wordpress'@'DB_NAME', '${DOCKERDEMO}wordpress'@' "$WORDPRESS/wp-config.php"
+  sed -i 's@'DB_USER', 'wordpress'@'DB_USER', '${DOCKERDEMO}wordpress'@' "$WORDPRESS/wp-config.php"
+  sed -i 's@'DB_PASSWORD', 'wordpress'@'DB_PASSWORD', '${DOCKERDEMO}wordpress'@' "$WORDPRESS/wp-config.php"
+  sed -i 's@'DB_HOST', 'localhost'@'DB_HOST', '${DOCKERMYSQLHOST}'@' "$WORDPRESS/wp-config.php"
  else
   mysqladmin -u root $rpassparam create wordpress
   mysql -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress

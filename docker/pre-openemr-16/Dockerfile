@@ -11,7 +11,7 @@
 FROM ubuntu:16.04
 
 # Install standard dependencies, except for mysql-server
-# (also installingp git, wget, openvpn, and debconf)
+# (also installing git, wget, openvpn, debconf, mysql-client, and zip)
 RUN apt-get update && apt-get install -y \
     apache2 \
     libapache2-mod-php \
