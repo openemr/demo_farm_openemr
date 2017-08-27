@@ -114,7 +114,7 @@ docker run --detach --name six-openemr \
 docker run --detach --name seven-openemr \
                     --env "DOCKERDEMO=seven" \
                     --env "DOCKERMYSQLHOST=mysql-openemr" \
-                    -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
+                    -v ~/demo_farm_openemr/docker/php/17-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
                     --net mynet \
                     bradymiller/pre-openemr:17.04
 docker run --detach --name eight-openemr \
