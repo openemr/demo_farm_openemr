@@ -38,6 +38,7 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 rm -fr ~/html
 mkdir -p ~/html
 cp -r ~/demo_farm_openemr/docker/html/* ~/html/
+mkdir -p ~/html/translations
 cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
 
 # stop and remove all containers
