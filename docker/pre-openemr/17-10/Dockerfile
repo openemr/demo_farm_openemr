@@ -42,7 +42,10 @@ RUN apt-get update && apt-get install -y \
     debconf \
     mysql-client \
     zip
-    
+
+# Special for ubuntu 17.10
+RUN apt-get install -y rsync
+
 # Install postfix
 RUN bash -c 'debconf-set-selections <<< "postfix postfix/mailname string opensourceemr.com"'
 RUN bash -c 'debconf-set-selections <<< "postfix postfix/main_mailer_type string Internet\ Site"'

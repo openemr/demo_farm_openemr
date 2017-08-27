@@ -120,7 +120,7 @@ docker run --detach --name seven-openemr \
 docker run --detach --name eight-openemr \
                     --env "DOCKERDEMO=eight" \
                     --env "DOCKERMYSQLHOST=mysql-openemr" \
-                    -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
+                    -v ~/demo_farm_openemr/docker/php/17-10/php.ini:/etc/php/7.1/apache2/php.ini:ro \
                     --net mynet \
                     bradymiller/pre-openemr:17.10
 # Keep below running, so don't run after do initial start
