@@ -13,7 +13,6 @@ FROM ubuntu:14.04
 # Install standard dependencies, except for mysql-server
 # (also installing git, wget, openvpn, debconf, mysql-client, and zip)
 RUN apt-get update && apt-get install -y \
-
     apache2 \
     libapache2-mod-php5 \
     libdate-calc-perl \
@@ -34,7 +33,7 @@ RUN apt-get update && apt-get install -y \
     php5-json \
     php-gettext \
     imagemagick \
-    php-ldap
+    php5-ldap \
     git \
     wget \
     openvpn \

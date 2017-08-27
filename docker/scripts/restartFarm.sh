@@ -8,6 +8,34 @@
 # (at your option) any later version.
 #
 
+# Always check for a new versions of the docker images
+#  (this was migrated to here from start script to reduce downtime of demos)
+docker pull bradymiller/pre-openemr:16.04
+docker pull bradymiller/pre-openemr:14.04
+docker pull bradymiller/pre-openemr:17.04
+
+# update demo_farm_openemr repo
+#  (this was migrated to here from start script to reduce downtime of demos)
+cd ~/demo_farm_openemr
+git fetch origin
+git pull origin master
+cd ~/
+
+# update translations_development_openemr repo and place in html dir
+#  (this was migrated to here from start script to reduce downtime of demos)
+cd ~/translations_development_openemr
+git fetch origin
+git pull origin master
+cd ~/
+cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
+
+# rebuild simple website and copy translations to website
+# (this was migrated to here from start script to reduce downtime of demos)
+rm -fr ~/html
+mkdir -p ~/html
+cp -r ~/demo_farm_openemr/docker/html/* ~/html/
+cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
+
 # stop and remove all containers
 #  (except for nginx reverse proxy to ensure 100% uptime of served files)
 docker stop one-openemr

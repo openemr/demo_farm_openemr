@@ -25,8 +25,6 @@
 #docker build -t pre-openemr:14.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/17-04/
 #docker build -t pre-openemr:17.04 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/17-10/
-#docker build -t pre-openemr:17.10 .
 
 # to collect the docker images
 #docker pull nginx
@@ -34,26 +32,34 @@
 #docker pull phpmyadmin/phpmyadmin
 
 # Always check for a new versions of the docker images
-docker pull bradymiller/pre-openemr:16.04
+#  (this was migrated to restart script to reduce downtime of demos)
+#docker pull bradymiller/pre-openemr:16.04
 #docker pull bradymiller/pre-openemr:14.04
 #docker pull bradymiller/pre-openemr:17.04
-#docker pull bradymiller/pre-openemr:17.10
 
 # to start network
 #docker network create mynet
 
 # update demo_farm_openemr repo
-cd ~/demo_farm_openemr
-git fetch origin
-git pull origin master
-cd ~/
+#  (this was migrated to restart script to reduce downtime of demos)
+#cd ~/demo_farm_openemr
+#git fetch origin
+#git pull origin master
+#cd ~/
 
 # update translations_development_openemr repo and place in html dir
-cd ~/translations_development_openemr
-git fetch origin
-git pull origin master
-cd ~/
-cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
+#  (this was migrated to restart script to reduce downtime of demos)
+#cd ~/translations_development_openemr
+#git fetch origin
+#git pull origin master
+#cd ~/
+
+# rebuild simple website and copy translations to website
+# (this was migrated to restart script to reduce downtime of demos)
+#rm -fr ~/html
+#mkdir -p ~/html
+#cp -r ~/demo_farm_openemr/docker/html/* ~/html/
+#cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
 
 # bring in the dockers (note reverse-proxy needs to be done last)
 docker run --detach --name mysql-openemr \
