@@ -8,7 +8,6 @@
 # (at your option) any later version.
 #
 # TODO: -create scripts for each demo to (restartOne.sh etc.)
-#       -use specific php config files for ubuntu 17.04/17.10
 #
 
 # create aws ami t2.medium ec2 instance with 60GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
@@ -26,6 +25,8 @@
 #docker build -t pre-openemr:14.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/17-04/
 #docker build -t pre-openemr:17.04 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/17-10/
+#docker build -t pre-openemr:17.10 .
 
 # to collect the docker images
 #docker pull nginx
@@ -61,8 +62,6 @@
 
 # rebuild simple website and copy translations to website
 # (this was migrated to restart script to reduce downtime of demos)
-#rm -fr ~/html
-#mkdir -p ~/html
 #cp -r ~/demo_farm_openemr/docker/html/* ~/html/
 #cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
 
