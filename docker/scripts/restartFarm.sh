@@ -35,10 +35,7 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 
 # rebuild simple website and copy translations to website
 # (this was migrated to here from start script to reduce downtime of demos)
-rm -fr ~/html
-mkdir -p ~/html
 cp -r ~/demo_farm_openemr/docker/html/* ~/html/
-mkdir -p ~/html/translations
 cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
 
 # stop and remove all containers
