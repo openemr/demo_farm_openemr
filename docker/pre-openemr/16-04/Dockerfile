@@ -6,7 +6,7 @@
 # the Free Software Foundation; either version 3 of the License, or
 # (at your option) any later version.
 #
-# pre-openemr-16 Dockerfile build
+# pre-openemr Dockerfile build
 #
 FROM ubuntu:16.04
 
@@ -51,12 +51,17 @@ RUN apt-get install -y postfix
 # Support rewrite in apache
 RUN a2enmod rewrite
 
+# Start up apache error log and ensure it has proper permissions
+RUN mkdir -p /var/www/html/log
+RUN echo "start log" > /var/www/html/log/logPhp.txt
+RUN chmod 666 /var/www/html/log/logPhp.txt
+
 # Expose port 80
 EXPOSE 80
 
 # Commands after run the image
 CMD mkdir -p /home/openemr/git; \
     cd /home/openemr/git; \
-    git clone https://github.com/bradymiller/demo_farm_openemr.git; \
+    git clone https://github.com/openemr/demo_farm_openemr.git; \
     cd ~/; \
     bash /home/openemr/git/demo_farm_openemr/demo_build.sh; \

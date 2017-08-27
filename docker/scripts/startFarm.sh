@@ -13,22 +13,32 @@
 
 # create aws ami t2.medium ec2 instance with 60GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
 #  -install docker and git via link: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
-#  -in home directory, clone demo_farm_openemr(https://github.com/bradymiller/demo_farm_openemr.git)
+#  -in home directory, clone demo_farm_openemr(https://github.com/openemr/demo_farm_openemr.git)
 #  -in home directory, clone translations_development_openemr (https://github.com/openemr/translations_development_openemr.git)
 #  -in home directory, make a 'html/translations' directory (mkdir -p ~/html/translations)
 #  -place following cron entry:
 #    00 08 * * * bash ~/demo_farm_openemr/docker/scripts/restartFarm.sh > /dev/null
 
-# for building pre-openemr-16 with the Dockerfile (cd to path with the Dockerfile)
-#docker build -t pre-openemr-16 .
+# for building pre-openemr with the Dockerfiles (cd to path with the Dockerfile)
+#cd ~/demo_farm_openemr/docker/pre-openemr/16-04/
+#docker build -t pre-openemr:16.04 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/14-04/
+#docker build -t pre-openemr:14.04 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/17-04/
+#docker build -t pre-openemr:17.04 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/17-10/
+#docker build -t pre-openemr:17.10 .
 
 # to collect the docker images
 #docker pull nginx
 #docker pull mysql
 #docker pull phpmyadmin/phpmyadmin
 
-# Always check for a new version of this docker image
-docker pull bradymiller/pre-openemr-16
+# Always check for a new versions of the docker images
+docker pull bradymiller/pre-openemr:16.04
+#docker pull bradymiller/pre-openemr:14.04
+#docker pull bradymiller/pre-openemr:17.04
+#docker pull bradymiller/pre-openemr:17.10
 
 # to start network
 #docker network create mynet
@@ -60,37 +70,37 @@ docker run --detach --name one-openemr \
                     --env "DOCKERMYSQLHOST=mysql-openemr" \
                     -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
                     --net mynet \
-                    bradymiller/pre-openemr-16
+                    bradymiller/pre-openemr:16.04
 docker run --detach --name two-openemr \
                     --env "DOCKERDEMO=two" \
                     --env "DOCKERMYSQLHOST=mysql-openemr" \
                     -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
                     --net mynet \
-                    bradymiller/pre-openemr-16
+                    bradymiller/pre-openemr:16.04
 docker run --detach --name three-openemr \
                     --env "DOCKERDEMO=three" \
                     --env "DOCKERMYSQLHOST=mysql-openemr" \
                     -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
                     --net mynet \
-                    bradymiller/pre-openemr-16
+                    bradymiller/pre-openemr:16.04
 docker run --detach --name four-openemr \
                     --env "DOCKERDEMO=four" \
                     --env "DOCKERMYSQLHOST=mysql-openemr" \
                     -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
                     --net mynet \
-                    bradymiller/pre-openemr-16
+                    bradymiller/pre-openemr:16.04
 docker run --detach --name five-openemr \
                     --env "DOCKERDEMO=five" \
                     --env "DOCKERMYSQLHOST=mysql-openemr" \
                     -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
                     --net mynet \
-                    bradymiller/pre-openemr-16
+                    bradymiller/pre-openemr:16.04
 docker run --detach --name six-openemr \
                     --env "DOCKERDEMO=six" \
                     --env "DOCKERMYSQLHOST=mysql-openemr" \
                     -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
                     --net mynet \
-                    bradymiller/pre-openemr-16
+                    bradymiller/pre-openemr:16.04
 # Keep below running, so don't run after do initial start
 #docker run --detach --name reverse-proxy \
 #                    -p 80:80 \
