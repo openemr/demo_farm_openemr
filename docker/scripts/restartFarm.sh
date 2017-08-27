@@ -10,9 +10,13 @@
 
 # Always check for a new versions of the docker images
 #  (this was migrated to here from start script to reduce downtime of demos)
+# NOTE 14.04 does not work with development OpenEMR since php version is too low,
+#      but collecting it in case somebody wishes to make it work with older
+#      OpenEMR versions.
 docker pull bradymiller/pre-openemr:16.04
 docker pull bradymiller/pre-openemr:14.04
 docker pull bradymiller/pre-openemr:17.04
+docker pull bradymiller/pre-openemr:17.10
 
 # update demo_farm_openemr repo
 #  (this was migrated to here from start script to reduce downtime of demos)
@@ -44,6 +48,8 @@ docker stop three-openemr
 docker stop four-openemr
 docker stop five-openemr
 docker stop six-openemr
+docker stop seven-openemr
+docker stop eight-openemr
 docker stop phpmyadmin-openemr
 docker stop mysql-openemr
 docker rm one-openemr
@@ -52,6 +58,8 @@ docker rm three-openemr
 docker rm four-openemr
 docker rm five-openemr
 docker rm six-openemr
+docker rm seven-openemr
+docker rm eight-openemr
 docker rm phpmyadmin-openemr
 docker rm mysql-openemr
 

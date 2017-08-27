@@ -8,6 +8,7 @@
 # (at your option) any later version.
 #
 # TODO: -create scripts for each demo to (restartOne.sh etc.)
+#       -use specific php config files for ubuntu 17.04/17.10
 #
 
 # create aws ami t2.medium ec2 instance with 60GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
@@ -33,9 +34,13 @@
 
 # Always check for a new versions of the docker images
 #  (this was migrated to restart script to reduce downtime of demos)
+# NOTE 14.04 does not work with development OpenEMR since php version is too low,
+#      but collecting it in case somebody wishes to make it work with older
+#      OpenEMR versions.
 #docker pull bradymiller/pre-openemr:16.04
 #docker pull bradymiller/pre-openemr:14.04
 #docker pull bradymiller/pre-openemr:17.04
+#docker pull bradymiller/pre-openemr:17.10
 
 # to start network
 #docker network create mynet
@@ -106,6 +111,18 @@ docker run --detach --name six-openemr \
                     -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
                     --net mynet \
                     bradymiller/pre-openemr:16.04
+docker run --detach --name seven-openemr \
+                    --env "DOCKERDEMO=seven" \
+                    --env "DOCKERMYSQLHOST=mysql-openemr" \
+                    -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
+                    --net mynet \
+                    bradymiller/pre-openemr:17.04
+docker run --detach --name eight-openemr \
+                    --env "DOCKERDEMO=eight" \
+                    --env "DOCKERMYSQLHOST=mysql-openemr" \
+                    -v ~/demo_farm_openemr/docker/php/16-04/php.ini:/etc/php/7.0/apache2/php.ini:ro \
+                    --net mynet \
+                    bradymiller/pre-openemr:17.10
 # Keep below running, so don't run after do initial start
 #docker run --detach --name reverse-proxy \
 #                    -p 80:80 \
