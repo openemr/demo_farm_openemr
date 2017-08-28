@@ -7,8 +7,6 @@
 # the Free Software Foundation; either version 3 of the License, or
 # (at your option) any later version.
 #
-# TODO: -create scripts for each demo to (restartOne.sh etc.)
-#
 
 # create aws ami t2.medium ec2 instance with 60GB storage space (likely overkill but docker can take up lots of storage space and will optimize this over time)
 #  -install docker and git via link: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
