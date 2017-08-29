@@ -17,16 +17,17 @@ How do I set one of the "UP FOR GRABS" OpenEMR demos?
 Description of ip_map_branch.txt configuration file
 ---------------------------------------------------
 This file is a tab delimited file for configuration of demos in the demo farm with following settings:
-- ip_address or docker name: local ip address or the docker name of the OpenEMR demo
+- docker_number: docker name of the OpenEMR demo (in deprecated demos, this is the ip address)
 - openemr_repo: set it to the openemr repo you want to grab code from
 - branch: git branch of the OpenEMR github repository
-- serve_development_translations: set to 1 to have demo serve the daily build of translation set for download, set to 0 to turn this off
-- use_development_translations: set to 1 to have demo use the daily build of translation set(this option only works with code based on master/4.1.3), set to 0 to turn this off
+- serve_development_translations: set to 1 to have demo serve the daily build of translation set for download, set to 0 to turn this off (this setting has been deprecated)
+- use_development_translations: set to 1 to have demo use the daily build of translation set, set to 0 to turn this off
 - serve_packages: set to 1 to have demo serve zip/tgz packages of the build for download, set to 0 to turn this off
 - legacy_patching: set to 1 if you are using a legacy patched branch, such as rel-411,rel-410 etc. Note that rel-412 and above should be set to 0.
 - demo_data: set to 0 if no sql demo data file. If have a sql demo data file, then place the name of it here and place the file in the 'pieces' directory.
 - demo_ssh: set to the ssh package if using the offsite portal. Set to 0 if not connecting to offsite portal.
 - patient_portals: set to 0 to not use. set to 1 to set up the onsite and wordpress patient portal demo.
+- root_sql_pass: set the root_sql_pass to use. if this is empty, then leave blank (however, only the deprecated demos will leave this empty). 
 - external_link: place the external web address to the demo here
 - description: place description of the demo here
 
