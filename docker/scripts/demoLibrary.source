@@ -1,0 +1,89 @@
+#!/bin/bash
+#
+# Copyright (C) 2017 Brady Miller <brady.g.miller@gmail.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# Bash library for openemr demo farm
+#
+
+# Will stop and clear an openemr demo
+# 1st parameter is the demo name (one, two, three, etc.)
+# 2nd paremeter is the mysql root password
+stopDemo () {
+    local MYSQLIP=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr`
+
+    # Stop the docker
+    echo "Stop ${1}-openemr docker"
+    docker stop ${1}-openemr
+    docker rm ${1}-openemr
+
+    # Remove the database stuff
+    echo "Clear ${1}-openemr database"
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}wordpress
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}wordpress';FLUSH PRIVILEGES;"
+}
+
+# Will start an openemr demo
+# 1st parameter is the demo name (one, two, three, etc.)
+# 2nd paremeter is the mysql name (mysql-openemr etc.)
+# 3rd parameter is the php version (7.0, 7.1, etc.)
+# 4th parameter is ubuntu version with dash (16-04, 17-04, 17-10, etc.)
+# 5th parameter is ubuntu version with period (16.04, 17.04, 17.10, etc.)
+startDemo () {
+    # Start docker
+    echo "Start ${1}-openemr docker"
+    docker run --detach --name ${1}-openemr \
+                        --env "DOCKERDEMO=${1}" \
+                        --env "DOCKERMYSQLHOST=${2}" \
+                        -v ~/demo_farm_openemr/docker/php/${4}/php.ini:/etc/php/${3}/apache2/php.ini:ro \
+                        --net mynet \
+                        bradymiller/pre-openemr:${5}
+}
+
+startMysql () {
+    docker run --detach --name mysql-openemr \
+                        --env "MYSQL_ROOT_PASSWORD=hey" \
+                        --net mynet \
+                        mysql
+}
+
+restartMysql () {
+    docker stop mysql-openemr
+    docker rm mysql-openemr
+    startMysql
+}
+
+startNginx () {
+    docker run --detach --name reverse-proxy \
+                        -p 80:80 \
+                        -v ~/demo_farm_openemr/docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \
+                        -v ~/html:/usr/share/nginx/html:ro \
+                        --net mynet \
+                        nginx
+}
+
+restartNginx () {
+    docker stop reverse-proxy
+    docker rm reverse-proxy
+    startNginx
+}
+
+startPhpmyadmin () {
+    docker run --detach --name phpmyadmin-openemr \
+                        --env "PMA_HOST=mysql-openemr" \
+                        --net mynet \
+                         phpmyadmin/phpmyadmin
+}
+
+restartPhpmyadmin () {
+    docker stop phpmyadmin-openemr
+    docker rm phpmyadmin-openemr
+    startPhpmyadmin
+}
+

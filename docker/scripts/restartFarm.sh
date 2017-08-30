@@ -38,27 +38,14 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 cp -r ~/demo_farm_openemr/docker/html/* ~/html/
 cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
 
-# stop and remove all containers
-#  (except for nginx reverse proxy to ensure 100% uptime of served files)
-docker stop one-openemr
-docker stop two-openemr
-docker stop three-openemr
-docker stop four-openemr
-docker stop five-openemr
-docker stop six-openemr
-docker stop seven-openemr
-docker stop eight-openemr
-docker stop phpmyadmin-openemr
-docker stop mysql-openemr
-docker rm one-openemr
-docker rm two-openemr
-docker rm three-openemr
-docker rm four-openemr
-docker rm five-openemr
-docker rm six-openemr
-docker rm seven-openemr
-docker rm eight-openemr
-docker rm phpmyadmin-openemr
-docker rm mysql-openemr
+# restart openemr demo docker containers
+# (note do not restart nginx, mysql, and phpmyadmin dockers)
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one &
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two &
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh three &
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh four &
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh five &
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh six &
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven &
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight &
 
-bash ~/demo_farm_openemr/docker/scripts/startFarm.sh
