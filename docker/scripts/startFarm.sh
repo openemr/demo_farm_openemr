@@ -31,9 +31,9 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 #docker build -t pre-openemr:17.10 .
 
 # to collect the docker images
-#docker pull nginx
-#docker pull mysql
-#docker pull phpmyadmin/phpmyadmin
+docker pull nginx
+docker pull mysql
+docker pull phpmyadmin/phpmyadmin
 
 # Always check for a new versions of the docker images
 # NOTE 14.04 does not work with development OpenEMR since php version is too low,
