@@ -14,8 +14,7 @@
 #  -in home directory, clone demo_farm_openemr(https://github.com/openemr/demo_farm_openemr.git)
 #  -in home directory, clone translations_development_openemr (https://github.com/openemr/translations_development_openemr.git)
 #  -in home directory, make a 'html/translations' directory (mkdir -p ~/html/translations)
-#  -place following cron entry:
-#    00 08 * * * bash ~/demo_farm_openemr/docker/scripts/restartFarm.sh > /dev/null
+#  -place following in cron : copy stuff from docker/cron/cron
 
 # Bring in the demo function library
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source

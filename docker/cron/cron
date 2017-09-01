@@ -1,0 +1,1 @@
+00 08 * * * bash ~/demo_farm_openemr/docker/scripts/restartFarm.sh > /dev/null

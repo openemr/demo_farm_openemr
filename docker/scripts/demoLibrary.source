@@ -62,8 +62,11 @@ restartMysql () {
 startNginx () {
     docker run --detach --name reverse-proxy \
                         -p 80:80 \
+                        -p 443:443 \
                         -v ~/demo_farm_openemr/docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \
                         -v ~/html:/usr/share/nginx/html:ro \
+                        -v certs:/etc/letsencrypt \
+                        -v certs-data:/data/letsencrypt \
                         --net mynet \
                         nginx
 }
