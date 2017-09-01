@@ -15,9 +15,18 @@
 #  -in home directory, clone translations_development_openemr (https://github.com/openemr/translations_development_openemr.git)
 #  -in home directory, make a 'html/translations' directory (mkdir -p ~/html/translations)
 #  -place following in cron : copy stuff from docker/cron/cron
-#  -uncomment ssh cert stuff in each server in nginx conf script and follow instructions here to prime
+#  -comment ssh cert stuff in each server in nginx conf script, restart reverse proxy, and follow instructions here to prime
 #   the certificates (after prime, can then uncomment the ssh cert stuff in each server):
 #    https://miki725.github.io/docker/crypto/2017/01/29/docker+nginx+letsencrypt.html
+#      1) below is the docker command that then do on each domain to prime them:
+#      docker run -it --rm \
+#          -v certs:/etc/letsencrypt \
+#          -v certs-data:/data/letsencrypt \
+#          deliverous/certbot \
+#          certonly \
+#          --webroot --webroot-path=/data/letsencrypt \
+#          -d openemr.io -d www.openemr.io
+#      2) then can uncomment the ssh cert stuff and should then work after restart reverse proxy
 
 # Bring in the demo function library
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
