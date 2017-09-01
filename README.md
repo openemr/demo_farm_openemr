@@ -34,10 +34,3 @@ This file is a tab delimited file for configuration of demos in the demo farm wi
 LICENSE
 --------------------------------------
 GNU GENERAL PUBLIC LICENSE
-
-TODO
---------------------------------------
-- create scripts for each demo to restart them (restartOne.sh)
-- then make completely separate and functional startFarm.sh and restartFarm.sh scripts
-- them make mysql and phpmyadmin persistent
-
