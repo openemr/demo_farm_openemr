@@ -18,7 +18,7 @@
 #  -comment ssh cert stuff in each server in nginx conf script, restart reverse proxy, and follow instructions here to prime
 #   the SAN certificate (after prime, can then uncomment the ssh cert stuff in each server):
 #    https://miki725.github.io/docker/crypto/2017/01/29/docker+nginx+letsencrypt.html
-#      1) below is the docker command that then do on each domain to prime them:
+#      1) below is the docker command that will prime and create a SAR certificate to cover all the domains:
 #      docker run -it --rm \
 #          -v certs:/etc/letsencrypt \
 #          -v certs-data:/data/letsencrypt \
