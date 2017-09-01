@@ -15,8 +15,8 @@
 #  -in home directory, clone translations_development_openemr (https://github.com/openemr/translations_development_openemr.git)
 #  -in home directory, make a 'html/translations' directory (mkdir -p ~/html/translations)
 #  -place following in cron : copy stuff from docker/cron/cron
-#  -comment ssh cert stuff in each server in nginx conf script, restart reverse proxy, and follow instructions here to prime
-#   the SAN certificate (after prime, can then uncomment the ssh cert stuff in each server):
+#  -ensure commented out ssh cert stuff in nginx conf script(see line 9 of ~/demo_farm_openemr/docker/nginx/nginx.conf), restart reverse proxy, 
+#   and follow instructions here to prime the SAN certificate (after prime, can then uncomment the ssh cert stuff and restart reverse proxy):
 #    https://miki725.github.io/docker/crypto/2017/01/29/docker+nginx+letsencrypt.html
 #      1) below is the docker command that will prime and create a SAR certificate to cover all the domains:
 #      docker run -it --rm \
@@ -39,7 +39,7 @@
 #          -d eight.openemr.io \
 #          -d nine.openemr.io \
 #          -d ten.openemr.io
-#      2) then can uncomment the ssh cert stuff and should then work after restart reverse proxy
+#      2) then can uncomment the ssh cert stuff near line 9 in ~/demo_farm_openemr/docker/nginx/nginx.conf and should then work after restart reverse proxy
 
 # Bring in the demo function library
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
