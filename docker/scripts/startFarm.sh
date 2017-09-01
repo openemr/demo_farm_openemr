@@ -16,7 +16,7 @@
 #  -in home directory, make a 'html/translations' directory (mkdir -p ~/html/translations)
 #  -place following in cron : copy stuff from docker/cron/cron
 #  -comment ssh cert stuff in each server in nginx conf script, restart reverse proxy, and follow instructions here to prime
-#   the certificates (after prime, can then uncomment the ssh cert stuff in each server):
+#   the SAN certificate (after prime, can then uncomment the ssh cert stuff in each server):
 #    https://miki725.github.io/docker/crypto/2017/01/29/docker+nginx+letsencrypt.html
 #      1) below is the docker command that then do on each domain to prime them:
 #      docker run -it --rm \
@@ -25,7 +25,20 @@
 #          deliverous/certbot \
 #          certonly \
 #          --webroot --webroot-path=/data/letsencrypt \
-#          -d openemr.io -d www.openemr.io
+#          -d openemr.io \
+#          -d www.openemr.io \
+#          -d translations.openemr.io \
+#          -d phpmyadmin.openemr.io \
+#          -d one.openemr.io \
+#          -d two.openemr.io \
+#          -d three.openemr.io \
+#          -d four.openemr.io \
+#          -d five.openemr.io \
+#          -d six.openemr.io \
+#          -d seven.openemr.io \
+#          -d eight.openemr.io \
+#          -d nine.openemr.io \
+#          -d ten.openemr.io
 #      2) then can uncomment the ssh cert stuff and should then work after restart reverse proxy
 
 # Bring in the demo function library
