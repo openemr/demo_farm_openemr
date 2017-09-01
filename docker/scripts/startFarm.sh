@@ -15,6 +15,9 @@
 #  -in home directory, clone translations_development_openemr (https://github.com/openemr/translations_development_openemr.git)
 #  -in home directory, make a 'html/translations' directory (mkdir -p ~/html/translations)
 #  -place following in cron : copy stuff from docker/cron/cron
+#  -uncomment ssh cert stuff in each server in nginx conf script and follow instructions here to prime
+#   the certificates (after prime, can then uncomment the ssh cert stuff in each server):
+#    https://miki725.github.io/docker/crypto/2017/01/29/docker+nginx+letsencrypt.html
 
 # Bring in the demo function library
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
