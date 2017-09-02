@@ -90,3 +90,32 @@ restartPhpmyadmin () {
     startPhpmyadmin
 }
 
+primeLetsencrypt () {
+    docker run -it --rm \
+               -v certs:/etc/letsencrypt \
+               -v certs-data:/data/letsencrypt \
+               deliverous/certbot \
+               certonly \
+               --webroot --webroot-path=/data/letsencrypt \
+               -d openemr.io \
+               -d www.openemr.io \
+               -d translations.openemr.io \
+               -d phpmyadmin.openemr.io \
+               -d one.openemr.io \
+               -d two.openemr.io \
+               -d three.openemr.io \
+               -d four.openemr.io \
+               -d five.openemr.io \
+               -d six.openemr.io \
+               -d seven.openemr.io \
+               -d eight.openemr.io
+}
+
+renewLetsencrypt () {
+    docker run -t --rm \
+               -v certs:/etc/letsencrypt \ 
+               -v certs-data:/data/letsencrypt \ 
+               -v /var/log/letsencrypt:/var/log/letsencrypt deliverous/certbot \ 
+               renew --webroot --webroot-path=/data/letsencrypt
+}
+

@@ -18,25 +18,8 @@
 #  -ensure commented out ssh cert stuff in nginx conf script(see line 9 of ~/demo_farm_openemr/docker/nginx/nginx.conf), restart reverse proxy, 
 #   and follow instructions here to prime the SAN certificate (after prime, can then uncomment the ssh cert stuff and restart reverse proxy):
 #    https://miki725.github.io/docker/crypto/2017/01/29/docker+nginx+letsencrypt.html
-#      1) below is the docker command that will prime and create a SAR certificate to cover all the domains:
-#      docker run -it --rm \
-#          -v certs:/etc/letsencrypt \
-#          -v certs-data:/data/letsencrypt \
-#          deliverous/certbot \
-#          certonly \
-#          --webroot --webroot-path=/data/letsencrypt \
-#          -d openemr.io \
-#          -d www.openemr.io \
-#          -d translations.openemr.io \
-#          -d phpmyadmin.openemr.io \
-#          -d one.openemr.io \
-#          -d two.openemr.io \
-#          -d three.openemr.io \
-#          -d four.openemr.io \
-#          -d five.openemr.io \
-#          -d six.openemr.io \
-#          -d seven.openemr.io \
-#          -d eight.openemr.io
+#      1) comment out the ssh cert stuff near line 9 in ~/demo_farm_openemr/docker/nginx/nginx.conf 
+#      2) run bash ~/demo_farm_openemr/docker/scripts/primeLetsencrypt.sh
 #      2) then can uncomment the ssh cert stuff near line 9 in ~/demo_farm_openemr/docker/nginx/nginx.conf and should then work after restart reverse proxy
 
 # Bring in the demo function library
