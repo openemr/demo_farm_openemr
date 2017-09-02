@@ -113,9 +113,11 @@ primeLetsencrypt () {
 
 renewLetsencrypt () {
     docker run -t --rm \
-               -v certs:/etc/letsencrypt \ 
-               -v certs-data:/data/letsencrypt \ 
-               -v /var/log/letsencrypt:/var/log/letsencrypt deliverous/certbot \ 
-               renew --webroot --webroot-path=/data/letsencrypt
+               -v certs:/etc/letsencrypt \
+               -v certs-data:/data/letsencrypt \
+               -v /var/log/letsencrypt:/var/log/letsencrypt \
+               deliverous/certbot \
+               renew \
+               --webroot --webroot-path=/data/letsencrypt
 }
 
