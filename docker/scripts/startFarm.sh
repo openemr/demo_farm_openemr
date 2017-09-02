@@ -36,9 +36,7 @@
 #          -d five.openemr.io \
 #          -d six.openemr.io \
 #          -d seven.openemr.io \
-#          -d eight.openemr.io \
-#          -d nine.openemr.io \
-#          -d ten.openemr.io
+#          -d eight.openemr.io
 #      2) then can uncomment the ssh cert stuff near line 9 in ~/demo_farm_openemr/docker/nginx/nginx.conf and should then work after restart reverse proxy
 
 # Bring in the demo function library
