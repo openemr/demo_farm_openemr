@@ -101,6 +101,7 @@ primeLetsencrypt () {
                -d www.openemr.io \
                -d translations.openemr.io \
                -d phpmyadmin.openemr.io \
+               -d demo.openemr.io \
                -d one.openemr.io \
                -d two.openemr.io \
                -d three.openemr.io \
