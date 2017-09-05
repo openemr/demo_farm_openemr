@@ -221,10 +221,7 @@ if ! [ -d $GIT ]; then
  echo "Downloading the OpenEMR git repository" >> $LOG
  mkdir -p $GITMAIN
  cd $GITMAIN
- git clone $OPENEMRREPO
- cd $GIT
- git checkout $GITBRANCH
- cd $GITMAIN
+ git clone $OPENEMRREPO --branch $GITBRANCH --depth 1
  if $translationServe ; then
   # download the translations git repo and place the set sql file for serving
   echo "Placing OpenEMR Development translation set"
