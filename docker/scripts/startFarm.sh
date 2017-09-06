@@ -14,6 +14,8 @@
 #  -in home directory, clone demo_farm_openemr(https://github.com/openemr/demo_farm_openemr.git)
 #  -in home directory, clone translations_development_openemr (https://github.com/openemr/translations_development_openemr.git)
 #  -in home directory, make a 'html/translations' directory (mkdir -p ~/html/translations)
+#  -in home directory, clone the optional wkhtmltopdf-openemr composer package via git:
+#    -git clone https://github.com/openemr/wkhtmltopdf-openemr.git
 #  -place following in cron : copy stuff from docker/cron/cron
 #  -ensure commented out ssh cert stuff in nginx conf script(see line 9 of ~/demo_farm_openemr/docker/nginx/nginx.conf), restart reverse proxy, 
 #   and follow instructions here to prime the SAN certificate (after prime, can then uncomment the ssh cert stuff and restart reverse proxy):
@@ -22,18 +24,23 @@
 #      2) run bash ~/demo_farm_openemr/docker/scripts/primeLetsencrypt.sh
 #      2) then can uncomment the ssh cert stuff near line 9 in ~/demo_farm_openemr/docker/nginx/nginx.conf and should then work after restart reverse proxy
 
+
 # Bring in the demo function library
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 
 # for building pre-openemr with the Dockerfiles (cd to path with the Dockerfile)
 #cd ~/demo_farm_openemr/docker/pre-openemr/16-04/
-#docker build -t pre-openemr:16.04 .
+#docker build -t bradymiller/pre-openemr:16.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/14-04/
-#docker build -t pre-openemr:14.04 .
+#docker build -t bradymiller/pre-openemr:14.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/17-04/
-#docker build -t pre-openemr:17.04 .
+#docker build -t bradymiller/pre-openemr:17.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/17-10/
-#docker build -t pre-openemr:17.10 .
+#docker build -t bradymiller/pre-openemr:17.10 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/3-5/
+#docker build -t bradymiller/pre-openemr:3.5 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/3-6/
+#docker build -t bradymiller/pre-openemr:3.6 .
 
 # to collect the docker images
 docker pull nginx
@@ -48,6 +55,8 @@ docker pull bradymiller/pre-openemr:16.04
 docker pull bradymiller/pre-openemr:14.04
 docker pull bradymiller/pre-openemr:17.04
 docker pull bradymiller/pre-openemr:17.10
+docker pull bradymiller/pre-openemr:3.5
+docker pull bradymiller/pre-openemr:3.6
 
 # to start network
 docker network create mynet
@@ -64,6 +73,12 @@ git fetch origin
 git pull origin master
 cd ~/
 
+# update optional wkhtmltopdf-openemr
+cd ~/wkhtmltopdf-openemr
+git fetch origin
+git pull origin master
+cd ~/
+
 # rebuild simple website and copy translations to website
 cp -r ~/demo_farm_openemr/docker/html/* ~/html/
 cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
@@ -71,12 +86,15 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 # bring in the dockers (note reverse-proxy needs to be done last)
 startMysql
 startPhpmyadmin
-startDemo "one" "mysql-openemr" "7.0" "16-04" "16.04"
-startDemo "two" "mysql-openemr" "7.0" "16-04" "16.04"
-startDemo "three" "mysql-openemr" "7.0" "16-04" "16.04"
-startDemo "four" "mysql-openemr" "7.0" "16-04" "16.04"
-startDemo "five" "mysql-openemr" "7.0" "16-04" "16.04"
-startDemo "six" "mysql-openemr" "7.0" "16-04" "16.04"
-startDemo "seven" "mysql-openemr" "7.0" "17-04" "17.04"
-startDemo "eight" "mysql-openemr" "7.1" "17-10" "17.10"
+startDemo "one" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
+startDemo "two" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
+startDemo "three" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
+startDemo "four" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
+startDemo "five" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
+startDemo "six" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
+startDemo "seven" "mysql-openemr" "/etc/php/7.0/apache2" "17-04" "17.04" "/var/www/html"
+startDemo "eight" "mysql-openemr" "/etc/php/7.1/apache2" "17-10" "17.10" "/var/www/html"
+startDemo "nine" "mysql-openemr" "/etc/php7" "3-5" "3.5" "/var/www/localhost/htdocs"
+startDemo "ten" "mysql-openemr" "/etc/php7" "3-6" "3.6" "/var/www/localhost/htdocs"
 startNginx
+

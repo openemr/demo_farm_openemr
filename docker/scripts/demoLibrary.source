@@ -32,16 +32,18 @@ stopDemo () {
 # Will start an openemr demo
 # 1st parameter is the demo name (one, two, three, etc.)
 # 2nd paremeter is the mysql name (mysql-openemr etc.)
-# 3rd parameter is the php version (7.0, 7.1, etc.)
-# 4th parameter is ubuntu version with dash (16-04, 17-04, 17-10, etc.)
-# 5th parameter is ubuntu version with period (16.04, 17.04, 17.10, etc.)
+# 3rd parameter is the path to php.ini version (ie. /etc/php/7.0/apache2 )
+# 4th parameter is ubuntu/alpine version with dash (16-04, 17-04, 17-10, etc.)
+# 5th parameter is ubuntu/alpine version with period (16.04, 17.04, 17.10, etc.)
+# 6th parameter is the path to htdocs (ie. /var/www/html )
 startDemo () {
     # Start docker
     echo "Start ${1}-openemr docker"
     docker run --detach --name ${1}-openemr \
                         --env "DOCKERDEMO=${1}" \
                         --env "DOCKERMYSQLHOST=${2}" \
-                        -v ~/demo_farm_openemr/docker/php/${4}/php.ini:/etc/php/${3}/apache2/php.ini:ro \
+                        -v ~/demo_farm_openemr/docker/php/${4}/php.ini:${3}/php.ini:ro \
+                        -v ~/wkhtmltopdf-openemr:${6}/openemr/vendor/openemr/wkhtmltopdf-openemr:ro \
                         --net mynet \
                         bradymiller/pre-openemr:${5}
 }
@@ -109,7 +111,9 @@ primeLetsencrypt () {
                -d five.openemr.io \
                -d six.openemr.io \
                -d seven.openemr.io \
-               -d eight.openemr.io
+               -d eight.openemr.io \
+               -d nine.openemr.io \
+               -d ten..openemr.io
 }
 
 renewLetsencrypt () {

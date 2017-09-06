@@ -21,7 +21,9 @@ if [ "$1" != "one" ] &&
    [ "$1" != "five" ] &&
    [ "$1" != "six" ] &&
    [ "$1" != "seven" ] &&
-   [ "$1" != "eight" ]; then
+   [ "$1" != "eight" ] &&
+   [ "$1" != "nine" ] &&
+   [ "$1" != "ten" ]; then
     echo "ERROR, demo name parameter not correct"
     exit 1
 fi
@@ -31,9 +33,13 @@ stopDemo "$1" "hey"
 
 # Start the demos
 if [ "$1" == "seven" ]; then
-    startDemo "$1" "mysql-openemr" "7.0" "17-04" "17.04"
+    startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "17-04" "17.04" "/var/www/html"
 elif [ "$1" == "eight" ]; then
-    startDemo "$1" "mysql-openemr" "7.1" "17-10" "17.10"
+    startDemo "$1" "mysql-openemr" "/etc/php/7.1/apache2" "17-10" "17.10" "/var/www/html"
+elif [ "$1" == "nine" ]; then
+    startDemo "$1" "mysql-openemr" "/etc/php7" "3-5" "3.5" "/var/www/localhost/htdocs"
+elif [ "$1" == "ten" ]; then
+    startDemo "$1" "mysql-openemr" "/etc/php7" "3-6" "3.6" "/var/www/localhost/htdocs"    
 else
-    startDemo "$1" "mysql-openemr" "7.0" "16-04" "16.04"
+    startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
 fi

@@ -13,12 +13,18 @@
 TRANSLATIONSREPO=https://github.com/openemr/translations_development_openemr.git
 
 # PATH VARIABLES AND CREATED NEEDED DIRS
-if [ -d /var/www/html ]; then
+if [ -d /var/www/localhost/htdocs ]; then
+ WEB=/var/www/localhost/htdocs
+ alpineOs=true;
+ htmlDirApache=false;
+elif [ -d /var/www/html ]; then
  WEB=/var/www/html
  htmlDirApache=true;
+ alpineOs=false;
 else
  WEB=/var/www
  htmlDirApache=false;
+ alpineOs=false;
 fi
 OPENEMR=$WEB/openemr
 LOG=$WEB/log/logSetup.txt
@@ -30,7 +36,11 @@ GITDEMOFARMMAP=$GITDEMOFARM/ip_map_branch.txt
 if $htmlDirApache ; then
  OPENEMRAPACHECONF=$GITDEMOFARM/openemr-html.conf
 else
- OPENEMRAPACHECONF=$GITDEMOFARM/openemr.conf
+ if $alpineOs; then
+  OPENEMRAPACHECONF=$GITDEMOFARM/openemr-alpine.conf
+ else
+  OPENEMRAPACHECONF=$GITDEMOFARM/openemr.conf
+ fi
 fi
 GITTRANS=$GITMAIN/translations_development_openemr
 TRANSSERVEDIR=$WEB/translations
@@ -48,7 +58,11 @@ INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
 
 # Turn off apache to avoid users messing up while setting up
 #  (start it again below after install/configure openemr
-/etc/init.d/apache2 stop
+if $alpineOs; then
+ rc-service apache2 stop
+else
+ /etc/init.d/apache2 stop
+fi
 
 # Placemarker for installing new needed modules and other config issues
 # that arise in the future
@@ -248,9 +262,14 @@ rsync --recursive --exclude .git $GIT/* $OPENEMR/
 #first secure things to stop hackers from placing .htaccess files and secure patient directories
 echo "Setting OpenEMR configuration script"
 echo "Setting OpenEMR configuration script" >> $LOG
-cp $OPENEMRAPACHECONF /etc/apache2/sites-available/openemr.conf
-a2ensite openemr.conf >> $LOG
-/etc/init.d/apache2 start >> $LOG
+if $alpineOs; then
+ cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
+ rc-service apache2 start
+else
+ cp $OPENEMRAPACHECONF /etc/apache2/sites-available/openemr.conf
+ a2ensite openemr.conf >> $LOG
+ /etc/init.d/apache2 start >> $LOG
+fi
 
 #INSTALL AND CONFIGURE OPENEMR
 echo "Configuring OpenEMR"
@@ -258,14 +277,25 @@ echo "Configuring OpenEMR" >> $LOG
 #
 # Set file and directory permissions
 chmod 666 $OPENEMR/sites/default/sqlconf.php
-chown -R www-data:www-data $OPENEMR/sites/default/documents
-chown -R www-data:www-data $OPENEMR/sites/default/edi
-chown -R www-data:www-data $OPENEMR/sites/default/era
-chown -R www-data:www-data $OPENEMR/library/freeb
-chown -R www-data:www-data $OPENEMR/sites/default/letter_templates
-chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
-chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
-chown -R www-data:www-data $OPENEMR/gacl/admin/templates_c
+if $alpineOs; then
+ chmod -R 666 $OPENEMR/sites/default/documents
+ chmod -R 666 $OPENEMR/sites/default/edi
+ chmod -R 666 $OPENEMR/sites/default/era
+ chmod -R 666 $OPENEMR/library/freeb
+ chmod -R 666 $OPENEMR/sites/default/letter_templates
+ chmod -R 666 $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
+ chmod -R 666 $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
+ chmod -R 666 $OPENEMR/gacl/admin/templates_c
+else
+ chown -R www-data:www-data $OPENEMR/sites/default/documents
+ chown -R www-data:www-data $OPENEMR/sites/default/edi
+ chown -R www-data:www-data $OPENEMR/sites/default/era
+ chown -R www-data:www-data $OPENEMR/library/freeb
+ chown -R www-data:www-data $OPENEMR/sites/default/letter_templates
+ chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
+ chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
+ chown -R www-data:www-data $OPENEMR/gacl/admin/templates_c
+fi
 
 if [ -f $OPENEMR/interface/modules/zend_modules/config/application.config.php ] ; then
  # This is specifically for Zend code that is currently under development, so it works on the demos.
@@ -340,7 +370,11 @@ echo "Done configuring OpenEMR" >> $LOG
 
 # Set up to allow demo and testing of hl7 labs feature
 mkdir $OPENEMR/sites/default/procedure_results
-chown -R www-data:www-data $OPENEMR/sites/default/procedure_results
+if $alpineOs; then
+ chmod -R 666 $OPENEMR/sites/default/procedure_results
+else
+ chown -R www-data:www-data $OPENEMR/sites/default/procedure_results
+fi
 
 #Security stuff
 #1. remove the library/openflashchart/php-ofc-library/ofc_upload_image.php file if it exists
