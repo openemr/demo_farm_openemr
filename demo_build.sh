@@ -57,10 +57,9 @@ INST=$OPENEMR/contrib/util/installScripts/InstallerAuto.php
 INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
 
 # Turn off apache to avoid users messing up while setting up
-#  (start it again below after install/configure openemr
-if $alpineOs; then
- rc-service apache2 stop
-else
+#  (start it again below after install/configure openemr)
+#  (note that in alpine it is not on, so don't need to stop)
+if ! $alpineOs; then
  /etc/init.d/apache2 stop
 fi
 
@@ -264,7 +263,7 @@ echo "Setting OpenEMR configuration script"
 echo "Setting OpenEMR configuration script" >> $LOG
 if $alpineOs; then
  cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
- rc-service apache2 start
+ httpd -k start
 else
  cp $OPENEMRAPACHECONF /etc/apache2/sites-available/openemr.conf
  a2ensite openemr.conf >> $LOG

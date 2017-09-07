@@ -50,6 +50,9 @@ RUN mkdir -p /var/www/localhost/htdocs/log
 RUN echo "start log" > /var/www/localhost/htdocs/log/logPhp.txt
 RUN chmod 666 /var/www/localhost/htdocs/log/logPhp.txt
 
+#fix issue with apache2 dying
+RUN mkdir -p /run/apache2
+
 # Expose port 80
 EXPOSE 80
 
