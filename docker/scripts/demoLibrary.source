@@ -113,7 +113,7 @@ primeLetsencrypt () {
                -d seven.openemr.io \
                -d eight.openemr.io \
                -d nine.openemr.io \
-               -d ten..openemr.io
+               -d ten.openemr.io
 }
 
 renewLetsencrypt () {
