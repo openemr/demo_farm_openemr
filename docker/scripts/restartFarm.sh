@@ -16,8 +16,8 @@ docker pull bradymiller/pre-openemr:16.04
 docker pull bradymiller/pre-openemr:14.04
 docker pull bradymiller/pre-openemr:17.04
 docker pull bradymiller/pre-openemr:17.10
-#docker pull bradymiller/pre-openemr:3.5
-#docker pull bradymiller/pre-openemr:3.6
+docker pull bradymiller/pre-openemr:3.5
+docker pull bradymiller/pre-openemr:3.6
 
 # update demo_farm_openemr repo
 cd ~/demo_farm_openemr
@@ -52,4 +52,6 @@ bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh five
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh six
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh nine
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten
 
