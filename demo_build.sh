@@ -277,14 +277,14 @@ echo "Configuring OpenEMR" >> $LOG
 # Set file and directory permissions
 chmod 666 $OPENEMR/sites/default/sqlconf.php
 if $alpineOs; then
- chmod -R 666 $OPENEMR/sites/default/documents
- chmod -R 666 $OPENEMR/sites/default/edi
- chmod -R 666 $OPENEMR/sites/default/era
- chmod -R 666 $OPENEMR/library/freeb
- chmod -R 666 $OPENEMR/sites/default/letter_templates
- chmod -R 666 $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
- chmod -R 666 $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
- chmod -R 666 $OPENEMR/gacl/admin/templates_c
+ chmod -R a+w $OPENEMR/sites/default/documents
+ chmod -R a+w $OPENEMR/sites/default/edi
+ chmod -R a+w $OPENEMR/sites/default/era
+ chmod -R a+w $OPENEMR/library/freeb
+ chmod -R a+w $OPENEMR/sites/default/letter_templates
+ chmod -R a+w $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
+ chmod -R a+w $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
+ chmod -R a+w $OPENEMR/gacl/admin/templates_c
 else
  chown -R www-data:www-data $OPENEMR/sites/default/documents
  chown -R www-data:www-data $OPENEMR/sites/default/edi
@@ -298,7 +298,11 @@ fi
 
 if [ -f $OPENEMR/interface/modules/zend_modules/config/application.config.php ] ; then
  # This is specifically for Zend code that is currently under development, so it works on the demos.
- chown www-data:www-data $OPENEMR/interface/modules/zend_modules/config/application.config.php
+ if $alpineOs; then
+  chmod a+w $OPENEMR/interface/modules/zend_modules/config/application.config.php
+ else
+  chown www-data:www-data $OPENEMR/interface/modules/zend_modules/config/application.config.php
+ fi
  echo "Configuring Zend file permission: application.config.php"
  echo "Configuring Zend file permission: application.config.php" >> $LOG
 fi
@@ -370,7 +374,7 @@ echo "Done configuring OpenEMR" >> $LOG
 # Set up to allow demo and testing of hl7 labs feature
 mkdir $OPENEMR/sites/default/procedure_results
 if $alpineOs; then
- chmod -R 666 $OPENEMR/sites/default/procedure_results
+ chmod -R a+w $OPENEMR/sites/default/procedure_results
 else
  chown -R www-data:www-data $OPENEMR/sites/default/procedure_results
 fi
