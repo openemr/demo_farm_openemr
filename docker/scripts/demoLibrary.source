@@ -52,7 +52,8 @@ startMysql () {
     docker run --detach --name mysql-openemr \
                         --env "MYSQL_ROOT_PASSWORD=hey" \
                         --net mynet \
-                        mysql
+                        mysql \
+                        --max-connections=350
 }
 
 restartMysql () {
