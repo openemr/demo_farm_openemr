@@ -10,6 +10,23 @@
 # Bash library for openemr demo farm
 #
 
+# This is the wrapper to start the demo, so only need to modify the specifics in 1 place
+# rather than 2. This sets up the pieces for running the startDemo() function
+# 1st (and only) parameter is the demo name (one, two, three, etc.)
+startDemoWrapper() {
+    if [ "$1" == "seven" ]; then
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "17-04" "17.04" "/var/www/html"
+    elif [ "$1" == "eight" ]; then
+        startDemo "$1" "mysql-openemr" "/etc/php/7.1/apache2" "17-10" "17.10" "/var/www/html"
+    elif [ "$1" == "nine" ]; then
+        startDemo "$1" "mysql-openemr" "/etc/php7" "3-5" "3.5" "/var/www/localhost/htdocs"
+    elif [ "$1" == "ten" ]; then
+        startDemo "$1" "mysql-openemr" "/etc/php7" "3-6" "3.6" "/var/www/localhost/htdocs"
+    else
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
+    fi
+}
+
 # Will stop and clear an openemr demo
 # 1st parameter is the demo name (one, two, three, etc.)
 # 2nd paremeter is the mysql root password

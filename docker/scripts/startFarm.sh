@@ -86,15 +86,15 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 # bring in the dockers (note reverse-proxy needs to be done last)
 startMysql
 startPhpmyadmin
-startDemo "one" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
-startDemo "two" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
-startDemo "three" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
-startDemo "four" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
-startDemo "five" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
-startDemo "six" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
-startDemo "seven" "mysql-openemr" "/etc/php/7.0/apache2" "17-04" "17.04" "/var/www/html"
-startDemo "eight" "mysql-openemr" "/etc/php/7.1/apache2" "17-10" "17.10" "/var/www/html"
-startDemo "nine" "mysql-openemr" "/etc/php7" "3-5" "3.5" "/var/www/localhost/htdocs"
-startDemo "ten" "mysql-openemr" "/etc/php7" "3-6" "3.6" "/var/www/localhost/htdocs"
+startDemoWrapper "one"
+startDemoWrapper "two"
+startDemoWrapper "three"
+startDemoWrapper "four"
+startDemoWrapper "five"
+startDemoWrapper "six"
+startDemoWrapper "seven"
+startDemoWrapper "eight"
+startDemoWrapper "nine"
+startDemoWrapper "ten"
 startNginx
 
