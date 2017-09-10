@@ -7,8 +7,8 @@ five	https://github.com/bradymiller/openemr.git	mazdoc-ob-form-calc	0	0	0	0	0	0	
 six	https://github.com/openemr/openemr.git	rel-500	0	0	0	0	0	0	1	demo.openemr.io	hey	Public OpenEMR 5.0.0 Development Demo
 seven	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	seven.openemr.io	hey	Public OpenEMR Development Demo on Ubuntu 17.04
 eight	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	eight.openemr.io	hey	Public OpenEMR Development Demo on Ubuntu 17.10
-nine	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	nine.openemr.io	hey	Public OpenEMR Development Demo on Alpine 3.5
-ten	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	ten.openemr.io	hey	Public OpenEMR Development Demo on Alpine 3.6
+nine	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	nine.openemr.io	hey	Public OpenEMR Development Demo on Alpine 3.5
+ten	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	ten.openemr.io	hey	Public OpenEMR Development Demo on Alpine 3.6
 192.168.1.130	https://github.com/openemr/openemr.git	rel-421	0	0	0	0	0	0	1	demo.open-emr.org:2104		Public OpenEMR 4.2.1 Development Demo (Daily Build)
 192.168.1.131	https://github.com/openemr/openemr.git	rel-500	0	0	0	0	0	0	1	demo.open-emr.org:2105		Public OpenEMR 5.0.0 Development Demo (Daily Build)
 192.168.1.132	https://github.com/mdsupport/openemr.git	1_tabs_css	0	0	0	0	0	1	demo.open-emr.org:2106		UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
