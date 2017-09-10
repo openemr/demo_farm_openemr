@@ -486,11 +486,14 @@ if $portalsDemo; then
  fi
 
  # Install Postfix to allow email registration on wordpress patient portal demo
+ # Note docker demos already have this installed, but do need to start it
  if [ -z "$DOCKERDEMO" ] ; then
   apt-get update >> $LOG
   debconf-set-selections <<< "postfix postfix/mailname string opensourceemr.com"
   debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
   apt-get -y install postfix >> $LOG
+ else
+  postfix start >> $LOG
  fi
 
  echo "Done setting up patient portals"
