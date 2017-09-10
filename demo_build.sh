@@ -497,7 +497,7 @@ if $portalsDemo; then
  echo "Done setting up patient portals" >> $LOG
 fi
 
-#restart apache
+#restart apache and secure sensitive directories
 if $alpineOs; then
  cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
  httpd -k start >> $LOG
