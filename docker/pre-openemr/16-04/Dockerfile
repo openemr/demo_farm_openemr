@@ -37,9 +37,9 @@ RUN apt-get update && apt-get install -y \
     mysql-client \
     zip
     
-# Install postfix
-RUN bash -c 'debconf-set-selections <<< "postfix postfix/mailname string opensourceemr.com"'
-RUN bash -c 'debconf-set-selections <<< "postfix postfix/main_mailer_type string Internet\ Site"'
+# Install and configure postfix
+RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'postfix postfix/mailname string openemr.io'"]
+RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'postfix postfix/main_mailer_type string \"Internet Site\"'"]
 RUN apt-get install -y postfix
 
 # Support rewrite in apache
