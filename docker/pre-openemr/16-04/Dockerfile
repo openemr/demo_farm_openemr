@@ -38,7 +38,7 @@ RUN apt-get update && apt-get install -y \
     zip
     
 # Install and configure postfix
-RUN echo "postfix postfix/mailname string openemr.io" | debconf-set-selections
+RUN echo "postfix postfix/mailname string opensourceemr.com" | debconf-set-selections
 RUN echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
 RUN apt-get install -y postfix
 
