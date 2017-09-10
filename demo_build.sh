@@ -9,6 +9,13 @@
 #This script is for the OpenEMR demo farms
 #
 
+# Turn off apache to avoid users messing up while setting up
+#  (start it again below after complete setup)
+#  (note that in alpine it is not on, so don't need to stop)
+if ! $alpineOs; then
+ /etc/init.d/apache2 stop
+fi
+
 # PUBLIC REPOS (note the openemr repo is mapped in GITDEMOFARMMAP
 TRANSLATIONSREPO=https://github.com/openemr/translations_development_openemr.git
 
@@ -55,13 +62,6 @@ GITDEMOWORDPRESSDEMOSQL=$GITDEMOFARM/wordpress_demo/database/wordpress.sql
 # PATH OF INSTALL SCRIPT
 INST=$OPENEMR/contrib/util/installScripts/InstallerAuto.php
 INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
-
-# Turn off apache to avoid users messing up while setting up
-#  (start it again below after install/configure openemr)
-#  (note that in alpine it is not on, so don't need to stop)
-if ! $alpineOs; then
- /etc/init.d/apache2 stop
-fi
 
 # Placemarker for installing new needed modules and other config issues
 # that arise in the future
@@ -255,20 +255,6 @@ echo "Copy git OpenEMR to web directory"
 echo "Copy git OpenEMR to web directory" >> $LOG
 rm -fr $OPENEMR/*
 rsync --recursive --exclude .git $GIT/* $OPENEMR/
-
-#restart apache
-#need to do this in case same appliance is serving the development translation set
-#first secure things to stop hackers from placing .htaccess files and secure patient directories
-echo "Setting OpenEMR configuration script"
-echo "Setting OpenEMR configuration script" >> $LOG
-if $alpineOs; then
- cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
- httpd -k start
-else
- cp $OPENEMRAPACHECONF /etc/apache2/sites-available/openemr.conf
- a2ensite openemr.conf >> $LOG
- /etc/init.d/apache2 start >> $LOG
-fi
 
 #INSTALL AND CONFIGURE OPENEMR
 echo "Configuring OpenEMR"
@@ -509,6 +495,16 @@ if $portalsDemo; then
 
  echo "Done setting up patient portals"
  echo "Done setting up patient portals" >> $LOG
+fi
+
+#restart apache
+if $alpineOs; then
+ cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
+ httpd -k start >> $LOG
+else
+ cp $OPENEMRAPACHECONF /etc/apache2/sites-available/openemr.conf
+ a2ensite openemr.conf >> $LOG
+ /etc/init.d/apache2 start >> $LOG
 fi
 
 echo "Demo install script is complete"
