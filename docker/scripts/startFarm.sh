@@ -23,7 +23,9 @@
 #      1) comment out the ssh cert stuff near line 9 in ~/demo_farm_openemr/docker/nginx/nginx.conf 
 #      2) run bash ~/demo_farm_openemr/docker/scripts/primeLetsencrypt.sh
 #      2) then can uncomment the ssh cert stuff near line 9 in ~/demo_farm_openemr/docker/nginx/nginx.conf and should then work after restart reverse proxy
-
+#  -set up place to store credentials
+#      1) mkdir ~/cred
+#      2) store sasl_passwd and sasl_passwd.db files in ~/cred to support postfix connection to amazon ses for email
 
 # Bring in the demo function library
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source

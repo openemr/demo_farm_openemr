@@ -37,10 +37,20 @@ RUN apt-get update && apt-get install -y \
     mysql-client \
     zip
     
-# Install and configure postfix
+# Install and configure postfix and stunnel (stunnel is needed for aws ses email service)
 RUN echo "postfix postfix/mailname string openemr.io" | debconf-set-selections
 RUN echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
 RUN apt-get install -y postfix
+RUN apt-get install -y stunnel
+RUN cd /etc/stunnel
+RUN openssl req \
+        -new \
+        -out mail.pem \
+        -keyout mail.pem \
+        -nodes \
+        -x509 \
+        -days 365 \
+        -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=openemr.io"
 
 # Support rewrite in apache
 RUN a2enmod rewrite
