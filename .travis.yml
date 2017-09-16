@@ -1,0 +1,11 @@
+sudo: required
+services:
+ - docker
+script:
+      - cd docker/pre-openemr
+      - cd 14-04 && docker build . && cd ../
+      - cd 16-04 && docker build . && cd ../
+      - cd 17-04 && docker build . && cd ../
+      - cd 17-10 && docker build . && cd ../
+      - cd 3-5 && docker build . && cd ../
+      - cd 3-6 && docker build . && cd ../

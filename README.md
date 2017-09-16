@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/openemr/demo_farm_openemr.svg?branch=master)](https://travis-ci.org/openemr/demo_farm_openemr)
+
 The repo holds the mechanism for an OpenEMR demo farm.
 
 Note that the prior appliance mechanism has been deprecated and now using a mechanism
