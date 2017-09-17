@@ -65,7 +65,6 @@ startDemo () {
                         -v ~/demo_farm_openemr/docker/postfix/main.cf:/etc/postfix/main.cf:ro \
                         -v ~/cred/sasl_passwd:/etc/postfix/sasl_passwd:ro \
                         -v ~/cred/sasl_passwd.db:/etc/postfix/sasl_passwd.db:ro \
-                        -v ~/cred/.htpasswd:/etc/nginx/.htpasswd:ro \
                         --net mynet \
                         bradymiller/pre-openemr:${5}
 }
@@ -90,6 +89,7 @@ startNginx () {
                         -p 80:80 \
                         -p 443:443 \
                         -v ~/demo_farm_openemr/docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \
+                        -v ~/cred/.htpasswd:/etc/nginx/.htpasswd:ro \
                         -v ~/html:/usr/share/nginx/html:ro \
                         -v certs:/etc/letsencrypt \
                         -v certs-data:/data/letsencrypt \
