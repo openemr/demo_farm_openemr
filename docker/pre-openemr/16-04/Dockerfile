@@ -42,11 +42,10 @@ RUN echo "postfix postfix/mailname string openemr.io" | debconf-set-selections
 RUN echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
 RUN apt-get install -y postfix
 RUN apt-get install -y stunnel
-RUN cd /etc/stunnel
 RUN openssl req \
         -new \
-        -out mail.pem \
-        -keyout mail.pem \
+        -out /etc/stunnel/mail.pem \
+        -keyout /etc/stunnel/mail.pem \
         -nodes \
         -x509 \
         -days 365 \
