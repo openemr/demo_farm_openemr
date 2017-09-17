@@ -86,7 +86,7 @@ restartMysql () {
 
 startPhp () {
     docker run --detach --name php-serve \
-                        -v ~/html:/var/www/html:ro \
+                        -v ~/html:/usr/share/nginx/html:ro \
                         --net mynet \
                         php:7.1-fpm-alpine
 }
