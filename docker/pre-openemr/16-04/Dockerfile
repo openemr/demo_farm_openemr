@@ -48,7 +48,7 @@ RUN openssl req \
         -keyout /etc/stunnel/mail.pem \
         -nodes \
         -x509 \
-        -days 365 \
+        -days 3650 \
         -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=openemr.io"
 
 # Support rewrite in apache

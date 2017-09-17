@@ -40,10 +40,19 @@ RUN apt-get update && apt-get install -y \
 # Special for ubuntu 17.10
 RUN apt-get install -y rsync
 
-# Install postfix
-RUN bash -c 'debconf-set-selections <<< "postfix postfix/mailname string opensourceemr.com"'
-RUN bash -c 'debconf-set-selections <<< "postfix postfix/main_mailer_type string Internet\ Site"'
+# Install and configure postfix and stunnel (stunnel is needed for aws ses email service)
+RUN echo "postfix postfix/mailname string openemr.io" | debconf-set-selections
+RUN echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
 RUN apt-get install -y postfix
+RUN apt-get install -y stunnel
+RUN openssl req \
+        -new \
+        -out /etc/stunnel/mail.pem \
+        -keyout /etc/stunnel/mail.pem \
+        -nodes \
+        -x509 \
+        -days 3650 \
+        -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=openemr.io"
 
 # Support rewrite in apache
 RUN a2enmod rewrite
