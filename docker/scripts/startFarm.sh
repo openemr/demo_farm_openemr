@@ -27,6 +27,8 @@
 #      1) mkdir ~/cred
 #      2) store sasl_passwd and sasl_passwd.db files in ~/cred to support postfix connection to amazon ses for email
 #         - see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/postfix.html for how to create these 2 files
+#      3) store the .htpasswd file which is used to control access to the admin web panel for the demo farm
+#         - see https://www.1and1.com/cloud-community/learn/web-server/nginx/set-up-password-authentication-with-nginx/ to see how this file is created
 
 # Bring in the demo function library
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
