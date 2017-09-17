@@ -26,6 +26,7 @@
 #  -set up place to store credentials
 #      1) mkdir ~/cred
 #      2) store sasl_passwd and sasl_passwd.db files in ~/cred to support postfix connection to amazon ses for email
+#         - see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/postfix.html for how to create these 2 files
 
 # Bring in the demo function library
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
