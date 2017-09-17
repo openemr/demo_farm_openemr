@@ -48,6 +48,7 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 #docker build -t bradymiller/pre-openemr:3.6 .
 
 # to collect the docker images
+docker pull php:7.1-fpm-alpine
 docker pull nginx
 docker pull mysql
 docker pull phpmyadmin/phpmyadmin
@@ -101,5 +102,6 @@ startDemoWrapper "seven"
 startDemoWrapper "eight"
 startDemoWrapper "nine"
 startDemoWrapper "ten"
+startPhp
 startNginx
 

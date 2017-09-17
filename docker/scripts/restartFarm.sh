@@ -43,7 +43,7 @@ cp -r ~/demo_farm_openemr/docker/html/* ~/html/
 cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
 
 # restart openemr demo docker containers
-# (note do not restart nginx, mysql, and phpmyadmin dockers)
+# (note do not restart nginx, php, mysql, and phpmyadmin dockers)
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh three

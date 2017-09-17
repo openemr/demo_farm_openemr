@@ -84,6 +84,19 @@ restartMysql () {
     startMysql
 }
 
+startPhp () {
+    docker run --detach --name php-serve \
+                        -v ~/html:/var/www/localhost/htdocs:ro \
+                        --net mynet \
+                        php:7.1-fpm-alpine
+}
+
+restartPhp () {
+    docker stop php-serve
+    docker rm php-serve
+    startPhp
+}
+
 startNginx () {
     docker run --detach --name reverse-proxy \
                         -p 80:80 \
