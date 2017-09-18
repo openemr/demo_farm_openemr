@@ -170,6 +170,11 @@ echo -n "mysql p is "
 echo "$mrp"
 echo -n "mysql p is " >> $LOG
 echo "$mrp" >> $LOG
+branchOrTag=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 13`
+echo -n "github repo branch/tag is  "
+echo "$branchOrTag"
+echo -n "github repo branch/tag is " >> $LOG
+echo "$branchOrTag" >> $LOG
 
 # SET OPTIONS
 # set if serve development translation set
@@ -222,7 +227,7 @@ else
 fi
 
 # COLLECT and output demo description
-desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 13`
+desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 14`
 echo -n "Demo description: "
 echo "$desc"
 echo -n "Demo description: " >> $LOG
@@ -234,7 +239,16 @@ if ! [ -d $GIT ]; then
  echo "Downloading the OpenEMR git repository" >> $LOG
  mkdir -p $GITMAIN
  cd $GITMAIN
- git clone $OPENEMRREPO --branch $GITBRANCH --depth 1
+ if [ "$branchOrTag" != "tag" ]; then
+  # using a branch, so can do less expensive clone
+  git clone $OPENEMRREPO --branch $GITBRANCH --depth 1
+ else
+  # using a tag, so need to do more expensive full clone
+  git clone $OPENEMRREPO
+  cd $GIT
+  git checkout $GITBRANCH
+  cd $GITMAIN
+ fi
  if $translationServe ; then
   # download the translations git repo and place the set sql file for serving
   echo "Placing OpenEMR Development translation set"

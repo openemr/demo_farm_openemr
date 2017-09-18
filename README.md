@@ -29,8 +29,9 @@ This file is a tab delimited file for configuration of demos in the demo farm wi
 - demo_data: set to 0 if no sql demo data file. If have a sql demo data file, then place the name of it here and place the file in the 'pieces' directory.
 - demo_ssh: set to the ssh package if using the offsite portal. Set to 0 if not connecting to offsite portal.
 - patient_portals: set to 0 to not use. set to 1 to set up the onsite and wordpress patient portal demo.
-- root_sql_pass: set the root_sql_pass to use. if this is empty, then leave blank (however, only the deprecated demos will leave this empty).
 - external_link: place the external web address to the demo here
+- root_sql_pass: set the root_sql_pass to use. if this is empty, then leave blank (however, only the deprecated demos will leave this empty).
+- branch_tag: set this to `branch` when using a github branch and `tag` when using a github tag. 
 - description: place description of the demo here
 
 LICENSE
