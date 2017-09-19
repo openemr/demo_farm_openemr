@@ -43,7 +43,7 @@
         $("#check_farm_status_button").click(function(){
 
             var this_button = $(this).button();
-            this_button.button('loading'); 
+            this_button.button('loading');
 
             document.getElementById('check_status_output').value = "";
 
@@ -51,8 +51,9 @@
             {
                 procedure: "status_farm"
             },
-            function(data){
+            function(data, status){
                 document.getElementById('check_status_output').value = data;
+                alert(status);
                 this_button.button('reset');
             });
         });
