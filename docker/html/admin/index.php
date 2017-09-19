@@ -23,10 +23,12 @@
     </head>
     <body>
         <div class="container">
-            <div class="page-header">
-                <h1>OpenEMR Demo Farm Admin Page</h1>
+            <div class="row">
+                <div class="page-header">
+                    <h1>OpenEMR Demo Farm Admin Page</h1>
+                </div>
             </div>
-            <div class="row col-xs-12">
+            <div class="row">
                 <div class="col-sm-2">
                     <button type="button" class="btn btn-primary" id="check_farm_status_button" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Check Farm Status</button> 
                 <div>
@@ -36,7 +38,6 @@
             </div>
         </div>
     </body>
-
     <script>
 
         $("#check_farm_status_button").click(function(){
