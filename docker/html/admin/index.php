@@ -30,8 +30,8 @@
             </div>
             <div class="row">
                 <div class="col-sm-2">
-                    <button type="button" class="btn btn-primary" id="check_farm_status_button" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Check Farm Status</button> 
-                <div>
+                    <button type="button" class="btn btn-primary" id="check_farm_status_button" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Check Farm Status</button>
+                </div>
                 <div class="col-sm-10">
                     <textarea class="form-control" id="check_status_output" rows="10" readonly></textarea>
                 </div>

@@ -12,8 +12,8 @@ if (!empty($_POST['procedure'])) {
     if ($_POST['procedure'] == "status_farm") {
         $output = array();
         exec('df -h', $output);
-        exec('docker images', $output);
-        exec('docker ps -a', $output);
+        //exec('docker images', $output);
+        //exec('docker ps -a', $output);
         print_r($output);
         exit();
     }
