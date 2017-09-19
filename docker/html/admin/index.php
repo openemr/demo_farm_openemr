@@ -50,10 +50,9 @@
             {
                 procedure: "status_farm"
             },
-            function(data, status){
+            function(data){
                 document.getElementById('check_status_output').value = data;
                 $(this).button('reset');
-                alert(status);
             });
         });
 
