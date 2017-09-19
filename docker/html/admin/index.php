@@ -42,7 +42,8 @@
 
         $("#check_farm_status_button").click(function(){
 
-            $(this).button('loading');
+            var this_button = $(this).button();
+            this_button.button('loading'); 
 
             document.getElementById('check_status_output').value = "";
 
@@ -52,7 +53,7 @@
             },
             function(data){
                 document.getElementById('check_status_output').value = data;
-                $(this).button('reset');
+                this_button.button('reset');
             });
         });
 
