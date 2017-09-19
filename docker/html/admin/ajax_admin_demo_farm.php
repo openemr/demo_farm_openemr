@@ -18,4 +18,3 @@ if (!empty($_POST['procedure'])) {
         exit();
     }
 }
-
