@@ -29,6 +29,8 @@
 #         - see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/postfix.html for how to create these 2 files
 #      3) store the .htpasswd file which is used to control access to the admin web panel for the demo farm
 #         - see https://www.1and1.com/cloud-community/learn/web-server/nginx/set-up-password-authentication-with-nginx/ to see how this file is created
+#      4) store the pem key to log into the demo farm ec2 instance which is used by the administration web utilities
+#
 
 # Bring in the demo function library
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
