@@ -30,7 +30,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2">
-                    <button type="button" class="btn btn-primary" id="check_farm_status_button" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Check Farm Status</button>
+                    <button type="button" class="btn btn-primary procedure-demo" id="status_farm" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Check Farm Status</button>
                 </div>
                 <div class="col-sm-10">
                     <textarea class="form-control" id="check_status_output" rows="10" readonly></textarea>
@@ -40,16 +40,18 @@
     </body>
     <script>
 
-        $("#check_farm_status_button").click(function(){
+        $(".procedure-demo").click(function(){
 
             var this_button = $(this).button();
             this_button.button('loading');
+
+            var procedure = $(this).attr('id');
 
             document.getElementById('check_status_output').value = "";
 
             $.post("ajax_admin_demo_farm.php",
             {
-                procedure: "status_farm"
+                procedure: procedure
             },
             function(data, status){
                 document.getElementById('check_status_output').value = data;
