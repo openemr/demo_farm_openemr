@@ -48,14 +48,15 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 #docker build -t bradymiller/pre-openemr:3.5 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-6/
 #docker build -t bradymiller/pre-openemr:3.6 .
+#cd ~/demo_farm_openemr/docker/php-ssh/
+#docker build -t bradymiller/php-ssh:7.1-fpm-alpine .
 
-# to collect the docker images
-docker pull php:7.1-fpm-alpine
+# to collect the standard docker images
 docker pull nginx
 docker pull mysql
 docker pull phpmyadmin/phpmyadmin
 
-# Always check for a new versions of the docker images
+# Always check for a new versions of the custom docker images
 # NOTE 14.04 does not work with development OpenEMR since php version is too low,
 #      but collecting it in case somebody wishes to make it work with older
 #      OpenEMR versions.
@@ -65,6 +66,7 @@ docker pull bradymiller/pre-openemr:17.04
 docker pull bradymiller/pre-openemr:17.10
 docker pull bradymiller/pre-openemr:3.5
 docker pull bradymiller/pre-openemr:3.6
+docker pull bradymiller/php-ssh:7.1-fpm-alpine
 
 # to start network
 docker network create mynet

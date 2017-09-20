@@ -89,7 +89,7 @@ startPhp () {
                         -v ~/html:/usr/share/nginx/html:ro \
                         -v ~/cred/openemr-demo-server.pem:/home/ssh/openemr-demo-server.pem:ro \
                         --net mynet \
-                        php:7.1-fpm-alpine
+                        bradymiller/php-ssh:7.1-fpm-alpine
 }
 
 restartPhp () {

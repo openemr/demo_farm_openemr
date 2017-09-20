@@ -8,7 +8,7 @@
 # (at your option) any later version.
 #
 
-# Always check for a new versions of the docker images
+# Always check for a new versions of the custom docker images
 # NOTE 14.04 does not work with development OpenEMR since php version is too low,
 #      but collecting it in case somebody wishes to make it work with older
 #      OpenEMR versions.
@@ -18,6 +18,7 @@ docker pull bradymiller/pre-openemr:17.04
 docker pull bradymiller/pre-openemr:17.10
 docker pull bradymiller/pre-openemr:3.5
 docker pull bradymiller/pre-openemr:3.6
+docker pull bradymiller/php-ssh:7.1-fpm-alpine
 
 # update demo_farm_openemr repo
 cd ~/demo_farm_openemr
