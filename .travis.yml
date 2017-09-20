@@ -9,3 +9,4 @@ script:
       - cd 17-10 && docker build . && cd ../
       - cd 3-5 && docker build . && cd ../
       - cd 3-6 && docker build . && cd ../
+      - cd ../php-ssh && docker build .

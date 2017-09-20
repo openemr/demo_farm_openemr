@@ -37,7 +37,9 @@
             </div>
             <div class="tab-content">
                 <div id="status" class="tab-pane fade in active">
-                    <h3>Status</h3>
+                    <div class="row text-center">
+                        <h3>Status</h3>
+                    </div>
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="row form-group">
@@ -94,10 +96,14 @@
                     </div>
                 </div>
                 <div id="upforgrabs" class="tab-pane fade">
-                    <h3>Up For Grabs</h3>
+                    <div class="row text-center">
+                        <h3>Up For Grabs</h3>
+                    </div>
                 </div>
                 <div id="advanced" class="tab-pane fade">
-                    <h3>Advanced</h3>
+                    <div class="row text-center">
+                        <h3>Advanced</h3>
+                    </div>
                 </div>
             </div>
         </div>
