@@ -30,10 +30,44 @@
             </div>
             <div class="row">
                 <div class="col-sm-2">
-                    <button type="button" class="btn btn-primary procedure-demo" id="status_farm" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Check Farm Status</button>
+                    <div class="row form-group">
+                        <button type="button" class="btn btn-primary procedure-demo" id="status_farm" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Farm Status</button>
+                    </div>
+                    <div class="row form-group">
+                        <button type="button" class="btn btn-primary procedure-demo" id="status_one_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">One Status</button>
+                    </div>
+                    <div class="row form-group">
+                        <button type="button" class="btn btn-primary procedure-demo" id="status_two_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Two Status</button>
+                    </div>
+                    <div class="row form-group">
+                        <button type="button" class="btn btn-primary procedure-demo" id="status_three_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Three Status</button>
+                    </div>
+                    <div class="row form-group">
+                        <button type="button" class="btn btn-primary procedure-demo" id="status_four_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Four Status</button>
+                    </div>
+                    <div class="row form-group">
+                        <button type="button" class="btn btn-primary procedure-demo" id="status_five_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Five Status</button>
+                    </div>
+                    <div class="row form-group">
+                        <button type="button" class="btn btn-primary procedure-demo" id="status_six_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Six Status</button>
+                    </div>
+                    <div class="row form-group">
+                        <button type="button" class="btn btn-primary procedure-demo" id="status_seven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Seven Status</button>
+                    </div>
+                    <div class="row form-group">
+                        <button type="button" class="btn btn-primary procedure-demo" id="status_eight_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Eight Status</button>
+                    </div>
+                    <div class="row form-group">
+                        <button type="button" class="btn btn-primary procedure-demo" id="status_nine_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Nine Status</button>
+                    </div>
+                    <div class="row form-group">
+                        <button type="button" class="btn btn-primary procedure-demo" id="status_ten_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Ten Status</button>
+                    </div>
                 </div>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="check_status_output" rows="10" readonly></textarea>
+                    <pre>
+                        <textarea class="form-control" id="check_status_output" rows="20" wrap="off" readonly></textarea>
+                    </pre>
                 </div>
             </div>
         </div>
@@ -54,8 +88,12 @@
                 procedure: procedure
             },
             function(data, status){
-                document.getElementById('check_status_output').value = data;
-                alert(status);
+                var entireData = "";
+                data = $.parseJSON(data);
+                $.each(data, function(i, item) {
+                    entireData = entireData + item + "\n";
+                });
+                document.getElementById('check_status_output').value = entireData;
                 this_button.button('reset');
             });
         });
