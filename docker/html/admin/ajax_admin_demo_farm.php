@@ -53,6 +53,18 @@ if (!empty($_POST['procedure'])) {
         case 'status_ten_openemr':
             collectProcedure('docker logs ten-openemr', $output);
             break;
+        case 'status_mysql':
+            collectProcedure('docker logs mysql-openemr', $output);
+            break;
+        case 'status_nginx':
+            collectProcedure('docker logs reverse-proxy', $output);
+            break;
+        case 'status_phpmyadmin':
+            collectProcedure('docker logs phpmyadmin-openemr', $output);
+            break;
+        case 'status_php':
+            collectProcedure('docker logs php-serve', $output);
+            break;
         default:
             $output[] = "ERROR: Did not recognize procedure.";
             break;
