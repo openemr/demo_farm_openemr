@@ -90,7 +90,7 @@
                         </div>
                         <div class="col-sm-10">
                             <pre>
-                                <textarea class="form-control" id="check_status_output" rows="31" wrap="off" readonly></textarea>
+                                <textarea class="form-control" id="status_output" rows="31" wrap="off" readonly></textarea>
                             </pre>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                         </div>
                         <div class="col-sm-10">
                             <pre>
-                                <textarea class="form-control" id="procedure_output" rows="31" wrap="off" readonly></textarea>
+                                <textarea class="form-control" id="advanced_output" rows="31" wrap="off" readonly></textarea>
                             </pre>
                         </div>
                     </div>
@@ -129,7 +129,15 @@
 
             var procedure = $(this).attr('id');
 
-            document.getElementById('procedure_output').value = "";
+            if (procedure.includes('status')) {
+                var outputPanel = 'status_output';
+            } else if (procedure.includes('upforgrabs')) {
+                var outputPanel = 'upforgrabs_output';
+            } else { // procedure.includes('restart')
+                var outputPanel = 'advanced_output';
+            }
+
+            document.getElementById(outputPanel).value = "";
 
             $.post("ajax_admin_demo_farm.php",
             {
@@ -141,7 +149,7 @@
                 $.each(data, function(i, item) {
                     entireData = entireData + item + "\n";
                 });
-                document.getElementById('procedure_output').value = entireData;
+                document.getElementById(outputPanel).value = entireData;
                 this_button.button('reset');
             });
         });
