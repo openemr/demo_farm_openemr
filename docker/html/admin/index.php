@@ -109,8 +109,6 @@
                             <div class="row form-group">
                                 <button type="button" class="btn btn-primary procedure-demo" id="restart_one_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">One Restart</button>
                             </div>
-                        </div>
-                        <div class="col-sm-2">
                             <div class="row form-group">
                                 <button type="button" class="btn btn-primary procedure-demo" id="restart_two_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Two Restart</button>
                             </div>
