@@ -104,6 +104,18 @@
                     <div class="row text-center">
                         <h3>Advanced</h3>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="row form-group">
+                                <button type="button" class="btn btn-primary procedure-demo" id="restart_one_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">One Restart</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <pre>
+                                <textarea class="form-control" id="procedure_output" rows="31" wrap="off" readonly></textarea>
+                            </pre>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -117,7 +129,7 @@
 
             var procedure = $(this).attr('id');
 
-            document.getElementById('check_status_output').value = "";
+            document.getElementById('procedure_output').value = "";
 
             $.post("ajax_admin_demo_farm.php",
             {
@@ -129,7 +141,7 @@
                 $.each(data, function(i, item) {
                     entireData = entireData + item + "\n";
                 });
-                document.getElementById('check_status_output').value = entireData;
+                document.getElementById('procedure_output').value = entireData;
                 this_button.button('reset');
             });
         });

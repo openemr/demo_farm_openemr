@@ -21,6 +21,7 @@ if (!empty($_POST['procedure'])) {
         case 'status_farm':
             collectProcedure('docker ps -a', $output);
             collectProcedure('docker images', $output);
+            collectProcedure('free -m', $output);
             collectProcedure('df -h', $output);
             break;
         case 'status_one_openemr':
@@ -64,6 +65,9 @@ if (!empty($_POST['procedure'])) {
             break;
         case 'status_php':
             collectProcedure('docker logs php-serve', $output);
+            break;
+        case 'restart_one_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one', $output);
             break;
         default:
             $output[] = "ERROR: Did not recognize procedure.";
