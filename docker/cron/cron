@@ -1,4 +1,5 @@
 # restart the demos daily at 8 UTC time
 00 08 * * * bash ~/demo_farm_openemr/docker/scripts/restartFarm.sh > /dev/null
-# renew the letsencrypt certificates monthly on the first day of each month
+# renew the letsencrypt certificates monthly on the first day and fifteenth day of each month
+#  (this will ensure no lapses since will update when within 30 days of expiration)
 0 0 1,15 * * bash ~/demo_farm_openemr/docker/scripts/renewLetsencrypt.sh > /dev/null
