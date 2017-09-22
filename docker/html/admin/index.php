@@ -157,7 +157,7 @@
                         </div>
                         <div class="col-sm-10">
                             <pre>
-                                <textarea class="form-control" id="advanced_output" rows="31" wrap="off" readonly></textarea>
+                                <textarea class="form-control" id="advanced_output" rows="34" wrap="off" readonly></textarea>
                             </pre>
                         </div>
                     </div>

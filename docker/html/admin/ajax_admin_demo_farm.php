@@ -24,6 +24,7 @@ if (!empty($_POST['procedure'])) {
             collectProcedure('df -h', $output);
             collectProcedure('free -m', $output);
             collectProcedure('top -bca -n 1', $output);
+            collectProcedure('crontab -l', $output);
             break;
         case 'status_one_openemr':
             collectProcedure('docker logs one-openemr', $output);
