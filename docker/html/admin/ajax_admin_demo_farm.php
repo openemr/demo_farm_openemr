@@ -19,6 +19,7 @@ if (!empty($_POST['procedure'])) {
     $output = array();
     switch ($_POST['procedure']) {
         case 'status_farm':
+            collectProcedure('cat /etc/motd', $output);
             collectProcedure('docker ps -a', $output);
             collectProcedure('docker images', $output);
             collectProcedure('df -h', $output);
