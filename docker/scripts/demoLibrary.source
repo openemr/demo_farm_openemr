@@ -62,7 +62,7 @@ startDemo () {
                         --env "DOCKERMYSQLHOST=${2}" \
                         -v ~/demo_farm_openemr/docker/php/${5}/php.ini:${3}/php.ini:ro \
                         -v ~/wkhtmltopdf-openemr:${7}/openemr/vendor/openemr/wkhtmltopdf-openemr:ro \
-                        -v ~/demo_farm_openemr/docker/stunnel/${4}/stunnel.conf:/etc/stunnel/stunnel.conf:ro \
+                        -v ~/demo_farm_openemr/docker/stunnel/stunnel.conf:/etc/stunnel/stunnel.conf:ro \
                         -v ~/demo_farm_openemr/docker/postfix/${4}/main.cf:/etc/postfix/main.cf:ro \
                         -v ~/cred/sasl_passwd:/etc/postfix/sasl_passwd:ro \
                         -v ~/cred/sasl_passwd.db:/etc/postfix/sasl_passwd.db:ro \
