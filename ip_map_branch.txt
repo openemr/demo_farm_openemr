@@ -1,14 +1,14 @@
 docker_number	openemr_repo	branch	serve_development_translations	use_development_translations	serve_packages	legacy_patching	demo_data	demo_ssh	patient_portals	external_link	root_sql_pass	branch_tag	description
 one	https://github.com/openemr/openemr.git	master	0	1	1	0	0	0	1	one.openemr.io	hey	branch	Public OpenEMR Development Demo
-two	https://github.com/ophthal/openEMR_2.git	Reminders_6.27.17-rebase-3	0	0	0	0	0	0	1	two.openemr.io	hey	branch	UP FOR GRABS Public OpenEMR Demo
-three	https://github.com/zbig01/openemr.git	zbig01-go-3	0	0	0	0	0	0	1	three.openemr.io	hey	branch	UP FOR GRABS Public OpenEMR Demo
-four	https://github.com/ASC/openemr.git	self-checkin-feature	0	0	0	0	0	0	1	four.openemr.io	hey	branch	UP FOR GRABS Public OpenEMR Demo
-four_a	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	four.openemr.io/a	hey	branch	UP FOR GRABS Public OpenEMR Demo
-four_b	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	four.openemr.io/b	hey	branch	UP FOR GRABS Public OpenEMR Demo
-four_c	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	four.openemr.io/c	hey	branch	UP FOR GRABS Public OpenEMR Demo
-four_d	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	four.openemr.io/d	hey	branch	UP FOR GRABS Public OpenEMR Demo
-four_e	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	four.openemr.io/e	hey	branch	UP FOR GRABS Public OpenEMR Demo
-five	https://github.com/bradymiller/openemr.git	mazdoc-ob-form-calc	0	0	0	0	0	0	1	five.openemr.io	hey	branch	UP FOR GRABS Public OpenEMR Demo
+two	https://github.com/ophthal/openEMR_2.git	Reminders_6.27.17-rebase-3	0	0	0	0	0	0	1	two.openemr.io	hey	branch	UP FOR GRABS Public OpenEMR Demo - Alpha
+three	https://github.com/zbig01/openemr.git	zbig01-go-3	0	0	0	0	0	0	1	three.openemr.io	hey	branch	UP FOR GRABS Public OpenEMR Demo - Beta
+four	https://github.com/ASC/openemr.git	self-checkin-feature	0	0	0	0	0	0	1	four.openemr.io	hey	branch	UP FOR GRABS Public OpenEMR Demo - Gamma
+four_a	https://github.com/bradymiller/openemr.git	mazdoc-ob-form-calc	0	0	0	0	0	0	1	four.openemr.io/a	hey	branch	UP FOR GRABS Public OpenEMR Demo - Delta
+four_b	https://github.com/sjpadgett/openemr.git	portal_two_registration	0	0	0	0	0	0	1	four.openemr.io/b	hey	branch	UP FOR GRABS Public OpenEMR Demo - Epsilon
+four_c	https://github.com/juggernautsei/openemr.git	dictation_review_1	0	0	0	0	0	0	1	four.openemr.io/c	hey	branch	UP FOR GRABS Public OpenEMR Demo - Zeta
+four_d	https://github.com/mdsupport/openemr.git	mdsupport-patch-2	0	0	0	0	0	0	1	four.openemr.io/d	hey	branch	UP FOR GRABS Public OpenEMR Demo - Eta
+four_e	https://github.com/visolve-openemr/Openemr_features_enhancements.git	new_password_dialog	0	0	0	0	0	0	1	four.openemr.io/e	hey	branch	UP FOR GRABS Public OpenEMR Demo - Theta
+five	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	five.openemr.io	hey	branch	UP FOR GRABS Public OpenEMR Demo - Iota
 six	https://github.com/openemr/openemr.git	rel-500	0	0	0	0	0	0	1	demo.openemr.io	hey	branch	Public OpenEMR 5.0.0 Development Demo
 seven	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	seven.openemr.io	hey	branch	Public OpenEMR Development Demo on Ubuntu 17.04
 eight	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	eight.openemr.io	hey	branch	Public OpenEMR Development Demo on Ubuntu 17.10
