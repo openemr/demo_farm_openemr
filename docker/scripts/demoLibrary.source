@@ -15,15 +15,17 @@
 # 1st (and only) parameter is the demo name (one, two, three, etc.)
 startDemoWrapper() {
     if [ "$1" == "seven" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "17-04" "17.04" "/var/www/html"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "17-04" "17.04" "/var/www/html" "single"
     elif [ "$1" == "eight" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/7.1/apache2" "ubuntu" "17-10" "17.10" "/var/www/html"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.1/apache2" "ubuntu" "17-10" "17.10" "/var/www/html" "single"
     elif [ "$1" == "nine" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-5" "3.5" "/var/www/localhost/htdocs"
+        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-5" "3.5" "/var/www/localhost/htdocs" "single"
     elif [ "$1" == "ten" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-6" "3.6" "/var/www/localhost/htdocs"
+        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-6" "3.6" "/var/www/localhost/htdocs" "single"
+    elif [ "$1" == "four" ]; then
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "multiple"
     else
-        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "single"
     fi
 }
 
@@ -54,12 +56,14 @@ stopDemo () {
 # 5th parameter is ubuntu/alpine version with dash (16-04, 17-04, 17-10, etc.)
 # 6th parameter is ubuntu/alpine version with period (16.04, 17.04, 17.10, etc.)
 # 7th parameter is the path to htdocs (ie. /var/www/html )
+# 8th parameter is to set if will contain a single demo or multiple demos
 startDemo () {
     # Start docker
     echo "Start ${1}-openemr docker"
     docker run --detach --name ${1}-openemr \
                         --env "DOCKERDEMO=${1}" \
                         --env "DOCKERMYSQLHOST=${2}" \
+                        --env "DOCKERNUMBERDEMOS=${8}" \
                         -v ~/demo_farm_openemr/docker/php/${5}/php.ini:${3}/php.ini:ro \
                         -v ~/wkhtmltopdf-openemr:${7}/openemr/vendor/openemr/wkhtmltopdf-openemr:ro \
                         -v ~/demo_farm_openemr/docker/stunnel/stunnel.conf:/etc/stunnel/stunnel.conf:ro \
