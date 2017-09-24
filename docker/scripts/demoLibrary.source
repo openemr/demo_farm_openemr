@@ -41,11 +41,31 @@ stopDemo () {
     docker rm ${1}-openemr
 
     # Remove the database stuff
-    echo "Clear ${1}-openemr database"
+    echo "Clear ${1}-openemr databases and users"
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}wordpress
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_a
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_awordpress
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_b
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_bwordpress
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_c
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_cwordpress
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_d
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_dwordpress
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_e
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_ewordpress
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}wordpress';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_a';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_awordpress';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_b';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_bwordpress';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_c';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_cwordpress';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_d';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_dwordpress';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_e';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_ewordpress';FLUSH PRIVILEGES;"
 }
 
 # Will start an openemr demo
