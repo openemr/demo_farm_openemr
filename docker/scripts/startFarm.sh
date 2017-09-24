@@ -94,18 +94,19 @@ cp -r ~/demo_farm_openemr/docker/html/* ~/html/
 cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
 
 # bring in the dockers (note reverse-proxy needs to be done last)
+# (also note doing the demo 'four' at end to be more efficient since it will set up 10 subdemos)
 startMysql
 startPhpmyadmin
 startDemoWrapper "one"
 startDemoWrapper "two"
 startDemoWrapper "three"
-startDemoWrapper "four"
 startDemoWrapper "five"
 startDemoWrapper "six"
 startDemoWrapper "seven"
 startDemoWrapper "eight"
 startDemoWrapper "nine"
 startDemoWrapper "ten"
+startDemoWrapper "four"
 startPhp
 startNginx
 
