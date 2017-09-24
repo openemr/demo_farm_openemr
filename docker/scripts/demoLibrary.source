@@ -15,15 +15,15 @@
 # 1st (and only) parameter is the demo name (one, two, three, etc.)
 startDemoWrapper() {
     if [ "$1" == "seven" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "17-04" "17.04" "/var/www/html"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "17-04" "17.04" "/var/www/html"
     elif [ "$1" == "eight" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/7.1/apache2" "17-10" "17.10" "/var/www/html"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.1/apache2" "ubuntu" "17-10" "17.10" "/var/www/html"
     elif [ "$1" == "nine" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php7" "3-5" "3.5" "/var/www/localhost/htdocs"
+        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-5" "3.5" "/var/www/localhost/htdocs"
     elif [ "$1" == "ten" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php7" "3-6" "3.6" "/var/www/localhost/htdocs"
+        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-6" "3.6" "/var/www/localhost/htdocs"
     else
-        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "16-04" "16.04" "/var/www/html"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html"
     fi
 }
 
@@ -50,23 +50,24 @@ stopDemo () {
 # 1st parameter is the demo name (one, two, three, etc.)
 # 2nd paremeter is the mysql name (mysql-openemr etc.)
 # 3rd parameter is the path to php.ini version (ie. /etc/php/7.0/apache2 )
-# 4th parameter is ubuntu/alpine version with dash (16-04, 17-04, 17-10, etc.)
-# 5th parameter is ubuntu/alpine version with period (16.04, 17.04, 17.10, etc.)
-# 6th parameter is the path to htdocs (ie. /var/www/html )
+# 4th parameter is the os (ubuntu, alpine)
+# 5th parameter is ubuntu/alpine version with dash (16-04, 17-04, 17-10, etc.)
+# 6th parameter is ubuntu/alpine version with period (16.04, 17.04, 17.10, etc.)
+# 7th parameter is the path to htdocs (ie. /var/www/html )
 startDemo () {
     # Start docker
     echo "Start ${1}-openemr docker"
     docker run --detach --name ${1}-openemr \
                         --env "DOCKERDEMO=${1}" \
                         --env "DOCKERMYSQLHOST=${2}" \
-                        -v ~/demo_farm_openemr/docker/php/${4}/php.ini:${3}/php.ini:ro \
-                        -v ~/wkhtmltopdf-openemr:${6}/openemr/vendor/openemr/wkhtmltopdf-openemr:ro \
-                        -v ~/demo_farm_openemr/docker/stunnel/stunnel.conf:/etc/stunnel/stunnel.conf:ro \
-                        -v ~/demo_farm_openemr/docker/postfix/main.cf:/etc/postfix/main.cf:ro \
+                        -v ~/demo_farm_openemr/docker/php/${5}/php.ini:${3}/php.ini:ro \
+                        -v ~/wkhtmltopdf-openemr:${7}/openemr/vendor/openemr/wkhtmltopdf-openemr:ro \
+                        -v ~/demo_farm_openemr/docker/stunnel/${4}/stunnel.conf:/etc/stunnel/stunnel.conf:ro \
+                        -v ~/demo_farm_openemr/docker/postfix/${4}/main.cf:/etc/postfix/main.cf:ro \
                         -v ~/cred/sasl_passwd:/etc/postfix/sasl_passwd:ro \
                         -v ~/cred/sasl_passwd.db:/etc/postfix/sasl_passwd.db:ro \
                         --net mynet \
-                        bradymiller/pre-openemr:${5}
+                        bradymiller/pre-openemr:${6}
 }
 
 startMysql () {

@@ -9,13 +9,6 @@
 #This script is for the OpenEMR demo farms
 #
 
-# Turn off apache to avoid users messing up while setting up
-#  (start it again below after complete setup)
-#  (note that in alpine it is not on, so don't need to stop)
-if ! $alpineOs; then
- /etc/init.d/apache2 stop
-fi
-
 # PUBLIC REPOS (note the openemr repo is mapped in GITDEMOFARMMAP
 TRANSLATIONSREPO=https://github.com/openemr/translations_development_openemr.git
 
@@ -63,8 +56,12 @@ GITDEMOWORDPRESSDEMOSQL=$GITDEMOFARM/wordpress_demo/database/wordpress.sql
 INST=$OPENEMR/contrib/util/installScripts/InstallerAuto.php
 INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
 
-# Placemarker for installing new needed modules and other config issues
-# that arise in the future
+# Turn off apache to avoid users messing up while setting up
+#  (start it again below after complete setup)
+#  (note that in alpine it is not on, so don't need to stop)
+if ! $alpineOs; then
+ /etc/init.d/apache2 stop
+fi
 
 # Record start time
 timeStart=`date -u`
@@ -311,7 +308,7 @@ fi
 #   and the active script is then removed after completion.
 sed -e 's@^exit;@ @' <$INST >$INSTTEMP
 if [ -n "$DOCKERDEMO" ];  then
- DOCKERPARAMETERS="server=${DOCKERMYSQLHOST} loginhost=% login=${DOCKERDEMO} pass=${DOCKERDEMO} dbname=${DOCKERDEMO}" 
+ DOCKERPARAMETERS="server=${DOCKERMYSQLHOST} loginhost=% login=${DOCKERDEMO} pass=${DOCKERDEMO} dbname=${DOCKERDEMO}"
 fi
 if $translationsDevelopment ; then
  echo "Using online development translation set"
@@ -474,7 +471,7 @@ if $portalsDemo; then
 
  # Install the openemr sql stuff for portals
  if [ -n "$DOCKERDEMO" ] ; then
-  mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"  
+  mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
  else
   mysql -u root $rpassparam openemr < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
  fi
