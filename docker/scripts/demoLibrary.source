@@ -92,7 +92,7 @@ stopDemo () {
 # 5th parameter is ubuntu/alpine version with dash (16-04, 17-04, 17-10, etc.)
 # 6th parameter is ubuntu/alpine version with period (16.04, 17.04, 17.10, etc.)
 # 7th parameter is the path to htdocs (ie. /var/www/html )
-# 8th parameter is to set if will contain a single demo or multiple demos
+# 8th parameter is to set to how many demos it will contain (can select a number from 1 - 10)
 startDemo () {
     # Start docker
     echo "Start ${1}-openemr docker"
