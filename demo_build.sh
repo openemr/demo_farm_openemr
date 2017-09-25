@@ -121,7 +121,7 @@ do
  else
   DOCKERDEMO=${DOCKERDEMOORIGINAL}_${demo}
   OPENEMR=${WEB}/${demo}/openemr
-  WORDPRESS={$WEB}/${demo}/wordpress
+  WORDPRESS=${WEB}/${demo}/wordpress
  fi
 
  # Collect ip address or docker demo number
