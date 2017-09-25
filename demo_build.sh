@@ -120,8 +120,8 @@ do
    fi
  else
   DOCKERDEMO=${DOCKERDEMOORIGINAL}_${demo}
-  OPENEMR=$WEB/$demo/openemr
-  WORDPRESS=$WEB/$demo/wordpress
+  OPENEMR=${WEB}/${demo}/openemr
+  WORDPRESS={$WEB}/${demo}/wordpress
  fi
 
  # Collect ip address or docker demo number
@@ -318,6 +318,7 @@ do
  # COPY THE GIT REPO OPENEMR COPY TO THE WEB DIRECTOY
  echo "Copy git OpenEMR to web directory"
  echo "Copy git OpenEMR to web directory" >> $LOG
+ mkdir -p $OPENEMR
  rm -fr $OPENEMR/*
  rsync --recursive --exclude .git $GIT/* $OPENEMR/
  rm -fr $GIT
