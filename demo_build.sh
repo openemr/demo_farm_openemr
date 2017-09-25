@@ -47,7 +47,10 @@ TMPDIR=/tmp/openemr-tmp
 
 # WORDPRESS PATIENT PORTAL VARIABLES
 GITDEMOWORDPRESSDEMOWEB=$GITDEMOFARM/wordpress_demo/web/wordpress
-GITDEMOWORDPRESSDEMOSQL=$GITDEMOFARM/wordpress_demo/database/wordpress.sql
+GITDEMOWORDPRESSDEMOSQLONE=$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql
+GITDEMOWORDPRESSDEMOSQLONETEMP=$GITDEMOFARM/pieces/portal_onsite_and_wordpress_temp.sql
+GITDEMOWORDPRESSDEMOSQLTWO=$GITDEMOFARM/wordpress_demo/database/wordpress.sql
+GITDEMOWORDPRESSDEMOSQLTWOTEMP=$GITDEMOFARM/wordpress_demo/database/wordpress_temp.sql
 
 # Turn off apache to avoid users messing up while setting up
 #  (start it again below after complete setup)
@@ -524,14 +527,14 @@ do
   echo "Setting up patient portals" >> $LOG
 
   # Prepare the sql files with the external link
-  sed -i 's@demo.open-emr.org:2104@'"$EXTERNALLINK"'@g' "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
-  sed -i 's@demo.open-emr.org:2104@'"$EXTERNALLINK"'@g' "$GITDEMOWORDPRESSDEMOSQL"
+  sed -e 's@demo.open-emr.org:2104@'"$EXTERNALLINK"'@g' <"$GITDEMOWORDPRESSDEMOSQLONE" >"$GITDEMOWORDPRESSDEMOSQLONETEMP"
+  sed -e 's@demo.open-emr.org:2104@'"$EXTERNALLINK"'@g' <"$GITDEMOWORDPRESSDEMOSQLTWO" >"$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
 
   # Install the openemr sql stuff for portals
   if [ -n "$DOCKERDEMO" ] ; then
-   mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
+   mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOWORDPRESSDEMOSQLONETEMP"
   else
-   mysql -u root $rpassparam openemr < "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
+   mysql -u root $rpassparam openemr < "$GITDEMOWORDPRESSDEMOSQLONETEMP"
   fi
 
   # Install wordpress file stuff
@@ -542,7 +545,7 @@ do
   if [ -n "$DOCKERDEMO" ] ; then
    mysqladmin -h $DOCKERMYSQLHOST -u root $rpassparam create ${DOCKERDEMO}wordpress
    mysql -h $DOCKERMYSQLHOST -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON ${DOCKERDEMO}wordpress.* TO '${DOCKERDEMO}wordpress'@'%' IDENTIFIED BY '${DOCKERDEMO}wordpress'" ${DOCKERDEMO}wordpress
-   mysql -h $DOCKERMYSQLHOST -u root $rpassparam ${DOCKERDEMO}wordpress < "$GITDEMOWORDPRESSDEMOSQL"
+   mysql -h $DOCKERMYSQLHOST -u root $rpassparam ${DOCKERDEMO}wordpress < "$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
    # Modify $WORDPRESS/wp-config.php to match credentials created above
    sed -i "s@'DB_NAME', 'wordpress'@'DB_NAME', '${DOCKERDEMO}wordpress'@" "$WORDPRESS/wp-config.php"
    sed -i "s@'DB_USER', 'wordpress'@'DB_USER', '${DOCKERDEMO}wordpress'@" "$WORDPRESS/wp-config.php"
@@ -551,10 +554,13 @@ do
   else
    mysqladmin -u root $rpassparam create wordpress
    mysql -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
-   mysql -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQL"
+   mysql -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
   fi
-   echo "Done setting up patient portals"
-   echo "Done setting up patient portals" >> $LOG
+
+  rm "$GITDEMOWORDPRESSDEMOSQLONETEMP"
+  rm "$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
+  echo "Done setting up patient portals"
+  echo "Done setting up patient portals" >> $LOG
  fi
 done
 
