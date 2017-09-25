@@ -26,11 +26,9 @@ else
  htmlDirApache=false;
  alpineOs=false;
 fi
-OPENEMR=$WEB/openemr
 LOG=$WEB/log/logSetup.txt
 mkdir -p $WEB/log
 GITMAIN=/home/openemr/git
-# GIT=$GITMAIN/openemr // Need to instead set this below depending on OPENEMRREPONAME below
 GITDEMOFARM=$GITMAIN/demo_farm_openemr
 GITDEMOFARMMAP=$GITDEMOFARM/ip_map_branch.txt
 if $htmlDirApache ; then
@@ -48,7 +46,6 @@ FILESSERVEDIR=$WEB/files
 TMPDIR=/tmp/openemr-tmp
 
 # WORDPRESS PATIENT PORTAL VARIABLES
-WORDPRESS=$WEB/wordpress
 GITDEMOWORDPRESSDEMOWEB=$GITDEMOFARM/wordpress_demo/web/wordpress
 GITDEMOWORDPRESSDEMOSQL=$GITDEMOFARM/wordpress_demo/database/wordpress.sql
 
@@ -108,8 +105,6 @@ else
  echo "Single demo mode" >> $LOG
 fi
 
-OPENEMRORIGINAL=$OPENEMR
-WORDPRESSORIGINAL=$WORDPRESS
 if [ -n "$DOCKERDEMO" ] ; then
  DOCKERDEMOORIGINAL=$DOCKERDEMO
 fi
@@ -118,15 +113,15 @@ for demo in ${demosGo[*]}
 do
 
  if [ "$demo" == "empty" ]; then
-  OPENEMR=$OPENEMRORIGINAL
-  WORDPRESS=$WORDPRESSORIGINAL
+  OPENEMR=$WEB/openemr
+  WORDPRESS=$WEB/wordpress
    if [ -n "$DOCKERDEMO" ] ; then
     DOCKERDEMO=$DOCKERDEMOORIGINAL
    fi
  else
   DOCKERDEMO=${DOCKERDEMOORIGINAL}_${demo}
-  OPENEMR=$OPENEMRORIGINAL/$demo
-  WORDPRESS=$WORDPRESSORIGINAL/$demo
+  OPENEMR=$WEB/$demo/openemr
+  WORDPRESS=$WEB/$demo/wordpress
  fi
 
  # Collect ip address or docker demo number
@@ -528,8 +523,8 @@ do
   echo "Setting up patient portals" >> $LOG
 
   # Prepare the sql files with the external link
-  sed -i 's/demo.open-emr.org:2104/'"$EXTERNALLINK"'/g' "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
-  sed -i 's/demo.open-emr.org:2104/'"$EXTERNALLINK"'/g' "$GITDEMOWORDPRESSDEMOSQL"
+  sed -i 's@demo.open-emr.org:2104@'"$EXTERNALLINK"'@g' "$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql"
+  sed -i 's@demo.open-emr.org:2104@'"$EXTERNALLINK"'@g' "$GITDEMOWORDPRESSDEMOSQL"
 
   # Install the openemr sql stuff for portals
   if [ -n "$DOCKERDEMO" ] ; then
