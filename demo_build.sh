@@ -66,10 +66,42 @@ echo "$timeStart"
 echo -n "Started Build: " >> $LOG
 echo "$timeStart" >> $LOG
 
-if [ "$DOCKERNUMBERDEMOS" == "multiple" ]; then
+if [ "$DOCKERNUMBERDEMOS" == "10" ]; then
+ demosGo=("empty" "a" "b" "c" "d" "e" "f" "g" "h" "i")
+ echo "10 demos mode"
+ echo "10 demos mode" >> $LOG
+elif [ "$DOCKERNUMBERDEMOS" == "9" ]; then
+ demosGo=("empty" "a" "b" "c" "d" "e" "f" "g" "h")
+ echo "9 demos mode"
+ echo "9 demos mode" >> $LOG
+elif [ "$DOCKERNUMBERDEMOS" == "8" ]; then
+ demosGo=("empty" "a" "b" "c" "d" "e" "f" "g")
+ echo "8 demos mode"
+ echo "8 demos mode" >> $LOG
+elif [ "$DOCKERNUMBERDEMOS" == "7" ]; then
+ demosGo=("empty" "a" "b" "c" "d" "e" "f")
+ echo "7 demos mode"
+ echo "7 demos mode" >> $LOG
+elif [ "$DOCKERNUMBERDEMOS" == "6" ]; then
  demosGo=("empty" "a" "b" "c" "d" "e")
- echo "Multiple demo mode"
- echo "Multiple demo mode" >> $LOG
+ echo "6 demos mode"
+ echo "6 demos mode" >> $LOG
+elif [ "$DOCKERNUMBERDEMOS" == "5" ]; then
+ demosGo=("empty" "a" "b" "c" "d")
+ echo "5 demos mode"
+ echo "5 demos mode" >> $LOG
+elif [ "$DOCKERNUMBERDEMOS" == "4" ]; then
+ demosGo=("empty" "a" "b" "c")
+ echo "4 demos mode"
+ echo "4 demos mode" >> $LOG
+elif [ "$DOCKERNUMBERDEMOS" == "3" ]; then
+ demosGo=("empty" "a" "b")
+ echo "3 demos mode"
+ echo "3 demos mode" >> $LOG
+elif [ "$DOCKERNUMBERDEMOS" == "2" ]; then
+ demosGo=("empty" "a")
+ echo "2 demos mode"
+ echo "2 demos mode" >> $LOG
 else
  demosGo=("empty")
  echo "Single demo mode"

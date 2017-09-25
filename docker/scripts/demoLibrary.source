@@ -15,17 +15,17 @@
 # 1st (and only) parameter is the demo name (one, two, three, etc.)
 startDemoWrapper() {
     if [ "$1" == "seven" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "17-04" "17.04" "/var/www/html" "single"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "17-04" "17.04" "/var/www/html" "1"
     elif [ "$1" == "eight" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/7.1/apache2" "ubuntu" "17-10" "17.10" "/var/www/html" "single"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.1/apache2" "ubuntu" "17-10" "17.10" "/var/www/html" "1"
     elif [ "$1" == "nine" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-5" "3.5" "/var/www/localhost/htdocs" "single"
+        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-5" "3.5" "/var/www/localhost/htdocs" "1"
     elif [ "$1" == "ten" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-6" "3.6" "/var/www/localhost/htdocs" "single"
+        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-6" "3.6" "/var/www/localhost/htdocs" "1"
     elif [ "$1" == "four" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "multiple"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "6"
     else
-        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "single"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "1"
     fi
 }
 
@@ -54,6 +54,14 @@ stopDemo () {
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_dwordpress
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_e
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_ewordpress
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_f
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_fwordpress
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_g
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_gwordpress
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_h
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_hwordpress
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_i
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_iwordpress
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}wordpress';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_a';FLUSH PRIVILEGES;"
@@ -66,6 +74,14 @@ stopDemo () {
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_dwordpress';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_e';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_ewordpress';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_f';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_fwordpress';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_g';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_gwordpress';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_h';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_hwordpress';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_i';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_iwordpress';FLUSH PRIVILEGES;"
 }
 
 # Will start an openemr demo
