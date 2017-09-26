@@ -31,7 +31,7 @@ startDemoWrapper() {
 
 # Will stop and clear an openemr demo
 # 1st parameter is the demo name (one, two, three, etc.)
-# 2nd paremeter is the mysql root password
+# 2nd parameter is the mysql root password
 stopDemo () {
     local MYSQLIP=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr`
 
@@ -108,6 +108,32 @@ startDemo () {
                         -v ~/cred/sasl_passwd.db:/etc/postfix/sasl_passwd.db:ro \
                         --net mynet \
                         bradymiller/pre-openemr:${6}
+}
+
+# Will restart an openemr subdemo. This does not restart the docker, just the subdemo.
+# 1st parameter is the demo name (one, two, three, etc.)
+# 2nd parameter is the demo subname (a, b, c, etc.)(also can be 'empty' which is for the main subdemo)
+# 3rd parameter is the mysql root password
+restartSubdemo () {
+    local MYSQLIP=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr`
+
+    # Remove the database stuff
+    if [ "$2" == "empty" ]; then
+        mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}
+        mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}wordpress
+    else
+        mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}_${2}
+        mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}_${2}wordpress
+    fi
+
+    # Now need to reset the demo within the docker
+    docker exec -it ${1}-openemr bash
+    cd /home/openemr/git/demo_farm_openemr
+    git fetch
+    git pull origin master
+    cd ~/
+    bash /home/openemr/git/demo_farm_openemr/demo_build.sh ${2}
+    exit
 }
 
 startMysql () {

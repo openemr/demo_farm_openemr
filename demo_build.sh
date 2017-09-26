@@ -9,7 +9,17 @@
 #This script is for the OpenEMR demo farms
 #
 
-# PUBLIC REPOS (note the openemr repo is mapped in GITDEMOFARMMAP
+# If there is a parameter, then just pursue a light reset of the subdemo
+if [ -z "$1" ]; then
+ lightReset=false;
+else
+ echo "This is a light reset"
+ echo "This is a light reset" >> $LOG
+ lightReset=true;
+ lightResetDemo=$1
+fi
+
+# PUBLIC REPOS (note the openemr repo is mapped in GITDEMOFARMMAP)
 TRANSLATIONSREPO=https://github.com/openemr/translations_development_openemr.git
 
 # PATH VARIABLES AND CREATED NEEDED DIRS
@@ -55,8 +65,11 @@ GITDEMOWORDPRESSDEMOSQLTWOTEMP=$GITDEMOFARM/wordpress_demo/database/wordpress_te
 # Turn off apache to avoid users messing up while setting up
 #  (start it again below after complete setup)
 #  (note that in alpine it is not on, so don't need to stop)
-if ! $alpineOs; then
- /etc/init.d/apache2 stop
+#  (also note don't do this for a light subdemo reset)
+if ! $lightReset; then
+ if ! $alpineOs; then
+  /etc/init.d/apache2 stop
+ fi
 fi
 
 # Record start time
@@ -66,7 +79,13 @@ echo "$timeStart"
 echo -n "Started Build: " >> $LOG
 echo "$timeStart" >> $LOG
 
-if [ "$DOCKERNUMBERDEMOS" == "10" ]; then
+if lightReset; then
+ demosGo=("$lightResetDemo")
+ echo -n "subdemo reset mode for: "
+ echo "$lightResetDemo"
+ echo -n "subdemo reset mode for: " >> $LOG
+ echo "$lightResetDemo"
+elif [ "$DOCKERNUMBERDEMOS" == "10" ]; then
  demosGo=("empty" "a" "b" "c" "d" "e" "f" "g" "h" "i")
  echo "10 demos mode"
  echo "10 demos mode" >> $LOG
@@ -539,6 +558,7 @@ do
 
   # Install wordpress file stuff
   mkdir -p $WORDPRESS
+  rm -fr $WORDPRESS/*
   cp -r $GITDEMOWORDPRESSDEMOWEB/* $WORDPRESS/
 
   # Install wordpress database stuff
@@ -573,18 +593,22 @@ if [ -z "$DOCKERDEMO" ] ; then
  debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
  apt-get -y install postfix >> $LOG
 else
- stunnel /etc/stunnel/stunnel.conf >> $LOG
- postfix start >> $LOG
+ if ! $lightReset; then
+  stunnel /etc/stunnel/stunnel.conf >> $LOG
+  postfix start >> $LOG
+ fi
 fi
 
 #restart apache and secure sensitive directories
-if $alpineOs; then
- cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
- httpd -k start >> $LOG
-else
- cp $OPENEMRAPACHECONF /etc/apache2/sites-available/openemr.conf
- a2ensite openemr.conf >> $LOG
- /etc/init.d/apache2 start >> $LOG
+if ! $lightReset; then
+ if $alpineOs; then
+  cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
+  httpd -k start >> $LOG
+ else
+  cp $OPENEMRAPACHECONF /etc/apache2/sites-available/openemr.conf
+  a2ensite openemr.conf >> $LOG
+  /etc/init.d/apache2 start >> $LOG
+ fi
 fi
 
 echo "Demo install script is complete"
@@ -597,8 +621,10 @@ echo "$timeEnd"
 echo -n "Completed Build: " >> $LOG
 echo "$timeEnd" >> $LOG
 
-if [ -n "$DOCKERDEMO" ] ; then
-# to stop docker image from exiting
- echo "hold docker open"
- tail -F -n0 /etc/hosts
+if ! $lightReset; then
+ if [ -n "$DOCKERDEMO" ] ; then
+  # to stop docker image from exiting
+  echo "hold docker open"
+  tail -F -n0 /etc/hosts
+ fi
 fi
