@@ -13,8 +13,6 @@
 if [ -z "$1" ]; then
  lightReset=false;
 else
- echo "This is a light reset"
- echo "This is a light reset" >> $LOG
  lightReset=true;
  lightResetDemo=$1
 fi
@@ -62,6 +60,11 @@ GITDEMOWORDPRESSDEMOSQLONETEMP=$GITDEMOFARM/pieces/portal_onsite_and_wordpress_t
 GITDEMOWORDPRESSDEMOSQLTWO=$GITDEMOFARM/wordpress_demo/database/wordpress.sql
 GITDEMOWORDPRESSDEMOSQLTWOTEMP=$GITDEMOFARM/wordpress_demo/database/wordpress_temp.sql
 
+if $lightReset; then
+ echo "This is a light reset"
+ echo "This is a light reset" >> $LOG
+fi
+
 # Turn off apache to avoid users messing up while setting up
 #  (start it again below after complete setup)
 #  (note that in alpine it is not on, so don't need to stop)
@@ -79,7 +82,7 @@ echo "$timeStart"
 echo -n "Started Build: " >> $LOG
 echo "$timeStart" >> $LOG
 
-if lightReset; then
+if $lightReset; then
  demosGo=("$lightResetDemo")
  echo -n "subdemo reset mode for: "
  echo "$lightResetDemo"
