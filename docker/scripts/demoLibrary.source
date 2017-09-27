@@ -129,11 +129,11 @@ restartSubdemo () {
     fi
 
     # Now need to reset the demo within the docker
-    docker exec -it ${1}-openemr bash -c 'cd /home/openemr/git/demo_farm_openemr &&
+    docker exec -it ${1}-openemr bash -c "cd /home/openemr/git/demo_farm_openemr &&
                                           git fetch &&
                                           git pull origin master &&
                                           cd ~/ &&
-                                          bash /home/openemr/git/demo_farm_openemr/demo_build.sh ${2}'
+                                          bash /home/openemr/git/demo_farm_openemr/demo_build.sh ${2}"
 }
 
 startMysql () {
