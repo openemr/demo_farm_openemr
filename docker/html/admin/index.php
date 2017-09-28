@@ -106,16 +106,58 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_one_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">One Restart</button>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_two_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Two Restart</button>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_three_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Three Restart</button>
-                            </div>
                             <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        One Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseOne">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_one_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">One Restart</button>
+                                                </div>
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_one_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">One Refresh</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Two Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseTwo">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_two_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Two Restart</button>
+                                                </div>
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_two_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Two Refresh</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Three Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseThree">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_three_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Three Restart</button>
+                                                </div>
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_three_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Three Refresh</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="panel panel-default">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                         Four Toggle
@@ -160,21 +202,91 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_six_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Six Restart</button>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_seven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Seven Restart</button>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_eight_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Eight Restart</button>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_nine_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Nine Restart</button>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_ten_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Ten Restart</button>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        Six Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseSix">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_six_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Six Restart</button>
+                                                </div>
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_six_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Six Refresh</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                        Seven Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseSeven">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_seven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Seven Restart</button>
+                                                </div>
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven Refresh</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                        Eight Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseEight">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_eight_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Eight Restart</button>
+                                                </div>
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_eight_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Eight Refresh</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                        Nine Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseNine">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_nine_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Nine Restart</button>
+                                                </div>
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_nine_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Nine Refresh</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                        Ten Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseTen">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_ten_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Ten Restart</button>
+                                                </div>
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten Refresh</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row form-group">
                                 <button type="button" class="btn btn-warning procedure-demo" id="restart_all_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Restart All Demos</button>
