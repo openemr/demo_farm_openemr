@@ -12,6 +12,8 @@
 <html>
     <head>
 
+        <meta name=viewport content="width=device-width, initial-scale=1">
+
         <title>OpenEMR Demo Farm Admin Page</title>
 
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -41,7 +43,7 @@
                         <h3>Status</h3>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="row form-group">
                                 <button type="button" class="btn btn-primary procedure-demo" id="status_farm" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Farm Status</button>
                             </div>
@@ -88,7 +90,7 @@
                                 <button type="button" class="btn btn-primary procedure-demo" id="status_php" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Php Status</button>
                             </div>
                         </div>
-                        <div class="col-sm-10">
+                        <div class="col-sm-9">
                             <pre>
                                 <textarea class="form-control" id="status_output" rows="31" wrap="off" readonly></textarea>
                             </pre>
@@ -105,7 +107,7 @@
                         <h3>Advanced</h3>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="panel-group">
                                 <div class="panel panel-default">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -287,27 +289,28 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-warning procedure-demo" id="restart_all_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Restart All Demos</button>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-danger procedure-demo" id="restart_database_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Restart Demo Databases</button>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_phpmyadmin_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">PhpMyAdmin Restart</button>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_nginx_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart" disabled>Nginx Restart</button>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_php_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart" disabled>Php Restart</button>
-                            </div>
-                            <div class="row form-group">
-                                <button type="button" class="btn btn-primary procedure-demo" id="restart_certs_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Renew" disabled>Renew SSL Certs</button>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOther" aria-expanded="false" aria-controls="collapseOther">
+                                        Other Stuff
+                                    </button>
+                                    <div class="collapse" id="collapseOther">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="btn-group-vertical form-group">
+                                                    <button type="button" class="btn btn-warning procedure-demo" id="restart_all_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Restart All Demos</button>
+                                                    <button type="button" class="btn btn-danger procedure-demo" id="restart_database_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Restart Demo Databases</button>
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_phpmyadmin_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">PhpMyAdmin Restart</button>
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_nginx_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart" disabled>Nginx Restart</button>
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_php_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart" disabled>Php Restart</button>
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_certs_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Renew" disabled>Renew SSL Certs</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-10">
+                        <div class="col-sm-9">
                             <pre>
                                 <textarea class="form-control" id="advanced_output" rows="34" wrap="off" readonly></textarea>
                             </pre>
