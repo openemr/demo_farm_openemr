@@ -251,7 +251,7 @@ do
  echo "$branchOrTag"
  echo -n "github repo branch/tag is " >> $LOG
  echo "$branchOrTag" >> $LOG
- ddu=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 13`
+ ddu=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 14`
  echo -n "ddu option is "
  echo "$ddu"
  echo -n "ddu option is " >> $LOG
@@ -458,6 +458,8 @@ do
   fi
   if $demoDataUpgrade; then
    # Run the sql upgrade script. This allows using demo data on most recent codebase.
+   echo "Upgrading demo data from $demoDataUpgradeFrom"
+   echo "Upgrading demo data from $demoDataUpgradeFrom" >> $LOG
    sed -e "s@!empty(\$_POST['form_submit'])@true@" <$OPENEMR/sql_patch.php >$OPENEMR/sql_patch_temp.php
    sed -i "s@\$form_old_version = \$_POST['form_old_version'];@\$form_old_version = ${demoDataUpgradeFrom};@" $OPENEMR/sql_patch_temp.php
    php -f $OPENEMR/sql_patch_temp.php >> $LOG
