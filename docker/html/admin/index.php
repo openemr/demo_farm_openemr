@@ -134,6 +134,7 @@
                                                 </div>
                                                 <div class="btn-group-vertical form-group">
                                                     <button type="button" class="btn btn-primary procedure-demo" id="refresh_one_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">One Refresh</button>
+                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_one_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">One A Refresh</button>
                                                 </div>
                                             </div>
                                         </div>

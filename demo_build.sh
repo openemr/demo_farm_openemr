@@ -251,6 +251,11 @@ do
  echo "$branchOrTag"
  echo -n "github repo branch/tag is " >> $LOG
  echo "$branchOrTag" >> $LOG
+ ddu=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 13`
+ echo -n "ddu option is "
+ echo "$ddu"
+ echo -n "ddu option is " >> $LOG
+ echo "$ddu" >> $LOG
 
  # SET OPTIONS
  # set if serve development translation set
@@ -301,9 +306,16 @@ do
  else
   rpassparam="-p$mrp"
  fi
+ # set if doing a demo data upgrade (specific feature to support demo data on most recent codebase)
+ if [ "$ddu" == "0" ]; then
+  demoDataUpgrade=false;
+ else
+  demoDataUpgrade=true;
+  demoDataUpgradeFrom="$ddu"
+ fi
 
  # COLLECT and output demo description
- desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 14`
+ desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 15`
  echo -n "Demo description: "
  echo "$desc"
  echo -n "Demo description: " >> $LOG
@@ -443,6 +455,13 @@ do
   else
    echo "Error, $dd data does not exist"
    echo "Error, $dd data does not exist" >> $LOG
+  fi
+  if $demoDataUpgrade; then
+   # Run the sql upgrade script. This allows using demo data on most recent codebase.
+   sed -e "s@!empty(\$_POST['form_submit'])@true@" <$OPENEMR/sql_patch.php >$OPENEMR/sql_patch_temp.php
+   sed -i "s@\$form_old_version = \$_POST['form_old_version'];@\$form_old_version = ${demoDataUpgradeFrom};@" $OPENEMR/sql_patch_temp.php
+   php -f $OPENEMR/sql_patch_temp.php >> $LOG
+   rm -f $OPENEMR/sql_patch_temp.php
   fi
  fi
 
