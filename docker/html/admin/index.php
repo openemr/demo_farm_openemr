@@ -47,15 +47,26 @@
                             <div class="row form-group">
                                 <div class="panel-group">
                                     <div class="panel panel-default">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseStatus" aria-expanded="false" aria-controls="collapseStatus">
-                                            Status Checks Toggle
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseStatusMain" aria-expanded="false" aria-controls="collapseStatusMain">
+                                            Status Main Toggle
                                         </button>
-                                        <div class="collapse" id="collapseStatus">
+                                        <div class="collapse" id="collapseStatusMain">
                                             <div class="panel-body">
                                                 <div class="card card-body">
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="status_farm" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Farm Status</button>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseStatusDemos" aria-expanded="false" aria-controls="collapseStatusDemos">
+                                            Status Demos Toggle
+                                        </button>
+                                        <div class="collapse" id="collapseStatusDemos">
+                                            <div class="panel-body">
+                                                <div class="card card-body">
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="status_one_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">One Status</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="status_two_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Two Status</button>
@@ -68,6 +79,17 @@
                                                         <button type="button" class="btn btn-primary procedure-demo" id="status_nine_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Nine Status</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="status_ten_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Ten Status</button>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseStatusOther" aria-expanded="false" aria-controls="collapseStatusOther">
+                                            Status Other Toggle
+                                        </button>
+                                        <div class="collapse" id="collapseStatusOther">
+                                            <div class="panel-body">
+                                                <div class="card card-body">
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="status_mysql" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Mysql Status</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="status_nginx" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Nginx Status</button>
