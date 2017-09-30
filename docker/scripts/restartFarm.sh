@@ -46,10 +46,11 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 # restart openemr demo docker containers
 # (note do not restart nginx, php, mysql, and phpmyadmin dockers)
 # (also note doing the demo 'four' at end to be more efficient since it will set up 10 subdemos)
+# (also note demo 'five' is at beginning since this is the "main" demos)
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh five
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh three
-bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh five
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh six
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight

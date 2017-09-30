@@ -17,10 +17,10 @@
 #  -in home directory, clone the optional wkhtmltopdf-openemr composer package via git:
 #    -git clone https://github.com/openemr/wkhtmltopdf-openemr.git
 #  -place following in cron : copy stuff from docker/cron/cron
-#  -ensure commented out ssh cert stuff in nginx conf script(see line 9 of ~/demo_farm_openemr/docker/nginx/nginx.conf), restart reverse proxy, 
+#  -ensure commented out ssh cert stuff in nginx conf script(see line 9 of ~/demo_farm_openemr/docker/nginx/nginx.conf), restart reverse proxy,
 #   and follow instructions here to prime the SAN certificate (after prime, can then uncomment the ssh cert stuff and restart reverse proxy):
 #    https://miki725.github.io/docker/crypto/2017/01/29/docker+nginx+letsencrypt.html
-#      1) comment out the ssh cert stuff near line 9 in ~/demo_farm_openemr/docker/nginx/nginx.conf 
+#      1) comment out the ssh cert stuff near line 9 in ~/demo_farm_openemr/docker/nginx/nginx.conf
 #      2) run bash ~/demo_farm_openemr/docker/scripts/primeLetsencrypt.sh
 #      2) then can uncomment the ssh cert stuff near line 9 in ~/demo_farm_openemr/docker/nginx/nginx.conf and should then work after restart reverse proxy
 #  -set up place to store credentials
@@ -95,12 +95,13 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 
 # bring in the dockers (note reverse-proxy needs to be done last)
 # (also note doing the demo 'four' at end to be more efficient since it will set up 10 subdemos)
+# (also note demo 'five' is at beginning since this is the "main" demos)
 startMysql
 startPhpmyadmin
+startDemoWrapper "five"
 startDemoWrapper "one"
 startDemoWrapper "two"
 startDemoWrapper "three"
-startDemoWrapper "five"
 startDemoWrapper "six"
 startDemoWrapper "seven"
 startDemoWrapper "eight"

@@ -17,9 +17,13 @@ five	https://github.com/openemr/openemr.git	v5_0_0_5	0	0	0	0	demo_5_0_0_5.sql	0	
 five_a	https://github.com/openemr/openemr.git	v5_0_0_5	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/a	hey	tag	0	Alternate Public OpenEMR 5.0.0 Production Demo
 six	https://github.com/openemr/openemr.git	rel-500	0	0	0	0	0	0	1	six.openemr.io	hey	branch	0	Public OpenEMR 5.0.0 Development Demo
 seven	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	seven.openemr.io	hey	branch	0	Public OpenEMR Development Demo on Ubuntu 17.04
+seven_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	seven.openemr.io/a	hey	branch	5.0.0	Public OpenEMR Development Demo on Ubuntu 17.04 With Demo Data
 eight	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	eight.openemr.io	hey	branch	0	Public OpenEMR Development Demo on Ubuntu 17.10
+eight_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	eight.openemr.io/a	hey	branch	5.0.0	Public OpenEMR Development Demo on Ubuntu 17.10 With Demo Data
 nine	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	nine.openemr.io	hey	branch	0	Public OpenEMR Development Demo on Alpine 3.5
+nine_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	nine.openemr.io/a	hey	branch	5.0.0	Public OpenEMR Development Demo on Alpine 3.5 With Demo Data
 ten	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	ten.openemr.io	hey	branch	0	Public OpenEMR Development Demo on Alpine 3.6
+ten_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	ten.openemr.io/a	hey	branch	5.0.0	Public OpenEMR Development Demo on Alpine 3.6 With Demo Data
 192.168.1.130	https://github.com/openemr/openemr.git	rel-421	0	0	0	0	0	0	1	demo.open-emr.org:2104		branch	0	Public OpenEMR 4.2.1 Development Demo (Daily Build)
 192.168.1.131	https://github.com/openemr/openemr.git	rel-500	0	0	0	0	0	0	1	demo.open-emr.org:2105		branch	0	Public OpenEMR 5.0.0 Development Demo (Daily Build)
 192.168.1.132	https://github.com/mdsupport/openemr.git	1_tabs_css	0	0	0	0	0	1	demo.open-emr.org:2106		branch	0	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
