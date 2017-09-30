@@ -474,8 +474,9 @@ do
    if [ -n "$DOCKERDEMO" ] ; then
     echo "TODO: Need to support bringing in the translations here in the future"
     echo "TODO: Need to support bringing in the translations here in the future" >> $LOG
-    #below is way to slow; need to figure out how to get the innodb optimizations in here (as do in main codebase inserts)
-    #mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < /home/openemr/git/translations_development_openemr/languageTranslations_utf8.sql
+    # below is way to slow; need to figure out how to get the innodb optimizations in here (as do in main codebase inserts)
+    # plan to make a temp file in /home/openemr/temp/languageTranslations_utf8_temp.sql and modify it for the innodb optimizations
+    # mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < /home/openemr/git/translations_development_openemr/languageTranslations_utf8.sql
    fi
   fi
  fi
