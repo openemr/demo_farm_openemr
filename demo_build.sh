@@ -472,7 +472,10 @@ do
   if $translationsDevelopment ; then
    # Need to bring the development translations back in (only can support this in docker mode)
    if [ -n "$DOCKERDEMO" ] ; then
-    mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < /home/openemr/git/translations_development_openemr/languageTranslations_utf8.sql
+    echo "TODO: Need to support bringing in the translations here in the future"
+    echo "TODO: Need to support bringing in the translations here in the future" >> $LOG
+    #below is way to slow; need to figure out how to get the innodb optimizations in here (as do in main codebase inserts)
+    #mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < /home/openemr/git/translations_development_openemr/languageTranslations_utf8.sql
    fi
   fi
  fi
