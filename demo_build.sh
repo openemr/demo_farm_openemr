@@ -461,7 +461,7 @@ do
    echo "Upgrading demo data from $demoDataUpgradeFrom"
    echo "Upgrading demo data from $demoDataUpgradeFrom" >> $LOG
    sed -e "s@!empty(\$_POST\['form_submit'\])@true@" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php
-   sed -i "s@\$form_old_version = \$_POST\['form_old_version'\];@\$form_old_version = ${demoDataUpgradeFrom};@" $OPENEMR/sql_upgrade_temp.php
+   sed -i "s@\$form_old_version = \$_POST\['form_old_version'\];@\$form_old_version = '${demoDataUpgradeFrom}';@" $OPENEMR/sql_upgrade_temp.php
    sed -i "1s@^@<?php \$_GET['site'] = 'default'; ?>@" $OPENEMR/sql_upgrade_temp.php
    php -f $OPENEMR/sql_upgrade_temp.php >> $LOG
    rm -f $OPENEMR/sql_upgrade_temp.php
