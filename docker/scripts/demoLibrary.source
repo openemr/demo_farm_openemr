@@ -145,7 +145,7 @@ startMysql () {
                         --net mynet \
                         --ulimit nofile=65536:65536 \
                         mysql \
-                        --max-connections=350
+                        --max-connections=450
 }
 
 restartMysql () {
