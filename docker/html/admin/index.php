@@ -131,9 +131,9 @@
                                         <div class="panel-body">
                                             <div class="card card-body">
                                                 <div class="row col-xs-12">
-                                                    <p><b>Step 1:</b> Place the repository and branch here: http://www.open-emr.org/wiki/index.php/Development_Demo#Alpha_-_Up_For_Grabs_Demo</p>
-                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>two</b> row. Place the repository and branch in the <b>two</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column)</p>
-                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box).</p>
+                                                    <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Alpha_-_Up_For_Grabs_Demo" target="_blank">Alpha Up For Grabs Demo</a></p>
+                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>two</b> row; place the repository and branch in the <b>two</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
+                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
                                                 </div>
                                                 <div class="row col-xs-12">
                                                     <div class="btn-group-vertical form-group">
