@@ -153,7 +153,6 @@
                         </div>
                     </div>
                 </div>
-                </div>
                 <div id="advanced" class="tab-pane fade">
                     <div class="row text-center">
                         <h3>Advanced</h3>
