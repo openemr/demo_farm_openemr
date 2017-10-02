@@ -181,20 +181,24 @@
                                     <div class="collapse" id="collapseFour">
                                         <div class="panel-body">
                                             <div class="card card-body">
-                                                <div class="btn-group-vertical form-group">
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_four_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Four Restart</button>
+                                                <div class="row offset-xs-2">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="restart_four_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Four Restart</button>
+                                                    </div>
                                                 </div>
-                                                <div class="btn-group-vertical form-group">
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four Refresh</button>
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four A Refresh</button>
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four B Refresh</button>
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four C Refresh</button>
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_d_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four D Refresh</button>
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_e_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four E Refresh</button>
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_f_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four F Refresh</button>
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_g_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four G Refresh</button>
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_h_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four H Refresh</button>
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_i_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four I Refresh</button>
+                                                <div class="row offset-xs-2">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four A Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four B Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four C Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_d_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four D Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_e_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four E Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_f_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four F Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_g_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four G Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_h_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four H Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_four_i_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Four I Refresh</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -242,12 +246,12 @@
                                     <div class="collapse" id="collapseSeven">
                                         <div class="panel-body">
                                             <div class="card card-body">
-                                                <div class="row">
+                                                <div class="row offset-xs-2">
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="restart_seven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Seven Restart</button>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row row offset-xs-2">
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven A Refresh</button>
