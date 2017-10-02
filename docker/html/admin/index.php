@@ -242,12 +242,16 @@
                                     <div class="collapse" id="collapseSeven">
                                         <div class="panel-body">
                                             <div class="card card-body">
-                                                <div class="btn-group-vertical form-group">
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="restart_seven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Seven Restart</button>
+                                                <div class="row">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="restart_seven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Seven Restart</button>
+                                                    </div>
                                                 </div>
-                                                <div class="btn-group-vertical form-group">
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven Refresh</button>
-                                                    <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven A Refresh</button>
+                                                <div class="row">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven A Refresh</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
