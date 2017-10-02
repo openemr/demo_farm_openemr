@@ -125,7 +125,7 @@
                             <div class="panel-group">
                                 <div class="panel panel-default">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseAlpha" aria-expanded="false" aria-controls="collapseAlpha">
-                                        Alpha Demo - Toggle
+                                        Alpha Demo Details - Toggle
                                     </button>
                                     <div class="collapse" id="collapseAlpha">
                                         <div class="panel-body">
