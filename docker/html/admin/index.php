@@ -186,7 +186,195 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseDelta" aria-expanded="false" aria-controls="collapseDelta">
+                                        Delta Demo Details - Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseDelta">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="row col-xs-12">
+                                                    <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Delta_-_Up_For_Grabs_Demo" target="_blank">Delta Up For Grabs Demo</a></p>
+                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>four_a</b> row; place the repository(2nd column) and branch(3rd column) in the <b>four_a</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
+                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
+                                                </div>
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="upforgrabs_refresh_four_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Delta Refresh</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseEpsilon" aria-expanded="false" aria-controls="collapseEpsilon">
+                                        Epsilon Demo Details - Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseEpsilon">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="row col-xs-12">
+                                                    <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Epsilon_-_Up_For_Grabs_Demo" target="_blank">Epsilon Up For Grabs Demo</a></p>
+                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>four_b</b> row; place the repository(2nd column) and branch(3rd column) in the <b>four_b</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
+                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
+                                                </div>
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="upforgrabs_refresh_four_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Epsilon Refresh</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseZeta" aria-expanded="false" aria-controls="collapseZeta">
+                                        Zeta Demo Details - Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseZeta">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="row col-xs-12">
+                                                    <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Zeta_-_Up_For_Grabs_Demo" target="_blank">Zeta Up For Grabs Demo</a></p>
+                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>four_c</b> row; place the repository(2nd column) and branch(3rd column) in the <b>four_c</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
+                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
+                                                </div>
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="upforgrabs_refresh_four_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Zeta Refresh</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseEta" aria-expanded="false" aria-controls="collapseEta">
+                                        Eta Demo Details - Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseEta">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="row col-xs-12">
+                                                    <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Eta_-_Up_For_Grabs_Demo" target="_blank">Eta Up For Grabs Demo</a></p>
+                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>four_d</b> row; place the repository(2nd column) and branch(3rd column) in the <b>four_d</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
+                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
+                                                </div>
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="upforgrabs_refresh_four_d_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Eta Refresh</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTheta" aria-expanded="false" aria-controls="collapseTheta">
+                                        Theta Demo Details - Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseTheta">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="row col-xs-12">
+                                                    <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Theta_-_Up_For_Grabs_Demo" target="_blank">Theta Up For Grabs Demo</a></p>
+                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>four_e</b> row; place the repository(2nd column) and branch(3rd column) in the <b>four_e</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
+                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
+                                                </div>
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="upforgrabs_refresh_four_e_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Theta Refresh</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseIota" aria-expanded="false" aria-controls="collapseIota">
+                                        Iota Demo Details - Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseIota">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="row col-xs-12">
+                                                    <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Iota_-_Up_For_Grabs_Demo" target="_blank">Iota Up For Grabs Demo</a></p>
+                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>four_f</b> row; place the repository(2nd column) and branch(3rd column) in the <b>four_f</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
+                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
+                                                </div>
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="upforgrabs_refresh_four_f_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Iota Refresh</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseKappa" aria-expanded="false" aria-controls="collapseKappa">
+                                        Kappa Demo Details - Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseKappa">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="row col-xs-12">
+                                                    <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Kappa_-_Up_For_Grabs_Demo" target="_blank">Kappa Up For Grabs Demo</a></p>
+                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>four_g</b> row; place the repository(2nd column) and branch(3rd column) in the <b>four_g</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
+                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
+                                                </div>
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="upforgrabs_refresh_four_g_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Kappa Refresh</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseLambda" aria-expanded="false" aria-controls="collapseLambda">
+                                        Lambda Demo Details - Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseLambda">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="row col-xs-12">
+                                                    <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Lambda_-_Up_For_Grabs_Demo" target="_blank">Lambda Up For Grabs Demo</a></p>
+                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>four_h</b> row; place the repository(2nd column) and branch(3rd column) in the <b>four_h</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
+                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
+                                                </div>
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="upforgrabs_refresh_four_h_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Lambda Refresh</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseMu" aria-expanded="false" aria-controls="collapseMu">
+                                        Mu Demo Details - Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseMu">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="row col-xs-12">
+                                                    <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Mu_-_Up_For_Grabs_Demo" target="_blank">Mu Up For Grabs Demo</a></p>
+                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>four_i</b> row; place the repository(2nd column) and branch(3rd column) in the <b>four_i</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
+                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
+                                                </div>
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="upforgrabs_refresh_four_i_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Mu Refresh</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xs-12">
