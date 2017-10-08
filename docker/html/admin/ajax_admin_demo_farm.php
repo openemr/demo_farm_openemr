@@ -177,6 +177,9 @@ if (!empty($_POST['procedure'])) {
         case 'restart_certs_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/renewLetsencrypt.sh', $output);
             break;
+        case 'refresh_website':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/refreshWebsite.sh', $output);
+            break;
         default:
             $output[] = "ERROR: Did not recognize procedure.";
             break;

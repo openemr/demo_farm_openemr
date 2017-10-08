@@ -631,6 +631,7 @@
                                                         <button type="button" class="btn btn-primary procedure-demo" id="restart_nginx_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart" disabled>Nginx Restart</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="restart_php_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart" disabled>Php Restart</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="restart_certs_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Renew" disabled>Renew SSL Certs</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_website" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Refresh Website</button>
                                                     </div>
                                                 </div>
                                             </div>
