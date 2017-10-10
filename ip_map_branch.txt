@@ -24,7 +24,7 @@ nine	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	nine.openemr.io
 nine_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	nine.openemr.io/a	hey	branch	5.0.0	Public OpenEMR Development Demo on Alpine 3.5 With Demo Data
 ten	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	ten.openemr.io	hey	branch	0	Public OpenEMR Development Demo on Alpine 3.6
 ten_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	ten.openemr.io/a	hey	branch	5.0.0	Public OpenEMR Development Demo on Alpine 3.6 With Demo Data
-edu https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	edu.openemr.io	hey	branch	0	First EDU demo
+edu	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	edu.openemr.io	hey	branch	0	First EDU demo
 edu_a	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	edu.openemr.io/a	hey	branch	0	Second EDU demo
 192.168.1.130	https://github.com/openemr/openemr.git	rel-421	0	0	0	0	0	0	1	demo.open-emr.org:2104		branch	0	Public OpenEMR 4.2.1 Development Demo (Daily Build)
 192.168.1.131	https://github.com/openemr/openemr.git	rel-500	0	0	0	0	0	0	1	demo.open-emr.org:2105		branch	0	Public OpenEMR 5.0.0 Development Demo (Daily Build)
