@@ -81,6 +81,7 @@
                                                             <button type="button" class="btn btn-primary procedure-demo" id="status_eight_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Eight Status</button>
                                                             <button type="button" class="btn btn-primary procedure-demo" id="status_nine_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Nine Status</button>
                                                             <button type="button" class="btn btn-primary procedure-demo" id="status_ten_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Ten Status</button>
+                                                            <button type="button" class="btn btn-primary procedure-demo" id="status_edu_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Status">Edu Status</button>
                                                         </div>
                                                     </div>
                                                 </div>
