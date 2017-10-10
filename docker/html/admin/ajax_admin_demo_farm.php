@@ -57,6 +57,9 @@ if (!empty($_POST['procedure'])) {
         case 'status_ten_openemr':
             collectProcedure('docker logs ten-openemr', $output);
             break;
+        case 'status_edu_openemr':
+            collectProcedure('docker logs edu-openemr', $output);
+            break;
         case 'status_mysql':
             collectProcedure('docker logs mysql-openemr', $output);
             break;
