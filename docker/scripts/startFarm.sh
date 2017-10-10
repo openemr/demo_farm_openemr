@@ -107,6 +107,7 @@ startDemoWrapper "seven"
 startDemoWrapper "eight"
 startDemoWrapper "nine"
 startDemoWrapper "ten"
+startDemoWrapper "edu"
 startDemoWrapper "four"
 startPhp
 startNginx

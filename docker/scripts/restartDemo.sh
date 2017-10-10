@@ -23,7 +23,8 @@ if [ "$1" == "one" ] ||
    [ "$1" == "seven" ] ||
    [ "$1" == "eight" ] ||
    [ "$1" == "nine" ] ||
-   [ "$1" == "ten" ]; then
+   [ "$1" == "ten" ] ||
+   [ "$1" == "edu" ]; then
 
     if [ -z "$2" ]; then
         # Restart the entire demo/docker

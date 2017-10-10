@@ -75,6 +75,9 @@ if (!empty($_POST['procedure'])) {
         case 'refresh_one_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one empty', $output);
             break;
+        case 'refresh_one_a_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one a', $output);
+            break;
         case 'restart_two_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two', $output);
             break;
@@ -141,11 +144,17 @@ if (!empty($_POST['procedure'])) {
         case 'refresh_seven_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven empty', $output);
             break;
+        case 'refresh_seven_a_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven a', $output);
+            break;
         case 'restart_eight_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight', $output);
             break;
         case 'refresh_eight_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight empty', $output);
+            break;
+        case 'refresh_eight_a_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight a', $output);
             break;
         case 'restart_nine_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh nine', $output);
@@ -153,11 +162,26 @@ if (!empty($_POST['procedure'])) {
         case 'refresh_nine_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh nine empty', $output);
             break;
+        case 'refresh_nine_a_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh nine a', $output);
+            break;
         case 'restart_ten_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten', $output);
             break;
         case 'refresh_ten_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten empty', $output);
+            break;
+        case 'refresh_ten_a_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten a', $output);
+            break;
+        case 'restart_edu_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu', $output);
+            break;
+        case 'refresh_edu_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu empty', $output);
+            break;
+        case 'refresh_edu_a_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu a', $output);
             break;
         case 'restart_all_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartFarm.sh', $output);

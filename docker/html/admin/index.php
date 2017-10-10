@@ -617,6 +617,28 @@
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseEdu" aria-expanded="false" aria-controls="collapseEdu">
+                                        Edu Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseEdu">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="restart_edu_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Restart">Edu Restart</button>
+                                                    </div>
+                                                </div>
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_edu_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Edu Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_edu_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Edu A Refresh</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOther" aria-expanded="false" aria-controls="collapseOther">
                                         Other Stuff Toggle
                                     </button>

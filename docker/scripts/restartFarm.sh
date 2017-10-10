@@ -56,4 +56,5 @@ bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh nine
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh four

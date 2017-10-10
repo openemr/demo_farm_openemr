@@ -28,6 +28,8 @@ startDemoWrapper() {
         startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "2"
     elif [ "$1" == "one" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "2"
+    elif [ "$1" == "edu" ]; then
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "2"
     else
         startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "1"
     fi
