@@ -25,7 +25,7 @@ startDemoWrapper() {
     elif [ "$1" == "four" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "10"
     elif [ "$1" == "five" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "2"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "3"
     elif [ "$1" == "one" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "2"
     elif [ "$1" == "edu" ]; then

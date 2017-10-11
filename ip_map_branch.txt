@@ -15,6 +15,7 @@ four_h	https://github.com/bradymiller/openemr.git	calendar-path-fix_1	0	0	0	0	0	
 four_i	https://github.com/sjpadgett/openemr.git	lbf-nation	0	0	0	0	0	0	1	four.openemr.io/i	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Mu
 five	https://github.com/openemr/openemr.git	v5_0_0_5	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io	hey	tag	0	Public OpenEMR 5.0.0 Production Demo
 five_a	https://github.com/openemr/openemr.git	v5_0_0_5	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/a	hey	tag	0	Alternate Public OpenEMR 5.0.0 Production Demo
+five_b	https://github.com/openemr/openemr.git	v5_0_0_5	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/b	hey	tag	0	Another Alternate Public OpenEMR 5.0.0 Production Demo
 six	https://github.com/openemr/openemr.git	rel-500	0	0	0	0	0	0	1	six.openemr.io	hey	branch	0	Public OpenEMR 5.0.0 Development Demo
 seven	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	seven.openemr.io	hey	branch	0	Public OpenEMR Development Demo on Ubuntu 17.04
 seven_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	seven.openemr.io/a	hey	branch	5.0.0	Public OpenEMR Development Demo on Ubuntu 17.04 With Demo Data
