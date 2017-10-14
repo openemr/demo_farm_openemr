@@ -96,6 +96,7 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 # bring in the dockers (note reverse-proxy needs to be done last)
 # (also note doing the demo 'four' at end to be more efficient since it will set up 10 subdemos)
 # (also note demo 'five' is at beginning since this is the "main" demos)
+# (also note placed the `edu` demos docker at the end)
 startMysql
 startPhpmyadmin
 startDemoWrapper "five"
@@ -107,8 +108,8 @@ startDemoWrapper "seven"
 startDemoWrapper "eight"
 startDemoWrapper "nine"
 startDemoWrapper "ten"
-startDemoWrapper "edu"
 startDemoWrapper "four"
+startDemoWrapper "edu"
 startPhp
 startNginx
 

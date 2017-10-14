@@ -47,6 +47,8 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 # (note do not restart nginx, php, mysql, and phpmyadmin dockers)
 # (also note doing the demo 'four' at end to be more efficient since it will set up 10 subdemos)
 # (also note demo 'five' is at beginning since this is the "main" demos)
+# (also note that demo 'edu' are just refreshing subdemos to allow persistent demos that
+#  do not reset; for example `edu empty` subdemo is not being reset)
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh five
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two
@@ -56,5 +58,7 @@ bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh nine
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten
-bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh four
+#bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu empty
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu a
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu b
