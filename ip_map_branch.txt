@@ -11,7 +11,7 @@ four_d	https://github.com/mdsupport/openemr.git	mdsupport-patch-2	0	0	0	0	0	0	1	
 four_e	https://github.com/visolve-openemr/Openemr_features_enhancements.git	new_password_dialog	0	0	0	0	0	0	1	four.openemr.io/e	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Theta
 four_f	https://github.com/zbig01/openemr.git	stripe-02	0	0	0	0	0	0	1	four.openemr.io/f	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Iota
 four_g	https://github.com/sjpadgett/openemr.git	portal-path-fix	0	0	0	0	0	0	1	four.openemr.io/g	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Kappa
-four_h	https://github.com/bradymiller/openemr.git	calendar-path-fix_1	0	0	0	0	0	0	1	four.openemr.io/h	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Lambda
+four_h	https://github.com/matrix-israel/openemr.git	messages_to_multiple_patients	0	0	0	0	0	0	1	four.openemr.io/h	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Lambda
 four_i	https://github.com/sjpadgett/openemr.git	lbf-formatting	0	0	0	0	0	0	1	four.openemr.io/i	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Mu
 five	https://github.com/openemr/openemr.git	v5_0_0_5	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io	hey	tag	0	Public OpenEMR 5.0.0 Production Demo
 five_a	https://github.com/openemr/openemr.git	v5_0_0_5	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/a	hey	tag	0	Alternate Public OpenEMR 5.0.0 Production Demo
