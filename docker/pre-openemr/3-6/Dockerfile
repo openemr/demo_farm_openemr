@@ -32,8 +32,8 @@ RUN apk add --no-cache apache2 \
             php7-mbstring \
             php7-zlib \
             php7-mysqli \
-            php7-tokenizer \
             php7-sockets \
+            php7-tokenizer \
             perl \
             tar \
             curl \
