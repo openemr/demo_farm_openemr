@@ -30,6 +30,7 @@ RUN apk add --no-cache apache2 \
             php7-zip \
             php7-soap \
             php7-mbstring \
+            php7-zlib \
             php7-mysqli \
             curl \
             imagemagick-dev \
