@@ -376,6 +376,28 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="panel panel-default">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseNu" aria-expanded="false" aria-controls="collapseNu">
+                                        Nu Demo Details - Toggle
+                                    </button>
+                                    <div class="collapse" id="collapseNu">
+                                        <div class="panel-body">
+                                            <div class="card card-body">
+                                                <div class="row col-xs-12">
+                                                    <p><b>This is a special Up for Grabs Demo that is set to use Alpine 3.6 in order to be able to easily test PHP 7.1 issues.</b></p>
+                                                    <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Nu_-_Up_For_Grabs_Demo" target="_blank">Nu Up For Grabs Demo</a></p>
+                                                    <p><b>Step 2:</b> Edit the following tab delimited file at the <b>ten_b</b> row; place the repository(2nd column) and branch(3rd column) in the <b>ten_b</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
+                                                    <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
+                                                </div>
+                                                <div class="row col-xs-12">
+                                                    <div class="btn-group-vertical form-group">
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="upforgrabs_refresh_ten_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Nu Refresh</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xs-12">
@@ -612,6 +634,7 @@
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten A Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten B Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>
