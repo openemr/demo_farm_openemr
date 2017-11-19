@@ -5,7 +5,7 @@ two	https://github.com/ophthal/openEMR_2.git	Reminders_6.27.17-rebase-4	0	0	0	0	
 three	https://github.com/zbig01/openemr.git	zig01-go-8	0	0	0	0	0	0	1	three.openemr.io	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Beta
 four	https://github.com/ASC/openemr.git	self-checkin-feature	0	0	0	0	0	0	1	four.openemr.io	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Gamma
 four_a	https://github.com/bradymiller/openemr.git	mazdoc-ob-form-calc	0	0	0	0	0	0	1	four.openemr.io/a	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Delta
-four_b	https://github.com/sjpadgett/openemr.git	portal-mixed-content	0	0	0	0	0	0	1	four.openemr.io/b	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Epsilon
+four_b	https://github.com/sjpadgett/openemr.git	eye-pdf-fix	0	0	0	0	0	0	1	four.openemr.io/b	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Epsilon
 four_c	https://github.com/juggernautsei/openemr.git	dictation_review_1	0	0	0	0	0	0	1	four.openemr.io/c	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Zeta
 four_d	https://github.com/mdsupport/openemr.git	mdsupport-patch-2	0	0	0	0	0	0	1	four.openemr.io/d	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Eta
 four_e	https://github.com/visolve-openemr/Openemr_features_enhancements.git	new_password_dialog	0	0	0	0	0	0	1	four.openemr.io/e	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Theta
