@@ -7,7 +7,7 @@ four	https://github.com/ASC/openemr.git	self-checkin-feature	0	0	0	0	0	0	1	four.
 four_a	https://github.com/bradymiller/openemr.git	mazdoc-ob-form-calc	0	0	0	0	0	0	1	four.openemr.io/a	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Delta
 four_b	https://github.com/bradymiller/openemr.git	zbig01-backup-update_1	0	0	0	0	0	0	1	four.openemr.io/b	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Epsilon
 four_c	https://github.com/juggernautsei/openemr.git	dictation_review_1	0	0	0	0	0	0	1	four.openemr.io/c	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Zeta
-four_d	https://github.com/sjpadgett/openemr.git	universal-dialog	0	0	0	0	0	0	1	four.openemr.io/d	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Eta
+four_d	https://github.com/sjpadgett/openemr.git	documents-viewer-enhanced	0	0	0	0	0	0	1	four.openemr.io/d	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Eta
 four_e	https://github.com/visolve-openemr/Openemr_features_enhancements.git	new_password_dialog	0	0	0	0	0	0	1	four.openemr.io/e	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Theta
 four_f	https://github.com/zbig01/openemr.git	stripe-02	0	0	0	0	0	0	1	four.openemr.io/f	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Iota
 four_g	https://github.com/bradymiller/openemr.git	vet-form_1	0	0	0	0	0	0	1	four.openemr.io/g	hey	branch	0	UP FOR GRABS Public OpenEMR Demo - Kappa
