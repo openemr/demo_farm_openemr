@@ -18,6 +18,7 @@ docker pull bradymiller/pre-openemr:17.04
 docker pull bradymiller/pre-openemr:17.10
 docker pull bradymiller/pre-openemr:3.5
 docker pull bradymiller/pre-openemr:3.6
+docker pull bradymiller/pre-openemr:3.7
 docker pull bradymiller/php-ssh:7.1-fpm-alpine
 
 # update demo_farm_openemr repo
@@ -58,6 +59,7 @@ bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh nine
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eleven
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh four
 #bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu empty
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu a

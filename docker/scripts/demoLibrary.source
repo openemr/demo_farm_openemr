@@ -22,6 +22,8 @@ startDemoWrapper() {
         startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-5" "3.5" "/var/www/localhost/htdocs" "2"
     elif [ "$1" == "ten" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-6" "3.6" "/var/www/localhost/htdocs" "3"
+    elif [ "$1" == "eleven" ]; then
+        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-7" "3.7" "/var/www/localhost/htdocs" "2"
     elif [ "$1" == "four" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "10"
     elif [ "$1" == "five" ]; then
@@ -226,6 +228,7 @@ primeLetsencrypt () {
                -d eight.openemr.io \
                -d nine.openemr.io \
                -d ten.openemr.io \
+               -d eleven.openemr.io \
                -d edu.open-emr.org \
                -d fh-gmi.openemr.io
 }
