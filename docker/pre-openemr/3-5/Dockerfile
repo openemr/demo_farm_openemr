@@ -17,7 +17,6 @@ RUN apk add --no-cache apache2 \
             php7-ctype \
             php7-session \
             php7-apache2 \
-            php7-xml \
             php7-json \
             php7-pdo \
             php7-pdo_mysql \
