@@ -358,7 +358,9 @@ do
  mkdir -p $OPENEMR
  rm -fr $OPENEMR/*
  rsync --recursive --exclude .git $GIT/* $OPENEMR/
- rm -fr $GIT
+ if ! $packageServe; then
+   rm -fr $GIT
+ fi
 
  #INSTALL AND CONFIGURE OPENEMR
  echo "Configuring OpenEMR"
@@ -574,6 +576,7 @@ do
 
   # Clean up
   rm -fr $TMPDIR
+  rm -fr $GIT
   echo "Done creating OpenEMR Development packages"
   echo "Done creating OpenEMR Development packages" >> $LOG
  fi
