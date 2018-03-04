@@ -40,10 +40,10 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 #docker build -t bradymiller/pre-openemr:16.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/14-04/
 #docker build -t bradymiller/pre-openemr:14.04 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/17-04/
-#docker build -t bradymiller/pre-openemr:17.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/17-10/
 #docker build -t bradymiller/pre-openemr:17.10 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/18-04/
+#docker build -t bradymiller/pre-openemr:18.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-5/
 #docker build -t bradymiller/pre-openemr:3.5 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-6/
@@ -64,8 +64,8 @@ docker pull phpmyadmin/phpmyadmin
 #      OpenEMR versions.
 docker pull bradymiller/pre-openemr:16.04
 docker pull bradymiller/pre-openemr:14.04
-docker pull bradymiller/pre-openemr:17.04
 docker pull bradymiller/pre-openemr:17.10
+docker pull bradymiller/pre-openemr:18.04
 docker pull bradymiller/pre-openemr:3.5
 docker pull bradymiller/pre-openemr:3.6
 docker pull bradymiller/pre-openemr:3.7

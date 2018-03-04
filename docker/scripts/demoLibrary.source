@@ -15,7 +15,7 @@
 # 1st (and only) parameter is the demo name (one, two, three, etc.)
 startDemoWrapper() {
     if [ "$1" == "seven" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "17-04" "17.04" "/var/www/html" "2"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.2/apache2" "ubuntu" "18-04" "18.04" "/var/www/html" "2"
     elif [ "$1" == "eight" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php/7.1/apache2" "ubuntu" "17-10" "17.10" "/var/www/html" "2"
     elif [ "$1" == "nine" ]; then

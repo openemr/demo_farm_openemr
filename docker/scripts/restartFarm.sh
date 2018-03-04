@@ -14,8 +14,8 @@
 #      OpenEMR versions.
 docker pull bradymiller/pre-openemr:16.04
 docker pull bradymiller/pre-openemr:14.04
-docker pull bradymiller/pre-openemr:17.04
 docker pull bradymiller/pre-openemr:17.10
+docker pull bradymiller/pre-openemr:18.04
 docker pull bradymiller/pre-openemr:3.5
 docker pull bradymiller/pre-openemr:3.6
 docker pull bradymiller/pre-openemr:3.7
