@@ -44,6 +44,9 @@ RUN apt-get install -y \
     mysql-client \
     zip
 
+# Special for ubuntu 17.10 and 18.04 so far
+RUN apt-get install -y rsync
+
 # Install and configure postfix and stunnel (stunnel is needed for aws ses email service)
 RUN echo "postfix postfix/mailname string openemr.io" | debconf-set-selections
 RUN echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
