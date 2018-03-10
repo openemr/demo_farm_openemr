@@ -23,6 +23,7 @@ RUN apk add --no-cache apache2 \
             php7-curl \
             php7-ldap \
             php7-mcrypt \
+            php7-openssl \
             php7-xml \
             php7-xsl \
             php7-gd \

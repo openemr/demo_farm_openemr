@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017 Brady Miller <brady.g.miller@gmail.com>
+# Copyright (C) 2017-2018 Brady Miller <brady.g.miller@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ RUN apk add --no-cache apache2 \
             php7-pdo_mysql \
             php7-curl \
             php7-ldap \
-            php7-mcrypt \
+            php7-openssl \
             php7-xml \
             php7-xsl \
             php7-gd \
