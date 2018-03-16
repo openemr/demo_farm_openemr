@@ -50,7 +50,6 @@ else
 fi
 GITTRANS=$GITMAIN/translations_development_openemr
 TRANSSERVEDIR=$WEB/translations
-FILESSERVEDIR=$WEB/files
 TMPDIR=/tmp/openemr-tmp
 
 # WORDPRESS PATIENT PORTAL VARIABLES
@@ -140,6 +139,7 @@ do
  if [ "$demo" == "empty" ]; then
   OPENEMR=$WEB/openemr
   WORDPRESS=$WEB/wordpress
+  FILESSERVEDIR=$WEB/files
    if [ -n "$DOCKERDEMO" ] ; then
     DOCKERDEMO=$DOCKERDEMOORIGINAL
    fi
@@ -147,6 +147,7 @@ do
   DOCKERDEMO=${DOCKERDEMOORIGINAL}_${demo}
   OPENEMR=${WEB}/${demo}/openemr
   WORDPRESS=${WEB}/${demo}/wordpress
+  FILESSERVEDIR=$WEB/${demo}/files
  fi
 
  # Collect ip address or docker demo number
