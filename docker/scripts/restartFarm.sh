@@ -49,7 +49,7 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 # (also note doing the demo 'four' at end to be more efficient since it will set up 10 subdemos)
 # (also note demo 'five' is at beginning since this is the "main" demos)
 # (also note that demo 'edu' are just refreshing subdemos to allow persistent demos that
-#  do not reset; for example `edu empty` subdemo is not being reset)
+#  do not reset; for example `edu empty` and `edu c` subdemos are not being reset)
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh five
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two
