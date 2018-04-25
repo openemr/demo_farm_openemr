@@ -35,6 +35,7 @@ RUN apk add --no-cache apache2 \
             php7-iconv \
             php7-tokenizer \
             php7-xmlreader \
+            php7-pear \
             perl \
             tar \
             curl \
