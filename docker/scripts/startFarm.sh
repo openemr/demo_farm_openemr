@@ -57,7 +57,7 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 
 # to collect the standard docker images
 docker pull nginx
-docker pull mysql
+docker pull mariadb
 docker pull phpmyadmin/phpmyadmin
 
 # Always check for a new versions of the custom docker images
@@ -106,6 +106,7 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 startMysql
 startPhpmyadmin
 startDemoWrapper "five"
+sleep 9m
 startDemoWrapper "one"
 startDemoWrapper "two"
 startDemoWrapper "three"
