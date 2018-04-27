@@ -148,7 +148,7 @@ startMysql () {
                         --env "MYSQL_ROOT_PASSWORD=hey" \
                         --net mynet \
                         --ulimit nofile=65536:65536 \
-                        mariadb \
+                        mariadb:10.2 \
                         --max-connections=450
 }
 
