@@ -13,14 +13,15 @@ FROM ubuntu:18.04
 # I had to add tzdata for Ubuntu 18.04 as first thing, so it would not go into interactive timezone request mode
 # Note this causes some broken things reagarding timezone and defaults to UTC then
 # When this bug no longer exists, will remove this entire section and place the debconf package and update call in below RUN
+# (Still needed this code when tested on 6/3/18)
 RUN apt-get update && apt-get install -y debconf
 RUN echo "tzdata tzdata/Areas select America" | debconf-set-selections
 RUN echo "tzdata tzdata/Zones/America select Los Angeles" | debconf-set-selections
 RUN apt-get install -y tzdata
 
 # Install standard dependencies, except for mysql-server
-# (also installing git, wget, openvpn, debconf, mysql-client, and zip)
-# I had to remove php-mcrypt for Ubuntu 18.04 since appears no longer supported in php 7.2
+# (also installing git, wget, openvpn, debconf(note is done in above codeblock for now), mysql-client, and zip)
+# I had to remove php-mcrypt for Ubuntu 18.04 since no longer supported in php 7.2
 RUN apt-get install -y \
     apache2 \
     libapache2-mod-php \
