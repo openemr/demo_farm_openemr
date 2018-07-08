@@ -8,7 +8,7 @@
 #
 # pre-openemr Dockerfile build
 #
-FROM alpine:edge
+FROM alpine:3.8
 
 # Install standard dependencies, except for mysql-server
 # (also installing git, wget, openvpn, mysql-client, zip, bash, and rsync)
@@ -48,19 +48,16 @@ RUN apk add --no-cache apache2 \
             rsync
 
 # Install postfix (and stunnel to work with aws ses email)
-#
-#  Had to temprorarily comment this out in alpine edge since
-#    was causing errors
-#RUN apk add --no-cache postfix
-#RUN apk add --no-cache stunnel openssl
-#RUN openssl req \
-#        -new \
-#        -out /etc/stunnel/mail.pem \
-#        -keyout /etc/stunnel/mail.pem \
-#        -nodes \
-#        -x509 \
-#        -days 3650 \
-#        -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=openemr.io"
+RUN apk add --no-cache postfix
+RUN apk add --no-cache stunnel openssl
+RUN openssl req \
+        -new \
+        -out /etc/stunnel/mail.pem \
+        -keyout /etc/stunnel/mail.pem \
+        -nodes \
+        -x509 \
+        -days 3650 \
+        -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=openemr.io"
 
 # Start up apache error log and ensure it has proper permissions
 RUN mkdir -p /var/www/localhost/htdocs/log
