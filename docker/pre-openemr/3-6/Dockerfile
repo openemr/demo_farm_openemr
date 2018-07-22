@@ -44,13 +44,15 @@ RUN apk add --no-cache apache2 \
             curl \
             imagemagick-dev \
             nodejs \
+            nodejs-npm \
             git \
             wget \
             openvpn \
             mysql-client \
             zip \
             bash \
-            rsync
+            rsync \
+            php7-phar
 
 # Install composer for openemr package building
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
