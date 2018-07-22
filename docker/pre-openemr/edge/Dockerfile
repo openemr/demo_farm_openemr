@@ -38,6 +38,7 @@ RUN apk add --no-cache apache2 \
             php7-xmlreader \
             php7-simplexml \
             php7-xmlwriter \
+            php7-phar \
             perl \
             tar \
             curl \
@@ -50,8 +51,7 @@ RUN apk add --no-cache apache2 \
             mysql-client \
             zip \
             bash \
-            rsync \
-            php7-phar
+            rsync
 
 # Install composer for openemr package building
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
