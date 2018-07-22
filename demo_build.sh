@@ -585,6 +585,9 @@ do
    /root/.composer/vendor/bin/phing assets-clean
    composer global remove phing/phing
 
+   # remove the node_modules directory
+   rm -fr $TMPDIR/openemr/node_modules
+
    # optimize
    composer dump-autoload -o
   fi
