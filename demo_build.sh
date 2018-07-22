@@ -427,6 +427,30 @@ do
  fi
  rm -f $INSTTEMP
 
+ #Build openemr package (likely only works on alpine os so far)
+ if [ ! -d $OPENEMR/vendor ]; then
+  cd $OPENEMR
+
+  # install php dependencies
+  composer install
+
+  if [ -f $OPENEMR/package.json ]; then
+   # install frontend dependencies (need unsafe-perm to run as root)
+   npm install --unsafe-perm
+   # build css
+   npm run build
+  fi
+
+  # clean up
+  composer global require phing/phing
+  /root/.composer/vendor/bin/phing vendor-clean
+  /root/.composer/vendor/bin/phing assets-clean
+  composer global remove phing/phing
+
+  # optimize
+  composer dump-autoload -o
+ fi
+
  if $legacyPatch; then
   #Run the patching script to bring in database changes for script via
   # legacy method. (patch branches rel-412 and higher do not need to
@@ -541,6 +565,29 @@ do
   # Prepare the development package
   mkdir -p $TMPDIR/openemr
   rsync --recursive --exclude .git $GIT/* $TMPDIR/openemr/
+  #Build openemr package (likely only works on alpine os so far)
+  if [ ! -d $TMPDIR/openemr/vendor ]; then
+   cd $TMPDIR/openemr
+
+   # install php dependencies
+   composer install
+
+   if [ -f $TMPDIR/openemr/package.json ]; then
+    # install frontend dependencies (need unsafe-perm to run as root)
+    npm install --unsafe-perm
+    # build css
+    npm run build
+   fi
+
+   # clean up
+   composer global require phing/phing
+   /root/.composer/vendor/bin/phing vendor-clean
+   /root/.composer/vendor/bin/phing assets-clean
+   composer global remove phing/phing
+
+   # optimize
+   composer dump-autoload -o
+  fi
   chmod    a+w $TMPDIR/openemr/sites/default/sqlconf.php
   chmod -R a+w $TMPDIR/openemr/sites/default/documents
   chmod -R a+w $TMPDIR/openemr/sites/default/edi

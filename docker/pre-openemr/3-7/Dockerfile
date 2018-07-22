@@ -12,6 +12,7 @@ FROM alpine:3.7
 
 # Install standard dependencies, except for mysql-server
 # (also installing git, wget, openvpn, mysql-client, zip, bash, and rsync)
+RUN apk --no-cache upgrade
 RUN apk add --no-cache apache2 \
             php7 \
             php7-ctype \
@@ -35,10 +36,13 @@ RUN apk add --no-cache apache2 \
             php7-iconv \
             php7-tokenizer \
             php7-xmlreader \
+            php7-simplexml \
+            php7-xmlwriter \
             perl \
             tar \
             curl \
             imagemagick-dev \
+            nodejs \
             git \
             wget \
             openvpn \
@@ -46,6 +50,9 @@ RUN apk add --no-cache apache2 \
             zip \
             bash \
             rsync
+
+# Install composer for openemr package building
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 # Install postfix (and stunnel to work with aws ses email)
 RUN apk add --no-cache postfix
