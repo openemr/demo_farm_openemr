@@ -432,23 +432,23 @@ do
   cd $OPENEMR
 
   # install php dependencies
-  composer install >> $LOG
+  composer install &>> $LOG
 
   if [ -f $OPENEMR/package.json ]; then
    # install frontend dependencies (need unsafe-perm to run as root)
-   npm install --unsafe-perm >> $LOG
+   npm install --unsafe-perm &>> $LOG
    # build css
-   npm run build >> $LOG
+   npm run build &>> $LOG
   fi
 
   # clean up
-  composer global require phing/phing >> $LOG
-  /root/.composer/vendor/bin/phing vendor-clean >> $LOG
-  /root/.composer/vendor/bin/phing assets-clean >> $LOG
-  composer global remove phing/phing >> $LOG
+  composer global require phing/phing &>> $LOG
+  /root/.composer/vendor/bin/phing vendor-clean &>> $LOG
+  /root/.composer/vendor/bin/phing assets-clean &>> $LOG
+  composer global remove phing/phing &>> $LOG
 
   # optimize
-  composer dump-autoload -o >> $LOG
+  composer dump-autoload -o &>> $LOG
  fi
 
  if $legacyPatch; then
@@ -570,26 +570,26 @@ do
    cd $TMPDIR/openemr
 
    # install php dependencies
-   composer install >> $LOG
+   composer install &>> $LOG
 
    if [ -f $TMPDIR/openemr/package.json ]; then
     # install frontend dependencies (need unsafe-perm to run as root)
-    npm install --unsafe-perm >> $LOG
+    npm install --unsafe-perm &>> $LOG
     # build css
-    npm run build >> $LOG
+    npm run build &>> $LOG
    fi
 
    # clean up
-   composer global require phing/phing >> $LOG
-   /root/.composer/vendor/bin/phing vendor-clean >> $LOG
-   /root/.composer/vendor/bin/phing assets-clean >> $LOG
-   composer global remove phing/phing >> $LOG
+   composer global require phing/phing &>> $LOG
+   /root/.composer/vendor/bin/phing vendor-clean &>> $LOG
+   /root/.composer/vendor/bin/phing assets-clean &>> $LOG
+   composer global remove phing/phing &>> $LOG
 
    # remove the node_modules directory
-   rm -fr $TMPDIR/openemr/node_modules >> $LOG
+   rm -fr $TMPDIR/openemr/node_modules &>> $LOG
 
    # optimize
-   composer dump-autoload -o >> $LOG
+   composer dump-autoload -o &>> $LOG
   fi
   chmod    a+w $TMPDIR/openemr/sites/default/sqlconf.php
   chmod -R a+w $TMPDIR/openemr/sites/default/documents
