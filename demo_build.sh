@@ -355,6 +355,12 @@ do
   demoDataUpgrade=true;
   demoDataUpgradeFrom="$ddu"
  fi
+ # set if doing fun stuff (now 1 will support random theme)
+ if [ "$funStuff" == "0" ]; then
+  randomTheme=false;
+ else
+  randomTheme=true;
+ fi
 
  # COLLECT and output demo description
  desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 16`
@@ -549,8 +555,8 @@ do
   fi
  fi
 
- # funstuff section; now offers option for random theme generator
- if $funStuff; then
+ #random theme generator
+ if $randomTheme; then
   #collect the random theme
   RANDOM_THEME=`getRandomTheme`
   echo -n "random theme is "
