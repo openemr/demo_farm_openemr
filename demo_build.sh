@@ -9,6 +9,42 @@
 #This script is for the OpenEMR demo farms
 #
 
+getRandomTheme () {
+    THEME[0]='style_ash_blue.css'
+    THEME[1]='style_burgundy.css'
+    THEME[2]='style_cadmium_yellow.css'
+    THEME[3]='style_chocolate.css'
+    THEME[4]='style_cobalt_blue.css'
+    THEME[5]='style_coral.css'
+    THEME[6]='style_deep_purple.css'
+    THEME[7]='style_dune.css'
+    THEME[8]='style_emerald.css'
+    THEME[9]='style_forest_green.css'
+    THEME[10]='style_mauve.css'
+    THEME[11]='style_mustard_green.css'
+    THEME[12]='style_olive.css'
+    THEME[13]='style_pink.css'
+    THEME[14]='style_powder_blue.css'
+    THEME[15]='style_red.css'
+    THEME[16]='style_sienna.css'
+    THEME[17]='style_tangerine.css'
+    THEME[18]='style_light.css'
+    THEME[19]='style_light.css'
+    THEME[20]='style_light.css'
+    THEME[21]='style_light.css'
+    THEME[22]='style_light.css'
+    THEME[23]='style_light.css'
+    THEME[24]='style_light.css'
+    THEME[25]='style_light.css'
+    THEME[26]='style_light.css'
+    THEME[27]='style_light.css'
+
+    #choose randomly from 28 choices (0-27)
+    RANDOM_THEME_INT=$((RANDOM % 28))
+
+    echo ${THEME[${RANDOM_THEME_INT}]}
+}
+
 # If there is a parameter, then just pursue a light reset of the subdemo
 if [ -z "$1" ]; then
  lightReset=false;
@@ -257,6 +293,11 @@ do
  echo "$ddu"
  echo -n "ddu option is " >> $LOG
  echo "$ddu" >> $LOG
+ funStuff=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 15`
+ echo -n "funStuff option is "
+ echo "$funStuff"
+ echo -n "funStuff option is " >> $LOG
+ echo "$funStuff" >> $LOG
 
  # SET OPTIONS
  # set if serve development translation set
@@ -316,7 +357,7 @@ do
  fi
 
  # COLLECT and output demo description
- desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 15`
+ desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 16`
  echo -n "Demo description: "
  echo "$desc"
  echo -n "Demo description: " >> $LOG
@@ -505,6 +546,22 @@ do
     # plan to make a temp file in /home/openemr/temp/languageTranslations_utf8_temp.sql and modify it for the innodb optimizations
     # mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < /home/openemr/git/translations_development_openemr/languageTranslations_utf8.sql
    fi
+  fi
+ fi
+
+ # funstuff section; now offers option for random theme generator
+ if $funStuff; then
+  #collect the random theme
+  RANDOM_THEME=`getRandomTheme`
+  echo -n "random theme is "
+  echo "$RANDOM_THEME"
+  echo -n "random theme is " >> $LOG
+  echo "$RANDOM_THEME" >> $LOG
+  #set the random theme
+  if [ -n "$DOCKERDEMO" ] ; then
+   mysql -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
+  else
+   mysql -u root $rpassparam -e "UPDATE openemr.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
   fi
  fi
 
