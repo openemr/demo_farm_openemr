@@ -21,6 +21,7 @@ RUN apt-get install -y tzdata
 
 # Install standard dependencies, except for mysql-server
 # (also installing git, wget, openvpn, debconf(note is done in above codeblock for now), mysql-client, and zip)
+# (installing nodejs, node, curl, unzip to allow openemr package building with composer and npm)
 # I had to remove php-mcrypt for Ubuntu 18.04 since no longer supported in php 7.2
 RUN apt-get install -y \
     apache2 \
@@ -43,10 +44,18 @@ RUN apt-get install -y \
     wget \
     openvpn \
     mysql-client \
-    zip
+    zip \
+    nodejs \
+    npm \
+    curl \
+    unzip
 
 # Special for ubuntu 17.10 and 18.04 so far
 RUN apt-get install -y rsync
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 # Install and configure postfix and stunnel (stunnel is needed for aws ses email service)
 RUN echo "postfix postfix/mailname string openemr.io" | debconf-set-selections
