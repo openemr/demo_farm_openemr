@@ -450,10 +450,8 @@ do
   composer install &>> $LOG
 
   if [ -f $OPENEMR/package.json ]; then
-   # install frontend dependencies (need unsafe-perm to run as root)
+   # install frontend dependencies (need unsafe-perm to run as root) and build css
    npm install --unsafe-perm &>> $LOG
-   # build css
-   npm run build &>> $LOG
   fi
 
   # clean up
@@ -632,10 +630,8 @@ do
    composer install &>> $LOG
 
    if [ -f $TMPDIR/openemr/package.json ]; then
-    # install frontend dependencies (need unsafe-perm to run as root)
+    # install frontend dependencies (need unsafe-perm to run as root) and build css
     npm install --unsafe-perm &>> $LOG
-    # build css
-    npm run build &>> $LOG
    fi
 
    # clean up
