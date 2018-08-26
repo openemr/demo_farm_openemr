@@ -441,6 +441,31 @@ do
   echo "Configuring Zend file permission: application.config.php"
   echo "Configuring Zend file permission: application.config.php" >> $LOG
  fi
+
+ #Build openemr package (likely only works on alpine os so far)
+ if [ ! -d $OPENEMR/vendor ]; then
+  cd $OPENEMR
+
+  # install php dependencies
+  composer install &>> $LOG
+
+  if [ -f $OPENEMR/package.json ]; then
+   # install frontend dependencies (need unsafe-perm to run as root)
+   npm install --unsafe-perm &>> $LOG
+   # build css
+   npm run build &>> $LOG
+  fi
+
+  # clean up
+  composer global require phing/phing &>> $LOG
+  /root/.composer/vendor/bin/phing vendor-clean &>> $LOG
+  /root/.composer/vendor/bin/phing assets-clean &>> $LOG
+  composer global remove phing/phing &>> $LOG
+
+  # optimize
+  composer dump-autoload -o &>> $LOG
+ fi
+
  #
  # Run installer class for the demo (note to avoid malicious use, script is activated by removing an exit command,
  #   and the active script is then removed after completion.
@@ -468,30 +493,6 @@ do
   fi
  fi
  rm -f $INSTTEMP
-
- #Build openemr package (likely only works on alpine os so far)
- if [ ! -d $OPENEMR/vendor ]; then
-  cd $OPENEMR
-
-  # install php dependencies
-  composer install &>> $LOG
-
-  if [ -f $OPENEMR/package.json ]; then
-   # install frontend dependencies (need unsafe-perm to run as root)
-   npm install --unsafe-perm &>> $LOG
-   # build css
-   npm run build &>> $LOG
-  fi
-
-  # clean up
-  composer global require phing/phing &>> $LOG
-  /root/.composer/vendor/bin/phing vendor-clean &>> $LOG
-  /root/.composer/vendor/bin/phing assets-clean &>> $LOG
-  composer global remove phing/phing &>> $LOG
-
-  # optimize
-  composer dump-autoload -o &>> $LOG
- fi
 
  if $legacyPatch; then
   #Run the patching script to bring in database changes for script via
