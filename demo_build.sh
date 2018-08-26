@@ -442,7 +442,7 @@ do
   echo "Configuring Zend file permission: application.config.php" >> $LOG
  fi
 
- #Build openemr package (likely only works on alpine os so far)
+ #Build openemr package
  if [ ! -d $OPENEMR/vendor ]; then
   cd $OPENEMR
 
@@ -624,7 +624,7 @@ do
   # Prepare the development package
   mkdir -p $TMPDIR/openemr
   rsync --recursive --exclude .git $GIT/* $TMPDIR/openemr/
-  #Build openemr package (likely only works on alpine os so far)
+  #Build openemr package
   if [ ! -d $TMPDIR/openemr/vendor ]; then
    cd $TMPDIR/openemr
 
