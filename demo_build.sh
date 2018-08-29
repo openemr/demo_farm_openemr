@@ -443,8 +443,7 @@ do
  fi
 
  #Build openemr package
- if [ ! -d $OPENEMR/vendor ] &&
-    [ "$DOCKERDEMO" == "one" ]; then
+ if [ ! -d $OPENEMR/vendor ]; then
   cd $OPENEMR
 
   # install php dependencies
@@ -626,8 +625,7 @@ do
   mkdir -p $TMPDIR/openemr
   rsync --recursive --exclude .git $GIT/* $TMPDIR/openemr/
   #Build openemr package
-  if [ ! -d $TMPDIR/openemr/vendor ] &&
-     [ "$DOCKERDEMO" == "one" ]; then
+  if [ ! -d $TMPDIR/openemr/vendor ]; then
    cd $TMPDIR/openemr
 
    # install php dependencies
