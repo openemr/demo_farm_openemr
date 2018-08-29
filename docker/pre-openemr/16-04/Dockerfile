@@ -37,12 +37,13 @@ RUN apt-get update && apt-get install -y \
     debconf \
     mysql-client \
     zip \
-    nodejs \
-    nodejs-legacy \
-    build-essential \
-    npm \
     curl \
     unzip
+
+# Install nodejs/npm
+RUN apt-get install -y python-software-properties
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN apt-get install -y nodejs
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
