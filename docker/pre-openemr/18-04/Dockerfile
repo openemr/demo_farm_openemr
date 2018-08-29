@@ -52,7 +52,7 @@ RUN apt-get install -y \
 RUN apt-get install -y rsync
 
 # Install nodejs/npm
-RUN apt-get install -y python-software-properties
+RUN apt-get install -y software-properties-common
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
 RUN apt-get install -y nodejs
 
