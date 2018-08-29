@@ -38,6 +38,8 @@ RUN apt-get update && apt-get install -y \
     mysql-client \
     zip \
     nodejs \
+    nodejs-legacy \
+    build-essential \
     npm \
     curl \
     unzip
