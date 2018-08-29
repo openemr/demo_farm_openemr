@@ -444,7 +444,7 @@ do
 
  #Build openemr package
  if [ ! -d $OPENEMR/vendor ] &&
-    [ "$DOCKERDEMO" == "one" ]; then
+    [ "$DOCKERDEMO" == "seven" ]; then
   cd $OPENEMR
 
   # install php dependencies
@@ -627,7 +627,7 @@ do
   rsync --recursive --exclude .git $GIT/* $TMPDIR/openemr/
   #Build openemr package
   if [ ! -d $TMPDIR/openemr/vendor ] &&
-     [ "$DOCKERDEMO" == "one" ]; then
+     [ "$DOCKERDEMO" == "seven" ]; then
    cd $TMPDIR/openemr
 
    # install php dependencies
