@@ -45,13 +45,16 @@ RUN apt-get install -y \
     openvpn \
     mysql-client \
     zip \
-    nodejs \
-    npm \
     curl \
     unzip
 
 # Special for ubuntu 17.10 and 18.04 so far
 RUN apt-get install -y rsync
+
+# Install nodejs/npm
+RUN apt-get install -y python-software-properties
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN apt-get install -y nodejs
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
