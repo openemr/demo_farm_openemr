@@ -35,10 +35,12 @@ RUN apk add --no-cache apache2 \
             php7-sockets \
             php7-iconv \
             php7-xmlreader \
+            php7-phar \
             perl \
             tar \
             curl \
             imagemagick-dev \
+            nodejs \
             git \
             wget \
             openvpn \
@@ -49,6 +51,9 @@ RUN apk add --no-cache apache2 \
 
 # Set up php-cli to work
 RUN ln -s /usr/bin/php7 /usr/bin/php
+
+# Install composer for openemr package building
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 # Install postfix (and stunnel to work with aws ses email)
 RUN apk add --no-cache postfix
