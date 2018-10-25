@@ -70,6 +70,7 @@ mkdir -p $WEB/log
 GITMAIN=/home/openemr/git
 GITDEMOFARM=$GITMAIN/demo_farm_openemr
 GITDEMOFARMMAP=$GITDEMOFARM/ip_map_branch.txt
+PASSWORDRESETSCRIPT=$GITDEMOFARM/set_pass.php
 if $htmlDirApache ; then
  OPENEMRAPACHECONF=$GITDEMOFARM/openemr-html.conf
 else
@@ -171,14 +172,16 @@ do
   OPENEMR=$WEB/openemr
   WORDPRESS=$WEB/wordpress
   FILESSERVEDIR=$WEB/files
-   if [ -n "$DOCKERDEMO" ] ; then
-    DOCKERDEMO=$DOCKERDEMOORIGINAL
-   fi
+  if [ -n "$DOCKERDEMO" ] ; then
+   DOCKERDEMO=$DOCKERDEMOORIGINAL
+  fi
+  FINALWEB=$WEB
  else
   DOCKERDEMO=${DOCKERDEMOORIGINAL}_${demo}
   OPENEMR=${WEB}/${demo}/openemr
   WORDPRESS=${WEB}/${demo}/wordpress
   FILESSERVEDIR=$WEB/${demo}/files
+  FINALWEB=$WEB/${demo}
  fi
 
  # Collect ip address or docker demo number
@@ -293,6 +296,11 @@ do
  echo "$funStuff"
  echo -n "funStuff option is " >> $LOG
  echo "$funStuff" >> $LOG
+ passReset=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 16`
+ echo -n "passReset option is "
+ echo "$passReset"
+ echo -n "passReset option is " >> $LOG
+ echo "$passReset" >> $LOG
 
  # SET OPTIONS
  # set if serve development translation set
@@ -356,9 +364,15 @@ do
  else
   randomTheme=true;
  fi
+ # set if doing password reset
+ if [ "$passReset" == "0" ]; then
+  passResetAuto=false;
+ else
+  passResetAuto=true;
+ fi
 
  # COLLECT and output demo description
- desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 16`
+ desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 17`
  echo -n "Demo description: "
  echo "$desc"
  echo -n "Demo description: " >> $LOG
@@ -771,6 +785,11 @@ echo -n "Completed Build: "
 echo "$timeEnd"
 echo -n "Completed Build: " >> $LOG
 echo "$timeEnd" >> $LOG
+
+if $passResetAuto; then
+ # run the auto reset password script every minute
+ watch -n 60 "php -f ${PASSWORDRESETSCRIPT} ${FINALWEB}" &>/dev/null &
+fi
 
 if ! $lightReset; then
  if [ -n "$DOCKERDEMO" ] ; then
