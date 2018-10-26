@@ -747,6 +747,11 @@ do
   echo "Done setting up patient portals"
   echo "Done setting up patient portals" >> $LOG
  fi
+
+ if $passResetAuto; then
+  # run the auto reset password script every minute
+  watch -n 60 "php -f ${PASSWORDRESETSCRIPT} ${FINALWEB}" &>/dev/null &
+ fi
 done
 
 # Install Postfix to allow email registration on wordpress patient portal demo and other openemr stuff, if possible.
@@ -785,11 +790,6 @@ echo -n "Completed Build: "
 echo "$timeEnd"
 echo -n "Completed Build: " >> $LOG
 echo "$timeEnd" >> $LOG
-
-if $passResetAuto; then
- # run the auto reset password script every minute
- watch -n 60 "php -f ${PASSWORDRESETSCRIPT} ${FINALWEB}" &>/dev/null &
-fi
 
 if ! $lightReset; then
  if [ -n "$DOCKERDEMO" ] ; then
