@@ -750,8 +750,7 @@ do
 
  if $passResetAuto; then
   # run the auto reset password script every minute
-  nohup watch -n 60 "php -f ${PASSWORDRESETSCRIPT} ${FINALWEB}" &>/dev/null &
-  echo "${PASSWORDRESETSCRIPT} ${FINALWEB}" >> $LOG
+  nohup php -f ${PASSWORDRESETSCRIPT} ${FINALWEB} 60 >/dev/null 2>&1 &
  fi
 done
 
