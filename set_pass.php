@@ -25,29 +25,29 @@ require_once($GLOBALS['srcdir'] . "/authentication/password_change.php");
 
 if ($mode == 2) {
     while (true) {
-        sqlStatement('UPDATE `users` SET `username` = "admin", `active` = 1 WHERE `id` = 1');
-        sqlStatement('UPDATE `users_secure` SET `username` = "admin", `password` = "$2a$05$.hH4Godes3dORmHjOjtXXekQPf2n5tQsw2H/ahwsBECLA/QCgWRS.", `salt` = "$2a$05$.hH4Godes3dORmHjOjtXXl$" WHERE `id` = 1');
+        sqlStatementNoLog('UPDATE `users` SET `username` = "admin", `active` = 1 WHERE `id` = 1');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "admin", `password` = "$2a$05$.hH4Godes3dORmHjOjtXXekQPf2n5tQsw2H/ahwsBECLA/QCgWRS.", `salt` = "$2a$05$.hH4Godes3dORmHjOjtXXl$" WHERE `id` = 1');
 
-        sqlStatement('UPDATE `users` SET `username` = "accountant", `active` = 1 WHERE `id` = 4');
-        sqlStatement('UPDATE `users_secure` SET `username` = "accountant", `password` = "$2a$05$rMH0ZfoGXKuavGpsmM.UPuAonkS2811YVIE2ZL52.Q/GGCL0AAV4q", `salt` = "$2a$05$rMH0ZfoGXKuavGpsmM.UPy$" WHERE `id` = 4');
+        sqlStatementNoLog('UPDATE `users` SET `username` = "accountant", `active` = 1 WHERE `id` = 4');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "accountant", `password` = "$2a$05$rMH0ZfoGXKuavGpsmM.UPuAonkS2811YVIE2ZL52.Q/GGCL0AAV4q", `salt` = "$2a$05$rMH0ZfoGXKuavGpsmM.UPy$" WHERE `id` = 4');
 
-        sqlStatement('UPDATE `users` SET `username` = "clinician", `active` = 1 WHERE `id` = 5');
-        sqlStatement('UPDATE `users_secure` SET `username` = "clinician", `password` = "$2a$05$LDt00UZrNVbXR8j9Rj0.NuBN6bMoT4hbXoiKnkQkDQetYy9rMXIri", `salt` = "$2a$05$LDt00UZrNVbXR8j9Rj0.N3$" WHERE `id` = 5');
+        sqlStatementNoLog('UPDATE `users` SET `username` = "clinician", `active` = 1 WHERE `id` = 5');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "clinician", `password` = "$2a$05$LDt00UZrNVbXR8j9Rj0.NuBN6bMoT4hbXoiKnkQkDQetYy9rMXIri", `salt` = "$2a$05$LDt00UZrNVbXR8j9Rj0.N3$" WHERE `id` = 5');
 
-        sqlStatement('UPDATE `users` SET `username` = "physician", `active` = 1 WHERE `id` = 6');
-        sqlStatement('UPDATE `users_secure` SET `username` = "physician", `password` = "$2a$05$y6Myd8hMVXzFqcHBrCo8K.K/OcVBOCB1KrOFN//Hsw89f6x17wvGC", `salt` = "$2a$05$y6Myd8hMVXzFqcHBrCo8K.$" WHERE `id` = 6');
+        sqlStatementNoLog('UPDATE `users` SET `username` = "physician", `active` = 1 WHERE `id` = 6');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "physician", `password` = "$2a$05$y6Myd8hMVXzFqcHBrCo8K.K/OcVBOCB1KrOFN//Hsw89f6x17wvGC", `salt` = "$2a$05$y6Myd8hMVXzFqcHBrCo8K.$" WHERE `id` = 6');
 
-        sqlStatement('UPDATE `users` SET `username` = "receptionist", `active` = 1 WHERE `id` = 7');
-        sqlStatement('UPDATE `users_secure` SET `username` = "receptionist", `password` = "$2a$05$bHD9eIJ0dc6fISnNdqJtbe2/LVUPWhWGSuJOxRGab/NaUZYV3vqBO", `salt` = "$2a$05$bHD9eIJ0dc6fISnNdqJtbn$" WHERE `id` = 7');
+        sqlStatementNoLog('UPDATE `users` SET `username` = "receptionist", `active` = 1 WHERE `id` = 7');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "receptionist", `password` = "$2a$05$bHD9eIJ0dc6fISnNdqJtbe2/LVUPWhWGSuJOxRGab/NaUZYV3vqBO", `salt` = "$2a$05$bHD9eIJ0dc6fISnNdqJtbn$" WHERE `id` = 7');
 
-        sqlStatement('UPDATE `users` SET `username` = "zhportal", `active` = 1 WHERE `id` = 8');
-        sqlStatement('UPDATE `users_secure` SET `username` = "zhportal", `password` = "$2a$05$U6.L67RPZCz5GT4HEqTwieF6e2QBtIMQrFClRUYlC8vC9tIMiOpVC", `salt` = "$2a$05$U6.L67RPZCz5GT4HEqTwit$" WHERE `id` = 8');
+        sqlStatementNoLog('UPDATE `users` SET `username` = "zhportal", `active` = 1 WHERE `id` = 8');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "zhportal", `password` = "$2a$05$U6.L67RPZCz5GT4HEqTwieF6e2QBtIMQrFClRUYlC8vC9tIMiOpVC", `salt` = "$2a$05$U6.L67RPZCz5GT4HEqTwit$" WHERE `id` = 8');
         sleep($seconds);
     }
 } else { // ($mode == 1)
     while (true) {
-        sqlStatement('UPDATE `users` SET `username` = "admin", `active` = 1 WHERE `id` = 1');
-        sqlStatement('UPDATE `users_secure` SET `username` = "admin", `password` = "$2a$05$.hH4Godes3dORmHjOjtXXekQPf2n5tQsw2H/ahwsBECLA/QCgWRS.", `salt` = "$2a$05$.hH4Godes3dORmHjOjtXXl$" WHERE `id` = 1');
+        sqlStatementNoLog('UPDATE `users` SET `username` = "admin", `active` = 1 WHERE `id` = 1');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "admin", `password` = "$2a$05$.hH4Godes3dORmHjOjtXXekQPf2n5tQsw2H/ahwsBECLA/QCgWRS.", `salt` = "$2a$05$.hH4Godes3dORmHjOjtXXl$" WHERE `id` = 1');
         sleep($seconds);
     }
 }
