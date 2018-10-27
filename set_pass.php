@@ -35,10 +35,10 @@ if ($mode == 2) {
         sqlStatement('UPDATE `users_secure` SET `username` = "clinician", `password` = "$2a$05$LDt00UZrNVbXR8j9Rj0.NuBN6bMoT4hbXoiKnkQkDQetYy9rMXIri", `salt` = "$2a$05$LDt00UZrNVbXR8j9Rj0.N3$" WHERE `id` = 5');
 
         sqlStatement('UPDATE `users` SET `username` = "physician", `active` = 1 WHERE `id` = 6');
-        sqlStatement('UPDATE `users_secure` SET `username` = "physician", `password` = "$2a$05$A89kt2tGxJK18mGDb7byZeEv9wP2CxxTHNczk5JPTZs0Vj4y4nER6", `salt` = "$2a$05$A89kt2tGxJK18mGDb7byZt$" WHERE `id` = 6');
+        sqlStatement('UPDATE `users_secure` SET `username` = "physician", `password` = "$2a$05$y6Myd8hMVXzFqcHBrCo8K.K/OcVBOCB1KrOFN//Hsw89f6x17wvGC", `salt` = "$2a$05$y6Myd8hMVXzFqcHBrCo8K.$" WHERE `id` = 6');
 
         sqlStatement('UPDATE `users` SET `username` = "receptionist", `active` = 1 WHERE `id` = 7');
-        sqlStatement('UPDATE `users_secure` SET `username` = "receptionist", `password` = "$2a$05$K912gu.hnrlOiUYrhBtgUO2cAK93QQ1hd.M7dMNe9zqiYokXGJjmS", `salt` = "$2a$05$K912gu.hnrlOiUYrhBtgUb$" WHERE `id` = 7');
+        sqlStatement('UPDATE `users_secure` SET `username` = "receptionist", `password` = "$2a$05$bHD9eIJ0dc6fISnNdqJtbe2/LVUPWhWGSuJOxRGab/NaUZYV3vqBO", `salt` = "$2a$05$bHD9eIJ0dc6fISnNdqJtbn$" WHERE `id` = 7');
 
         sqlStatement('UPDATE `users` SET `username` = "zhportal", `active` = 1 WHERE `id` = 8');
         sqlStatement('UPDATE `users_secure` SET `username` = "zhportal", `password` = "$2a$05$U6.L67RPZCz5GT4HEqTwieF6e2QBtIMQrFClRUYlC8vC9tIMiOpVC", `salt` = "$2a$05$U6.L67RPZCz5GT4HEqTwit$" WHERE `id` = 8');
