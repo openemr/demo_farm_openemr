@@ -365,6 +365,7 @@ do
   randomTheme=true;
  fi
  # set if doing password reset
+ # (if 1, then will reset just admin, if 2, then will reset all the official demo users)
  if [ "$passReset" == "0" ]; then
   passResetAuto=false;
  else
@@ -750,7 +751,7 @@ do
 
  if $passResetAuto; then
   # run the auto reset password script every minute
-  nohup php -f ${PASSWORDRESETSCRIPT} ${FINALWEB} 60 >/dev/null 2>&1 &
+  nohup php -f ${PASSWORDRESETSCRIPT} ${FINALWEB} 60 ${passReset} >/dev/null 2>&1 &
  fi
 done
 
