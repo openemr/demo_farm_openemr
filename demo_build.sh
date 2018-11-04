@@ -33,9 +33,22 @@ getRandomTheme () {
     THEME[20]='style_light.css'
     THEME[21]='style_light.css'
     THEME[22]='style_light.css'
+    THEME[23]='style_light.css'
+    THEME[24]='style_light.css'
+    THEME[25]='style_light.css'
+    THEME[26]='style_light.css'
+    THEME[27]='style_light.css'
+    THEME[28]='style_light.css'
+    THEME[29]='style_light.css'
+    THEME[30]='style_light.css'
+    THEME[31]='style_light.css'
+    THEME[32]='style_light.css'
+    THEME[33]='style_light.css'
+    THEME[34]='style_light.css'
+    THEME[35]='style_light.css'
 
-    #choose randomly from 23 choices (0-22)
-    RANDOM_THEME_INT=$((RANDOM % 23))
+    #choose randomly from 36 choices (0-35)
+    RANDOM_THEME_INT=$((RANDOM % 36))
 
     echo ${THEME[${RANDOM_THEME_INT}]}
 }
