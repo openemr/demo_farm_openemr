@@ -38,7 +38,7 @@ eleven	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	eleven.openem
 eleven_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	eleven.openemr.io/a	hey	branch	5.0.0	1	0	Public OpenEMR Development Demo on Alpine 3.7 With Demo Data
 eleven_b	https://github.com/openemr/openemr.git	rel-501	0	0	0	0	0	0	1	eleven.openemr.io/b	hey	branch	0	1	1	Public OpenEMR 5.0.1 Development Demo on Alpine 3.7
 eleven_c	https://github.com/openemr/openemr.git	rel-501	0	1	0	0	demo_5_0_0_5.sql	0	1	eleven.openemr.io/c	hey	branch	5.0.0	1	2	Public OpenEMR 5.0.1 Development Demo on Alpine 3.7 With Demo Data
-edu	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	fh-gmi.openemr.io	hey	branch	0	0	0	fh-gmi demo for Florida Hospital Global Missions Initiative
+edu	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	edu.openemr.io	hey	branch	5.0.0	0	0	demo for Robert
 edu_a	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	edu.openemr.io/a	hey	branch	0	0	0	First EDU demo
 edu_b	https://github.com/bradymiller/openemr.git	edu-boyd-projects_2	0	0	0	0	0	0	1	edu.openemr.io/b	hey	branch	0	0	0	Second EDU demo
 edu_c	https://github.com/openemr/openemr.git	rel-501	0	0	0	0	0	0	1	edu.openemr.io/c	hey	branch	0	0	0	HOPES organization demo
