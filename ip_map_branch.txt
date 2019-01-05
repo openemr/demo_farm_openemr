@@ -14,7 +14,7 @@ four_e	https://github.com/sloboy/openemr.git	workflow2	0	0	0	0	0	0	1	four.openem
 four_f	https://github.com/zbig01/openemr.git	stripe-02	0	0	0	0	0	0	1	four.openemr.io/f	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Iota
 four_g	https://github.com/bradymiller/openemr.git	vet-form_1	0	0	0	0	0	0	1	four.openemr.io/g	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Kappa
 four_h	https://github.com/zbig01/openemr.git	zbig01-go-48	0	0	0	0	0	0	1	four.openemr.io/h	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Lambda
-four_i	https://github.com/harshlele/openemr.git	issue-2064	0	0	0	0	0	0	1	four.openemr.io/i	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Mu
+four_i	https://github.com/sjpadgett/openemr.git	payment-gateway	0	0	0	0	0	0	1	four.openemr.io/i	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Mu
 five	https://github.com/openemr/openemr.git	v5_0_0_5	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io	hey	tag	0	0	0	Public OpenEMR 5.0.0 Production Demo
 five_a	https://github.com/openemr/openemr.git	v5_0_0_5	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/a	hey	tag	0	0	0	Alternate Public OpenEMR 5.0.0 Production Demo
 five_b	https://github.com/openemr/openemr.git	v5_0_0_5	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/b	hey	tag	0	0	0	Another Alternate Public OpenEMR 5.0.0 Production Demo
