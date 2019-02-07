@@ -52,6 +52,8 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 #docker build -t bradymiller/pre-openemr:3.7 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-8/
 #docker build -t bradymiller/pre-openemr:3.8 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/3-9/
+#docker build -t bradymiller/pre-openemr:3.9 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/edge/
 #docker build -t bradymiller/pre-openemr:edge .
 #cd ~/demo_farm_openemr/docker/php-ssh/
@@ -74,6 +76,7 @@ docker pull bradymiller/pre-openemr:3.5
 docker pull bradymiller/pre-openemr:3.6
 docker pull bradymiller/pre-openemr:3.7
 docker pull bradymiller/pre-openemr:3.8
+docker pull bradymiller/pre-openemr:3.9
 docker pull bradymiller/pre-openemr:edge
 docker pull bradymiller/php-ssh:7.1-fpm-alpine
 
