@@ -42,7 +42,7 @@ RUN apk add --no-cache apache2 \
             perl \
             tar \
             curl \
-            imagemagick-dev \
+            imagemagick \
             nodejs \
             nodejs-npm \
             git \
