@@ -39,6 +39,7 @@ RUN apk add --no-cache apache2 \
             php7-simplexml \
             php7-xmlwriter \
             php7-phar \
+            php7-fileinfo \
             perl \
             tar \
             curl \
