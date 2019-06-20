@@ -21,7 +21,8 @@ five_b	https://github.com/openemr/openemr.git	v5_0_0_5	0	0	0	0	demo_5_0_0_5.sql	
 five_c	https://github.com/openemr/openemr.git	v5_0_1_7	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/c	hey	tag	5.0.0	1	2	Public OpenEMR 5.0.1 Production Demo
 five_d	https://github.com/openemr/openemr.git	v5_0_1_7	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/d	hey	tag	5.0.0	1	2	Alternate Public OpenEMR 5.0.1 Production Demo
 five_e	https://github.com/openemr/openemr.git	v5_0_1_7	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/e	hey	tag	5.0.0	1	2	Another Alternate Public OpenEMR 5.0.1 Production Demo
-six	https://github.com/openemr/openemr.git	rel-500	0	0	0	0	0	0	1	six.openemr.io	hey	branch	0	0	0	Public OpenEMR 5.0.0 Development Demo
+six	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	six.openemr.io	hey	branch	0	1	0	Public OpenEMR Development Demo on Alpine Edge
+six_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	six.openemr.io/a	hey	branch	5.0.0	1	0	Public OpenEMR Development Demo on Alpine Edge With Demo Data
 seven	https://github.com/openemr/openemr.git	master	0	1	1	0	0	0	1	seven.openemr.io	hey	branch	0	1	0	Public OpenEMR Development Demo on Ubuntu 18.04
 seven_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	seven.openemr.io/a	hey	branch	5.0.0	1	0	Public OpenEMR Development Demo on Ubuntu 18.04 With Demo Data
 seven_b	https://github.com/openemr/openemr.git	rel-501	0	0	0	0	0	0	1	seven.openemr.io/b	hey	branch	0	1	1	Public OpenEMR 5.0.1 Development Demo on Ubuntu 18.04
