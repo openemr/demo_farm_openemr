@@ -574,6 +574,7 @@
                                                 <div class="row col-xs-12">
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_six_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Six Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_six_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Six A Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>
