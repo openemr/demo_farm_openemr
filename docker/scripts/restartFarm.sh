@@ -21,6 +21,7 @@ docker pull bradymiller/pre-openemr:3.6
 docker pull bradymiller/pre-openemr:3.7
 docker pull bradymiller/pre-openemr:3.8
 docker pull bradymiller/pre-openemr:3.9
+docker pull bradymiller/pre-openemr:3.10
 docker pull bradymiller/pre-openemr:edge
 docker pull bradymiller/php-ssh:7.1-fpm-alpine
 

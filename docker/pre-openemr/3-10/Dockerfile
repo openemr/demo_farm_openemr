@@ -8,7 +8,7 @@
 #
 # pre-openemr Dockerfile build
 #
-FROM alpine:edge
+FROM alpine:3.10
 
 # Install standard dependencies, except for mysql-server
 # (also installing git, wget, openvpn, mysql-client, zip, bash, and rsync)

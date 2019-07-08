@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2018 Brady Miller <brady.g.miller@gmail.com>
+# Copyright (C) 2017-2019 Brady Miller <brady.g.miller@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -40,6 +40,8 @@ RUN apk add --no-cache apache2 \
             php7-xmlwriter \
             php7-phar \
             php7-fileinfo \
+            php7-calendar \
+            php7-sodium \
             perl \
             tar \
             curl \
