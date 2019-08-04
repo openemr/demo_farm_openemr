@@ -550,9 +550,6 @@
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_five_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Five Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_five_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Five A Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_five_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Five B Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_five_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Five C Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_five_d_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Five D Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_five_e_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Five E Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>
