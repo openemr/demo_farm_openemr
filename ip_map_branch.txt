@@ -11,7 +11,7 @@ four_b	https://github.com/ophthal/openemr.git	5.0.3_CR	0	0	0	0	0	0	1	four.openem
 four_c	https://github.com/tywrenn/openemr.git	laminas-fix	0	0	0	0	0	0	1	four.openemr.io/c	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Zeta
 four_d	https://github.com/robertdown/openemr.git	med_list_dialog	0	0	0	0	0	0	1	four.openemr.io/d	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Eta
 four_e	https://github.com/bradymiller/openemr.git	magic-cdr-on-bootstrap	0	0	0	0	0	0	1	four.openemr.io/e	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Theta
-four_f	https://github.com/zbig01/openemr.git	stripe-02	0	0	0	0	0	0	1	four.openemr.io/f	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Iota
+four_f	https://github.com/ophthal/openemr.git	magic-cdr-on-bootstrap	0	0	0	0	0	0	1	four.openemr.io/f	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Iota
 four_g	https://github.com/bradymiller/openemr.git	vet-form_1	0	0	0	0	0	0	1	four.openemr.io/g	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Kappa
 four_h	https://github.com/dimitristsilis/openemr.git	MenuFix	0	0	0	0	0	0	1	four.openemr.io/h	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Lambda
 four_i	https://github.com/melodicht/openemr.git	master	0	0	0	0	0	0	1	four.openemr.io/i	hey	branch	0	0	0	UP FOR GRABS Public OpenEMR Demo - Mu
