@@ -9,7 +9,7 @@
 #This script is for the OpenEMR demo farms
 #
 
-getRandomTheme () {
+getRandomThemeOne () {
     THEME[0]='style_ash_blue.css'
     THEME[1]='style_burgundy.css'
     THEME[2]='style_cadmium_yellow.css'
@@ -49,6 +49,87 @@ getRandomTheme () {
 
     #choose randomly from 36 choices (0-35)
     RANDOM_THEME_INT=$((RANDOM % 36))
+
+    echo ${THEME[${RANDOM_THEME_INT}]}
+}
+
+getRandomThemeTwo () {
+    THEME[0]='style_ash_blue.css'
+    THEME[1]='style_burgundy.css'
+    THEME[2]='style_cadmium_yellow.css'
+    THEME[3]='style_chocolate.css'
+    THEME[4]='style_cobalt_blue.css'
+    THEME[5]='style_coral.css'
+    THEME[6]='style_deep_purple.css'
+    THEME[7]='style_dune.css'
+    THEME[8]='style_emerald.css'
+    THEME[9]='style_forest_green.css'
+    THEME[10]='style_mauve.css'
+    THEME[11]='style_mustard_green.css'
+    THEME[12]='style_olive.css'
+    THEME[13]='style_pink.css'
+    THEME[14]='style_powder_blue.css'
+    THEME[15]='style_red.css'
+    THEME[16]='style_sienna.css'
+    THEME[17]='style_tangerine.css'
+    THEME[18]='style_light.css'
+    THEME[19]='style_light.css'
+    THEME[20]='style_light.css'
+    THEME[21]='style_light.css'
+    THEME[22]='style_light.css'
+    THEME[23]='style_light.css'
+    THEME[24]='style_light.css'
+    THEME[25]='style_light.css'
+    THEME[26]='style_light.css'
+    THEME[27]='style_light.css'
+    THEME[28]='style_light.css'
+    THEME[29]='style_light.css'
+    THEME[30]='style_light.css'
+    THEME[31]='style_light.css'
+    THEME[32]='style_light.css'
+    THEME[33]='style_light.css'
+    THEME[34]='style_light.css'
+    THEME[35]='style_light.css'
+    THEME[36]='style_dark.css'
+    THEME[37]='style_dark.css'
+    THEME[38]='style_dark.css'
+    THEME[39]='style_dark.css'
+    THEME[40]='style_dark.css'
+    THEME[41]='style_dark.css'
+    THEME[42]='style_dark.css'
+    THEME[43]='style_dark.css'
+    THEME[44]='style_dark.css'
+    THEME[45]='style_dark.css'
+    THEME[46]='style_dark.css'
+    THEME[47]='style_dark.css'
+    THEME[48]='style_dark.css'
+    THEME[49]='style_dark.css'
+    THEME[50]='style_dark.css'
+    THEME[51]='style_dark.css'
+    THEME[52]='style_dark.css'
+    THEME[53]='style_dark.css'
+    THEME[54]='style_superhero.css'
+    THEME[55]='style_superhero.css'
+    THEME[56]='style_superhero.css'
+    THEME[57]='style_superhero.css'
+    THEME[58]='style_superhero.css'
+    THEME[59]='style_superhero.css'
+    THEME[60]='style_superhero.css'
+    THEME[61]='style_superhero.css'
+    THEME[62]='style_superhero.css'
+    THEME[63]='style_superhero.css'
+    THEME[64]='style_superhero.css'
+    THEME[65]='style_superhero.css'
+    THEME[66]='style_superhero.css'
+    THEME[67]='style_superhero.css'
+    THEME[68]='style_superhero.css'
+    THEME[69]='style_superhero.css'
+    THEME[70]='style_superhero.css'
+    THEME[71]='style_superhero.css'
+
+
+    #choose randomly from 72 choices (0-71)
+    RANDOM_THEME_INT=$((RANDOM % 72))
 
     echo ${THEME[${RANDOM_THEME_INT}]}
 }
@@ -582,7 +663,12 @@ do
  #random theme generator
  if $randomTheme; then
   #collect the random theme
-  RANDOM_THEME=`getRandomTheme`
+
+  if [ "$funStuff" == "2" ]; then
+   RANDOM_THEME=`getRandomThemeTwo`
+  else # "$funStuff" == "1"
+   RANDOM_THEME=`getRandomThemeOne`
+  fi
   echo -n "random theme is "
   echo "$RANDOM_THEME"
   echo -n "random theme is " >> $LOG
