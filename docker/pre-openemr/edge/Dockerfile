@@ -46,8 +46,7 @@ RUN apk add --no-cache apache2 \
             tar \
             curl \
             imagemagick \
-            nodejs \
-            nodejs-npm \
+            npm \
             git \
             wget \
             openvpn \
