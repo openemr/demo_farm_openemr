@@ -38,7 +38,8 @@ RUN apt-get update && apt-get install -y \
     mysql-client \
     zip \
     curl \
-    unzip
+    unzip \
+    jq
 
 # Install nodejs/npm
 RUN apt-get install -y python-software-properties
