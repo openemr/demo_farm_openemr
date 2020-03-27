@@ -46,7 +46,8 @@ RUN apt-get install -y \
     mysql-client \
     zip \
     curl \
-    unzip
+    unzip \
+    jq
 
 # Special for ubuntu 17.10 and 18.04 so far
 RUN apt-get install -y rsync

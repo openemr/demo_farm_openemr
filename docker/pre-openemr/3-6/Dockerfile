@@ -52,7 +52,8 @@ RUN apk add --no-cache apache2 \
             mysql-client \
             zip \
             bash \
-            rsync
+            rsync \
+            jq
 
 # Install composer for openemr package building
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer

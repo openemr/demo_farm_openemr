@@ -47,7 +47,8 @@ RUN apk add --no-cache apache2 \
             mysql-client \
             zip \
             bash \
-            rsync
+            rsync \
+            jq
 
 # Set up php-cli to work
 RUN ln -s /usr/bin/php7 /usr/bin/php

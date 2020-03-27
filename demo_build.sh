@@ -743,6 +743,18 @@ do
    cd $TMPDIR/openemr
 
    # install php dependencies
+   githubTokenRateLimitRequest=`curl -H "Authorization: token e4ac89dd1c1a88a2d523237b461f1690a277a032" https://api.github.com/rate_limit`
+   githubTokenRateLimit=`echo $githubTokenRateLimitRequest | jq '.rate.remaining'`
+   echo "Number of github api requests remaining is $githubTokenRateLimit"
+   echo "Number of github api requests remaining is $githubTokenRateLimit" >> $LOG
+   if [ "$githubTokenRateLimit" -gt 1000 ]; then
+    echo "Using composer github api token"
+    echo "Using composer github api token" >> $LOG
+    composer config --global --auth github-oauth.github.com e4ac89dd1c1a88a2d523237b461f1690a277a032
+   else
+    echo "Not using composer github api token"
+    echo "Not using composer github api token" >> $LOG
+   fi
    composer install &>> $LOG
 
    if [ -f $TMPDIR/openemr/package.json ]; then
