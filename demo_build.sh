@@ -568,7 +568,7 @@ do
    echo "Not using composer github api token"
    echo "Not using composer github api token" >> $LOG
   fi
-  composer install &>> $LOG
+  composer install --no-dev &>> $LOG
 
   if [ -f $OPENEMR/package.json ]; then
    # install frontend dependencies (need unsafe-perm to run as root)
@@ -767,7 +767,7 @@ do
     echo "Not using composer github api token"
     echo "Not using composer github api token" >> $LOG
    fi
-   composer install &>> $LOG
+   composer install --no-dev &>> $LOG
 
    if [ -f $TMPDIR/openemr/package.json ]; then
     # install frontend dependencies (need unsafe-perm to run as root)
