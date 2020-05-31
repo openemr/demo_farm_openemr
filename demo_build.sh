@@ -638,7 +638,7 @@ do
    # Now insert the data
    #  -Note need to first clear the current database (can make this an option in future if need to add data without clearing database)
    if [ -n "$DOCKERDEMO" ] ; then
-    mysqldump -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO
+    mysqldump -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print "SET FOREIGN_KEY_CHECKS=0;" } { print $0 } END { print "SET FOREIGN_KEY_CHECKS=1;" } ' | mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO
     mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOFARM/pieces/$dd"
    else
     mysqldump -u root $rpassparam --add-drop-table --no-data openemr | grep ^DROP | mysql -u root $rpassparam openemr

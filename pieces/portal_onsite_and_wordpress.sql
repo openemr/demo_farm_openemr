@@ -5,3 +5,6 @@ REPLACE INTO globals VALUES ('gbl_portal_cms_address' , 0, 'http://demo.open-emr
 REPLACE INTO globals VALUES ('gbl_portal_cms_username', 0, 'cmsportal');
 REPLACE INTO globals VALUES ('gbl_portal_cms_password', 0, 'cmsportal');
 REPLACE INTO globals VALUES ('rest_api', 0, '1');
+REPLACE INTO globals VALUES ('rest_fhir_api', 0, '1');
+REPLACE INTO globals VALUES ('rest_portal_api', 0, '1');
+REPLACE INTO globals VALUES ('rest_portal_fhir_api', 0, '1');
