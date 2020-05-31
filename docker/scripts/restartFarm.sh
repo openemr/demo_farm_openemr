@@ -16,6 +16,7 @@ docker pull bradymiller/pre-openemr:16.04
 docker pull bradymiller/pre-openemr:14.04
 docker pull bradymiller/pre-openemr:17.10
 docker pull bradymiller/pre-openemr:18.04
+docker pull bradymiller/pre-openemr:20.04
 docker pull bradymiller/pre-openemr:3.5
 docker pull bradymiller/pre-openemr:3.6
 docker pull bradymiller/pre-openemr:3.7
@@ -23,6 +24,7 @@ docker pull bradymiller/pre-openemr:3.8
 docker pull bradymiller/pre-openemr:3.9
 docker pull bradymiller/pre-openemr:3.10
 docker pull bradymiller/pre-openemr:3.11
+docker pull bradymiller/pre-openemr:3.12
 docker pull bradymiller/pre-openemr:edge
 docker pull bradymiller/php-ssh:7.1-fpm-alpine
 
@@ -69,4 +71,5 @@ bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eleven
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh four
 #bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu empty
 #bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu a
-bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu b
+#bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu b
+bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu
