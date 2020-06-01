@@ -43,7 +43,7 @@ RUN apt-get install -y \
     git \
     wget \
     openvpn \
-    mysql-client \
+    mariadb-client \
     zip \
     curl \
     unzip \
