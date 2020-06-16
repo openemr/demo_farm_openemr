@@ -114,6 +114,7 @@ startDemo () {
                         --env "DOCKERDEMO=${1}" \
                         --env "DOCKERMYSQLHOST=${2}" \
                         --env "DOCKERNUMBERDEMOS=${8}" \
+                        --env "OPENEMR_DOCKER_ENV_TAG=demo-farm" \
                         -v ~/translations_development_openemr:/home/openemr/git/translations_development_openemr:ro \
                         -v ~/demo_farm_openemr/docker/php/${5}/php.ini:${3}/php.ini:ro \
                         -v ~/demo_farm_openemr/docker/stunnel/stunnel.conf:/etc/stunnel/stunnel.conf:ro \
