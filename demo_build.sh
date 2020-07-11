@@ -134,6 +134,12 @@ getRandomThemeTwo () {
     echo ${THEME[${RANDOM_THEME_INT}]}
 }
 
+#function to collect variables from config files
+# 1st param is variable name, 2nd param is filename
+collect_var () {
+   echo `grep -i "^[[:space:]]*$1[[:space:]=]" $2 | cut -d \= -f 2 | cut -d \; -f 1 | sed "s/[ 	'\"]//gi"`
+}
+
 # If there is a parameter, then just pursue a light reset of the subdemo
 if [ -z "$1" ]; then
  lightReset=false;
@@ -659,6 +665,13 @@ do
    sed -i "1s@^@<?php \$_GET['site'] = 'default'; ?>@" $OPENEMR/sql_upgrade_temp.php
    php -f $OPENEMR/sql_upgrade_temp.php >> $LOG
    rm -f $OPENEMR/sql_upgrade_temp.php
+   # Also need to change encoding/collation when using OpenEMR versions at 6 or greater
+   VERSION_MAJOR=$(collect_var \$v_major $OPENEMR/version.php)
+   if [ -n "$VERSION_MAJOR" ] && [ "$VERSION_MAJOR" -ge "6" ]; then
+    echo "Upgrading database/collation to utf8mbf since using version ${VERSION_MAJOR}"
+     mysql -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat("ALTER DATABASE `",TABLE_SCHEMA,"` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;") as _sql FROM `information_schema`.`TABLES` where `TABLE_SCHEMA` like "'"${DOCKERDEMO}"'" and `TABLE_TYPE`="BASE TABLE" group by `TABLE_SCHEMA`;' | egrep '^ALTER' | mysql -h $DOCKERMYSQLHOST -u root $rpassparam
+     mysql -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat("ALTER TABLE `",TABLE_SCHEMA,"`.`",TABLE_NAME,"` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;") as _sql FROM `information_schema`.`TABLES` where `TABLE_SCHEMA` like "'"${DOCKERDEMO}"'" and `TABLE_TYPE`="BASE TABLE" group by `TABLE_SCHEMA`, `TABLE_NAME`;' | egrep '^ALTER' | mysql -h $DOCKERMYSQLHOST -u root $rpassparam
+   fi
   fi
   if $translationsDevelopment ; then
    # Need to bring the development translations back in (only can support this in docker mode)
