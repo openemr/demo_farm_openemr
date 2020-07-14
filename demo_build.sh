@@ -669,6 +669,7 @@ do
    VERSION_MAJOR=$(collect_var \$v_major $OPENEMR/version.php)
    if [ -n "$VERSION_MAJOR" ] && [ "$VERSION_MAJOR" -ge "6" ]; then
     echo "Upgrading database/collation to utf8mbf since using version ${VERSION_MAJOR}"
+    echo "Upgrading database/collation to utf8mbf since using version ${VERSION_MAJOR}" >> $LOG
      mysql -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat("ALTER DATABASE `",TABLE_SCHEMA,"` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;") as _sql FROM `information_schema`.`TABLES` where `TABLE_SCHEMA` like "'"${DOCKERDEMO}"'" and `TABLE_TYPE`="BASE TABLE" group by `TABLE_SCHEMA`;' | egrep '^ALTER' | mysql -h $DOCKERMYSQLHOST -u root $rpassparam
      mysql -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat("ALTER TABLE `",TABLE_SCHEMA,"`.`",TABLE_NAME,"` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;") as _sql FROM `information_schema`.`TABLES` where `TABLE_SCHEMA` like "'"${DOCKERDEMO}"'" and `TABLE_TYPE`="BASE TABLE" group by `TABLE_SCHEMA`, `TABLE_NAME`;' | egrep '^ALTER' | mysql -h $DOCKERMYSQLHOST -u root $rpassparam
    fi
