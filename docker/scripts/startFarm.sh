@@ -37,35 +37,35 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 
 # for building pre-openemr with the Dockerfiles (cd to path with the Dockerfile)
 #cd ~/demo_farm_openemr/docker/pre-openemr/16-04/
-#docker build -t bradymiller/pre-openemr:16.04 .
+#docker build -t openemr/pre-openemr:16.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/14-04/
-#docker build -t bradymiller/pre-openemr:14.04 .
+#docker build -t openemr/pre-openemr:14.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/17-10/
-#docker build -t bradymiller/pre-openemr:17.10 .
+#docker build -t openemr/pre-openemr:17.10 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/18-04/
-#docker build -t bradymiller/pre-openemr:18.04 .
+#docker build -t openemr/pre-openemr:18.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/20-04/
-#docker build -t bradymiller/pre-openemr:20.04 .
+#docker build -t openemr/pre-openemr:20.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-5/
-#docker build -t bradymiller/pre-openemr:3.5 .
+#docker build -t openemr/pre-openemr:3.5 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-6/
-#docker build -t bradymiller/pre-openemr:3.6 .
+#docker build -t openemr/pre-openemr:3.6 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-7/
-#docker build -t bradymiller/pre-openemr:3.7 .
+#docker build -t openemr/pre-openemr:3.7 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-8/
-#docker build -t bradymiller/pre-openemr:3.8 .
+#docker build -t openemr/pre-openemr:3.8 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-9/
-#docker build -t bradymiller/pre-openemr:3.9 .
+#docker build -t openemr/pre-openemr:3.9 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-10/
-#docker build -t bradymiller/pre-openemr:3.10 .
+#docker build -t openemr/pre-openemr:3.10 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-11/
-#docker build -t bradymiller/pre-openemr:3.11 .
+#docker build -t openemr/pre-openemr:3.11 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-12/
-#docker build -t bradymiller/pre-openemr:3.12 .
+#docker build -t openemr/pre-openemr:3.12 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/edge/
-#docker build -t bradymiller/pre-openemr:edge .
+#docker build -t openemr/pre-openemr:edge .
 #cd ~/demo_farm_openemr/docker/php-ssh/
-#docker build -t bradymiller/php-ssh:7.1-fpm-alpine .
+#docker build -t openemr/php-ssh:7.1-fpm-alpine .
 
 # to collect the standard docker images
 docker pull nginx
@@ -76,21 +76,21 @@ docker pull phpmyadmin/phpmyadmin
 # NOTE 14.04 does not work with development OpenEMR since php version is too low,
 #      but collecting it in case somebody wishes to make it work with older
 #      OpenEMR versions.
-docker pull bradymiller/pre-openemr:16.04
-docker pull bradymiller/pre-openemr:14.04
-docker pull bradymiller/pre-openemr:17.10
-docker pull bradymiller/pre-openemr:18.04
-docker pull bradymiller/pre-openemr:20.04
-docker pull bradymiller/pre-openemr:3.5
-docker pull bradymiller/pre-openemr:3.6
-docker pull bradymiller/pre-openemr:3.7
-docker pull bradymiller/pre-openemr:3.8
-docker pull bradymiller/pre-openemr:3.9
-docker pull bradymiller/pre-openemr:3.10
-docker pull bradymiller/pre-openemr:3.11
-docker pull bradymiller/pre-openemr:3.12
-docker pull bradymiller/pre-openemr:edge
-docker pull bradymiller/php-ssh:7.1-fpm-alpine
+docker pull openemr/pre-openemr:16.04
+docker pull openemr/pre-openemr:14.04
+docker pull openemr/pre-openemr:17.10
+docker pull openemr/pre-openemr:18.04
+docker pull openemr/pre-openemr:20.04
+docker pull openemr/pre-openemr:3.5
+docker pull openemr/pre-openemr:3.6
+docker pull openemr/pre-openemr:3.7
+docker pull openemr/pre-openemr:3.8
+docker pull openemr/pre-openemr:3.9
+docker pull openemr/pre-openemr:3.10
+docker pull openemr/pre-openemr:3.11
+docker pull openemr/pre-openemr:3.12
+docker pull openemr/pre-openemr:edge
+docker pull openemr/php-ssh:7.1-fpm-alpine
 
 # to start network
 docker network create mynet

@@ -17,12 +17,12 @@
 # 3. Shutdown and set a snapshot in vmware and have it revert to
 #    snapshot on shutdown.
 # 4. Place ip address along with git branch and options in
-#    in the https://github.com/bradymiller/demo_farm_openemr.git repo
+#    in the https://github.com/openemr/demo_farm_openemr.git repo
 # 5. Start the appliance
 triggerOpenemrDevelopmentDemo=false
 if $triggerOpenemrDevelopmentDemo ; then
  mkdir -p /home/openemr/git
  cd /home/openemr/git
- git clone https://github.com/bradymiller/demo_farm_openemr.git
+ git clone https://github.com/openemr/demo_farm_openemr.git
  bash /home/openemr/git/demo_farm_openemr/demo_build.sh
 fi

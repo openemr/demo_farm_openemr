@@ -12,21 +12,21 @@
 # NOTE 14.04 does not work with development OpenEMR since php version is too low,
 #      but collecting it in case somebody wishes to make it work with older
 #      OpenEMR versions.
-docker pull bradymiller/pre-openemr:16.04
-docker pull bradymiller/pre-openemr:14.04
-docker pull bradymiller/pre-openemr:17.10
-docker pull bradymiller/pre-openemr:18.04
-docker pull bradymiller/pre-openemr:20.04
-docker pull bradymiller/pre-openemr:3.5
-docker pull bradymiller/pre-openemr:3.6
-docker pull bradymiller/pre-openemr:3.7
-docker pull bradymiller/pre-openemr:3.8
-docker pull bradymiller/pre-openemr:3.9
-docker pull bradymiller/pre-openemr:3.10
-docker pull bradymiller/pre-openemr:3.11
-docker pull bradymiller/pre-openemr:3.12
-docker pull bradymiller/pre-openemr:edge
-docker pull bradymiller/php-ssh:7.1-fpm-alpine
+docker pull openemr/pre-openemr:16.04
+docker pull openemr/pre-openemr:14.04
+docker pull openemr/pre-openemr:17.10
+docker pull openemr/pre-openemr:18.04
+docker pull openemr/pre-openemr:20.04
+docker pull openemr/pre-openemr:3.5
+docker pull openemr/pre-openemr:3.6
+docker pull openemr/pre-openemr:3.7
+docker pull openemr/pre-openemr:3.8
+docker pull openemr/pre-openemr:3.9
+docker pull openemr/pre-openemr:3.10
+docker pull openemr/pre-openemr:3.11
+docker pull openemr/pre-openemr:3.12
+docker pull openemr/pre-openemr:edge
+docker pull openemr/php-ssh:7.1-fpm-alpine
 
 # update demo_farm_openemr repo
 cd ~/demo_farm_openemr
