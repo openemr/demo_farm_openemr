@@ -686,6 +686,14 @@ do
   fi
  fi
 
+ #set up external link in global
+ EXTERNALLINKBASE = $(echo $EXTERNALLINK | cut -d '/' -f 1)
+ if [ -n "$DOCKERDEMO" ] ; then
+  mysql -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
+ else
+  mysql -u root $rpassparam -e "UPDATE openemr.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
+ fi
+
  #random theme generator
  if $randomTheme; then
   #collect the random theme
