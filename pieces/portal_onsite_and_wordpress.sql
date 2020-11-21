@@ -8,3 +8,4 @@ REPLACE INTO globals VALUES ('rest_api', 0, '1');
 REPLACE INTO globals VALUES ('rest_fhir_api', 0, '1');
 REPLACE INTO globals VALUES ('rest_portal_api', 0, '1');
 REPLACE INTO globals VALUES ('rest_portal_fhir_api', 0, '1');
+REPLACE INTO globals VALUES ('oauth_password_grant', 0, '3');
