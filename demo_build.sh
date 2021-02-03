@@ -777,6 +777,7 @@ do
    cd $TMPDIR/openemr
 
    # install php dependencies
+   echo "debug: $GITHUB_KEY_COMPOSER"
    githubTokenRateLimitRequestPackage=`curl -H "Authorization: token $GITHUB_KEY_COMPOSER" https://api.github.com/rate_limit`
    githubTokenRateLimitPackage=`echo $githubTokenRateLimitRequestPackage | jq '.rate.remaining'`
    echo "Number of github api requests remaining is $githubTokenRateLimitPackage"
