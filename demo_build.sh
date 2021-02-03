@@ -303,7 +303,7 @@ do
 
  # COLLECT MAPPED BRANCH AND OPTIONS
  # Grab repo link
- OPENEMRREPO=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 2`
+ OPENEMRREPO=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 2`
  echo -n "git repo is "
  echo "$OPENEMRREPO"
  echo -n "git repo is " >> $LOG
@@ -325,78 +325,78 @@ do
  echo -n "git repo local path is " >> $LOG
  echo "$GIT" >> $LOG
  # Grab branch
- GITBRANCH=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 3`
+ GITBRANCH=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 3`
  echo -n "git branch is "
  echo "$GITBRANCH"
  echo -n "git branch is " >> $LOG
  echo "$GITBRANCH" >> $LOG
  # Grab serve development translation set option
- sdt=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 4`
+ sdt=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 4`
  echo -n "sdt option is "
  echo "$sdt"
  echo -n "sdt option is " >> $LOG
  echo "$sdt" >> $LOG
  # Grab use development translation set option
- udt=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 5`
+ udt=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 5`
  echo -n "udt option is "
  echo "$udt"
  echo -n "udt option is " >> $LOG
  echo "$udt" >> $LOG
  # Grab serve packages option
- sp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 6`
+ sp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 6`
  echo -n "sp option is "
  echo "$sp"
  echo -n "sp option is " >> $LOG
  echo "$sp" >> $LOG
  # Grab legacy patching option
- lp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 7`
+ lp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 7`
  echo -n "lp option is "
  echo "$lp"
  echo -n "lp option is " >> $LOG
  echo "$lp" >> $LOG
  # Grab demo data option
- dd=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 8`
+ dd=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 8`
  echo -n "dd option is "
  echo "$dd"
  echo -n "dd option is " >> $LOG
  echo "$dd" >> $LOG
  # Grab demo ssh option
- ds=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 9`
+ ds=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 9`
  echo -n "ds option is "
  echo "$ds"
  echo -n "ds option is " >> $LOG
  echo "$ds" >> $LOG
- wp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 10`
+ wp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 10`
  echo -n "wp option is "
  echo "$wp"
  echo -n "wp option is " >> $LOG
  echo "$wp" >> $LOG
- EXTERNALLINK=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 11`
+ EXTERNALLINK=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 11`
  echo -n "external link is "
  echo "$EXTERNALLINK"
  echo -n "external link is " >> $LOG
  echo "$EXTERNALLINK" >> $LOG
- mrp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 12`
+ mrp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 12`
  echo -n "mysql p is "
  echo "$mrp"
  echo -n "mysql p is " >> $LOG
  echo "$mrp" >> $LOG
- branchOrTag=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 13`
+ branchOrTag=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 13`
  echo -n "github repo branch/tag is  "
  echo "$branchOrTag"
  echo -n "github repo branch/tag is " >> $LOG
  echo "$branchOrTag" >> $LOG
- ddu=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 14`
+ ddu=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 14`
  echo -n "ddu option is "
  echo "$ddu"
  echo -n "ddu option is " >> $LOG
  echo "$ddu" >> $LOG
- funStuff=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 15`
+ funStuff=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 15`
  echo -n "funStuff option is "
  echo "$funStuff"
  echo -n "funStuff option is " >> $LOG
  echo "$funStuff" >> $LOG
- passReset=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | cut -f 16`
+ passReset=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 16`
  echo -n "passReset option is "
  echo "$passReset"
  echo -n "passReset option is " >> $LOG
