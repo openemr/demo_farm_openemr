@@ -570,7 +570,7 @@ do
   if [ "$githubTokenRateLimit" -gt 1000 ]; then
    echo "Using composer github api token"
    echo "Using composer github api token" >> $LOG
-   composer config --global --auth github-oauth.github.com e4ac89dd1c1a88a2d523237b461f1690a277a032
+   composer config --global --auth github-oauth.github.com $GITHUB_KEY_COMPOSER
   else
    echo "Not using composer github api token"
    echo "Not using composer github api token" >> $LOG
@@ -786,7 +786,7 @@ do
    if [ "$githubTokenRateLimitPackage" -gt 1000 ]; then
     echo "Using composer github api token"
     echo "Using composer github api token" >> $LOG
-    composer config --global --auth github-oauth.github.com e4ac89dd1c1a88a2d523237b461f1690a277a032
+    composer config --global --auth github-oauth.github.com $GITHUB_KEY_COMPOSER
    else
     echo "Not using composer github api token"
     echo "Not using composer github api token" >> $LOG
