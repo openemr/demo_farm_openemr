@@ -562,7 +562,9 @@ do
   cd $OPENEMR
 
   # install php dependencies
-  githubTokenRateLimitRequest=`curl -H "Authorization: token ${GITHUB_KEY_COMPOSER}" https://api.github.com/rate_limit`
+  echo "debug: $GITHUB_KEY_COMPOSER"
+  echo "debug: $GITHUB_KEY_COMPOSER" >> $LOG
+  githubTokenRateLimitRequest=`curl -H "Authorization: token $GITHUB_KEY_COMPOSER" https://api.github.com/rate_limit`
   githubTokenRateLimit=`echo $githubTokenRateLimitRequest | jq '.rate.remaining'`
   echo "Number of github api requests remaining is $githubTokenRateLimit"
   echo "Number of github api requests remaining is $githubTokenRateLimit" >> $LOG
