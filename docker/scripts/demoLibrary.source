@@ -121,6 +121,7 @@ startDemo () {
                         -v ~/demo_farm_openemr/docker/postfix/${4}/main.cf:/etc/postfix/main.cf:ro \
                         -v ~/cred/sasl_passwd:/etc/postfix/sasl_passwd:ro \
                         -v ~/cred/sasl_passwd.db:/etc/postfix/sasl_passwd.db:ro \
+                        -v ~/cred/github-key:/home/openemr/github-key:ro \
                         --net mynet \
                         openemr/pre-openemr:${6}
 }
