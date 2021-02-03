@@ -30,6 +30,7 @@
 #      3) store the .htpasswd file which is used to control access to the admin web panel for the demo farm
 #         - see https://www.1and1.com/cloud-community/learn/web-server/nginx/set-up-password-authentication-with-nginx/ to see how this file is created
 #      4) store the pem key to log into the demo farm ec2 instance which is used by the administration web utilities
+#      5) store the github key in the github-key file, which is used for composer
 #
 
 # Bring in the demo function library

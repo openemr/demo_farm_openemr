@@ -14,6 +14,9 @@
 # rather than 2. This sets up the pieces for running the startDemo() function
 # 1st (and only) parameter is the demo name (one, two, three, etc.)
 startDemoWrapper() {
+    # ensure the github composer key environment variable is set
+    export GITHUB_KEY_COMPOSER=$(cat ~/cred/github-key)
+
     if [ "$1" == "seven" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php/7.2/apache2" "ubuntu" "18-04" "18.04" "/var/www/html" "7"
     elif [ "$1" == "eight" ]; then
