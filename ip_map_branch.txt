@@ -45,3 +45,15 @@ edu	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	e
 edu_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	edu.openemr.io/a	hey	branch	5.0.0	0	0	demo 2 for Robert
 edu_b	https://github.com/bradymiller/openemr.git	edu-boyd-projects_2	0	0	0	0	0	0	1	edu.openemr.io/b	hey	branch	0	0	0	Second EDU demo
 edu_c	https://github.com/openemr/openemr.git	rel-501	0	0	0	0	0	0	1	edu.openemr.io/c	hey	branch	0	0	0	HOPES organization demo
+192.168.1.130	https://github.com/openemr/openemr.git	rel-421	0	0	0	0	0	0	1	demo.open-emr.org:2104		branch	0	0	0	Public OpenEMR 4.2.1 Development Demo (Daily Build)
+192.168.1.131	https://github.com/openemr/openemr.git	rel-500	0	0	0	0	0	0	1	demo.open-emr.org:2105		branch	0	0	0	Public OpenEMR 5.0.0 Development Demo (Daily Build)
+192.168.1.132	https://github.com/mdsupport/openemr.git	1_tabs_css	0	0	0	0	0	1	demo.open-emr.org:2106		branch	0	0	0	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
+192.168.1.133	https://github.com/ophthal/openemr_2.git	menu_work	0	0	0	0	0	0	1	demo.open-emr.org:2108		branch	0	0	0	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
+192.168.1.134	https://github.com/mdsupport/openemr.git	3_menu_data	0	0	0	0	0	0	1	demo.open-emr.org:2109		branch	0	0	0	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
+192.168.1.135	https://github.com/zbig01/openemr.git	flat_style_master	0	0	0	0	0	0	1	demo.open-emr.org:2110	hey	branch	0	0	0	UP FOR GRABS. Demo is reset daily and anybody can request their repo/branch with a github pull request.
+192.168.1.111	https://github.com/openemr/openemr.git	master	1	1	1	0	0	0	1	demo.open-emr.org:2089	hey	branch	0	0	0	Public OpenEMR Development Demo (Daily Build)
+192.168.1.129	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	demo.open-emr.org:2103		branch	0	0	0	Public OpenEMR Development Demo (Weekly Build)
+192.168.1.125	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	demo.open-emr.org:2099		branch	0	0	0	NOT USED FOR ANYTHING YET.
+192.168.1.126	https://github.com/openemr/openemr.git	v4_1_2_3	0	0	0	0	demo_4_1_2_3.sql	openemr_demo_4123	0	0	0	demo.open-emr.org:2107		tag	0	Public OpenEMR 4.1.2 Production Demo (Daily Build)
+192.168.1.127	https://github.com/openemr/openemr.git	rel-420	0	0	1	0	0	0	1	demo.open-emr.org:2101		branch	0	0	0	Public OpenEMR 4.2.0 Development Demo (Daily Build)
+192.168.1.128	https://github.com/openemr/openemr.git	rel-422	0	0	1	0	0	0	1	demo.open-emr.org:2102		branch	0	0	0	Public OpenEMR 4.2.2 Development Demo (Daily Build)
