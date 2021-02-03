@@ -127,12 +127,13 @@
                             <div class="panel-group">
                                 <div class="panel panel-default">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseAlpha" aria-expanded="false" aria-controls="collapseAlpha">
-                                        Alpha Demo Details - Toggle
+                                        Alpha Demo Details - Toggle (CLOSED DOWN)
                                     </button>
                                     <div class="collapse" id="collapseAlpha">
                                         <div class="panel-body">
                                             <div class="card card-body">
                                                 <div class="row col-xs-12">
+                                                    <p><b>This demos is CLOSED.</b></p>
                                                     <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Alpha_-_Up_For_Grabs_Demo" target="_blank">Alpha Up For Grabs Demo</a></p>
                                                     <p><b>Step 2:</b> Edit the following tab delimited file at the <b>two</b> row; place the repository(2nd column) and branch(3rd column) in the <b>two</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
                                                     <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
@@ -148,12 +149,13 @@
                                 </div>
                                 <div class="panel panel-default">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseBeta" aria-expanded="false" aria-controls="collapseBeta">
-                                        Beta Demo Details - Toggle
+                                        Beta Demo Details - Toggle (CLOSED DOWN)
                                     </button>
                                     <div class="collapse" id="collapseBeta">
                                         <div class="panel-body">
                                             <div class="card card-body">
                                                 <div class="row col-xs-12">
+                                                    <p><b>This demos is CLOSED.</b></p>
                                                     <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Beta_-_Up_For_Grabs_Demo" target="_blank">Beta Up For Grabs Demo</a></p>
                                                     <p><b>Step 2:</b> Edit the following tab delimited file at the <b>three</b> row; place the repository(2nd column) and branch(3rd column) in the <b>three</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
                                                     <p><b>Step 3:</b> Refresh the demo (ie. click the button below; after about a minute the output of the refresh will show up in the status box below).</p>
@@ -379,12 +381,13 @@
                                 </div>
                                 <div class="panel panel-default">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseNu" aria-expanded="false" aria-controls="collapseNu">
-                                        Nu Demo Details - Toggle
+                                        Nu Demo Details - Toggle (CLOSED DOWN)
                                     </button>
                                     <div class="collapse" id="collapseNu">
                                         <div class="panel-body">
                                             <div class="card card-body">
                                                 <div class="row col-xs-12">
+                                                    <p><b>This demos is CLOSED.</b></p>
                                                     <p><b>This is a special Up for Grabs Demo that is set to use Alpine 3.6 in order to be able to easily test PHP 7.1 issues.</b></p>
                                                     <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Nu_-_Up_For_Grabs_Demo" target="_blank">Nu Up For Grabs Demo</a></p>
                                                     <p><b>Step 2:</b> Edit the following tab delimited file at the <b>ten_b</b> row; place the repository(2nd column) and branch(3rd column) in the <b>ten_b</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
@@ -401,12 +404,13 @@
                                 </div>
                                 <div class="panel panel-default">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseXi" aria-expanded="false" aria-controls="collapseXi">
-                                        Xi Demo Details - Toggle
+                                        Xi Demo Details - Toggle (CLOSED DOWN)
                                     </button>
                                     <div class="collapse" id="collapseXi">
                                         <div class="panel-body">
                                             <div class="card card-body">
                                                 <div class="row col-xs-12">
+                                                    <p><b>This demos is CLOSED.</b></p>
                                                     <p><b>This is a special Up for Grabs Demo that is set to use Ubuntu 18.04 in order to be able to easily test PHP 7.2 issues.</b></p>
                                                     <p><b>Step 1:</b> Place the repository and branch in this wiki section: <a href="http://www.open-emr.org/wiki/index.php/Development_Demo#Xi_-_Up_For_Grabs_Demo" target="_blank">Xi Up For Grabs Demo</a></p>
                                                     <p><b>Step 2:</b> Edit the following tab delimited file at the <b>seven_d</b> row; place the repository(2nd column) and branch(3rd column) in the <b>seven_d</b> row.(note this is a tab delimited file; if tabs are removed between columns, then it will break!)(also note that we are generally serving branches, however, in the unusual case of serving tagged code, then need to change 'branch' to 'tag' in the 11th column): <a href="https://github.com/openemr/demo_farm_openemr/blob/master/ip_map_branch.txt" target="_blank">ip_map_branch.txt file on github</a></p>
