@@ -40,6 +40,7 @@ RUN apt-get install -y \
     php-mbstring \
     php-zip \
     php-ldap \
+    php-intl \
     git \
     wget \
     openvpn \

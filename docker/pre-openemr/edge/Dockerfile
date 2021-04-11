@@ -42,6 +42,7 @@ RUN apk add --no-cache apache2 \
             php7-fileinfo \
             php7-calendar \
             php7-sodium \
+            php7-intl \
             perl \
             tar \
             curl \

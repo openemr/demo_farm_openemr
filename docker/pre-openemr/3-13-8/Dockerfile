@@ -42,6 +42,7 @@ RUN apk add --no-cache apache2 \
             php8-fileinfo \
             php8-calendar \
             php8-sodium \
+            php8-intl \
             perl \
             tar \
             curl \
