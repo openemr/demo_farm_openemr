@@ -11,8 +11,10 @@ if (php_sapi_name() !== 'cli') {
 // $path requires no explanation
 // $seconds is how frequently the passwords are reset
 // $mode:
-//       1  - just the admin user in a basic demo
-//       2  - all the official users in the demos with demo data
+//       1  - just the admin user in a basic demo (version < 6.0.0)
+//       2  - all the official users in the demos with demo data (version < 6.0.0)
+//       3  - just the admin user in a basic demo (version 6.0.0+)
+//       4  - all the official users in the demos with demo data (version 6.0.0+)
 
 $path = $argv[1];
 $seconds = $argv[2];
