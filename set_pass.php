@@ -23,8 +23,39 @@ $ignoreAuth=1;
 require_once($path . "/openemr/interface/globals.php");
 require_once($GLOBALS['srcdir'] . "/authentication/password_change.php");
 
-if ($mode == 2) {
+
+if ($mode == 4) {
     while (true) {
+        // support for versions 6.0.0+ with demo data
+        sqlStatementNoLog('UPDATE `users` SET `username` = "admin", `active` = 1 WHERE `id` = 1');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "admin", `password` = "$2a$05$.hH4Godes3dORmHjOjtXXekQPf2n5tQsw2H/ahwsBECLA/QCgWRS." WHERE `id` = 1');
+
+        sqlStatementNoLog('UPDATE `users` SET `username` = "accountant", `active` = 1 WHERE `id` = 4');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "accountant", `password` = "$2a$05$rMH0ZfoGXKuavGpsmM.UPuAonkS2811YVIE2ZL52.Q/GGCL0AAV4q" WHERE `id` = 4');
+
+        sqlStatementNoLog('UPDATE `users` SET `username` = "clinician", `active` = 1 WHERE `id` = 5');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "clinician", `password` = "$2a$05$LDt00UZrNVbXR8j9Rj0.NuBN6bMoT4hbXoiKnkQkDQetYy9rMXIri" WHERE `id` = 5');
+
+        sqlStatementNoLog('UPDATE `users` SET `username` = "physician", `active` = 1 WHERE `id` = 6');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "physician", `password` = "$2a$05$y6Myd8hMVXzFqcHBrCo8K.K/OcVBOCB1KrOFN//Hsw89f6x17wvGC" WHERE `id` = 6');
+
+        sqlStatementNoLog('UPDATE `users` SET `username` = "receptionist", `active` = 1 WHERE `id` = 7');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "receptionist", `password` = "$2a$05$bHD9eIJ0dc6fISnNdqJtbe2/LVUPWhWGSuJOxRGab/NaUZYV3vqBO" WHERE `id` = 7');
+
+        sqlStatementNoLog('UPDATE `users` SET `username` = "zhportal", `active` = 1 WHERE `id` = 8');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "zhportal", `password` = "$2a$05$U6.L67RPZCz5GT4HEqTwieF6e2QBtIMQrFClRUYlC8vC9tIMiOpVC" WHERE `id` = 8');
+        sleep($seconds);
+    }
+} elseif ($mode == 3) {
+    while (true) {
+        // support for versions 6.0.0+ with no demo data
+        sqlStatementNoLog('UPDATE `users` SET `username` = "admin", `active` = 1 WHERE `id` = 1');
+        sqlStatementNoLog('UPDATE `users_secure` SET `username` = "admin", `password` = "$2a$05$.hH4Godes3dORmHjOjtXXekQPf2n5tQsw2H/ahwsBECLA/QCgWRS." WHERE `id` = 1');
+        sleep($seconds);
+    }
+} elseif ($mode == 2) {
+    while (true) {
+        // support for versions < 6.0.0 with demo data
         sqlStatementNoLog('UPDATE `users` SET `username` = "admin", `active` = 1 WHERE `id` = 1');
         sqlStatementNoLog('UPDATE `users_secure` SET `username` = "admin", `password` = "$2a$05$.hH4Godes3dORmHjOjtXXekQPf2n5tQsw2H/ahwsBECLA/QCgWRS.", `salt` = "$2a$05$.hH4Godes3dORmHjOjtXXl$" WHERE `id` = 1');
 
@@ -46,6 +77,7 @@ if ($mode == 2) {
     }
 } else { // ($mode == 1)
     while (true) {
+        // support for versions < 6.0.0 with no demo data
         sqlStatementNoLog('UPDATE `users` SET `username` = "admin", `active` = 1 WHERE `id` = 1');
         sqlStatementNoLog('UPDATE `users_secure` SET `username` = "admin", `password` = "$2a$05$.hH4Godes3dORmHjOjtXXekQPf2n5tQsw2H/ahwsBECLA/QCgWRS.", `salt` = "$2a$05$.hH4Godes3dORmHjOjtXXl$" WHERE `id` = 1');
         sleep($seconds);
