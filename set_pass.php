@@ -23,8 +23,6 @@ $mode = $argv[3];
 $_GET['site'] = 'default';
 $ignoreAuth=1;
 require_once($path . "/openemr/interface/globals.php");
-require_once($GLOBALS['srcdir'] . "/authentication/password_change.php");
-
 
 if ($mode == 4) {
     while (true) {
