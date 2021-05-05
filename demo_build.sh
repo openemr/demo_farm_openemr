@@ -897,8 +897,8 @@ do
  fi
 
  if $passResetAuto; then
-  # run the auto reset password script every minute
-  nohup php -f ${PASSWORDRESETSCRIPT} ${FINALWEB} 60 ${passReset} >/dev/null 2>&1 &
+  # run the auto reset password script every 5 minutes
+  nohup php -f ${PASSWORDRESETSCRIPT} ${FINALWEB} 300 ${passReset} >/dev/null 2>&1 &
  fi
 done
 
