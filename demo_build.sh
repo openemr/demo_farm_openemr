@@ -896,12 +896,10 @@ do
   echo "Done setting up patient portals" >> $LOG
  fi
 
- # TEMPORARILY DISABLE THIS UNTIL GETTING IT TO WORK CORRECTLY
- #if $passResetAuto; then
+ if $passResetAuto; then
   # run the auto reset password script every minute
-  # TEMPORARILY DISABLE THIS UNTIL GETTING IT TO WORK CORRECTLY
-  #nohup php -f ${PASSWORDRESETSCRIPT} ${FINALWEB} 60 ${passReset} >/dev/null 2>&1 &
- #fi
+  nohup php -f ${PASSWORDRESETSCRIPT} ${FINALWEB} 60 ${passReset} >/dev/null 2>&1 &
+ fi
 done
 
 # Install Postfix to allow email registration on wordpress patient portal demo and other openemr stuff, if possible.
