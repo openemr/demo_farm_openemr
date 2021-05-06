@@ -26,6 +26,16 @@ require_once($path . "/openemr/interface/globals.php");
 
 use OpenEMR\Common\Auth\AuthUtils;
 
+// since this is cli, gotta manually set the php log
+$phpLog = '';
+if (file_exists('/var/www/html/log/logPhp.txt')) {
+    // ubuntu
+    $phpLog = '/var/www/html/log/logPhp.txt';
+} else {
+    // alpine
+    $phpLog = '/var/www/localhost/htdocs/log/logPhp.txt';
+}
+
 if ($mode == 4) {
     while (true) {
         // support for versions 6.0.0+ with demo data
@@ -35,7 +45,7 @@ if ($mode == 4) {
             // admin password has been modified, so fix it
             sqlStatementNoLog('UPDATE `users` SET `username` = "admin", `active` = 1 WHERE `id` = 1');
             sqlStatementNoLog('UPDATE `users_secure` SET `username` = "admin", `password` = "$2a$05$.hH4Godes3dORmHjOjtXXekQPf2n5tQsw2H/ahwsBECLA/QCgWRS." WHERE `id` = 1');
-            error_log("DEMO: FIXED the admin password for " . $path);
+            error_log("DEMO: FIXED the admin password for " . $path, 3, $phpLog);
         }
 
         $user = 'accountant';
@@ -44,7 +54,7 @@ if ($mode == 4) {
             // accountant password has been modified, so fix it
             sqlStatementNoLog('UPDATE `users` SET `username` = "accountant", `active` = 1 WHERE `id` = 4');
             sqlStatementNoLog('UPDATE `users_secure` SET `username` = "accountant", `password` = "$2a$05$rMH0ZfoGXKuavGpsmM.UPuAonkS2811YVIE2ZL52.Q/GGCL0AAV4q" WHERE `id` = 4');
-            error_log("DEMO: FIXED the accountant password for " . $path);
+            error_log("DEMO: FIXED the accountant password for " . $path, 3, $phpLog);
         }
 
         $user = 'clinician';
@@ -53,7 +63,7 @@ if ($mode == 4) {
             // clinician password has been modified, so fix it
             sqlStatementNoLog('UPDATE `users` SET `username` = "clinician", `active` = 1 WHERE `id` = 5');
             sqlStatementNoLog('UPDATE `users_secure` SET `username` = "clinician", `password` = "$2a$05$LDt00UZrNVbXR8j9Rj0.NuBN6bMoT4hbXoiKnkQkDQetYy9rMXIri" WHERE `id` = 5');
-            error_log("DEMO: FIXED the clinician password for " . $path);
+            error_log("DEMO: FIXED the clinician password for " . $path, 3, $phpLog);
         }
 
         $user = 'physician';
@@ -62,7 +72,7 @@ if ($mode == 4) {
             // physician password has been modified, so fix it
             sqlStatementNoLog('UPDATE `users` SET `username` = "physician", `active` = 1 WHERE `id` = 6');
             sqlStatementNoLog('UPDATE `users_secure` SET `username` = "physician", `password` = "$2a$05$y6Myd8hMVXzFqcHBrCo8K.K/OcVBOCB1KrOFN//Hsw89f6x17wvGC" WHERE `id` = 6');
-            error_log("DEMO: FIXED the physician password for " . $path);
+            error_log("DEMO: FIXED the physician password for " . $path, 3, $phpLog);
         }
 
         $user = 'receptionist';
@@ -71,7 +81,7 @@ if ($mode == 4) {
             // receptionist password has been modified, so fix it
             sqlStatementNoLog('UPDATE `users` SET `username` = "receptionist", `active` = 1 WHERE `id` = 7');
             sqlStatementNoLog('UPDATE `users_secure` SET `username` = "receptionist", `password` = "$2a$05$bHD9eIJ0dc6fISnNdqJtbe2/LVUPWhWGSuJOxRGab/NaUZYV3vqBO" WHERE `id` = 7');
-            error_log("DEMO: FIXED the receptionist password for " . $path);
+            error_log("DEMO: FIXED the receptionist password for " . $path, 3, $phpLog);
         }
 
         sleep($seconds);
@@ -85,7 +95,7 @@ if ($mode == 4) {
             // admin password has been modified, so fix it
             sqlStatementNoLog('UPDATE `users` SET `username` = "admin", `active` = 1 WHERE `id` = 1');
             sqlStatementNoLog('UPDATE `users_secure` SET `username` = "admin", `password` = "$2a$05$.hH4Godes3dORmHjOjtXXekQPf2n5tQsw2H/ahwsBECLA/QCgWRS." WHERE `id` = 1');
-            error_log("DEMO: FIXED the admin password for " . $path);
+            error_log("DEMO: FIXED the admin password for " . $path, 3, $phpLog);
         }
         sleep($seconds);
     }
