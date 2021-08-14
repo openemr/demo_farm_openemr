@@ -584,6 +584,13 @@ do
    npm run build &>> $LOG
   fi
 
+  if [ -f $OPENEMR/ccdaservice/package.json ]; then
+   # install ccdaservice dependencies (need unsafe-perm to run as root)
+   cd $OPENEMR/ccdaservice
+   npm install --unsafe-perm &>> $LOG
+   cd $OPENEMR
+  fi
+
   # clean up
   composer global require phing/phing &>> $LOG
   /root/.composer/vendor/bin/phing vendor-clean &>> $LOG
