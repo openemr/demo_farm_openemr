@@ -718,7 +718,10 @@ do
    cd $CAPSULES
    tar -xzf "${useCapsuleFile}.tgz"
    mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$CAPSULES/${useCapsuleFile}/backup.sql"
+   cp "$OPENEMR/sites/default/sqlconf.php" "$CAPSULES/"
    rsync --delete --recursive --links "$CAPSULES/${useCapsuleFile}/sites" "$OPENEMR/"
+   cp "$CAPSULES/sqlconf.php" "$OPENEMR/sites/default/sqlconf.php"
+   rm "$CAPSULES/sqlconf.php"
    if $alpineOs; then
     chmod -R a+w $OPENEMR/sites/default/documents
    else
