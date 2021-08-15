@@ -714,32 +714,34 @@ do
   # First, check to ensure the capsule exists
   if [ -f "$CAPSULES/${useCapsuleFile}.tgz" ]; then
    # ensure unpackaged directory is cleared prior to using
-   rm -fr "$CAPSULES/${useCapsuleFile}"
-   cd $CAPSULES
+   rm -fr "$OPENEMR/${useCapsuleFile}"
+   cp "$CAPSULES/${useCapsuleFile}.tgz" "$OPENEMR/"
    tar -xzf "${useCapsuleFile}.tgz"
-   mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$CAPSULES/${useCapsuleFile}/backup.sql"
-   cp "$OPENEMR/sites/default/sqlconf.php" "$CAPSULES/"
-   rsync --delete --recursive --links "$CAPSULES/${useCapsuleFile}/sites" "$OPENEMR/"
-   cp "$CAPSULES/sqlconf.php" "$OPENEMR/sites/default/sqlconf.php"
-   rm "$CAPSULES/sqlconf.php"
+   mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$OPENEMR/${useCapsuleFile}/backup.sql"
+   cp "$OPENEMR/sites/default/sqlconf.php" "$OPENEMR/"
+   rsync --delete --recursive --links "$OPENEMR/${useCapsuleFile}/sites" "$OPENEMR/"
+   cp "$OPENEMR/sqlconf.php" "$OPENEMR/sites/default/sqlconf.php"
+   rm "$OPENEMR/sqlconf.php"
    if $alpineOs; then
     chmod -R a+w $OPENEMR/sites/default/documents
    else
     chown -R www-data:www-data $OPENEMR/sites/default/documents
    fi
    # clear unpackaged directory
-   rm -fr "$CAPSULES/${useCapsuleFile}"
-   cd $OPENEMR
-  fi
-  if $demoDataUpgrade; then
-   # Run the sql upgrade script. This allows using capsule on most recent codebase.
-   echo "Upgrading capsule from $demoDataUpgradeFrom"
-   echo "Upgrading capsule from $demoDataUpgradeFrom" >> $LOG
-   sed -e "s@!empty(\$_POST\['form_submit'\])@true@" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php
-   sed -i "s@\$form_old_version = \$_POST\['form_old_version'\];@\$form_old_version = '${demoDataUpgradeFrom}';@" $OPENEMR/sql_upgrade_temp.php
-   sed -i "1s@^@<?php \$_GET['site'] = 'default'; ?>@" $OPENEMR/sql_upgrade_temp.php
-   php -f $OPENEMR/sql_upgrade_temp.php >> $LOG
-   rm -f $OPENEMR/sql_upgrade_temp.php
+   rm -fr "$OPENEMR/${useCapsuleFile}"
+   if $demoDataUpgrade; then
+    # Run the sql upgrade script. This allows using capsule on most recent codebase.
+    echo "Upgrading capsule from $demoDataUpgradeFrom"
+    echo "Upgrading capsule from $demoDataUpgradeFrom" >> $LOG
+    sed -e "s@!empty(\$_POST\['form_submit'\])@true@" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php
+    sed -i "s@\$form_old_version = \$_POST\['form_old_version'\];@\$form_old_version = '${demoDataUpgradeFrom}';@" $OPENEMR/sql_upgrade_temp.php
+    sed -i "1s@^@<?php \$_GET['site'] = 'default'; ?>@" $OPENEMR/sql_upgrade_temp.php
+    php -f $OPENEMR/sql_upgrade_temp.php >> $LOG
+    rm -f $OPENEMR/sql_upgrade_temp.php
+   fi
+  else
+   echo "ERROR: $useCapsuleFile capsule did not exist, so could not use"
+   echo "ERROR: $useCapsuleFile capsule did not exist, so could not use" >> $LOG
   fi
  fi
 
