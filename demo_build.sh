@@ -167,6 +167,7 @@ else
 fi
 LOG=$WEB/log/logSetup.txt
 mkdir -p $WEB/log
+CAPSULES=/home/openemr/capsules
 GITMAIN=/home/openemr/git
 GITDEMOFARM=$GITMAIN/demo_farm_openemr
 GITDEMOFARMMAP=$GITDEMOFARM/ip_map_branch.txt
@@ -401,6 +402,11 @@ do
  echo "$passReset"
  echo -n "passReset option is " >> $LOG
  echo "$passReset" >> $LOG
+ useCapsule=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 17`
+ echo -n "useCapsule option is "
+ echo "$useCapsule"
+ echo -n "useCapsule option is " >> $LOG
+ echo "$useCapsule" >> $LOG
 
  # SET OPTIONS
  # set if serve development translation set
@@ -471,9 +477,16 @@ do
  else
   passResetAuto=true;
  fi
+ # set if using a capsule
+ if [ "$useCapsule" == "0" ]; then
+  useCapsuleBoolean=false;
+ else
+  useCapsuleBoolean=true;
+  useCapsuleFile="$useCapsule"
+ fi
 
  # COLLECT and output demo description
- desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 17`
+ desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 18`
  echo -n "Demo description: "
  echo "$desc"
  echo -n "Demo description: " >> $LOG
@@ -691,6 +704,39 @@ do
     # plan to make a temp file in /home/openemr/temp/languageTranslations_utf8_temp.sql and modify it for the innodb optimizations
     # mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < /home/openemr/git/translations_development_openemr/languageTranslations_utf8.sql
    fi
+  fi
+ fi
+
+ if $useCapsuleBoolean; then
+  # load the capsule
+  echo "Load $useCapsuleFile capsule"
+  echo "Load $useCapsuleFile capsule" >> $LOG
+  # First, check to ensure the capsule exists
+  if [ -f "$CAPSULES/${useCapsuleFile}.tgz" ]; then
+   # ensure unpackaged directory is cleared prior to using
+   rm -fr "$CAPSULES/${useCapsuleFile}"
+   cd $CAPSULES
+   tar -xzf "${useCapsuleFile}.tgz"
+   mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$CAPSULES/${useCapsuleFile}/backup.sql"
+   rsync --delete --recursive --links "$CAPSULES/${useCapsuleFile}/sites" "$OPENEMR/"
+   if $alpineOs; then
+    chmod -R a+w $OPENEMR/sites/default/documents
+   else
+    chown -R www-data:www-data $OPENEMR/sites/default/documents
+   fi
+   # clear unpackaged directory
+   rm -fr "$CAPSULES/${useCapsuleFile}"
+   cd $OPENEMR
+  fi
+  if $demoDataUpgrade; then
+   # Run the sql upgrade script. This allows using capsule on most recent codebase.
+   echo "Upgrading capsule from $demoDataUpgradeFrom"
+   echo "Upgrading capsule from $demoDataUpgradeFrom" >> $LOG
+   sed -e "s@!empty(\$_POST\['form_submit'\])@true@" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php
+   sed -i "s@\$form_old_version = \$_POST\['form_old_version'\];@\$form_old_version = '${demoDataUpgradeFrom}';@" $OPENEMR/sql_upgrade_temp.php
+   sed -i "1s@^@<?php \$_GET['site'] = 'default'; ?>@" $OPENEMR/sql_upgrade_temp.php
+   php -f $OPENEMR/sql_upgrade_temp.php >> $LOG
+   rm -f $OPENEMR/sql_upgrade_temp.php
   fi
  fi
 

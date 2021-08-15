@@ -37,7 +37,7 @@ startDemoWrapper() {
     elif [ "$1" == "one" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-13" "3.13" "/var/www/localhost/htdocs" "2"
     elif [ "$1" == "edu" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/7.2/apache2" "ubuntu" "18-04" "18.04" "/var/www/html" "4"
+        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-13" "3.13" "/var/www/localhost/htdocs" "4"
     else
         startDemo "$1" "mysql-openemr" "/etc/php/7.0/apache2" "ubuntu" "16-04" "16.04" "/var/www/html" "1"
     fi
@@ -115,6 +115,7 @@ startDemo () {
                         --env "DOCKERMYSQLHOST=${2}" \
                         --env "DOCKERNUMBERDEMOS=${8}" \
                         --env "OPENEMR_DOCKER_ENV_TAG=demo-farm" \
+                        -v ~/capsules:/home/openemr/capsules \
                         -v ~/translations_development_openemr:/home/openemr/git/translations_development_openemr:ro \
                         -v ~/demo_farm_openemr/docker/php/${5}/php.ini:${3}/php.ini:ro \
                         -v ~/demo_farm_openemr/docker/stunnel/stunnel.conf:/etc/stunnel/stunnel.conf:ro \

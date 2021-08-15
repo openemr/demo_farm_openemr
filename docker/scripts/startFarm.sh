@@ -14,6 +14,7 @@
 #  -in home directory, clone demo_farm_openemr(https://github.com/openemr/demo_farm_openemr.git)
 #  -in home directory, clone translations_development_openemr (https://github.com/openemr/translations_development_openemr.git)
 #  -in home directory, make a 'html/translations' directory (mkdir -p ~/html/translations)
+#  -in home directory, make a 'capsules' directory (mkdir -p ~/capsules)
 #  -in home directory, clone the optional wkhtmltopdf-openemr composer package via git:
 #    -git clone https://github.com/openemr/wkhtmltopdf-openemr.git
 #  -place following in cron : copy stuff from docker/cron/cron
