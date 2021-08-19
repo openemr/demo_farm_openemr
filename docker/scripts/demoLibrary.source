@@ -251,3 +251,37 @@ renewLetsencrypt () {
                --webroot --webroot-path=/data/letsencrypt
 }
 
+# Will snapshot an openemr demo.
+# 1st parameter is the demo name (one, two, three, etc.)
+# 2nd parameter is the demo subname (a, b, c, etc.)(also can be 'empty' which is for the main subdemo)
+# 3rd parameter is the mysql root password
+snapshotDemo() {
+    local MYSQLIP=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr`
+    local currentTime=`date "+%Y-%m-%d-%H-%M-%S"`
+    local snapshotName="${1}-${2}-${currentTime}"
+    local capsules=~/capsules
+    local tmp="${capsules}/tmp"
+    local tmpPath="${tmp}/${snapshotName}"
+
+    echo "creating snapshot; note this will only work on Alpine OS's secondary to hard-coding of www path in this script"
+    echo "mysqlip: ${MYSQLIP}"
+    echo "snapshotName: ${snapshotName}"
+    echo "tmpPath: ${tmpPath}"
+
+mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}
+
+    mkdir -p "${tmpPath}"
+    if [ "$2" == "empty" ]; then
+        echo "snapshot of empty subname (ie. the one without a letter)"
+        mysqldump --hex-blob -u root -p${3} -h ${MYSQLIP} ${1} > "${tmpPath}/backup.sql"
+        docker cp "${1}-openemr:/var/www/localhost/htdocs/openemr/sites" "${tmpPath}"
+    else
+        echo "snapshot of non-empty subname (ie. with a letter)"
+        mysqldump --hex-blob -u root -p${3} -h ${MYSQLIP} ${1}_${2} > "${tmpPath}/backup.sql"
+        docker cp "${1}-openemr:/var/www/localhost/htdocs/${2}/openemr/sites" "${tmpPath}"
+    fi
+    cd "${tmp}"
+    tar -czf "${snapshotName}.tgz" "${snapshotName}"
+    mv "${snapshotName}.tgz" "${capsules}/"
+    rm -fr "${tmpPath}"
+}
