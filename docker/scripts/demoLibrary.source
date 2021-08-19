@@ -282,4 +282,5 @@ snapshotDemo() {
     tar -czf "${snapshotName}.tgz" "${snapshotName}"
     mv "${snapshotName}.tgz" "${capsules}/"
     rm -fr "${tmpPath}"
+    cd ~
 }
