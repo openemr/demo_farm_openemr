@@ -44,6 +44,7 @@ if [ "$1" == "one" ] ||
 
       else
           echo "ERROR, demo subname parameter not correct"
+          echo 1
       fi
 
 else

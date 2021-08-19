@@ -268,8 +268,6 @@ snapshotDemo() {
     echo "snapshotName: ${snapshotName}"
     echo "tmpPath: ${tmpPath}"
 
-mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}
-
     mkdir -p "${tmpPath}"
     if [ "$2" == "empty" ]; then
         echo "snapshot of empty subname (ie. the one without a letter)"
