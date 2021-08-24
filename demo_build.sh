@@ -724,6 +724,16 @@ do
    rm "$OPENEMR/sqlconf.php"
    if $alpineOs; then
     chmod -R a+w $OPENEMR/sites/default/documents
+    if [ -f "$OPENEMR/sites/default/documents/certificates/oaprivate.key"]; then
+     # this file needs special treatment in the alpine demo dockers to work correctly
+     chmod 640 "$OPENEMR/sites/default/documents/certificates/oaprivate.key"
+     chown apache:apache "$OPENEMR/sites/default/documents/certificates/oaprivate.key"
+    fi
+    if [ -f "$OPENEMR/sites/default/documents/certificates/oapublic.key"]; then
+     # this file needs special treatment in the alpine demo dockers to work correctly
+     chmod 660 "$OPENEMR/sites/default/documents/certificates/oapublic.key"
+     chown apache:apache "$OPENEMR/sites/default/documents/certificates/oapublic.key"
+    fi
    else
     chown -R www-data:www-data $OPENEMR/sites/default/documents
    fi
