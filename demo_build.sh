@@ -806,9 +806,9 @@ do
   else
     demoPath="/${demo}"
   fi
-  sed -i "1s@/apis/default/@${demoPath}/openemr/apis/default/@" $OPENEMR/swagger/openemr-api.yaml
-  sed -i "1s@/oauth2/default/authorize@${demoPath}/openemr/oauth2/default/authorize@" $OPENEMR/swagger/openemr-api.yaml
-  sed -i "1s@/oauth2/default/token@${demoPath}/openemr/oauth2/default/token@" $OPENEMR/swagger/openemr-api.yaml
+  sed -i "s@/apis/default/@${demoPath}/openemr/apis/default/@" $OPENEMR/swagger/openemr-api.yaml
+  sed -i "s@/oauth2/default/authorize@${demoPath}/openemr/oauth2/default/authorize@" $OPENEMR/swagger/openemr-api.yaml
+  sed -i "s@/oauth2/default/token@${demoPath}/openemr/oauth2/default/token@" $OPENEMR/swagger/openemr-api.yaml
  fi
 
  #Security stuff
