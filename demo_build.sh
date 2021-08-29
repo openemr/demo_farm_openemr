@@ -797,6 +797,20 @@ do
   chown -R www-data:www-data $OPENEMR/sites/default/procedure_results
  fi
 
+ # Set up swagger api to work
+ if [ -f $OPENEMR/swagger/openemr-api.yaml ]; then
+  echo "Setting up swagger api"
+  echo "Setting up swagger api" >> $LOG
+  if [ "$demo" == "empty" ]; then
+    demoPath=""
+  else
+    demoPath="/${demo}"
+  fi
+  sed -i "1s@/apis/default/@${demoPath}/openemr/apis/default/@" $OPENEMR/swagger/openemr-api.yaml
+  sed -i "1s@/oauth2/default/authorize@${demoPath}/openemr/oauth2/default/authorize@" $OPENEMR/swagger/openemr-api.yaml
+  sed -i "1s@/oauth2/default/token@${demoPath}/openemr/oauth2/default/token@" $OPENEMR/swagger/openemr-api.yaml
+ fi
+
  #Security stuff
  #1. remove the library/openflashchart/php-ofc-library/ofc_upload_image.php file if it exists
  if [ -f $OPENEMR/library/openflashchart/php-ofc-library/ofc_upload_image.php ]; then
