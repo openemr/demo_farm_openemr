@@ -12,7 +12,7 @@ four_d	https://github.com/tpantelis/openemr.git	code_selection	0	0	0	0	0	0	1	fou
 four_e	https://github.com/bradymiller/openemr.git	magic-cdr-on-bootstrap_3	0	0	0	0	0	0	1	four.openemr.io/e	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Theta
 four_f	https://github.com/ophthal/openemr.git	magic-cdr-on-bootstrap	0	0	0	0	0	0	1	four.openemr.io/f	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Iota
 four_g	https://github.com/tywrenn/openemr.git	dep-update-july	0	0	0	0	0	0	1	four.openemr.io/g	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Kappa
-four_h	https://github.com/dimitristsilis/openemr.git	MenuFix	0	0	0	0	0	0	1	four.openemr.io/h	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Lambda
+four_h	https://github.com/bradymiller/openemr.git	600-rebase-lifemesh_telehealth_integration	0	0	0	0	0	0	1	four.openemr.io/h	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Lambda
 four_i	https://github.com/bradymiller/openemr.git	rebase-lifemesh_telehealth_integration	0	0	0	0	0	0	1	four.openemr.io/i	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Mu
 five	https://github.com/openemr/openemr.git	v6_0_0_2	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io	hey	tag	5.0.0	0	4	0	Public OpenEMR 6.0.0 Production Demo
 five_a	https://github.com/openemr/openemr.git	v6_0_0_2	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/a	hey	tag	5.0.0	0	4	0	Alternate Public OpenEMR 6.0.0 Production Demo
