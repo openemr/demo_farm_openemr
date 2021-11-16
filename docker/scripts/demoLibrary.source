@@ -17,11 +17,11 @@ startDemoWrapper() {
     if [ "$1" == "seven" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php/7.2/apache2" "ubuntu" "18-04" "18.04" "/var/www/html" "7"
     elif [ "$1" == "eight" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-14" "3.14" "/var/www/localhost/htdocs" "4"
+        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-12" "3.12" "/var/www/localhost/htdocs" "8"
     elif [ "$1" == "nine" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php/7.4/apache2" "ubuntu" "20-04-14" "20.04-14" "/var/www/html" "2"
     elif [ "$1" == "ten" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-9" "3.9" "/var/www/localhost/htdocs" "5"
+        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-13" "3.13" "/var/www/localhost/htdocs" "5"
     elif [ "$1" == "eleven" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php8" "alpine" "3-14-8" "3.14-8" "/var/www/localhost/htdocs" "2"
     elif [ "$1" == "four" ]; then
