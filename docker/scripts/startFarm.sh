@@ -50,6 +50,8 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 #docker build -t openemr/pre-openemr:20.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/20-04-14/
 #docker build -t openemr/pre-openemr:20.04-14 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/20-04-16/
+#docker build -t openemr/pre-openemr:20.04-16 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-5/
 #docker build -t openemr/pre-openemr:3.5 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-6/
@@ -74,6 +76,10 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 #docker build -t openemr/pre-openemr:3.14 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-14-8/
 #docker build -t openemr/pre-openemr:3.14-8 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/3-15/
+#docker build -t openemr/pre-openemr:3.15 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/3-15-8/
+#docker build -t openemr/pre-openemr:3.15-8 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/edge/
 #docker build -t openemr/pre-openemr:edge .
 #cd ~/demo_farm_openemr/docker/php-ssh/
@@ -94,6 +100,7 @@ docker pull openemr/pre-openemr:17.10
 docker pull openemr/pre-openemr:18.04
 docker pull openemr/pre-openemr:20.04
 docker pull openemr/pre-openemr:20.04-14
+docker pull openemr/pre-openemr:20.04-16
 docker pull openemr/pre-openemr:3.5
 docker pull openemr/pre-openemr:3.6
 docker pull openemr/pre-openemr:3.7
@@ -106,6 +113,8 @@ docker pull openemr/pre-openemr:3.13
 docker pull openemr/pre-openemr:3.13-8
 docker pull openemr/pre-openemr:3.14
 docker pull openemr/pre-openemr:3.14-8
+docker pull openemr/pre-openemr:3.15
+docker pull openemr/pre-openemr:3.15-8
 docker pull openemr/pre-openemr:edge
 docker pull openemr/php-ssh:7.1-fpm-alpine
 
