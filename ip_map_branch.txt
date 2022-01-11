@@ -6,7 +6,7 @@ two_a	https://github.com/openemr/openemr.git	rel-600	0	0	0	0	demo_5_0_0_5.sql	0	
 three	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	three.openemr.io	hey	branch	0	0	0	0	OPEN
 four	https://github.com/ralflukner/openemr.git	dm2_fu_01	0	0	0	0	0	0	1	four.openemr.io	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Gamma
 four_a	https://github.com/ralflukner/openemr.git	bronchitis_01	0	0	0	0	0	0	1	four.openemr.io/a	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Delta
-four_b	https://github.com/stephenwaite/openemr.git	btn	0	0	0	0	0	0	1	four.openemr.io/b	hey	branch	1	0	0	0	UP FOR GRABS Public OpenEMR Demo - Epsilon
+four_b	https://github.com/stephenwaite/openemr.git	btn	0	0	0	0	demo_5_0_0_5.sql	0	1	four.openemr.io/b	hey	branch	5.0.0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Epsilon
 four_c	https://github.com/tywrenn/openemr.git	node-mods-overhaul	0	0	0	0	0	0	1	four.openemr.io/c	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Zeta
 four_d	https://github.com/tpantelis/openemr.git	code_selection	0	0	0	0	0	0	1	four.openemr.io/d	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Eta
 four_e	https://github.com/bradymiller/openemr.git	magic-cdr-on-bootstrap_3	0	0	0	0	0	0	1	four.openemr.io/e	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Theta
