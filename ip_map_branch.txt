@@ -10,10 +10,10 @@ four_b	https://github.com/stephenwaite/openemr.git	btn	0	0	0	0	demo_5_0_0_5.sql	
 four_c	https://github.com/tywrenn/openemr.git	node-mods-overhaul	0	0	0	0	0	0	1	four.openemr.io/c	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Zeta
 four_d	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	four.openemr.io/d	hey	branch	6.0.0	0	0	usability	TEMP is demo E for Usability testing - UP FOR GRABS Public OpenEMR Demo - Eta
 four_e	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	four.openemr.io/e	hey	branch	6.0.0	0	0	usability	TEMP is demo F for Usability testing - UP FOR GRABS Public OpenEMR Demo - Theta
-four_f	https://github.com/ophthal/openemr.git	master	0	1	0	0	0	0	1	four.openemr.io/f	hey	branch	6.0.0	0	0	usability	TEMP is demo G for Usability testing - UP FOR GRABS Public OpenEMR Demo - Iota
-four_g	https://github.com/tywrenn/openemr.git	master	0	1	0	0	0	0	1	four.openemr.io/g	hey	branch	6.0.0	0	0	usability	TEMP is demo H for Usability testing - UP FOR GRABS Public OpenEMR Demo - Kappa
-four_h	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	four.openemr.io/h	hey	branch	6.0.0	0	0	usability	TEMP is demo I for Usability testing - UP FOR GRABS Public OpenEMR Demo - Lambda
-four_i	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	four.openemr.io/i	hey	branch	6.0.0	0	0	usability	TEMP is demo J for Usability testing - UP FOR GRABS Public OpenEMR Demo - Mu
+four_f	https://github.com/ophthal/openemr.git	master	0	1	0	0	0	0	1	four.openemr.io/f	hey	branch	6.0.0	0	0	usabilitytraining	TEMP is demo 1 for Usability training - UP FOR GRABS Public OpenEMR Demo - Iota
+four_g	https://github.com/tywrenn/openemr.git	master	0	1	0	0	0	0	1	four.openemr.io/g	hey	branch	6.0.0	0	0	usabilitytraining	TEMP is demo 2 for Usability training - UP FOR GRABS Public OpenEMR Demo - Kappa
+four_h	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	four.openemr.io/h	hey	branch	6.0.0	0	0	usabilitytraining	TEMP is demo 3 for Usability training - UP FOR GRABS Public OpenEMR Demo - Lambda
+four_i	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	four.openemr.io/i	hey	branch	6.0.0	0	0	usabilitytraining	TEMP is demo 4 for Usability training - UP FOR GRABS Public OpenEMR Demo - Mu
 five	https://github.com/openemr/openemr.git	v6_0_0_2	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io	hey	tag	5.0.0	0	4	0	Public OpenEMR 6.0.0 Production Demo
 five_a	https://github.com/openemr/openemr.git	v6_0_0_2	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/a	hey	tag	5.0.0	0	4	0	Alternate Public OpenEMR 6.0.0 Production Demo
 five_b	https://github.com/openemr/openemr.git	v6_0_0_2	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/b	hey	tag	5.0.0	0	4	0	Another Alternate Public OpenEMR 6.0.0 Production Demo
