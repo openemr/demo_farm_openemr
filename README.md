@@ -31,9 +31,9 @@ This file is a tab delimited file for configuration of demos in the demo farm wi
 - root_sql_pass: set the root_sql_pass to use. if this is empty, then leave blank (however, only the deprecated demos will leave this empty).
 - branch_tag: set this to `branch` when using a github branch and `tag` when using a github tag. 
 - demo_data_upgrade_from: when set demo_data above or capsule below, then place the OpenEMR version that the demo data was based on (so it will then be upgraded from that version).
-- fun_stuff: set this to randomly select a theme. Set to 0 to turn off. Set to 1 for when using OpenEMR version < 6.0 and set to 2 when using OpenEMR version 6.0 and grreater.
+- fun_stuff: set this to randomly select a theme. Set to 0 to turn off. Set to 1 for when using OpenEMR version < 6.0 and set to 2 when using OpenEMR version 6.0 and greater.
 - pass_reset: set this to have password(s) reset to default every 5 minutes. Set to 0 to turn off. Set to 1 for demos that just have admin user. Set to 2 for demos that have the standard demo data.
-- capsule: set to 0 if no capsule. If have a capsule, then place the name if it here.
+- capsule: set to 0 if no capsule. If have a capsule, then place the name of it here.
 - description: place description of the demo here
 
 How to restart the demo farm when the instance does a shutdown/reboot
@@ -45,7 +45,7 @@ When this happens, all the dockers will stay stopped. The tricky issue is that t
     docker start phpmyadmin-openemr
     docker start php-serve
     ```
-  - Step 2 : Start the openemr dockers
+- Step 2 : Start the openemr dockers
     ```sh
     docker start edu-openemr
     docker start one-openemr
