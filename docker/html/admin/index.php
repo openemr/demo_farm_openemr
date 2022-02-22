@@ -601,9 +601,6 @@
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven A Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven B Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven C Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_d_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven D Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_e_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven E Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_f_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven F Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>
