@@ -670,9 +670,6 @@
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten A Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten B Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten C Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_d_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten D Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>
