@@ -717,6 +717,8 @@ do
    rm -fr "$OPENEMR/${useCapsuleFile}"
    cp "$CAPSULES/${useCapsuleFile}.tgz" "$OPENEMR/"
    tar -xzf "${useCapsuleFile}.tgz"
+   # Note need to first clear the current database
+   mysqldump -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print "SET FOREIGN_KEY_CHECKS=0;" } { print $0 } END { print "SET FOREIGN_KEY_CHECKS=1;" } ' | mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO
    mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$OPENEMR/${useCapsuleFile}/backup.sql"
    cp "$OPENEMR/sites/default/sqlconf.php" "$OPENEMR/"
    rsync --delete --recursive --links "$OPENEMR/${useCapsuleFile}/sites" "$OPENEMR/"
