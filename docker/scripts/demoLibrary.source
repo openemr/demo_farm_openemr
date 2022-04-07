@@ -271,11 +271,11 @@ snapshotDemo() {
     mkdir -p "${tmpPath}"
     if [ "$2" == "empty" ]; then
         echo "snapshot of empty subname (ie. the one without a letter)"
-        mysqldump --hex-blob -u root -p${3} -h ${MYSQLIP} ${1} > "${tmpPath}/backup.sql"
+        mysqldump --ignore-table=${1}.onsite_activity_view --hex-blob -u root -p${3} -h ${MYSQLIP} ${1} > "${tmpPath}/backup.sql"
         docker cp "${1}-openemr:/var/www/localhost/htdocs/openemr/sites" "${tmpPath}"
     else
         echo "snapshot of non-empty subname (ie. with a letter)"
-        mysqldump --hex-blob -u root -p${3} -h ${MYSQLIP} ${1}_${2} > "${tmpPath}/backup.sql"
+        mysqldump --ignore-table=${1}_${2}.onsite_activity_view --hex-blob -u root -p${3} -h ${MYSQLIP} ${1}_${2} > "${tmpPath}/backup.sql"
         docker cp "${1}-openemr:/var/www/localhost/htdocs/${2}/openemr/sites" "${tmpPath}"
     fi
     cd "${tmp}"
