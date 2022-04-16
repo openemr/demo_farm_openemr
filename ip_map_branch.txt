@@ -39,7 +39,7 @@ eleven	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	eleven.openem
 eleven_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	eleven.openemr.io/a	hey	branch	5.0.0	2	0	0	Public OpenEMR Development Demo on Alpine 3.15 (with PHP8) With Demo Data
 eleven_b	https://github.com/openemr/openemr.git	rel-610	0	1	0	0	0	0	1	eleven.openemr.io/b	hey	branch	0	2	0	0	Public OpenEMR 6.1.0 Development Demo on Alpine 3.15 (with PHP 8)
 eleven_c	https://github.com/openemr/openemr.git	rel-610	0	1	0	0	demo_5_0_0_5.sql	0	1	eleven.openemr.io/c	hey	branch	5.0.0	2	0	0	Public OpenEMR 6.1.0 Development Demo on Alpine 3.15 (with PHP8) With Demo Data
-edu	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	edu.openemr.io	hey	branch	6.1.0	0	0	edu-empty-2022-04-16-01-33-44.tgz	demo for MU3 testing
-edu_a	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	edu.openemr.io/a	hey	branch	6.0.0	0	0	usability	demo A for Usability testing
-edu_b	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	edu.openemr.io/b	hey	branch	6.0.0	0	0	usability	demo B for Usability testing
-edu_c	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	edu.openemr.io/c	hey	branch	6.0.0	0	0	usability	demo C for Usability testing
+edu	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	edu.openemr.io	hey	branch	6.1.0	0	0	edu-empty-2022-04-16-01-33-44.tgz	demo 1 for MU3 testing
+edu_a	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	edu.openemr.io/a	hey	branch	6.1.0	0	0	edu-empty-2022-04-16-01-33-44.tgz	demo 2 for MU3
+edu_b	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	edu.openemr.io/b	hey	branch	6.1.0	0	0	edu-empty-2022-04-16-01-33-44.tgz	demo 3 for MU3
+edu_c	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	edu.openemr.io/c	hey	branch	6.1.0	0	0	edu-empty-2022-04-16-01-33-44.tgz	demo 4 for MU3
