@@ -23,24 +23,25 @@ RUN apt-get install -y tzdata
 # (also installing git, wget, openvpn, debconf(note is done in above codeblock for now), mysql-client, and zip)
 # (installing nodejs, node, curl, unzip to allow openemr package building with composer and npm)
 # I had to remove php-mcrypt for Ubuntu 18.04 since no longer supported in php 7.2
+# For php 8.1 json extension is now in core php
 RUN apt-get install -y \
     apache2 \
     libapache2-mod-php \
     libtiff-tools \
-    php \
-    php-mysql \
-    php-cli \
-    php-gd \
-    php-xsl \
-    php-curl \
-    php-soap \
-    php-json \
-    # php-gettext \
+    php8.1 \
+    php8.1-mysql \
+    php8.1-cli \
+    php8.1-gd \
+    php8.1-xsl \
+    php8.1-curl \
+    php8.1-soap \
+    # php8.1-json \
+    # php8.1-gettext \
     imagemagick \
-    php-mbstring \
-    php-zip \
-    php-ldap \
-    php-intl \
+    php8.1-mbstring \
+    php8.1-zip \
+    php8.1-ldap \
+    php8.1-intl \
     git \
     wget \
     openvpn \
