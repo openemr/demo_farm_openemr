@@ -19,6 +19,7 @@ docker pull openemr/pre-openemr:18.04
 docker pull openemr/pre-openemr:20.04
 docker pull openemr/pre-openemr:20.04-14
 docker pull openemr/pre-openemr:20.04-16
+docker pull openemr/pre-openemr:22.04-16
 docker pull openemr/pre-openemr:3.5
 docker pull openemr/pre-openemr:3.6
 docker pull openemr/pre-openemr:3.7

@@ -31,7 +31,7 @@ startDemoWrapper() {
     elif [ "$1" == "six" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-10" "3.10" "/var/www/localhost/htdocs" "4"
     elif [ "$1" == "three" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php8" "alpine" "3-15-8" "3.15-8" "/var/www/localhost/htdocs" "1"
+        startDemo "$1" "mysql-openemr" "/etc/php/8.1/apache2" "ubuntu" "22-04-16" "22.04-16" "/var/www/html" "2"
     elif [ "$1" == "two" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php/7.4/apache2" "ubuntu" "20-04" "20.04" "/var/www/html" "2"
     elif [ "$1" == "one" ]; then

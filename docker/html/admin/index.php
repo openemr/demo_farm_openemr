@@ -502,6 +502,7 @@
                                                 <div class="row col-xs-12">
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_three_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Three Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_three_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Three A Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>
