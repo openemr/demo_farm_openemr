@@ -40,10 +40,6 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 # for building pre-openemr with the Dockerfiles (cd to path with the Dockerfile)
 #cd ~/demo_farm_openemr/docker/pre-openemr/16-04/
 #docker build -t openemr/pre-openemr:16.04 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/14-04/
-#docker build -t openemr/pre-openemr:14.04 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/17-10/
-#docker build -t openemr/pre-openemr:17.10 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/18-04/
 #docker build -t openemr/pre-openemr:18.04 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/20-04/
@@ -54,16 +50,6 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 #docker build -t openemr/pre-openemr:20.04-16 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/22-04-16/
 #docker build -t openemr/pre-openemr:22.04-16 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-5/
-#docker build -t openemr/pre-openemr:3.5 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-6/
-#docker build -t openemr/pre-openemr:3.6 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-7/
-#docker build -t openemr/pre-openemr:3.7 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-8/
-#docker build -t openemr/pre-openemr:3.8 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-9/
-#docker build -t openemr/pre-openemr:3.9 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-10/
 #docker build -t openemr/pre-openemr:3.10 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-11/
@@ -99,18 +85,11 @@ docker pull phpmyadmin/phpmyadmin
 #      but collecting it in case somebody wishes to make it work with older
 #      OpenEMR versions.
 docker pull openemr/pre-openemr:16.04
-docker pull openemr/pre-openemr:14.04
-docker pull openemr/pre-openemr:17.10
 docker pull openemr/pre-openemr:18.04
 docker pull openemr/pre-openemr:20.04
 docker pull openemr/pre-openemr:20.04-14
 docker pull openemr/pre-openemr:20.04-16
 docker pull openemr/pre-openemr:22.04-16
-docker pull openemr/pre-openemr:3.5
-docker pull openemr/pre-openemr:3.6
-docker pull openemr/pre-openemr:3.7
-docker pull openemr/pre-openemr:3.8
-docker pull openemr/pre-openemr:3.9
 docker pull openemr/pre-openemr:3.10
 docker pull openemr/pre-openemr:3.11
 docker pull openemr/pre-openemr:3.12

@@ -13,18 +13,11 @@
 #      but collecting it in case somebody wishes to make it work with older
 #      OpenEMR versions.
 docker pull openemr/pre-openemr:16.04
-docker pull openemr/pre-openemr:14.04
-docker pull openemr/pre-openemr:17.10
 docker pull openemr/pre-openemr:18.04
 docker pull openemr/pre-openemr:20.04
 docker pull openemr/pre-openemr:20.04-14
 docker pull openemr/pre-openemr:20.04-16
 docker pull openemr/pre-openemr:22.04-16
-docker pull openemr/pre-openemr:3.5
-docker pull openemr/pre-openemr:3.6
-docker pull openemr/pre-openemr:3.7
-docker pull openemr/pre-openemr:3.8
-docker pull openemr/pre-openemr:3.9
 docker pull openemr/pre-openemr:3.10
 docker pull openemr/pre-openemr:3.11
 docker pull openemr/pre-openemr:3.12
