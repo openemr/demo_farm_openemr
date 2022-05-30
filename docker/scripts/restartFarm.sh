@@ -34,6 +34,7 @@ docker pull openemr/pre-openemr:3.14
 docker pull openemr/pre-openemr:3.14-8
 docker pull openemr/pre-openemr:3.15
 docker pull openemr/pre-openemr:3.15-8
+docker pull openemr/pre-openemr:3.16
 docker pull openemr/pre-openemr:edge
 docker pull openemr/php-ssh:7.1-fpm-alpine
 
