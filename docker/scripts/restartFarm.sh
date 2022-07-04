@@ -74,6 +74,4 @@ bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eleven
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh four
 #bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu empty
 #bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu a
-#bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu b
-#bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu c
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu
