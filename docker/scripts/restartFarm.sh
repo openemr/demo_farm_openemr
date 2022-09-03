@@ -61,7 +61,7 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 # (also note that demo 'edu' are just refreshing subdemos to allow persistent demos that
 #  do not reset; for example `edu empty` and `edu c` subdemos are not being reset)
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh five
-sleep 9m
+sleep 30m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh three
