@@ -157,7 +157,8 @@ startMysql () {
                         --net mynet \
                         --ulimit nofile=65536:65536 \
                         mariadb:10.4 \
-                        --max-connections=450
+                        --max-connections=450 \
+                        --character-set-server=utf8mb4
 }
 
 restartMysql () {
