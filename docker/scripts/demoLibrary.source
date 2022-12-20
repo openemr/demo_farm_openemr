@@ -19,19 +19,19 @@ startDemoWrapper() {
     elif [ "$1" == "eight" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-12" "3.12" "/var/www/localhost/htdocs" "2"
     elif [ "$1" == "nine" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/7.4/apache2" "ubuntu" "20-04-16" "20.04-16" "/var/www/html" "4"
+        startDemo "$1" "mysql-openemr" "/etc/php/7.4/apache2" "ubuntu" "20-04-16" "20.04-16" "/var/www/html" "2"
     elif [ "$1" == "ten" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php81" "alpine" "3-16" "3.16" "/var/www/localhost/htdocs" "4"
+        startDemo "$1" "mysql-openemr" "/etc/php81" "alpine" "3-17" "3.17" "/var/www/localhost/htdocs" "4"
     elif [ "$1" == "eleven" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php8" "alpine" "3-15-8" "3.15-8" "/var/www/localhost/htdocs" "4"
     elif [ "$1" == "four" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php8" "alpine" "3-15-8" "3.15-8" "/var/www/localhost/htdocs" "6"
+        startDemo "$1" "mysql-openemr" "/etc/php81" "alpine" "3-17" "3.17" "/var/www/localhost/htdocs" "6"
     elif [ "$1" == "five" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php8" "alpine" "3-15-8" "3.15-8" "/var/www/localhost/htdocs" "3"
     elif [ "$1" == "six" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php7" "alpine" "3-10" "3.10" "/var/www/localhost/htdocs" "4"
+        startDemo "$1" "mysql-openemr" "/etc/php/8.1/apache2" "ubuntu" "22-04-18" "22.04-18" "/var/www/html" "4"
     elif [ "$1" == "three" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php/8.1/apache2" "ubuntu" "22-04-16" "22.04-16" "/var/www/html" "4"
+        startDemo "$1" "mysql-openemr" "/etc/php/8.1/apache2" "ubuntu" "22-04-16" "22.04-16" "/var/www/html" "2"
     elif [ "$1" == "two" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php/7.4/apache2" "ubuntu" "20-04" "20.04" "/var/www/html" "2"
     elif [ "$1" == "one" ]; then
