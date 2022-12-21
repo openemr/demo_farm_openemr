@@ -14,35 +14,35 @@ FROM alpine:edge
 # (also installing git, wget, openvpn, mysql-client, zip, bash, and rsync)
 RUN apk --no-cache upgrade
 RUN apk add --no-cache apache2 \
-            php7 \
-            php7-ctype \
-            php7-session \
-            php7-apache2 \
-            php7-json \
-            php7-pdo \
-            php7-pdo_mysql \
-            php7-curl \
-            php7-ldap \
-            php7-openssl \
-            php7-xml \
-            php7-xsl \
-            php7-gd \
-            php7-zip \
-            php7-soap \
-            php7-mbstring \
-            php7-zlib \
-            php7-mysqli \
-            php7-sockets \
-            php7-iconv \
-            php7-tokenizer \
-            php7-xmlreader \
-            php7-simplexml \
-            php7-xmlwriter \
-            php7-phar \
-            php7-fileinfo \
-            php7-calendar \
-            php7-sodium \
-            php7-intl \
+            php82 \
+            php82-ctype \
+            php82-session \
+            php82-apache2 \
+            php82-json \
+            php82-pdo \
+            php82-pdo_mysql \
+            php82-curl \
+            php82-ldap \
+            php82-openssl \
+            php82-xml \
+            php82-xsl \
+            php82-gd \
+            php82-zip \
+            php82-soap \
+            php82-mbstring \
+            php82-zlib \
+            php82-mysqli \
+            php82-sockets \
+            php82-iconv \
+            php82-tokenizer \
+            php82-xmlreader \
+            php82-simplexml \
+            php82-xmlwriter \
+            php82-phar \
+            php82-fileinfo \
+            php82-calendar \
+            php82-sodium \
+            php82-intl \
             perl \
             tar \
             curl \
@@ -56,6 +56,9 @@ RUN apk add --no-cache apache2 \
             bash \
             rsync \
             jq
+
+#BELOW LINE NEEDED TO SUPPORT PHP8 ON ALPINE 3.13; SHOULD BE ABLE TO REMOVE THIS IN FUTURE ALPINE VERSIONS
+RUN cp /usr/bin/php82 /usr/bin/php
 
 # Install composer for openemr package building
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
