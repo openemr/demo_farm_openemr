@@ -309,6 +309,8 @@
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_two_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Two Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_two_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Two A Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_two_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Two B Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_two_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Two C Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>

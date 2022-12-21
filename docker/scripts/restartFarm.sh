@@ -65,15 +65,25 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh five
 sleep 30m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one
+sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two
+sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh three
+sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh six
+sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven
+sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight
+sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh nine
+sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten
+sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eleven
+sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh four
+sleep 5m
 #bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu empty
 #bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu a
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu
