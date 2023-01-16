@@ -38,52 +38,21 @@ This file is a tab delimited file for configuration of demos in the demo farm wi
 
 How to restart the demo farm when the instance does a shutdown/reboot
 ----------------------------------------------------------------
-When this happens, all the dockers will stay stopped. The tricky issue is that the nginx docker (ie 'reverse-proxy') will not properly start if all the openemr docker demos are not running.
-- Step 1 : Start the dockers that do not need the openemr dockers to be running
+- Step 1 : First start the following via commmands below
     ```sh
-    docker start mysql-openemr
-    docker start phpmyadmin-openemr
-    docker start php-serve
+    bash ~/demo_farm_openemr/docker/scripts/restartMysql.sh
+    bash ~/demo_farm_openemr/docker/scripts/restartPhpmyadmin.sh
+    bash ~/demo_farm_openemr/docker/scripts/restartPhp.sh
     ```
-- Step 2 : Start the openemr dockers
+- Step 2 : Then start the nginx (reverse-proxy) docker via command below
     ```sh
-    docker start edu-openemr
-    docker start one-openemr
-    docker start two-openemr
-    docker start three-openemr
-    docker start four-openemr
-    docker start five-openemr
-    docker start six-openemr
-    docker start seven-openemr
-    docker start eight-openemr
-    docker start nine-openemr
-    docker start ten-openemr
-    docker start eleven-openemr
+    bash ~/demo_farm_openemr/docker/scripts/restartNginx.sh
     ```
-- Step 3 : Start the nginx docker (ie 'reverse-proxy')
+- Step 3 : Do a demo farm reset (this will start up all the openemr dockers; same things that happens every night during a farm reset)
     ```sh
-    docker start reverse-proxy
-    ```
-- Step 4 : Stop the openemr dockers (so they do not suck up any resources and slow things down)
-    ```sh
-    docker stop edu-openemr
-    docker stop one-openemr
-    docker stop two-openemr
-    docker stop three-openemr
-    docker stop four-openemr
-    docker stop five-openemr
-    docker stop six-openemr
-    docker stop seven-openemr
-    docker stop eight-openemr
-    docker stop nine-openemr
-    docker stop ten-openemr
-    docker stop eleven-openemr
-    ```
-- Step 5 : Do a demo farm reset (this will start up all the openemr dockers; same things that happens every night during a farm reset)
-    ```
     bash ~/demo_farm_openemr/docker/scripts/restartFarm.sh
     ```
-- Step 6: Wait for the reset (ie. magic) to happen. Recommend drinking a cup of coffee and watching the following video about 15 times: https://www.youtube.com/watch?v=JnbfuAcCqpY
+- Step 4: Wait for the reset (ie. magic) to happen. Recommend drinking a cup of coffee and watching the following video about 15 times: https://www.youtube.com/watch?v=JnbfuAcCqpY
 
 LICENSE
 --------------------------------------
