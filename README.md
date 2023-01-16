@@ -38,7 +38,7 @@ This file is a tab delimited file for configuration of demos in the demo farm wi
 
 How to restart the demo farm when the instance does a shutdown/reboot
 ----------------------------------------------------------------
-- Step 1 : First start the following via commmands below
+- Step 1 : First start the following dockers via commmands below
     ```sh
     bash ~/demo_farm_openemr/docker/scripts/restartMysql.sh
     bash ~/demo_farm_openemr/docker/scripts/restartPhpmyadmin.sh

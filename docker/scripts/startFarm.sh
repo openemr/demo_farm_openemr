@@ -141,17 +141,28 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 startMysql
 startPhpmyadmin
 startDemoWrapper "five"
-sleep 9m
+sleep 30m
 startDemoWrapper "one"
+sleep 5m
 startDemoWrapper "two"
+sleep 5m
 startDemoWrapper "three"
+sleep 5m
 startDemoWrapper "six"
+sleep 5m
 startDemoWrapper "seven"
+sleep 5m
 startDemoWrapper "eight"
+sleep 5m
 startDemoWrapper "nine"
+sleep 5m
 startDemoWrapper "ten"
+sleep 5m
 startDemoWrapper "eleven"
+sleep 5m
 startDemoWrapper "four"
+sleep 5m
 startDemoWrapper "edu"
+sleep 5m
 startPhp
 startNginx
