@@ -156,7 +156,7 @@ startMysql () {
                         --env "MYSQL_ROOT_PASSWORD=hey" \
                         --net mynet \
                         --ulimit nofile=65536:65536 \
-                        mariadb:10.4 \
+                        mariadb:10.6 \
                         --max-connections=450 \
                         --character-set-server=utf8mb4
 }

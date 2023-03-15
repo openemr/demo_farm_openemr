@@ -81,7 +81,7 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 
 # to collect the standard docker images
 docker pull nginx
-docker pull mariadb:10.4
+docker pull mariadb:10.6
 docker pull phpmyadmin/phpmyadmin
 
 # Always check for a new versions of the custom docker images
