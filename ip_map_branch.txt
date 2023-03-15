@@ -15,7 +15,7 @@ four	https://github.com/omegasystemsgroup/openemr.git	patch-6	0	0	0	0	0	0	1	four
 four_a	https://github.com/sjpadgett/openemr.git	oefaxsms	0	0	0	0	0	0	1	four.openemr.io/a	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Beta
 four_b	https://github.com/tywrenn/openemr.git	upgrade-to-bs5	0	0	0	0	0	0	1	four.openemr.io/b	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Gamma
 four_c	https://github.com/AltispeedTechnologies/openemr.git	5744	0	0	0	0	0	0	1	four.openemr.io/c	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Delta
-four_d	https://github.com/DiscoverAndChange/openemr.git	openemr-fix-5665-vitals-responsive	0	0	0	0	demo_5_0_0_5.sql	0	1	four.openemr.io/d	hey	branch	5.0.0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Epsilon
+four_d	https://github.com/claimrevolution/openemr.git	master	0	0	0	0	0	0	1	four.openemr.io/d	hey	branch	0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Epsilon
 four_e	https://github.com/psoas/openemr.git	patient-finder-update	0	0	0	0	demo_5_0_0_5.sql	0	1	four.openemr.io/e	hey	branch	5.0.0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Zeta
 five	https://github.com/openemr/openemr.git	v7_0_0_2	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io	hey	tag	5.0.0	0	4	0	Public OpenEMR 7.0.0 Production Demo
 five_a	https://github.com/openemr/openemr.git	v7_0_0_2	0	0	0	0	demo_5_0_0_5.sql	0	1	demo.openemr.io/a	hey	tag	5.0.0	0	4	0	Alternate Public OpenEMR 7.0.0 Production Demo
