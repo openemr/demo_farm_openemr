@@ -231,6 +231,12 @@ if (!empty($_POST['procedure'])) {
         case 'refresh_eleven_c_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eleven c', $output);
             break;
+        case 'refresh_eleven_d_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eleven d', $output);
+            break;
+        case 'refresh_eleven_e_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eleven e', $output);
+            break;
         case 'restart_edu_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu', $output);
             break;

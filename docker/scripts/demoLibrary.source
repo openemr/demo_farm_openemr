@@ -23,7 +23,7 @@ startDemoWrapper() {
     elif [ "$1" == "ten" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php81" "alpine" "3-17" "3.17" "/var/www/localhost/htdocs" "4"
     elif [ "$1" == "eleven" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php8" "alpine" "3-15-8" "3.15-8" "/var/www/localhost/htdocs" "4"
+        startDemo "$1" "mysql-openemr" "/etc/php8" "alpine" "3-15-8" "3.15-8" "/var/www/localhost/htdocs" "6"
     elif [ "$1" == "four" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php81" "alpine" "3-17" "3.17" "/var/www/localhost/htdocs" "6"
     elif [ "$1" == "five" ]; then
