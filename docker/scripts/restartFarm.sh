@@ -76,8 +76,6 @@ bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven
 sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight
 sleep 5m
-bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh nine
-sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten
 sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eleven
