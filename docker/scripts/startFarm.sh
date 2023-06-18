@@ -74,6 +74,8 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 #docker build -t openemr/pre-openemr:3.16 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-17/
 #docker build -t openemr/pre-openemr:3.17 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/3-18/
+#docker build -t openemr/pre-openemr:3.18 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/edge/
 #docker build -t openemr/pre-openemr:edge .
 #cd ~/demo_farm_openemr/docker/php-ssh/
@@ -106,6 +108,7 @@ docker pull openemr/pre-openemr:3.15
 docker pull openemr/pre-openemr:3.15-8
 docker pull openemr/pre-openemr:3.16
 docker pull openemr/pre-openemr:3.17
+docker pull openemr/pre-openemr:3.18
 docker pull openemr/pre-openemr:edge
 docker pull openemr/php-ssh:7.1-fpm-alpine
 
