@@ -105,6 +105,12 @@ if (!empty($_POST['procedure'])) {
         case 'refresh_two_c_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two c', $output);
             break;
+        case 'refresh_two_d_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two d', $output);
+            break;
+        case 'refresh_two_e_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two e', $output);
+            break;
         case 'restart_three_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh three', $output);
             break;
@@ -153,6 +159,12 @@ if (!empty($_POST['procedure'])) {
         case 'refresh_six_c_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh six c', $output);
             break;
+        case 'refresh_six_d_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh six d', $output);
+            break;
+        case 'refresh_six_e_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh six e', $output);
+            break;
         case 'restart_seven_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven', $output);
             break;
@@ -191,6 +203,12 @@ if (!empty($_POST['procedure'])) {
             break;
         case 'refresh_ten_c_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten c', $output);
+            break;
+        case 'refresh_ten_d_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten d', $output);
+            break;
+        case 'refresh_ten_e_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten e', $output);
             break;
         case 'restart_eleven_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eleven', $output);
