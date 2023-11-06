@@ -245,6 +245,8 @@
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_two_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Two A Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_two_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Two B Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_two_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Two C Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_two_d_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Two D Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_two_e_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Two E Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -337,6 +339,8 @@
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_six_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Six A Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_six_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Six B Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_six_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Six C Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_six_d_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Six D Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_six_e_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Six E Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -407,6 +411,8 @@
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten A Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten B Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten C Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_d_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten D Refresh</button>
+                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_ten_e_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Ten E Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>
