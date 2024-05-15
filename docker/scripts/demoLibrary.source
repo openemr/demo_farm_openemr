@@ -188,6 +188,7 @@ startNginx () {
                         -v ~/html:/usr/share/nginx/html:ro \
                         -v certs:/etc/letsencrypt \
                         -v certs-data:/data/letsencrypt \
+                        -v nginx:/var/log/nginx/:ro \
                         --net mynet \
                         nginx
 }
