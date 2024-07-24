@@ -112,6 +112,7 @@ startDemo () {
                         --env "DOCKERDEMO=${1}" \
                         --env "DOCKERMYSQLHOST=${2}" \
                         --env "DOCKERNUMBERDEMOS=${8}" \
+                        --env "OPENEMR_DOCKER_ENV_TAG=demo-farm" \
                         --env "THROTTLE_DOWN_WAIT_MILLISECONDS=700" \
                         --env "THROTTLE_DOWN_DIE_MILLISECONDS=10000" \
                         -v ~/capsules:/home/openemr/capsules:ro \
