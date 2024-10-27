@@ -23,16 +23,18 @@ six_b	https://github.com/openemr/openemr.git	rel-701	0	0	1	0	0	0	1	six.openemr.i
 six_c	https://github.com/openemr/openemr.git	rel-701	0	0	0	0	demo_5_0_0_5.sql	0	1	six.openemr.io/c	hey	branch	5.0.0	0	0	0	Public OpenEMR 7.0.1 Development Demo With Demo Data on Ubuntu 22.04 (with nodejs 18)
 six_d	https://github.com/openemr/openemr.git	rel-702	0	0	1	0	0	0	1	six.openemr.io/d	hey	branch	0	0	0	0	Public OpenEMR 7.0.2 Development Demo on Ubuntu 22.04 (with nodejs 18)
 six_e	https://github.com/openemr/openemr.git	rel-702	0	0	0	0	demo_5_0_0_5.sql	0	1	six.openemr.io/e	hey	branch	5.0.0	0	0	0	Public OpenEMR 7.0.2 Development Demo With Demo Data on Ubuntu 22.04 (with nodejs 18)
-seven	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	seven.openemr.io	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 training demo 1
-seven_a	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	seven.openemr.io/a	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 training demo 2
-seven_b	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	seven.openemr.io/b	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 training demo 3
-seven_c	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	seven.openemr.io/c	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 training demo 4
-seven_d	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	seven.openemr.io/d	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 training demo 5
-eight	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 testing demo 1
-eight_a	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io/a	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 testing demo 2
-eight_b	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io/b	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 testing demo 3
-eight_c	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io/c	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 testing demo 4
-eight_d	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io/d	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 testing demo 5
+seven	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	seven.openemr.io	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 training demo (not used secondary to bug)
+seven_a	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	seven.openemr.io/a	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 training demo 1
+seven_b	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	seven.openemr.io/b	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 training demo 2
+seven_c	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	seven.openemr.io/c	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 training demo 3
+seven_d	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	seven.openemr.io/d	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 training demo 4
+seven_e	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	seven.openemr.io/e	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 training demo 5
+eight	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 testing demo (not used secondary to bug)
+eight_a	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io/a	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 testing demo 1
+eight_b	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io/b	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 testing demo 2
+eight_c	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io/c	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 testing demo 3
+eight_d	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io/d	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 testing demo 4
+eight_e	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io/e	hey	branch	7.0.2	0	0	usability-b11-20241026	MU3 testing demo 5
 ten	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	ten.openemr.io	hey	branch	0	2	0	0	Public OpenEMR Development Demo on Alpine 3.17
 ten_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	ten.openemr.io/a	hey	branch	5.0.0	2	0	0	Public OpenEMR Development Demo on Alpine 3.17 With Demo Data
 ten_b	https://github.com/openemr/openemr.git	rel-701	0	0	0	0	0	0	1	ten.openemr.io/b	hey	branch	0	0	0	0	Public OpenEMR 7.0.1 Development Demo on Alpine 3.17
