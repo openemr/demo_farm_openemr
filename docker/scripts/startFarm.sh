@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2017 Brady Miller <brady.g.miller@gmail.com>
+# Copyright (C) 2017-2025 Brady Miller <brady.g.miller@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -38,36 +38,12 @@
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 
 # for building pre-openemr with the Dockerfiles (cd to path with the Dockerfile)
-#cd ~/demo_farm_openemr/docker/pre-openemr/16-04/
-#docker build -t openemr/pre-openemr:16.04 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/18-04/
-#docker build -t openemr/pre-openemr:18.04 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/20-04/
-#docker build -t openemr/pre-openemr:20.04 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/20-04-14/
-#docker build -t openemr/pre-openemr:20.04-14 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/20-04-16/
-#docker build -t openemr/pre-openemr:20.04-16 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/22-04-16/
-#docker build -t openemr/pre-openemr:22.04-16 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/22-04-18/
 #docker build -t openemr/pre-openemr:22.04-18 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-10/
-#docker build -t openemr/pre-openemr:3.10 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-11/
-#docker build -t openemr/pre-openemr:3.11 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-12/
-#docker build -t openemr/pre-openemr:3.12 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-13/
-#docker build -t openemr/pre-openemr:3.13 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-13-8/
-#docker build -t openemr/pre-openemr:3.13-8 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-14/
-#docker build -t openemr/pre-openemr:3.14 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-14-8/
-#docker build -t openemr/pre-openemr:3.14-8 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-15/
-#docker build -t openemr/pre-openemr:3.15 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/24-04-20/
+#docker build -t openemr/pre-openemr:24.04-20 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/24-04-22/
+#docker build -t openemr/pre-openemr:24.04-22 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-15-8/
 #docker build -t openemr/pre-openemr:3.15-8 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-16/
@@ -80,6 +56,8 @@ source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 #docker build -t openemr/pre-openemr:3.19 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/3-20/
 #docker build -t openemr/pre-openemr:3.20 .
+#cd ~/demo_farm_openemr/docker/pre-openemr/3-21/
+#docker build -t openemr/pre-openemr:3.21 .
 #cd ~/demo_farm_openemr/docker/pre-openemr/edge/
 #docker build -t openemr/pre-openemr:edge .
 #cd ~/demo_farm_openemr/docker/php-ssh/
@@ -94,27 +72,16 @@ docker pull phpmyadmin/phpmyadmin
 # NOTE 14.04 does not work with development OpenEMR since php version is too low,
 #      but collecting it in case somebody wishes to make it work with older
 #      OpenEMR versions.
-docker pull openemr/pre-openemr:16.04
-docker pull openemr/pre-openemr:18.04
-docker pull openemr/pre-openemr:20.04
-docker pull openemr/pre-openemr:20.04-14
-docker pull openemr/pre-openemr:20.04-16
-docker pull openemr/pre-openemr:22.04-16
 docker pull openemr/pre-openemr:22.04-18
-docker pull openemr/pre-openemr:3.10
-docker pull openemr/pre-openemr:3.11
-docker pull openemr/pre-openemr:3.12
-docker pull openemr/pre-openemr:3.13
-docker pull openemr/pre-openemr:3.13-8
-docker pull openemr/pre-openemr:3.14
-docker pull openemr/pre-openemr:3.14-8
-docker pull openemr/pre-openemr:3.15
+docker pull openemr/pre-openemr:24.04-20
+docker pull openemr/pre-openemr:24.04-22
 docker pull openemr/pre-openemr:3.15-8
 docker pull openemr/pre-openemr:3.16
 docker pull openemr/pre-openemr:3.17
 docker pull openemr/pre-openemr:3.18
 docker pull openemr/pre-openemr:3.19
 docker pull openemr/pre-openemr:3.20
+docker pull openemr/pre-openemr:3.21
 docker pull openemr/pre-openemr:edge
 docker pull openemr/php-ssh:7.1-fpm-alpine
 
