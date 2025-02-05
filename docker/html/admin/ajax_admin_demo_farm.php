@@ -90,6 +90,12 @@ if (!empty($_POST['procedure'])) {
         case 'refresh_one_c_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one c', $output);
             break;
+        case 'refresh_one_d_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one d', $output);
+            break;
+        case 'refresh_one_e_openemr':
+            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one e', $output);
+            break;
         case 'restart_two_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh two', $output);
             break;
@@ -180,12 +186,6 @@ if (!empty($_POST['procedure'])) {
         case 'refresh_seven_c_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven c', $output);
             break;
-        case 'refresh_seven_d_openemr':
-            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven d', $output);
-            break;
-        case 'refresh_seven_e_openemr':
-            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh seven e', $output);
-            break;
         case 'restart_eight_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight', $output);
             break;
@@ -200,12 +200,6 @@ if (!empty($_POST['procedure'])) {
             break;
         case 'refresh_eight_c_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight c', $output);
-            break;
-        case 'refresh_eight_d_openemr':
-            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight d', $output);
-            break;
-        case 'refresh_eight_e_openemr':
-            collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eight e', $output);
             break;
         case 'restart_ten_openemr':
             collectProcedure('bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh ten', $output);

@@ -12,27 +12,16 @@
 # NOTE 14.04 does not work with development OpenEMR since php version is too low,
 #      but collecting it in case somebody wishes to make it work with older
 #      OpenEMR versions.
-docker pull openemr/pre-openemr:16.04
-docker pull openemr/pre-openemr:18.04
-docker pull openemr/pre-openemr:20.04
-docker pull openemr/pre-openemr:20.04-14
-docker pull openemr/pre-openemr:20.04-16
-docker pull openemr/pre-openemr:22.04-16
 docker pull openemr/pre-openemr:22.04-18
-docker pull openemr/pre-openemr:3.10
-docker pull openemr/pre-openemr:3.11
-docker pull openemr/pre-openemr:3.12
-docker pull openemr/pre-openemr:3.13
-docker pull openemr/pre-openemr:3.13-8
-docker pull openemr/pre-openemr:3.14
-docker pull openemr/pre-openemr:3.14-8
-docker pull openemr/pre-openemr:3.15
+docker pull openemr/pre-openemr:24.04-20
+docker pull openemr/pre-openemr:24.04-22
 docker pull openemr/pre-openemr:3.15-8
 docker pull openemr/pre-openemr:3.16
 docker pull openemr/pre-openemr:3.17
 docker pull openemr/pre-openemr:3.18
 docker pull openemr/pre-openemr:3.19
 docker pull openemr/pre-openemr:3.20
+docker pull openemr/pre-openemr:3.21
 docker pull openemr/pre-openemr:edge
 docker pull openemr/php-ssh:7.1-fpm-alpine
 
