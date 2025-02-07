@@ -902,7 +902,7 @@ do
    sed -i "s@'DB_PASSWORD', 'wordpress'@'DB_PASSWORD', '${DOCKERDEMO}wordpress'@" "$WORDPRESS/wp-config.php"
    sed -i "s@'DB_HOST', 'localhost'@'DB_HOST', '${DOCKERMYSQLHOST}'@" "$WORDPRESS/wp-config.php"
   else
-   mariadb-admin -u root $rpassparam create wordpress
+   mariadb-admin --skip-ssl -u root $rpassparam create wordpress
    mariadb --skip-ssl  -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
    mariadb --skip-ssl  -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
   fi
