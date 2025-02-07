@@ -311,9 +311,9 @@ do
  echo -n "external link is " >> $LOG
  echo "$EXTERNALLINK" >> $LOG
  mrp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 12`
- echo -n "mysql p is "
+ echo -n "mariadb p is "
  echo "$mrp"
- echo -n "mysql p is " >> $LOG
+ echo -n "mariadb p is " >> $LOG
  echo "$mrp" >> $LOG
  branchOrTag=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 13`
  echo -n "github repo branch/tag is  "
@@ -384,7 +384,7 @@ do
  else
   portalsDemo=true;
  fi
- # set the mysql r pass string if needed
+ # set the mariadb r pass string if needed
  if [ -z "$mrp" ]; then
   rpassparam=
  else
@@ -598,11 +598,11 @@ do
    # Now insert the data
    #  -Note need to first clear the current database (can make this an option in future if need to add data without clearing database)
    if [ -n "$DOCKERDEMO" ] ; then
-    mysqldump -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print "SET FOREIGN_KEY_CHECKS=0;" } { print $0 } END { print "SET FOREIGN_KEY_CHECKS=1;" } ' | mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO
-    mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOFARM/pieces/$dd"
+    mariadb-dump --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print "SET FOREIGN_KEY_CHECKS=0;" } { print $0 } END { print "SET FOREIGN_KEY_CHECKS=1;" } ' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO
+    mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOFARM/pieces/$dd"
    else
-    mysqldump -u root $rpassparam --add-drop-table --no-data openemr | grep ^DROP | mysql -u root $rpassparam openemr
-    mysql -u root $rpassparam openemr < "$GITDEMOFARM/pieces/$dd"
+    mariadb-dump --skip-ssl -u root $rpassparam --add-drop-table --no-data openemr | grep ^DROP | mariadb --skip-ssl -u root $rpassparam openemr
+    mariadb --skip-ssl -u root $rpassparam openemr < "$GITDEMOFARM/pieces/$dd"
    fi
    echo "Completed inserting demo data from $dd"
    echo "Completed inserting demo data from $dd" >> $LOG
@@ -624,8 +624,8 @@ do
    if [ -n "$VERSION_MAJOR" ] && [ "$VERSION_MAJOR" -ge "6" ]; then
     echo "Upgrading database/collation to utf8mbf since using version ${VERSION_MAJOR}"
     echo "Upgrading database/collation to utf8mbf since using version ${VERSION_MAJOR}" >> $LOG
-     mysql -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat("ALTER DATABASE `",TABLE_SCHEMA,"` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;") as _sql FROM `information_schema`.`TABLES` where `TABLE_SCHEMA` like "'"${DOCKERDEMO}"'" and `TABLE_TYPE`="BASE TABLE" group by `TABLE_SCHEMA`;' | egrep '^ALTER' | mysql -h $DOCKERMYSQLHOST -u root $rpassparam
-     mysql -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat("ALTER TABLE `",TABLE_SCHEMA,"`.`",TABLE_NAME,"` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;") as _sql FROM `information_schema`.`TABLES` where `TABLE_SCHEMA` like "'"${DOCKERDEMO}"'" and `TABLE_TYPE`="BASE TABLE" group by `TABLE_SCHEMA`, `TABLE_NAME`;' | egrep '^ALTER' | mysql -h $DOCKERMYSQLHOST -u root $rpassparam
+     mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat("ALTER DATABASE `",TABLE_SCHEMA,"` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;") as _sql FROM `information_schema`.`TABLES` where `TABLE_SCHEMA` like "'"${DOCKERDEMO}"'" and `TABLE_TYPE`="BASE TABLE" group by `TABLE_SCHEMA`;' | egrep '^ALTER' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam
+     mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat("ALTER TABLE `",TABLE_SCHEMA,"`.`",TABLE_NAME,"` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;") as _sql FROM `information_schema`.`TABLES` where `TABLE_SCHEMA` like "'"${DOCKERDEMO}"'" and `TABLE_TYPE`="BASE TABLE" group by `TABLE_SCHEMA`, `TABLE_NAME`;' | egrep '^ALTER' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam
    fi
   fi
   if $translationsDevelopment ; then
@@ -635,7 +635,7 @@ do
     echo "TODO: Need to support bringing in the translations here in the future" >> $LOG
     # below is way to slow; need to figure out how to get the innodb optimizations in here (as do in main codebase inserts)
     # plan to make a temp file in /home/openemr/temp/languageTranslations_utf8_temp.sql and modify it for the innodb optimizations
-    # mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < /home/openemr/git/translations_development_openemr/languageTranslations_utf8.sql
+    # mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < /home/openemr/git/translations_development_openemr/languageTranslations_utf8.sql
    fi
   fi
  fi
@@ -651,8 +651,8 @@ do
    cp "$CAPSULES/${useCapsuleFile}.tgz" "$OPENEMR/"
    tar -xzf "${useCapsuleFile}.tgz"
    # Note need to first clear the current database
-   mysqldump -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print "SET FOREIGN_KEY_CHECKS=0;" } { print $0 } END { print "SET FOREIGN_KEY_CHECKS=1;" } ' | mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO
-   mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$OPENEMR/${useCapsuleFile}/backup.sql"
+   mariadb-dump --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print "SET FOREIGN_KEY_CHECKS=0;" } { print $0 } END { print "SET FOREIGN_KEY_CHECKS=1;" } ' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO
+   mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$OPENEMR/${useCapsuleFile}/backup.sql"
    cp "$OPENEMR/sites/default/sqlconf.php" "$OPENEMR/"
    rsync --delete --recursive --links "$OPENEMR/${useCapsuleFile}/sites" "$OPENEMR/"
    cp "$OPENEMR/sqlconf.php" "$OPENEMR/sites/default/sqlconf.php"
@@ -693,9 +693,9 @@ do
  #set up external link in global
  EXTERNALLINKBASE=$(echo "$EXTERNALLINK" | cut -d '/' -f 1)
  if [ -n "$DOCKERDEMO" ] ; then
-  mysql -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
+  mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
  else
-  mysql -u root $rpassparam -e "UPDATE openemr.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
+  mariadb --skip-ssl -u root $rpassparam -e "UPDATE openemr.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
  fi
 
  #random theme generator
@@ -713,9 +713,9 @@ do
   echo "$RANDOM_THEME" >> $LOG
   #set the random theme
   if [ -n "$DOCKERDEMO" ] ; then
-   mysql -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
+   mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
   else
-   mysql -u root $rpassparam -e "UPDATE openemr.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
+   mariadb --skip-ssl -u root $rpassparam -e "UPDATE openemr.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
   fi
  fi
 
@@ -881,9 +881,9 @@ do
 
   # Install the openemr sql stuff for portals
   if [ -n "$DOCKERDEMO" ] ; then
-   mysql -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOWORDPRESSDEMOSQLONETEMP"
+   mariadb --skip-ssl  -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOWORDPRESSDEMOSQLONETEMP"
   else
-   mysql -u root $rpassparam openemr < "$GITDEMOWORDPRESSDEMOSQLONETEMP"
+   mariadb --skip-ssl  -u root $rpassparam openemr < "$GITDEMOWORDPRESSDEMOSQLONETEMP"
   fi
 
   # Install wordpress file stuff
@@ -893,18 +893,18 @@ do
 
   # Install wordpress database stuff
   if [ -n "$DOCKERDEMO" ] ; then
-   mysqladmin -h $DOCKERMYSQLHOST -u root $rpassparam create ${DOCKERDEMO}wordpress
-   mysql -h $DOCKERMYSQLHOST -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON ${DOCKERDEMO}wordpress.* TO '${DOCKERDEMO}wordpress'@'%' IDENTIFIED BY '${DOCKERDEMO}wordpress'" ${DOCKERDEMO}wordpress
-   mysql -h $DOCKERMYSQLHOST -u root $rpassparam ${DOCKERDEMO}wordpress < "$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
+   mariadb-admin --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam create ${DOCKERDEMO}wordpress
+   mariadb --skip-ssl  -h $DOCKERMYSQLHOST -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON ${DOCKERDEMO}wordpress.* TO '${DOCKERDEMO}wordpress'@'%' IDENTIFIED BY '${DOCKERDEMO}wordpress'" ${DOCKERDEMO}wordpress
+   mariadb --skip-ssl  -h $DOCKERMYSQLHOST -u root $rpassparam ${DOCKERDEMO}wordpress < "$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
    # Modify $WORDPRESS/wp-config.php to match credentials created above
    sed -i "s@'DB_NAME', 'wordpress'@'DB_NAME', '${DOCKERDEMO}wordpress'@" "$WORDPRESS/wp-config.php"
    sed -i "s@'DB_USER', 'wordpress'@'DB_USER', '${DOCKERDEMO}wordpress'@" "$WORDPRESS/wp-config.php"
    sed -i "s@'DB_PASSWORD', 'wordpress'@'DB_PASSWORD', '${DOCKERDEMO}wordpress'@" "$WORDPRESS/wp-config.php"
    sed -i "s@'DB_HOST', 'localhost'@'DB_HOST', '${DOCKERMYSQLHOST}'@" "$WORDPRESS/wp-config.php"
   else
-   mysqladmin -u root $rpassparam create wordpress
-   mysql -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
-   mysql -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
+   mariadb-admin --skip-ssl -u root $rpassparam create wordpress
+   mariadb --skip-ssl  -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
+   mariadb --skip-ssl  -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
   fi
 
   rm "$GITDEMOWORDPRESSDEMOSQLONETEMP"
