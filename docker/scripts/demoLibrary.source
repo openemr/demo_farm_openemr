@@ -21,7 +21,7 @@ startDemoWrapper() {
     elif [ "$1" == "ten" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php81" "alpine" "3-17" "3.17" "/var/www/localhost/htdocs" "6"
     elif [ "$1" == "eleven" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php8" "alpine" "3-15-8" "3.15-8" "/var/www/localhost/htdocs" "6"
+        startDemo "$1" "mysql-openemr" "/etc/php/8.3/apache2" "ubuntu" "22-04-20" "22.04-20" "/var/www/localhost/htdocs" "6"
     elif [ "$1" == "four" ]; then
         startDemo "$1" "mysql-openemr" "/etc/php84" "alpine" "3-21" "3.21" "/var/www/localhost/htdocs" "3"
     elif [ "$1" == "five" ]; then
@@ -101,8 +101,8 @@ stopDemo () {
 # 2nd paremeter is the mysql name (mysql-openemr etc.)
 # 3rd parameter is the path to php.ini version (ie. /etc/php/7.0/apache2 )
 # 4th parameter is the os (ubuntu, alpine)
-# 5th parameter is ubuntu/alpine version with dash (16-04, 17-04, 17-10, etc.)
-# 6th parameter is ubuntu/alpine version with period (16.04, 17.04, 17.10, etc.)
+# 5th parameter is ubuntu/alpine version with dash plus and if ubuntu a dash and the node version (22-04-20, 24-04-22)
+# 6th parameter is ubuntu/alpine version with period plus and if ubuntu a dash and the node version (22.04-20, 24.04-22)
 # 7th parameter is the path to htdocs (ie. /var/www/html )
 # 8th parameter is to set to how many demos it will contain (can select a number from 1 - 10)
 startDemo () {
