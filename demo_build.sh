@@ -548,8 +548,12 @@ do
  fi
 
  #
- # Run installer class for the demo (note to avoid malicious use, script is activated by removing an exit command,
- #   and the active script is then removed after completion.
+ # Run installer class for the demo.
+ # Note: To avoid malicious use, the script must be activated first.
+ #       Newer versions of the script are activated with the env var.
+ #       Older versions are activated by the sed.
+ #       The activation methods are cross-compatible.
+ export OPENEMR_ENABLE_INSTALLER_AUTO=1
  INST=$OPENEMR/contrib/util/installScripts/InstallerAuto.php
  INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
  sed -e 's@^exit;@ @' <$INST >$INSTTEMP
