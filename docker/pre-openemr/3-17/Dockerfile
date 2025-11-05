@@ -14,49 +14,49 @@ FROM alpine:3.17
 # (also installing git, wget, openvpn, mysql-client, zip, bash, and rsync)
 RUN apk --no-cache upgrade
 RUN apk add --no-cache apache2 \
-            php81 \
-            php81-ctype \
-            php81-session \
-            php81-apache2 \
-            php81-json \
-            php81-pdo \
-            php81-pdo_mysql \
-            php81-curl \
-            php81-ldap \
-            php81-openssl \
-            php81-xml \
-            php81-xsl \
-            php81-gd \
-            php81-zip \
-            php81-soap \
-            php81-mbstring \
-            php81-zlib \
-            php81-mysqli \
-            php81-sockets \
-            php81-iconv \
-            php81-tokenizer \
-            php81-xmlreader \
-            php81-simplexml \
-            php81-xmlwriter \
-            php81-phar \
-            php81-fileinfo \
-            php81-calendar \
-            php81-sodium \
-            php81-intl \
-            perl \
-            tar \
+            bash \
             curl \
+            git \
             imagemagick \
+            jq \
+            mysql-client \
             nodejs \
             npm \
-            git \
-            wget \
             openvpn \
-            mysql-client \
-            zip \
-            bash \
+            perl \
+            php81 \
+            php81-apache2 \
+            php81-calendar \
+            php81-ctype \
+            php81-curl \
+            php81-fileinfo \
+            php81-gd \
+            php81-iconv \
+            php81-intl \
+            php81-json \
+            php81-ldap \
+            php81-mbstring \
+            php81-mysqli \
+            php81-openssl \
+            php81-pdo \
+            php81-pdo_mysql \
+            php81-phar \
+            php81-session \
+            php81-simplexml \
+            php81-soap \
+            php81-sockets \
+            php81-sodium \
+            php81-tokenizer \
+            php81-xml \
+            php81-xmlreader \
+            php81-xmlwriter \
+            php81-xsl \
+            php81-zip \
+            php81-zlib \
             rsync \
-            jq
+            tar \
+            wget \
+            zip
 
 #BELOW LINE NEEDED TO SUPPORT PHP8 ON ALPINE 3.13; SHOULD BE ABLE TO REMOVE THIS IN FUTURE ALPINE VERSIONS
 RUN cp /usr/bin/php81 /usr/bin/php

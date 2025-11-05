@@ -14,50 +14,50 @@ FROM alpine:3.20
 # (also installing git, wget, openvpn, mysql-client, zip, bash, and rsync)
 RUN apk --no-cache upgrade
 RUN apk add --no-cache apache2 \
-            php83 \
-            php83-ctype \
-            php83-session \
-            php83-apache2 \
-            php83-json \
-            php83-pdo \
-            php83-pdo_mysql \
-            php83-curl \
-            php83-ldap \
-            php83-openssl \
-            php83-xml \
-            php83-xsl \
-            php83-gd \
-            php83-zip \
-            php83-soap \
-            php83-mbstring \
-            php83-zlib \
-            php83-mysqli \
-            php83-sockets \
-            php83-iconv \
-            php83-tokenizer \
-            php83-xmlreader \
-            php83-simplexml \
-            php83-xmlwriter \
-            php83-phar \
-            php83-fileinfo \
-            php83-calendar \
-            php83-sodium \
-            php83-intl \
-            perl \
-            tar \
+            bash \
             curl \
+            git \
             imagemagick \
+            jq \
+            mariadb-connector-c \
+            mysql-client \
             nodejs \
             npm \
-            git \
-            wget \
             openvpn \
-            mysql-client \
-            mariadb-connector-c \
-            zip \
-            bash \
+            perl \
+            php83 \
+            php83-apache2 \
+            php83-calendar \
+            php83-ctype \
+            php83-curl \
+            php83-fileinfo \
+            php83-gd \
+            php83-iconv \
+            php83-intl \
+            php83-json \
+            php83-ldap \
+            php83-mbstring \
+            php83-mysqli \
+            php83-openssl \
+            php83-pdo \
+            php83-pdo_mysql \
+            php83-phar \
+            php83-session \
+            php83-simplexml \
+            php83-soap \
+            php83-sockets \
+            php83-sodium \
+            php83-tokenizer \
+            php83-xml \
+            php83-xmlreader \
+            php83-xmlwriter \
+            php83-xsl \
+            php83-zip \
+            php83-zlib \
             rsync \
-            jq
+            tar \
+            wget \
+            zip
 
 #BELOW LINE NEEDED TO SUPPORT PHP8 ON ALPINE 3.13; SHOULD BE ABLE TO REMOVE THIS IN FUTURE ALPINE VERSIONS
 RUN cp /usr/bin/php83 /usr/bin/php

@@ -14,50 +14,50 @@ FROM alpine:3.22
 # (also installing git, wget, openvpn, mysql-client, zip, bash, and rsync)
 RUN apk --no-cache upgrade
 RUN apk add --no-cache apache2 \
-            php84 \
-            php84-ctype \
-            php84-session \
-            php84-apache2 \
-            php84-json \
-            php84-pdo \
-            php84-pdo_mysql \
-            php84-curl \
-            php84-ldap \
-            php84-openssl \
-            php84-xml \
-            php84-xsl \
-            php84-gd \
-            php84-zip \
-            php84-soap \
-            php84-mbstring \
-            php84-zlib \
-            php84-mysqli \
-            php84-sockets \
-            php84-iconv \
-            php84-tokenizer \
-            php84-xmlreader \
-            php84-simplexml \
-            php84-xmlwriter \
-            php84-phar \
-            php84-fileinfo \
-            php84-calendar \
-            php84-sodium \
-            php84-intl \
-            perl \
-            tar \
+            bash \
             curl \
+            git \
             imagemagick \
+            jq \
+            mariadb-connector-c \
+            mysql-client \
             nodejs \
             npm \
-            git \
-            wget \
             openvpn \
-            mysql-client \
-            mariadb-connector-c \
-            zip \
-            bash \
+            perl \
+            php84 \
+            php84-apache2 \
+            php84-calendar \
+            php84-ctype \
+            php84-curl \
+            php84-fileinfo \
+            php84-gd \
+            php84-iconv \
+            php84-intl \
+            php84-json \
+            php84-ldap \
+            php84-mbstring \
+            php84-mysqli \
+            php84-openssl \
+            php84-pdo \
+            php84-pdo_mysql \
+            php84-phar \
+            php84-session \
+            php84-simplexml \
+            php84-soap \
+            php84-sockets \
+            php84-sodium \
+            php84-tokenizer \
+            php84-xml \
+            php84-xmlreader \
+            php84-xmlwriter \
+            php84-xsl \
+            php84-zip \
+            php84-zlib \
             rsync \
-            jq
+            tar \
+            wget \
+            zip
 
 #BELOW LINE NEEDED TO SUPPORT PHP8 ON ALPINE 3.13; SHOULD BE ABLE TO REMOVE THIS IN FUTURE ALPINE VERSIONS
 RUN cp /usr/bin/php84 /usr/bin/php
