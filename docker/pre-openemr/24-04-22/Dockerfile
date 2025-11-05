@@ -26,30 +26,28 @@ RUN apt-get install -y tzdata
 # For php 8.1 json extension is now in core php
 RUN apt-get install -y \
     apache2 \
+    curl \
+    git \
+    imagemagick \
+    jq \
     libapache2-mod-php \
     libtiff-tools \
-    php8.3 \
-    php8.3-mysql \
-    php8.3-cli \
-    php8.3-gd \
-    php8.3-xsl \
-    php8.3-curl \
-    php8.3-soap \
-    # php8.1-json \
-    # php8.1-gettext \
-    imagemagick \
-    php8.3-mbstring \
-    php8.3-zip \
-    php8.3-ldap \
-    php8.3-intl \
-    git \
-    wget \
-    openvpn \
     mariadb-client \
-    zip \
-    curl \
+    openvpn \
+    php8.3 \
+    php8.3-cli \
+    php8.3-curl \
+    php8.3-gd \
+    php8.3-intl \
+    php8.3-ldap \
+    php8.3-mbstring \
+    php8.3-mysql \
+    php8.3-soap \
+    php8.3-xsl \
+    php8.3-zip \
     unzip \
-    jq
+    wget \
+    zip
 
 # Special for ubuntu 17.10 and 18.04 so far
 RUN apt-get install -y rsync

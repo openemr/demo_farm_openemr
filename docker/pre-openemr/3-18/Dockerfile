@@ -14,49 +14,49 @@ FROM alpine:3.18
 # (also installing git, wget, openvpn, mysql-client, zip, bash, and rsync)
 RUN apk --no-cache upgrade
 RUN apk add --no-cache apache2 \
-            php82 \
-            php82-ctype \
-            php82-session \
-            php82-apache2 \
-            php82-json \
-            php82-pdo \
-            php82-pdo_mysql \
-            php82-curl \
-            php82-ldap \
-            php82-openssl \
-            php82-xml \
-            php82-xsl \
-            php82-gd \
-            php82-zip \
-            php82-soap \
-            php82-mbstring \
-            php82-zlib \
-            php82-mysqli \
-            php82-sockets \
-            php82-iconv \
-            php82-tokenizer \
-            php82-xmlreader \
-            php82-simplexml \
-            php82-xmlwriter \
-            php82-phar \
-            php82-fileinfo \
-            php82-calendar \
-            php82-sodium \
-            php82-intl \
-            perl \
-            tar \
+            bash \
             curl \
+            git \
             imagemagick \
+            jq \
+            mysql-client \
             nodejs \
             npm \
-            git \
-            wget \
             openvpn \
-            mysql-client \
-            zip \
-            bash \
+            perl \
+            php82 \
+            php82-apache2 \
+            php82-calendar \
+            php82-ctype \
+            php82-curl \
+            php82-fileinfo \
+            php82-gd \
+            php82-iconv \
+            php82-intl \
+            php82-json \
+            php82-ldap \
+            php82-mbstring \
+            php82-mysqli \
+            php82-openssl \
+            php82-pdo \
+            php82-pdo_mysql \
+            php82-phar \
+            php82-session \
+            php82-simplexml \
+            php82-soap \
+            php82-sockets \
+            php82-sodium \
+            php82-tokenizer \
+            php82-xml \
+            php82-xmlreader \
+            php82-xmlwriter \
+            php82-xsl \
+            php82-zip \
+            php82-zlib \
             rsync \
-            jq
+            tar \
+            wget \
+            zip
 
 #BELOW LINE NEEDED TO SUPPORT PHP8 ON ALPINE 3.13; SHOULD BE ABLE TO REMOVE THIS IN FUTURE ALPINE VERSIONS
 RUN cp /usr/bin/php82 /usr/bin/php
