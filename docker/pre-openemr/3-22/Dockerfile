@@ -27,9 +27,11 @@ RUN apk add --no-cache apache2 \
             perl \
             php84 \
             php84-apache2 \
+            php84-bcmath \
             php84-calendar \
             php84-ctype \
             php84-curl \
+            php84-dom \
             php84-fileinfo \
             php84-gd \
             php84-iconv \
@@ -41,6 +43,7 @@ RUN apk add --no-cache apache2 \
             php84-openssl \
             php84-pdo \
             php84-pdo_mysql \
+            php84-pecl-imagick \
             php84-phar \
             php84-session \
             php84-simplexml \

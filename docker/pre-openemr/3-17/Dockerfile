@@ -26,9 +26,11 @@ RUN apk add --no-cache apache2 \
             perl \
             php81 \
             php81-apache2 \
+            php81-bcmath \
             php81-calendar \
             php81-ctype \
             php81-curl \
+            php81-dom \
             php81-fileinfo \
             php81-gd \
             php81-iconv \
@@ -40,6 +42,7 @@ RUN apk add --no-cache apache2 \
             php81-openssl \
             php81-pdo \
             php81-pdo_mysql \
+            php81-pecl-imagick \
             php81-phar \
             php81-session \
             php81-simplexml \

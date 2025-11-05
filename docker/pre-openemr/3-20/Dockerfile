@@ -27,9 +27,11 @@ RUN apk add --no-cache apache2 \
             perl \
             php83 \
             php83-apache2 \
+            php83-bcmath \
             php83-calendar \
             php83-ctype \
             php83-curl \
+            php83-dom \
             php83-fileinfo \
             php83-gd \
             php83-iconv \
@@ -41,6 +43,7 @@ RUN apk add --no-cache apache2 \
             php83-openssl \
             php83-pdo \
             php83-pdo_mysql \
+            php83-pecl-imagick \
             php83-phar \
             php83-session \
             php83-simplexml \

@@ -35,9 +35,12 @@ RUN apt-get install -y \
     mariadb-client \
     openvpn \
     php8.3 \
+    php8.3-bcmath \
     php8.3-cli \
     php8.3-curl \
+    php8.3-dom \
     php8.3-gd \
+    php8.3-imagick \
     php8.3-intl \
     php8.3-ldap \
     php8.3-mbstring \
