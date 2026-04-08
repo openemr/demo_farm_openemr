@@ -217,7 +217,7 @@ primeLetsencrypt () {
     docker run -it --rm \
                -v certs:/etc/letsencrypt \
                -v certs-data:/data/letsencrypt \
-               deliverous/certbot \
+               certbot/certbot \
                certonly \
                --webroot --webroot-path=/data/letsencrypt \
                -d openemr.io \
@@ -247,7 +247,7 @@ renewLetsencrypt () {
                -v certs:/etc/letsencrypt \
                -v certs-data:/data/letsencrypt \
                -v /var/log/letsencrypt:/var/log/letsencrypt \
-               deliverous/certbot \
+               certbot/certbot \
                renew \
                --webroot --webroot-path=/data/letsencrypt
 }
