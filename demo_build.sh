@@ -565,8 +565,8 @@ IPADDRESS=$DOCKERDEMO
   echo "Inserting demo data from $dd" >> $LOG
   # First, check to ensure the file exists
   if [ -f "$GITDEMOFARM/pieces/$dd" ]; then
-   # Now insert the data
-   #  -Note need to first clear the current database (can make this an option in future if need to add data without clearing database)
+    # Now insert the data
+    #  -Note need to first clear the current database (can make this an option in future if need to add data without clearing database)
     mariadb-dump --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print "SET FOREIGN_KEY_CHECKS=0;" } { print $0 } END { print "SET FOREIGN_KEY_CHECKS=1;" } ' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO
     mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOFARM/pieces/$dd"
     echo "Completed inserting demo data from $dd"
