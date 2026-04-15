@@ -118,13 +118,6 @@ GITTRANS=$GITMAIN/translations_development_openemr
 TRANSSERVEDIR=$WEB/translations
 TMPDIR=/tmp/openemr-tmp
 
-# WORDPRESS PATIENT PORTAL VARIABLES
-GITDEMOWORDPRESSDEMOWEB=$GITDEMOFARM/wordpress_demo/web/wordpress
-GITDEMOWORDPRESSDEMOSQLONE=$GITDEMOFARM/pieces/portal_onsite_and_wordpress.sql
-GITDEMOWORDPRESSDEMOSQLONETEMP=$GITDEMOFARM/pieces/portal_onsite_and_wordpress_temp.sql
-GITDEMOWORDPRESSDEMOSQLTWO=$GITDEMOFARM/wordpress_demo/database/wordpress.sql
-GITDEMOWORDPRESSDEMOSQLTWOTEMP=$GITDEMOFARM/wordpress_demo/database/wordpress_temp.sql
-
 if $lightReset; then
  echo "This is a light reset"
  echo "This is a light reset" >> $LOG
@@ -371,18 +364,6 @@ do
   demoData=false;
  else
   demoData=true;
- fi
- # set if using ssh offsite portal connection
- if [ "$ds" == "0"  ]; then
-  demoSSH=false;
- else
-  demoSSH=true;
- fi
- # set if setting up onsite and wordpress patient portals
- if [ "$wp" == "0"  ]; then
-  portalsDemo=false;
- else
-  portalsDemo=true;
  fi
  # set the mariadb r pass string if needed
  if [ -z "$mrp" ]; then
@@ -757,33 +738,7 @@ do
   echo "Removed ofc_upload_image.php file"
   echo "Removed ofc_upload_image.php file" >> $LOG
  fi
-
- #set up ssh if this is turned on, which is stored in $ds
- if $demoSSH; then
-  echo "Setting up $ds ssh"
-  echo "Setting up $ds ssh" >> $LOG
-  #ensure the file exists
-  if [ -f "$GITDEMOFARM/ssh/$ds.zip" ]; then
-   cd "$GITDEMOFARM/ssh/"
-   unzip "$ds.zip"
-   cd "$ds"
-   if [ -z "$DOCKERDEMO" ] ; then
-    #install openvpn
-    apt-get update >> $LOG
-    apt-get -y install openvpn >> $LOG
-   fi
-   #initiate up ssh tunnel
-   bash connect.sh
-   cd ~
-   echo "Done setting up $ds ssh"
-   echo "Done setting up $ds ssh" >> $LOG
-  else
-   echo "Error, $ds data does not exist"
-   echo "Error, $ds data does not exist" >> $LOG
-  fi
- fi
-
-
+ 
  if $packageServe ; then
   #Package the development version into a tarball and zip file to be available thru web browser
   # This is basically to allow download of most recent cvs version from the cvs Demo appliance
@@ -874,69 +829,11 @@ do
   echo "Done creating OpenEMR Development packages" >> $LOG
  fi
 
- if $portalsDemo; then
-  # This will install and set up the wordpress patient portal
-  echo "Setting up patient portals"
-  echo "Setting up patient portals" >> $LOG
-
-  # Prepare the sql files with the external link
-  sed -e 's@demo.open-emr.org:2104@'"$EXTERNALLINK"'@g' <"$GITDEMOWORDPRESSDEMOSQLONE" >"$GITDEMOWORDPRESSDEMOSQLONETEMP"
-  sed -e 's@demo.open-emr.org:2104@'"$EXTERNALLINK"'@g' <"$GITDEMOWORDPRESSDEMOSQLTWO" >"$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
-
-  # Install the openemr sql stuff for portals
-  if [ -n "$DOCKERDEMO" ] ; then
-   mariadb --skip-ssl  -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOWORDPRESSDEMOSQLONETEMP"
-  else
-   mariadb --skip-ssl  -u root $rpassparam openemr < "$GITDEMOWORDPRESSDEMOSQLONETEMP"
-  fi
-
-  # Install wordpress file stuff
-  mkdir -p $WORDPRESS
-  rm -fr $WORDPRESS/*
-  cp -r $GITDEMOWORDPRESSDEMOWEB/* $WORDPRESS/
-
-  # Install wordpress database stuff
-  if [ -n "$DOCKERDEMO" ] ; then
-   mariadb-admin --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam create ${DOCKERDEMO}wordpress
-   mariadb --skip-ssl  -h $DOCKERMYSQLHOST -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON ${DOCKERDEMO}wordpress.* TO '${DOCKERDEMO}wordpress'@'%' IDENTIFIED BY '${DOCKERDEMO}wordpress'" ${DOCKERDEMO}wordpress
-   mariadb --skip-ssl  -h $DOCKERMYSQLHOST -u root $rpassparam ${DOCKERDEMO}wordpress < "$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
-   # Modify $WORDPRESS/wp-config.php to match credentials created above
-   sed -i "s@'DB_NAME', 'wordpress'@'DB_NAME', '${DOCKERDEMO}wordpress'@" "$WORDPRESS/wp-config.php"
-   sed -i "s@'DB_USER', 'wordpress'@'DB_USER', '${DOCKERDEMO}wordpress'@" "$WORDPRESS/wp-config.php"
-   sed -i "s@'DB_PASSWORD', 'wordpress'@'DB_PASSWORD', '${DOCKERDEMO}wordpress'@" "$WORDPRESS/wp-config.php"
-   sed -i "s@'DB_HOST', 'localhost'@'DB_HOST', '${DOCKERMYSQLHOST}'@" "$WORDPRESS/wp-config.php"
-  else
-   mariadb-admin --skip-ssl -u root $rpassparam create wordpress
-   mariadb --skip-ssl  -u root $rpassparam --execute "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress'" wordpress
-   mariadb --skip-ssl  -u root $rpassparam wordpress < "$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
-  fi
-
-  rm "$GITDEMOWORDPRESSDEMOSQLONETEMP"
-  rm "$GITDEMOWORDPRESSDEMOSQLTWOTEMP"
-  echo "Done setting up patient portals"
-  echo "Done setting up patient portals" >> $LOG
- fi
-
  #if $passResetAuto; then
   # run the auto reset password script every 5 minutes
   #nohup php -f ${PASSWORDRESETSCRIPT} ${FINALWEB} 300 ${passReset} >/dev/null 2>&1 &
  #fi
 done
-
-# Install Postfix to allow email registration on wordpress patient portal demo and other openemr stuff, if possible.
-# Note docker demos already have this installed, but do need to start it. Docker also
-#  uses stunnel to communicate to aws ses email server.
-if [ -z "$DOCKERDEMO" ] ; then
- apt-get update >> $LOG
- debconf-set-selections <<< "postfix postfix/mailname string opensourceemr.com"
- debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
- apt-get -y install postfix >> $LOG
-else
- if ! $lightReset; then
-  stunnel /etc/stunnel/stunnel.conf >> $LOG
-  postfix start >> $LOG
- fi
-fi
 
 #restart apache and secure sensitive directories
 if ! $lightReset; then
