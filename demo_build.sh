@@ -188,9 +188,7 @@ else
  echo "Single demo mode" >> $LOG
 fi
 
-if [ -n "$DOCKERDEMO" ] ; then
- DOCKERDEMOORIGINAL=$DOCKERDEMO
-fi
+DOCKERDEMOORIGINAL=$DOCKERDEMO
 
 for demo in ${demosGo[*]}
 do
@@ -199,10 +197,7 @@ do
   OPENEMR=$WEB/openemr
   WORDPRESS=$WEB/wordpress
   FILESSERVEDIR=$WEB/files
-  if [ -n "$DOCKERDEMO" ] ; then
-   DOCKERDEMO=$DOCKERDEMOORIGINAL
-  fi
-  FINALWEB=$WEB
+  DOCKERDEMO=$DOCKERDEMOORIGINAL
  else
   DOCKERDEMO=${DOCKERDEMOORIGINAL}_${demo}
   OPENEMR=${WEB}/${demo}/openemr
@@ -212,21 +207,11 @@ do
  fi
 
  # Collect ip address or docker demo number
- if [ -n "$DOCKERDEMO" ] ; then
-  echo -n "Docker Demo is "
-  echo "$DOCKERDEMO"
-  echo -n "Docker Demo is " >> $LOG
-  echo "$DOCKERDEMO" >> $LOG
-  IPADDRESS=$DOCKERDEMO
- else
-  tempx=`/sbin/ifconfig`
-  tempy=${tempx#*inet addr:}
-  IPADDRESS=${tempy%% *}
-  echo -n "IP ADDRESS is "
-  echo "$IPADDRESS"
-  echo -n "IP ADDRESS is " >> $LOG
-  echo "$IPADDRESS" >> $LOG
- fi
+echo -n "Docker Demo is "
+echo "$DOCKERDEMO"
+echo -n "Docker Demo is " >> $LOG
+echo "$DOCKERDEMO" >> $LOG
+IPADDRESS=$DOCKERDEMO
 
  # COLLECT MAPPED BRANCH AND OPTIONS
  # Grab repo link
@@ -538,9 +523,8 @@ do
  INST=$OPENEMR/contrib/util/installScripts/InstallerAuto.php
  INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
  sed -e 's@^exit;@ @' <$INST >$INSTTEMP
- if [ -n "$DOCKERDEMO" ];  then
-  DOCKERPARAMETERS="server=${DOCKERMYSQLHOST} loginhost=% login=${DOCKERDEMO} pass=${DOCKERDEMO} dbname=${DOCKERDEMO}"
- fi
+ DOCKERPARAMETERS="server=${DOCKERMYSQLHOST} loginhost=% login=${DOCKERDEMO} pass=${DOCKERDEMO} dbname=${DOCKERDEMO}"
+ 
  if $translationsDevelopment ; then
   echo "Using online development translation set"
   echo "Using online development translation set" >> $LOG
@@ -582,15 +566,10 @@ do
   if [ -f "$GITDEMOFARM/pieces/$dd" ]; then
    # Now insert the data
    #  -Note need to first clear the current database (can make this an option in future if need to add data without clearing database)
-   if [ -n "$DOCKERDEMO" ] ; then
     mariadb-dump --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print "SET FOREIGN_KEY_CHECKS=0;" } { print $0 } END { print "SET FOREIGN_KEY_CHECKS=1;" } ' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO
     mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOFARM/pieces/$dd"
-   else
-    mariadb-dump --skip-ssl -u root $rpassparam --add-drop-table --no-data openemr | grep ^DROP | mariadb --skip-ssl -u root $rpassparam openemr
-    mariadb --skip-ssl -u root $rpassparam openemr < "$GITDEMOFARM/pieces/$dd"
-   fi
-   echo "Completed inserting demo data from $dd"
-   echo "Completed inserting demo data from $dd" >> $LOG
+    echo "Completed inserting demo data from $dd"
+    echo "Completed inserting demo data from $dd" >> $LOG
   else
    echo "Error, $dd data does not exist"
    echo "Error, $dd data does not exist" >> $LOG
@@ -615,13 +594,11 @@ do
   fi
   if $translationsDevelopment ; then
    # Need to bring the development translations back in (only can support this in docker mode)
-   if [ -n "$DOCKERDEMO" ] ; then
     echo "TODO: Need to support bringing in the translations here in the future"
     echo "TODO: Need to support bringing in the translations here in the future" >> $LOG
     # below is way to slow; need to figure out how to get the innodb optimizations in here (as do in main codebase inserts)
     # plan to make a temp file in /home/openemr/temp/languageTranslations_utf8_temp.sql and modify it for the innodb optimizations
     # mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < /home/openemr/git/translations_development_openemr/languageTranslations_utf8.sql
-   fi
   fi
  fi
 
@@ -677,11 +654,7 @@ do
 
  #set up external link in global
  EXTERNALLINKBASE=$(echo "$EXTERNALLINK" | cut -d '/' -f 1)
- if [ -n "$DOCKERDEMO" ] ; then
-  mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
- else
-  mariadb --skip-ssl -u root $rpassparam -e "UPDATE openemr.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
- fi
+ mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
 
  #random theme generator
  if $randomTheme; then
@@ -697,10 +670,7 @@ do
   echo -n "random theme is " >> $LOG
   echo "$RANDOM_THEME" >> $LOG
   #set the random theme
-  if [ -n "$DOCKERDEMO" ] ; then
-   mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
-  else
-   mariadb --skip-ssl -u root $rpassparam -e "UPDATE openemr.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
+  mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
   fi
  fi
 
@@ -835,19 +805,10 @@ do
  #fi
 done
 
-# Install Postfix for openemr stuff, if possible.
-# Note docker demos already have this installed, but do need to start it. Docker also
-#  uses stunnel to communicate to aws ses email server.
-if [ -z "$DOCKERDEMO" ] ; then
- apt-get update >> $LOG
- debconf-set-selections <<< "postfix postfix/mailname string $(hostname -f)"
- debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
- apt-get -y install postfix >> $LOG
-else
- if ! $lightReset; then
+# Start Postfix for restarts, uses stunnel to communicate to aws ses email server.
+if ! $lightReset; then
   stunnel /etc/stunnel/stunnel.conf >> $LOG
   postfix start >> $LOG
- fi
 fi
 
 #restart apache and secure sensitive directories
@@ -873,9 +834,7 @@ echo -n "Completed Build: " >> $LOG
 echo "$timeEnd" >> $LOG
 
 if ! $lightReset; then
- if [ -n "$DOCKERDEMO" ] ; then
   # to stop docker image from exiting
   echo "hold docker open"
   tail -F -n0 /etc/hosts
- fi
 fi
