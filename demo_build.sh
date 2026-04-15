@@ -835,6 +835,21 @@ do
  #fi
 done
 
+# Install Postfix for openemr stuff, if possible.
+# Note docker demos already have this installed, but do need to start it. Docker also
+#  uses stunnel to communicate to aws ses email server.
+if [ -z "$DOCKERDEMO" ] ; then
+ apt-get update >> $LOG
+ debconf-set-selections <<< "postfix postfix/mailname string $(hostname -f)"
+ debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
+ apt-get -y install postfix >> $LOG
+else
+ if ! $lightReset; then
+  stunnel /etc/stunnel/stunnel.conf >> $LOG
+  postfix start >> $LOG
+ fi
+fi
+
 #restart apache and secure sensitive directories
 if ! $lightReset; then
  if $alpineOs; then
