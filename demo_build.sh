@@ -672,7 +672,6 @@ IPADDRESS=$DOCKERDEMO
   echo "$RANDOM_THEME" >> $LOG
   #set the random theme
   mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
-  fi
  fi
 
  #reinstitute file permissions
