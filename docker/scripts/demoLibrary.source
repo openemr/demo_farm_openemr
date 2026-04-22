@@ -55,45 +55,25 @@ stopDemo () {
     # Remove the database stuff
     echo "Clear ${1}-openemr databases and users"
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}wordpress
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_a
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_awordpress
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_b
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_bwordpress
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_c
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_cwordpress
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_d
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_dwordpress
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_e
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_ewordpress
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_f
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_fwordpress
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_g
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_gwordpress
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_h
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_hwordpress
     mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_i
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_iwordpress
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}wordpress';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_a';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_awordpress';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_b';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_bwordpress';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_c';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_cwordpress';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_d';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_dwordpress';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_e';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_ewordpress';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_f';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_fwordpress';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_g';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_gwordpress';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_h';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_hwordpress';FLUSH PRIVILEGES;"
     mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_i';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_iwordpress';FLUSH PRIVILEGES;"
 }
 
 # Will start an openemr demo
@@ -137,10 +117,8 @@ restartSubdemo () {
     # Remove the database stuff
     if [ "$2" == "empty" ]; then
         mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}
-        mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}wordpress
     else
         mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}_${2}
-        mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}_${2}wordpress
     fi
 
     # Now need to reset the demo within the docker
