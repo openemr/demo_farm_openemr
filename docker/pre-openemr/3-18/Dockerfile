@@ -43,6 +43,7 @@ RUN apk add --no-cache apache2 \
             php82-pdo \
             php82-pdo_mysql \
             php82-pecl-imagick \
+            php82-pecl-redis \
             php82-phar \
             php82-session \
             php82-simplexml \
