@@ -44,6 +44,7 @@ RUN apk add --no-cache apache2 \
             php83-pdo \
             php83-pdo_mysql \
             php83-pecl-imagick \
+            php83-pecl-redis \
             php83-phar \
             php83-session \
             php83-simplexml \
