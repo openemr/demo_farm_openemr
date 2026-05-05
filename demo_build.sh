@@ -82,7 +82,7 @@ composer_install_flags () {
     if [ -f /etc/alpine-release ]; then
         alpine_ver=$(cut -d. -f1-2 /etc/alpine-release)
         case "$alpine_ver" in
-            3.17|3.18|3.19|3.20|3.21)
+            3.17|3.18|3.19)
                 flags="$flags --ignore-platform-req=ext-redis"
                 ;;
         esac
