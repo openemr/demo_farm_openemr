@@ -505,7 +505,7 @@ IPADDRESS=$DOCKERDEMO
    echo "Not using composer github api token"
    echo "Not using composer github api token" >> $LOG
   fi
-  composer install --no-dev &>> $LOG
+  composer install $(composer_install_flags) &>> $LOG
 
   if [ -f $OPENEMR/package.json ]; then
    # install frontend dependencies (need unsafe-perm to run as root)
@@ -754,7 +754,7 @@ IPADDRESS=$DOCKERDEMO
     echo "Not using composer github api token"
     echo "Not using composer github api token" >> $LOG
    fi
-   composer install --no-dev &>> $LOG
+   composer install $(composer_install_flags) &>> $LOG
 
    if [ -f $TMPDIR/openemr/package.json ]; then
     # install frontend dependencies (need unsafe-perm to run as root)
