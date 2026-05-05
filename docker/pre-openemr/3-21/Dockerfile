@@ -21,6 +21,7 @@ RUN apk add --no-cache apache2 \
             php84-json \
             php84-pdo \
             php84-pdo_mysql \
+            php84-pecl-redis \
             php84-curl \
             php84-ldap \
             php84-openssl \

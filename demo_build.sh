@@ -73,6 +73,23 @@ collect_var () {
    echo `grep -i "^[[:space:]]*$1[[:space:]=]" $2 | cut -d \= -f 2 | cut -d \; -f 1 | sed "s/[ 	'\"]//gi"`
 }
 
+# Build composer install flags, accounting for environment-specific quirks.
+# Alpine versions before 3.22 ship php-pecl-redis < 6.1, which conflicts with
+# symfony/cache 7.4+ that OpenEMR's composer.lock pins. Demo farm doesn't
+# use Redis at runtime, so we tell composer to skip the platform check.
+composer_install_flags () {
+    flags="--no-dev"
+    if [ -f /etc/alpine-release ]; then
+        alpine_ver=$(cut -d. -f1-2 /etc/alpine-release)
+        case "$alpine_ver" in
+            3.17|3.18|3.19)
+                flags="$flags --ignore-platform-req=ext-redis"
+                ;;
+        esac
+    fi
+    echo "$flags"
+}
+
 # If there is a parameter, then just pursue a light reset of the subdemo
 if [ -z "$1" ]; then
  lightReset=false;
