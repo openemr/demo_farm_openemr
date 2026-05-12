@@ -1,0 +1,99 @@
+name: Bump production-demo tag on release
+
+# Triggered by openemr/openemr's release machinery (see openemr-devops#664) when
+# a new release tag is created. The dispatch payload carries the new tag; this
+# workflow rewrites the matching production-demo rows in ip_map_branch.txt and
+# pushes the change to master. The demo-farm host's nightly reset picks up the
+# new tag automatically.
+#
+# Also exposes workflow_dispatch with a `tag` input so a maintainer can run the
+# bump by hand for testing or recovery.
+
+on:
+  repository_dispatch:
+    types: [openemr-tag]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v8_0_0_4)'
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: bump-tag
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    if: github.repository_owner == 'openemr' && github.repository == 'openemr/demo_farm_openemr'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Mint release App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Resolve tag from dispatch or workflow input
+        id: tag
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_TAG: ${{ github.event.client_payload.data.tag }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          if [[ ${EVENT_NAME} == 'workflow_dispatch' ]]; then
+              tag="${INPUT_TAG}"
+          else
+              tag="${DISPATCH_TAG}"
+          fi
+          if [[ -z ${tag} ]]; then
+              printf '::error::Dispatch payload missing data.tag (or workflow_dispatch input empty).\n'
+              exit 1
+          fi
+          printf 'tag=%s\n' "${tag}" >> "${GITHUB_OUTPUT}"
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+
+      - name: Install Task
+        uses: arduino/setup-task@v2
+        with:
+          version: 3.x
+
+      - name: Bump ip_map_branch.txt
+        working-directory: tools/release
+        run: task release:bump-ip-map TAG="${TAG}"
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+
+      - name: Commit and push if changed
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+          ACTOR: ${{ github.event.client_payload.actor || github.actor }}
+          DISPATCH_SHA: ${{ github.event.client_payload.sha }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- ip_map_branch.txt; then
+              printf '::notice::No change — production demos already pinned to %s (or no production rows for this minor line).\n' "${TAG}"
+              exit 0
+          fi
+          git config user.name 'openemr-release-bot'
+          git config user.email 'openemr-release-bot@users.noreply.github.com'
+          msg="chore(demo-farm): bump production demos to ${TAG}"
+          if [[ -n ${DISPATCH_SHA:-} ]]; then
+              msg="${msg}"$'\n\n'"Dispatched by ${ACTOR} from openemr/openemr@${DISPATCH_SHA}."
+          fi
+          git add ip_map_branch.txt
+          git commit -m "${msg}"
+          git push origin HEAD:master
