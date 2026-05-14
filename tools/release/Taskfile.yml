@@ -1,0 +1,30 @@
+version: '3'
+
+tasks:
+  setup:
+    desc: Install PHP dependencies
+    cmds:
+      - composer install --no-interaction --no-progress
+    sources:
+      - composer.json
+      - composer.lock
+    generates:
+      - vendor/autoload.php
+
+  test:
+    desc: Run PHPUnit test suite
+    deps: [setup]
+    cmds:
+      - vendor/bin/phpunit
+
+  release:bump-ip-map:
+    desc: Bump production-demo tag rows in ip_map_branch.txt to a new tag
+    requires:
+      vars: [TAG]
+    deps: [setup]
+    cmds:
+      - >-
+        php bin/bump-ip-map.php
+        --file={{shellQuote (default "../../ip_map_branch.txt" .FILE)}}
+        --tag={{shellQuote .TAG}}
+        {{if eq .DRY_RUN "1"}}--dry-run{{end}}

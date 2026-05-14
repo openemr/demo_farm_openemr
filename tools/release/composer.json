@@ -1,0 +1,57 @@
+{
+    "name": "openemr/demo-farm-release-tools",
+    "description": "Release tooling for openemr/demo_farm_openemr",
+    "type": "project",
+    "license": "GPL-3.0-or-later",
+    "require": {
+        "php": "^8.5",
+        "ext-mbstring": "*",
+        "symfony/console": "^7.0"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.48",
+        "justinrainbow/json-schema": "^6.0",
+        "maglnet/composer-require-checker": "^4.0",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpunit/phpunit": "^11.0",
+        "rector/rector": "^2.0",
+        "squizlabs/php_codesniffer": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OpenEMR\\DemoFarm\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OpenEMR\\DemoFarm\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "check": [
+            "@phpcs",
+            "@phpstan",
+            "@rector-check",
+            "@require-checker",
+            "@test"
+        ],
+        "fix": [
+            "@phpcbf",
+            "@rector-fix"
+        ],
+        "phpcbf": "phpcbf",
+        "phpcs": "phpcs",
+        "phpstan": "phpstan analyse --memory-limit=2G",
+        "rector-check": "rector process --dry-run",
+        "rector-fix": "rector process",
+        "require-checker": "composer-require-checker check",
+        "test": "phpunit"
+    }
+}
