@@ -48,7 +48,8 @@ final readonly class IpMapBumper
         $newParts = $this->parseTag($newTag);
         if ($newParts === null) {
             throw new \InvalidArgumentException(
-                "Invalid OpenEMR release tag: '{$newTag}' (expected v<MAJOR>_<MINOR>_<PATCH>)",
+                "Invalid OpenEMR release tag: '{$newTag}' "
+                . '(expected v<MAJOR>_<MINOR>_<PATCH> or v<MAJOR>_<MINOR>_<PATCH>_<MICRO>)',
             );
         }
         $newMajor = $newParts['major'];

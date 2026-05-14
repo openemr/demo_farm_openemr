@@ -2,7 +2,7 @@
     "name": "openemr/demo-farm-release-tools",
     "description": "Release tooling for openemr/demo_farm_openemr",
     "type": "project",
-    "license": "GPL-2.0-or-later",
+    "license": "GPL-3.0-or-later",
     "require": {
         "php": "^8.5",
         "ext-mbstring": "*",
