@@ -100,4 +100,10 @@ jobs:
           fi
           git add ip_map_branch.txt
           git commit -m "${msg}"
+          # Rebase onto the latest master in case a maintainer pushed between
+          # checkout and now. Single TSV-row commit; conflicts are vanishingly
+          # rare and would surface as a workflow failure for human triage.
+          git fetch origin master
+          git rebase origin/master
           git push origin HEAD:master
+          printf '::notice::Bumped production demos to %s and pushed to master.\n' "${TAG}"
