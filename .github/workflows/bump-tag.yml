@@ -59,6 +59,10 @@ jobs:
               printf '::error::Dispatch payload missing data.tag (or workflow_dispatch input empty).\n'
               exit 1
           fi
+          if [[ ! ${tag} =~ ^v[0-9]+_[0-9]+_[0-9]+(_[0-9]+)?$ ]]; then
+              printf '::error::Tag %q does not match v<MAJOR>_<MINOR>_<PATCH>[_<MICRO>].\n' "${tag}"
+              exit 1
+          fi
           printf 'tag=%s\n' "${tag}" >> "${GITHUB_OUTPUT}"
 
       - name: Setup PHP
