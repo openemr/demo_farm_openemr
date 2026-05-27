@@ -115,6 +115,15 @@ else
  htmlDirApache=false;
  alpineOs=false;
 fi
+# Web server user: alpine images use 'apache', Debian/Ubuntu uses 'www-data'.
+# Used when dropping privileges to run OpenEMR CLI scripts (RootCliGuard
+# in openemr#12267 refuses root). Mirrors the existing chown/chmod
+# branching elsewhere in this script.
+if $alpineOs; then
+ webUser=apache
+else
+ webUser=www-data
+fi
 LOG=$WEB/log/logSetup.txt
 mkdir -p $WEB/log
 CAPSULES=/home/openemr/capsules
@@ -543,21 +552,22 @@ IPADDRESS=$DOCKERDEMO
  sed -e 's@^exit;@ @' <$INST >$INSTTEMP
  DOCKERPARAMETERS="server=${DOCKERMYSQLHOST} loginhost=% login=${DOCKERDEMO} pass=${DOCKERDEMO} dbname=${DOCKERDEMO}"
  
+ # Drop privileges to the web user: RootCliGuard refuses root for the Installer class (openemr#12267).
  if $translationsDevelopment ; then
   echo "Using online development translation set"
   echo "Using online development translation set" >> $LOG
   if [ -z "$mrp" ] ; then
-   php -f $INSTTEMP development_translations=yes $DOCKERPARAMETERS >> $LOG
+   su -p -s /bin/sh "$webUser" -c "php -f $INSTTEMP development_translations=yes $DOCKERPARAMETERS" >> $LOG
   else
-   php -f $INSTTEMP development_translations=yes rootpass=$mrp $DOCKERPARAMETERS >> $LOG
+   su -p -s /bin/sh "$webUser" -c "php -f $INSTTEMP development_translations=yes rootpass=$mrp $DOCKERPARAMETERS" >> $LOG
   fi
  else
   echo "Using included translation set"
   echo "Using included translation set" >> $LOG
   if [ -z "$mrp" ] ; then
-   php -f $INSTTEMP $DOCKERPARAMETERS >> $LOG
+   su -p -s /bin/sh "$webUser" -c "php -f $INSTTEMP $DOCKERPARAMETERS" >> $LOG
   else
-   php -f $INSTTEMP rootpass=$mrp $DOCKERPARAMETERS >> $LOG
+   su -p -s /bin/sh "$webUser" -c "php -f $INSTTEMP rootpass=$mrp $DOCKERPARAMETERS" >> $LOG
   fi
  fi
  rm -f $INSTTEMP
@@ -570,7 +580,8 @@ IPADDRESS=$DOCKERDEMO
   echo "Upgrading via legacy patch" >> $LOG
   echo "<?php \$_GET['site'] = 'default'; ?>" > $OPENEMR/TEMPsql_patch.php
   cat $OPENEMR/sql_patch.php >> $OPENEMR/TEMPsql_patch.php
-  php -f $OPENEMR/TEMPsql_patch.php >> $LOG
+  # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
+  su -p -s /bin/sh "$webUser" -c "php -f $OPENEMR/TEMPsql_patch.php" >> $LOG
   rm -f $OPENEMR/TEMPsql_patch.php
   echo "Completed upgrading via legacy patch"
   echo "Completed upgrading via legacy patch" >> $LOG
@@ -599,7 +610,8 @@ IPADDRESS=$DOCKERDEMO
    sed -e "s@!empty(\$_POST\['form_submit'\])@true@" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php
    sed -i "s@\$form_old_version = \$_POST\['form_old_version'\];@\$form_old_version = '${demoDataUpgradeFrom}';@" $OPENEMR/sql_upgrade_temp.php
    sed -i "1s@^@<?php \$_GET['site'] = 'default'; ?>@" $OPENEMR/sql_upgrade_temp.php
-   php -f $OPENEMR/sql_upgrade_temp.php >> $LOG
+   # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
+   su -p -s /bin/sh "$webUser" -c "php -f $OPENEMR/sql_upgrade_temp.php" >> $LOG
    rm -f $OPENEMR/sql_upgrade_temp.php
    # Also need to change encoding/collation when using OpenEMR versions at 6 or greater
    VERSION_MAJOR=$(collect_var \$v_major $OPENEMR/version.php)
@@ -661,7 +673,8 @@ IPADDRESS=$DOCKERDEMO
     sed -e "s@!empty(\$_POST\['form_submit'\])@true@" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php
     sed -i "s@\$form_old_version = \$_POST\['form_old_version'\];@\$form_old_version = '${demoDataUpgradeFrom}';@" $OPENEMR/sql_upgrade_temp.php
     sed -i "1s@^@<?php \$_GET['site'] = 'default'; ?>@" $OPENEMR/sql_upgrade_temp.php
-    php -f $OPENEMR/sql_upgrade_temp.php >> $LOG
+    # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
+    su -p -s /bin/sh "$webUser" -c "php -f $OPENEMR/sql_upgrade_temp.php" >> $LOG
     rm -f $OPENEMR/sql_upgrade_temp.php
    fi
   else
