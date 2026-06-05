@@ -8,23 +8,11 @@
 # (at your option) any later version.
 #
 
-# Always check for a new versions of the custom docker images
-# NOTE 14.04 does not work with development OpenEMR since php version is too low,
-#      but collecting it in case somebody wishes to make it work with older
-#      OpenEMR versions.
-docker pull openemr/pre-openemr:22.04-18
-docker pull openemr/pre-openemr:24.04-20
-docker pull openemr/pre-openemr:24.04-22
-docker pull openemr/pre-openemr:3.15-8
-docker pull openemr/pre-openemr:3.16
-docker pull openemr/pre-openemr:3.17
+# Always check for new versions of the custom docker images
 docker pull openemr/pre-openemr:3.18
-docker pull openemr/pre-openemr:3.19
 docker pull openemr/pre-openemr:3.20
-docker pull openemr/pre-openemr:3.21
 docker pull openemr/pre-openemr:3.22
-docker pull openemr/pre-openemr:edge
-docker pull openemr/php-ssh:7.1-fpm-alpine
+docker pull openemr/pre-openemr:3.23
 
 # update demo_farm_openemr repo
 cd ~/demo_farm_openemr
@@ -51,10 +39,10 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 
 # restart openemr demo docker containers
 # (note do not restart nginx, php, mysql, and phpmyadmin dockers)
-# (also note doing the demo 'four' at end to be more efficient since it will set up 10 subdemos)
+# (also note doing the demo 'four' at end to be more efficient since it will set up 3 subdemos)
 # (also note demo 'five' is at beginning since this is the "main" demos)
 # (also note that demo 'edu' are just refreshing subdemos to allow persistent demos that
-#  do not reset; for example `edu empty` and `edu c` subdemos are not being reset)
+#  do not reset; for example `edu empty` subdemo is not being reset)
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh five
 sleep 30m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one
