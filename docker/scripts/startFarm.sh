@@ -37,26 +37,18 @@
 # Bring in the demo function library
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 
-# for building pre-openemr with the Dockerfiles (cd to path with the Dockerfile)
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-18/
-#docker build -t openemr/pre-openemr:3.18 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-20/
-#docker build -t openemr/pre-openemr:3.20 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-22/
-#docker build -t openemr/pre-openemr:3.22 .
-#cd ~/demo_farm_openemr/docker/pre-openemr/3-23/
-#docker build -t openemr/pre-openemr:3.23 .
-
 # to collect the standard docker images
 docker pull nginx
 docker pull mariadb:10.6
 docker pull phpmyadmin/phpmyadmin
 
-# Always check for new versions of the custom docker images
-docker pull openemr/pre-openemr:3.18
-docker pull openemr/pre-openemr:3.20
-docker pull openemr/pre-openemr:3.22
-docker pull openemr/pre-openemr:3.23
+# Always pull fresh copies of the flex image tags used by the demo farm.
+# Tag → cluster mapping lives in startDemoWrapper (demoLibrary.source).
+docker pull openemr/openemr:flex-3.23-php-8.5
+docker pull openemr/openemr:flex-3.23-php-8.4
+docker pull openemr/openemr:flex-3.23-php-8.3
+docker pull openemr/openemr:flex-3.22-php-8.4
+docker pull openemr/openemr:flex-3.22-php-8.2
 
 # to start network
 docker network create mynet
@@ -113,3 +105,9 @@ startDemoWrapper "edu"
 sleep 5m
 startPhp
 startNginx
+
+# Reclaim disk: drop images that are no longer tagged (the prior
+# flex image layer that the docker pulls above just replaced) and
+# not in use by any container. Without this, dangling layers
+# accumulate fast since flex is rebuilt nightly upstream.
+docker image prune -f

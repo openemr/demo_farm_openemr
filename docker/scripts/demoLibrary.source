@@ -10,35 +10,86 @@
 # Bash library for openemr demo farm
 #
 
+# ============================================================================
+# FLEX IMAGE TAGS
+# ============================================================================
+# Per-cluster runtime image. Each tag = one (alpine version, PHP version) combo
+# from openemr-devops's flex image set.
+#   - PHP 8.3 / 8.4 / 8.5 are served on Alpine 3.23
+#   - PHP 8.2          is served on Alpine 3.22
+# TODO: confirm exact tag scheme once openemr-devops publishes flex to Docker Hub.
+FLEX_IMAGE_3_23_PHP_8_5="openemr/openemr:flex-3.23-php-8.5"
+FLEX_IMAGE_3_23_PHP_8_4="openemr/openemr:flex-3.23-php-8.4"
+FLEX_IMAGE_3_23_PHP_8_3="openemr/openemr:flex-3.23-php-8.3"
+FLEX_IMAGE_3_22_PHP_8_4="openemr/openemr:flex-3.22-php-8.4"
+FLEX_IMAGE_3_22_PHP_8_2="openemr/openemr:flex-3.22-php-8.2"
+
 # This is the wrapper to start the demo, so only need to modify the specifics in 1 place
-# rather than 2. This sets up the pieces for running the startDemo() function
+# rather than 2. Picks the right flex image + instance count per cluster, then
+# delegates to startDemo() which does the docker run.
 # 1st (and only) parameter is the demo name (one, two, three, etc.)
 startDemoWrapper() {
-    if [ "$1" == "seven" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php84" "alpine" "3-22" "3.22" "/var/www/localhost/htdocs" "6"
-    elif [ "$1" == "eight" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php85" "alpine" "3-23" "3.23" "/var/www/localhost/htdocs" "2"
-    elif [ "$1" == "ten" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php85" "alpine" "3-23" "3.23" "/var/www/localhost/htdocs" "2"
-    elif [ "$1" == "eleven" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php85" "alpine" "3-23" "3.23" "/var/www/localhost/htdocs" "4"
-    elif [ "$1" == "four" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php84" "alpine" "3-22" "3.22" "/var/www/localhost/htdocs" "3"
-    elif [ "$1" == "five" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php84" "alpine" "3-22" "3.22" "/var/www/localhost/htdocs" "3"
-    elif [ "$1" == "six" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php85" "alpine" "3-23" "3.23" "/var/www/localhost/htdocs" "2"
-    elif [ "$1" == "three" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php85" "alpine" "3-23" "3.23" "/var/www/localhost/htdocs" "2"
-    elif [ "$1" == "two" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php82" "alpine" "3-18" "3.18" "/var/www/localhost/htdocs" "2"
-    elif [ "$1" == "one" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php83" "alpine" "3-20" "3.20" "/var/www/localhost/htdocs" "2"
-    elif [ "$1" == "edu" ]; then
-        startDemo "$1" "mysql-openemr" "/etc/php85" "alpine" "3-23" "3.23" "/var/www/localhost/htdocs" "2"
-    else
-        startDemo "$1" "mysql-openemr" "/etc/php83" "alpine" "3-20" "3.20" "/var/www/localhost/htdocs" "1"
-    fi
+    local image
+    local count
+    # Each cluster gets its own block so per-cluster docker changes
+    # (image bump, count change, etc.) are a single localized edit.
+    # Ordered by cluster number for legibility.
+    case "$1" in
+        one)
+            image="${FLEX_IMAGE_3_23_PHP_8_3}"
+            count=2
+            ;;
+        two)
+            image="${FLEX_IMAGE_3_22_PHP_8_2}"
+            count=2
+            ;;
+        three)
+            # FUTURE: 8.0.0 release demo (rel-800)
+            image="${FLEX_IMAGE_3_22_PHP_8_4}"
+            count=2
+            ;;
+        four)
+            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            count=3
+            ;;
+        five)
+            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            count=3
+            ;;
+        six)
+            # FUTURE: 7.0.4 release demo (rel-704)
+            image="${FLEX_IMAGE_3_22_PHP_8_4}"
+            count=2
+            ;;
+        seven)
+            image="${FLEX_IMAGE_3_23_PHP_8_4}"
+            count=6
+            ;;
+        eight)
+            # FUTURE: 8.1.0 release demo (rel-810)
+            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            count=2
+            ;;
+        ten)
+            # bookmark cluster
+            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            count=2
+            ;;
+        eleven)
+            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            count=4
+            ;;
+        edu)
+            # bookmark cluster
+            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            count=2
+            ;;
+        *)
+            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            count=1
+            ;;
+    esac
+    startDemo "$1" "mysql-openemr" "${image}" "${count}"
 }
 
 # Will stop and clear an openemr demo
@@ -78,33 +129,37 @@ stopDemo () {
 
 # Will start an openemr demo
 # 1st parameter is the demo name (one, two, three, etc.)
-# 2nd paremeter is the mysql name (mysql-openemr etc.)
-# 3rd parameter is the path to php.ini version (ie. /etc/php/7.0/apache2 )
-# 4th parameter is the os (ubuntu, alpine)
-# 5th parameter is ubuntu/alpine version with dash (3-18, 3-20, 3-22, 3-23, etc.)
-# 6th parameter is ubuntu/alpine version with period (3.18, 3.20, 3.22, 3.23, etc.)
-# 7th parameter is the path to htdocs (ie. /var/www/html )
-# 8th parameter is to set to how many demos it will contain (can select a number from 1 - 10)
+# 2nd parameter is the mysql name (mysql-openemr etc.)
+# 3rd parameter is the flex image tag (one of the FLEX_IMAGE_* vars above)
+# 4th parameter is to set how many demos it will contain (can select a number from 1 - 10)
+#
+# Demo farm runs on the upstream openemr/flex image (which carries
+# Alpine + PHP + base packages). The flex image's default CMD runs
+# openemr.sh (single-OpenEMR dev/test usage); we override it at
+# `docker run` time to clone the demo_farm_openemr repo into the
+# container and dispatch to demo_build.sh, which sets up N OpenEMR
+# instances per ip_map_branch.txt. The two CMDs never run together
+# in the same container.
 startDemo () {
     # Start docker
     echo "Start ${1}-openemr docker"
     docker run --detach --name ${1}-openemr \
                         --env "DOCKERDEMO=${1}" \
                         --env "DOCKERMYSQLHOST=${2}" \
-                        --env "DOCKERNUMBERDEMOS=${8}" \
+                        --env "DOCKERNUMBERDEMOS=${4}" \
                         --env "OPENEMR_DOCKER_ENV_TAG=demo-farm" \
                         --env "THROTTLE_DOWN_WAIT_MILLISECONDS=700" \
                         --env "THROTTLE_DOWN_DIE_MILLISECONDS=10000" \
                         -v ~/capsules:/home/openemr/capsules:ro \
                         -v ~/translations_development_openemr:/home/openemr/git/translations_development_openemr:ro \
-                        -v ~/demo_farm_openemr/docker/php/${5}/php.ini:${3}/php.ini:ro \
                         -v ~/demo_farm_openemr/docker/stunnel/stunnel.conf:/etc/stunnel/stunnel.conf:ro \
-                        -v ~/demo_farm_openemr/docker/postfix/${4}/main.cf:/etc/postfix/main.cf:ro \
+                        -v ~/demo_farm_openemr/docker/postfix/alpine/main.cf:/etc/postfix/main.cf:ro \
                         -v ~/cred/sasl_passwd:/etc/postfix/sasl_passwd:ro \
                         -v ~/cred/sasl_passwd.db:/etc/postfix/sasl_passwd.db:ro \
                         -v ~/cred/github-key:/home/openemr/github-key:ro \
                         --net mynet \
-                        openemr/pre-openemr:${6}
+                        ${3} \
+                        bash -c "mkdir -p /home/openemr/git && cd /home/openemr/git && git clone https://github.com/openemr/demo_farm_openemr.git && bash /home/openemr/git/demo_farm_openemr/demo_build.sh"
 }
 
 # Will restart an openemr subdemo. This does not restart the docker, just the subdemo.

@@ -9,6 +9,12 @@
 #This script is for the OpenEMR demo farms
 #
 
+# Install demo-farm-specific runtime dependencies that the flex base image
+# doesn't bundle. apk add is idempotent — if already installed (e.g., on a
+# restartSubdemo re-invocation inside a running container) this is a fast
+# no-op rather than an error.
+apk add --no-cache postfix stunnel
+
 getRandomThemeOne () {
     THEME[0]='style_ash_blue.css'
     THEME[1]='style_burgundy.css'
@@ -126,6 +132,17 @@ else
 fi
 LOG=$WEB/log/logSetup.txt
 mkdir -p $WEB/log
+
+# Expose two static endpoints under <cluster>.openemr.io/log/* that the
+# wiki demo pages link to: logPhp.txt (PHP error log) and logSetup.txt
+# (this script's own output, written via $LOG below). The pre-openemr
+# image used to set this up at image-build time (mkdir + chmod in the
+# Dockerfile, error_log directive in a baked-in php.ini); with flex we
+# do it at runtime here so flex's normal openemr.sh flow is unaffected.
+# PHP_VERSION_ABBR is set by the flex image (e.g. "85" for PHP 8.5).
+echo "start log" > $WEB/log/logPhp.txt
+chmod 666 $WEB/log/logPhp.txt
+echo "error_log = $WEB/log/logPhp.txt" > /etc/php${PHP_VERSION_ABBR}/conf.d/99-demo-farm-error-log.ini
 CAPSULES=/home/openemr/capsules
 GITMAIN=/home/openemr/git
 GITDEMOFARM=$GITMAIN/demo_farm_openemr
