@@ -108,28 +108,12 @@ fi
 TRANSLATIONSREPO=https://github.com/openemr/translations_development_openemr.git
 
 # PATH VARIABLES AND CREATED NEEDED DIRS
-if [ -d /var/www/localhost/htdocs ]; then
- WEB=/var/www/localhost/htdocs
- alpineOs=true;
- htmlDirApache=false;
-elif [ -d /var/www/html ]; then
- WEB=/var/www/html
- htmlDirApache=true;
- alpineOs=false;
-else
- WEB=/var/www
- htmlDirApache=false;
- alpineOs=false;
-fi
-# Web server user: alpine images use 'apache', Debian/Ubuntu uses 'www-data'.
-# Used when dropping privileges to run OpenEMR CLI scripts (RootCliGuard
-# in openemr#12267 refuses root). Mirrors the existing chown/chmod
-# branching elsewhere in this script.
-if $alpineOs; then
- webUser=apache
-else
- webUser=www-data
-fi
+# Demo farm runs every cluster on the flex (Alpine) base image as of #116,
+# so the web root is always Alpine's /var/www/localhost/htdocs.
+WEB=/var/www/localhost/htdocs
+# Web server user: alpine images use 'apache'. Used when dropping privileges
+# to run OpenEMR CLI scripts (RootCliGuard in openemr#12267 refuses root).
+webUser=apache
 LOG=$WEB/log/logSetup.txt
 mkdir -p $WEB/log
 
@@ -148,15 +132,7 @@ GITMAIN=/home/openemr/git
 GITDEMOFARM=$GITMAIN/demo_farm_openemr
 GITDEMOFARMMAP=$GITDEMOFARM/ip_map_branch.txt
 PASSWORDRESETSCRIPT=$GITDEMOFARM/set_pass.php
-if $htmlDirApache ; then
- OPENEMRAPACHECONF=$GITDEMOFARM/openemr-html.conf
-else
- if $alpineOs; then
-  OPENEMRAPACHECONF=$GITDEMOFARM/openemr-alpine.conf
- else
-  OPENEMRAPACHECONF=$GITDEMOFARM/openemr.conf
- fi
-fi
+OPENEMRAPACHECONF=$GITDEMOFARM/openemr-alpine.conf
 GITTRANS=$GITMAIN/translations_development_openemr
 TRANSSERVEDIR=$WEB/translations
 TMPDIR=/tmp/openemr-tmp
@@ -166,15 +142,8 @@ if $lightReset; then
  echo "This is a light reset" >> $LOG
 fi
 
-# Turn off apache to avoid users messing up while setting up
-#  (start it again below after complete setup)
-#  (note that in alpine it is not on, so don't need to stop)
-#  (also note don't do this for a light subdemo reset)
-if ! $lightReset; then
- if ! $alpineOs; then
-  /etc/init.d/apache2 stop
- fi
-fi
+# Note: Apache is not running yet in alpine, so no need to stop it here.
+# (It is started below after complete setup.)
 
 # Record start time
 timeStart=`date -u`
@@ -482,33 +451,18 @@ IPADDRESS=$DOCKERDEMO
  #
  # Set file and directory permissions
  chmod 666 $OPENEMR/sites/default/sqlconf.php
- if $alpineOs; then
-  chmod -R a+w $OPENEMR/sites/default/documents
-  chmod -R a+w $OPENEMR/sites/default/edi
-  chmod -R a+w $OPENEMR/sites/default/era
-  chmod -R a+w $OPENEMR/library/freeb
-  chmod -R a+w $OPENEMR/sites/default/letter_templates
-  chmod -R a+w $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
-  chmod -R a+w $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
-  chmod -R a+w $OPENEMR/gacl/admin/templates_c
- else
-  chown -R www-data:www-data $OPENEMR/sites/default/documents
-  chown -R www-data:www-data $OPENEMR/sites/default/edi
-  chown -R www-data:www-data $OPENEMR/sites/default/era
-  chown -R www-data:www-data $OPENEMR/library/freeb
-  chown -R www-data:www-data $OPENEMR/sites/default/letter_templates
-  chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
-  chown -R www-data:www-data $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
-  chown -R www-data:www-data $OPENEMR/gacl/admin/templates_c
- fi
+ chmod -R a+w $OPENEMR/sites/default/documents
+ chmod -R a+w $OPENEMR/sites/default/edi
+ chmod -R a+w $OPENEMR/sites/default/era
+ chmod -R a+w $OPENEMR/library/freeb
+ chmod -R a+w $OPENEMR/sites/default/letter_templates
+ chmod -R a+w $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
+ chmod -R a+w $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
+ chmod -R a+w $OPENEMR/gacl/admin/templates_c
 
  if [ -f $OPENEMR/interface/modules/zend_modules/config/application.config.php ] ; then
   # This is specifically for Zend code that is currently under development, so it works on the demos.
-  if $alpineOs; then
-   chmod a+w $OPENEMR/interface/modules/zend_modules/config/application.config.php
-  else
-   chown www-data:www-data $OPENEMR/interface/modules/zend_modules/config/application.config.php
-  fi
+  chmod a+w $OPENEMR/interface/modules/zend_modules/config/application.config.php
   echo "Configuring Zend file permission: application.config.php"
   echo "Configuring Zend file permission: application.config.php" >> $LOG
  fi
@@ -666,20 +620,16 @@ IPADDRESS=$DOCKERDEMO
    rsync --delete --recursive --links "$OPENEMR/${useCapsuleFile}/sites" "$OPENEMR/"
    cp "$OPENEMR/sqlconf.php" "$OPENEMR/sites/default/sqlconf.php"
    rm "$OPENEMR/sqlconf.php"
-   if $alpineOs; then
-    chmod -R a+w $OPENEMR/sites/default/documents
-    if [ -f "$OPENEMR/sites/default/documents/certificates/oaprivate.key" ]; then
-     # this file needs special treatment in the alpine demo dockers to work correctly
-     chmod 640 "$OPENEMR/sites/default/documents/certificates/oaprivate.key"
-     chown apache:apache "$OPENEMR/sites/default/documents/certificates/oaprivate.key"
-    fi
-    if [ -f "$OPENEMR/sites/default/documents/certificates/oapublic.key" ]; then
-     # this file needs special treatment in the alpine demo dockers to work correctly
-     chmod 660 "$OPENEMR/sites/default/documents/certificates/oapublic.key"
-     chown apache:apache "$OPENEMR/sites/default/documents/certificates/oapublic.key"
-    fi
-   else
-    chown -R www-data:www-data $OPENEMR/sites/default/documents
+   chmod -R a+w $OPENEMR/sites/default/documents
+   if [ -f "$OPENEMR/sites/default/documents/certificates/oaprivate.key" ]; then
+    # this file needs special treatment in the alpine demo dockers to work correctly
+    chmod 640 "$OPENEMR/sites/default/documents/certificates/oaprivate.key"
+    chown apache:apache "$OPENEMR/sites/default/documents/certificates/oaprivate.key"
+   fi
+   if [ -f "$OPENEMR/sites/default/documents/certificates/oapublic.key" ]; then
+    # this file needs special treatment in the alpine demo dockers to work correctly
+    chmod 660 "$OPENEMR/sites/default/documents/certificates/oapublic.key"
+    chown apache:apache "$OPENEMR/sites/default/documents/certificates/oapublic.key"
    fi
    # clear unpackaged directory
    rm -fr "$OPENEMR/${useCapsuleFile}"
@@ -728,11 +678,7 @@ IPADDRESS=$DOCKERDEMO
 
  # Set up to allow demo and testing of hl7 labs feature
  mkdir $OPENEMR/sites/default/procedure_results
- if $alpineOs; then
-  chmod -R a+w $OPENEMR/sites/default/procedure_results
- else
-  chown -R www-data:www-data $OPENEMR/sites/default/procedure_results
- fi
+ chmod -R a+w $OPENEMR/sites/default/procedure_results
 
  # Set up swagger api to work
  if [ -f $OPENEMR/swagger/openemr-api.yaml ]; then
@@ -860,14 +806,8 @@ fi
 
 #restart apache and secure sensitive directories
 if ! $lightReset; then
- if $alpineOs; then
-  cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
-  httpd -k start >> $LOG
- else
-  cp $OPENEMRAPACHECONF /etc/apache2/sites-available/openemr.conf
-  a2ensite openemr.conf >> $LOG
-  /etc/init.d/apache2 start >> $LOG
- fi
+ cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
+ httpd -k start >> $LOG
 fi
 
 echo "Demo install script is complete"
