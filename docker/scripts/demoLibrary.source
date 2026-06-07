@@ -63,7 +63,7 @@ startDemoWrapper() {
             ;;
         seven)
             image="${FLEX_IMAGE_3_23_PHP_8_4}"
-            count=6
+            count=2
             ;;
         eight)
             # FUTURE: 8.1.0 release demo (rel-810)
@@ -77,7 +77,7 @@ startDemoWrapper() {
             ;;
         eleven)
             image="${FLEX_IMAGE_3_23_PHP_8_5}"
-            count=4
+            count=2
             ;;
         edu)
             # bookmark cluster

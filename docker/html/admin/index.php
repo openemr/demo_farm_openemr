@@ -353,10 +353,6 @@
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven A Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven B Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven C Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_d_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven D Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_seven_e_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Seven E Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -423,8 +419,6 @@
                                                     <div class="btn-group-vertical form-group">
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_eleven_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Eleven Refresh</button>
                                                         <button type="button" class="btn btn-primary procedure-demo" id="refresh_eleven_a_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Eleven A Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_eleven_b_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Eleven B Refresh</button>
-                                                        <button type="button" class="btn btn-primary procedure-demo" id="refresh_eleven_c_openemr" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Refresh">Eleven C Refresh</button>
                                                     </div>
                                                 </div>
                                             </div>
