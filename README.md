@@ -1,7 +1,6 @@
 The repo holds the mechanism for an OpenEMR demo farm.
 
-Note that the prior appliance mechanism has been deprecated and now using a mechanism
-based on docker. Can see details in the docker/scripts/startFarm.sh script.
+The farm is docker-based. See docker/scripts/startFarm.sh for the entry point.
 
 How do I set one of the "UP FOR GRABS" OpenEMR demos?
 -----------------------------------------------------
