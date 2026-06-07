@@ -289,11 +289,11 @@ IPADDRESS=$DOCKERDEMO
  echo "$ds"
  echo -n "ds option is " >> $LOG
  echo "$ds" >> $LOG
- wp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 10`
- echo -n "wp option is "
- echo "$wp"
- echo -n "wp option is " >> $LOG
- echo "$wp" >> $LOG
+ ppapi=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 10`
+ echo -n "ppapi option is "
+ echo "$ppapi"
+ echo -n "ppapi option is " >> $LOG
+ echo "$ppapi" >> $LOG
  EXTERNALLINK=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 11`
  echo -n "external link is "
  echo "$EXTERNALLINK"
@@ -667,6 +667,22 @@ IPADDRESS=$DOCKERDEMO
   echo "$RANDOM_THEME" >> $LOG
   #set the random theme
   mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
+ fi
+
+ # Enable patient portal + REST/FHIR/OAuth APIs for demos with the
+ # patient_portals_and_api flag set in ip_map_branch.txt.
+ if [ "$ppapi" = "1" ]; then
+  echo "Setting up patient portal and API globals"
+  echo "Setting up patient portal and API globals" >> $LOG
+  mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "
+    UPDATE ${DOCKERDEMO}.globals SET gl_value='1' WHERE gl_name='portal_onsite_two_enable';
+    UPDATE ${DOCKERDEMO}.globals SET gl_value='1' WHERE gl_name='rest_api';
+    UPDATE ${DOCKERDEMO}.globals SET gl_value='1' WHERE gl_name='rest_fhir_api';
+    UPDATE ${DOCKERDEMO}.globals SET gl_value='1' WHERE gl_name='rest_portal_api';
+    UPDATE ${DOCKERDEMO}.globals SET gl_value='3' WHERE gl_name='oauth_password_grant';
+    UPDATE ${DOCKERDEMO}.globals SET gl_value='1' WHERE gl_name='rest_system_scopes_api';
+    UPDATE ${DOCKERDEMO}.globals SET gl_value='3' WHERE gl_name='ccda_alt_service_enable';
+  "
  fi
 
  #reinstitute file permissions
