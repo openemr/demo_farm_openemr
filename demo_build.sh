@@ -79,23 +79,6 @@ collect_var () {
    echo `grep -i "^[[:space:]]*$1[[:space:]=]" $2 | cut -d \= -f 2 | cut -d \; -f 1 | sed "s/[ 	'\"]//gi"`
 }
 
-# Build composer install flags, accounting for environment-specific quirks.
-# Alpine versions before 3.22 ship php-pecl-redis < 6.1, which conflicts with
-# symfony/cache 7.4+ that OpenEMR's composer.lock pins. Demo farm doesn't
-# use Redis at runtime, so we tell composer to skip the platform check.
-composer_install_flags () {
-    flags="--no-dev"
-    if [ -f /etc/alpine-release ]; then
-        alpine_ver=$(cut -d. -f1-2 /etc/alpine-release)
-        case "$alpine_ver" in
-            3.17|3.18|3.19)
-                flags="$flags --ignore-platform-req=ext-redis"
-                ;;
-        esac
-    fi
-    echo "$flags"
-}
-
 # If there is a parameter, then just pursue a light reset of the subdemo
 if [ -z "$1" ]; then
  lightReset=false;
@@ -271,12 +254,6 @@ IPADDRESS=$DOCKERDEMO
  echo "$sp"
  echo -n "sp option is " >> $LOG
  echo "$sp" >> $LOG
- # Grab legacy patching option
- lp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 7`
- echo -n "lp option is "
- echo "$lp"
- echo -n "lp option is " >> $LOG
- echo "$lp" >> $LOG
  # Grab demo data option
  dd=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 8`
  echo -n "dd option is "
@@ -348,12 +325,6 @@ IPADDRESS=$DOCKERDEMO
   packageServe=true;
  else
   packageServe=false;
- fi
- # set if legacy patching
- if [ "$lp" == "1"  ]; then
-  legacyPatch=true;
- else
-  legacyPatch=false;
  fi
  # set if using demo sample data
  if [ "$dd" == "0"  ]; then
@@ -450,13 +421,6 @@ IPADDRESS=$DOCKERDEMO
  # Set file and directory permissions
  chmod 666 $OPENEMR/sites/default/sqlconf.php
  chmod -R a+w $OPENEMR/sites/default/documents
- chmod -R a+w $OPENEMR/sites/default/edi
- chmod -R a+w $OPENEMR/sites/default/era
- chmod -R a+w $OPENEMR/library/freeb
- chmod -R a+w $OPENEMR/sites/default/letter_templates
- chmod -R a+w $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/cache
- chmod -R a+w $OPENEMR/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
- chmod -R a+w $OPENEMR/gacl/admin/templates_c
 
  if [ -f $OPENEMR/interface/modules/zend_modules/config/application.config.php ] ; then
   # This is specifically for Zend code that is currently under development, so it works on the demos.
@@ -483,7 +447,7 @@ IPADDRESS=$DOCKERDEMO
    echo "Not using composer github api token"
    echo "Not using composer github api token" >> $LOG
   fi
-  composer install $(composer_install_flags) &>> $LOG
+  composer install --no-dev &>> $LOG
 
   if [ -f $OPENEMR/package.json ]; then
    # install frontend dependencies (need unsafe-perm to run as root)
@@ -540,21 +504,6 @@ IPADDRESS=$DOCKERDEMO
   fi
  fi
  rm -f $INSTTEMP
-
- if $legacyPatch; then
-  #Run the patching script to bring in database changes for script via
-  # legacy method. (patch branches rel-412 and higher do not need to
-  # do this)
-  echo "Upgrading via legacy patch"
-  echo "Upgrading via legacy patch" >> $LOG
-  echo "<?php \$_GET['site'] = 'default'; ?>" > $OPENEMR/TEMPsql_patch.php
-  cat $OPENEMR/sql_patch.php >> $OPENEMR/TEMPsql_patch.php
-  # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
-  su -p -s /bin/sh "$webUser" -c "php -f $OPENEMR/TEMPsql_patch.php" >> $LOG
-  rm -f $OPENEMR/TEMPsql_patch.php
-  echo "Completed upgrading via legacy patch"
-  echo "Completed upgrading via legacy patch" >> $LOG
- fi
 
  if $demoData; then
   # Need to insert the demo data, which is in $dd item in the pieces directory
@@ -744,7 +693,7 @@ IPADDRESS=$DOCKERDEMO
     echo "Not using composer github api token"
     echo "Not using composer github api token" >> $LOG
    fi
-   composer install $(composer_install_flags) &>> $LOG
+   composer install --no-dev &>> $LOG
 
    if [ -f $TMPDIR/openemr/package.json ]; then
     # install frontend dependencies (need unsafe-perm to run as root)
@@ -767,13 +716,6 @@ IPADDRESS=$DOCKERDEMO
   fi
   chmod    a+w $TMPDIR/openemr/sites/default/sqlconf.php
   chmod -R a+w $TMPDIR/openemr/sites/default/documents
-  chmod -R a+w $TMPDIR/openemr/sites/default/edi
-  chmod -R a+w $TMPDIR/openemr/sites/default/era
-  chmod -R a+w $TMPDIR/openemr/library/freeb
-  chmod -R a+w $TMPDIR/openemr/sites/default/letter_templates
-  chmod -R a+w $TMPDIR/openemr/interface/main/calendar/modules/PostCalendar/pntemplates/cache
-  chmod -R a+w $TMPDIR/openemr/interface/main/calendar/modules/PostCalendar/pntemplates/compiled
-  chmod -R a+w $TMPDIR/openemr/gacl/admin/templates_c
   if [ -f $TMPDIR/openemr/interface/modules/zend_modules/config/application.config.php ] ; then
    # This is specifically for Zend code that is currently under development(added in version 4.1.3).
    chmod   a+w $TMPDIR/openemr/interface/modules/zend_modules/config/application.config.php
