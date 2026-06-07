@@ -6,7 +6,7 @@ How do I set one of the "UP FOR GRABS" OpenEMR demos?
 -----------------------------------------------------
 1. Fork the https://github.com/openemr/demo_farm_openemr.git repo and make it your own
 2. Place your OpenEMR git repo information in the openemr_repo and branch items in
-   your ip_map_branch.txt for one of the UP FOR GRABS demo entries ("two"-"five").
+   your ip_map_branch.txt for one of the UP FOR GRABS demo entries (`four`, `four_a`, or `four_b`).
 3. Place a github pull request on your commit for number 2 above.
 4. After I bring in your github pull request, then place your repo and branch
    information in the pertinent UP FOR GRABS demo entries here:
@@ -22,12 +22,12 @@ This file is a tab delimited file for configuration of demos in the demo farm wi
 - serve_development_translations: set to 1 to have demo serve the daily build of translation set for download, set to 0 to turn this off (this setting has been deprecated)
 - use_development_translations: set to 1 to have demo use the daily build of translation set, set to 0 to turn this off
 - serve_packages: set to 1 to have demo serve zip/tgz packages of the build for download, set to 0 to turn this off
-- legacy_patching: set to 1 if you are using a legacy patched branch, such as rel-411,rel-410 etc. Note that rel-412 and above should be set to 0.
+- legacy_patching(not used): unused; column kept for backward column-order compatibility.
 - demo_data: set to 0 if no sql demo data file. If have a sql demo data file, then place the name of it here and place the file in the 'pieces' directory.
-- demo_ssh: set to the ssh package if using the offsite portal. Set to 0 if not connecting to offsite portal.
-- patient_portals: set to 0 to not use. set to 1 to set up the onsite patient portal demo.
+- demo_ssh(not used): unused; column kept for backward column-order compatibility.
+- patient_portals_and_api: set to 0 to not use. Set to 1 to enable the onsite patient portal demo and the REST / FHIR / OAuth APIs.
 - external_link: place the external web address to the demo here
-- root_sql_pass: set the root_sql_pass to use. if this is empty, then leave blank (however, only the deprecated demos will leave this empty).
+- root_sql_pass: set the root_sql_pass to use.
 - branch_tag: set this to `branch` when using a github branch and `tag` when using a github tag. 
 - demo_data_upgrade_from: when set demo_data above or capsule below, then place the OpenEMR version that the demo data was based on (so it will then be upgraded from that version).
 - fun_stuff: set this to randomly select a theme. Set to 0 to turn off. Set to 1 for when using OpenEMR version < 6.0 and set to 2 when using OpenEMR version 6.0 and greater.
