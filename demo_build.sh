@@ -113,7 +113,13 @@ echo "error_log = $WEB/log/logPhp.txt" > /etc/php${PHP_VERSION_ABBR}/conf.d/99-d
 CAPSULES=/home/openemr/capsules
 GITMAIN=/home/openemr/git
 GITDEMOFARM=$GITMAIN/demo_farm_openemr
-GITDEMOFARMMAP=$GITDEMOFARM/ip_map_branch.txt
+# Strip '#' comment lines from ip_map_branch.txt up front so every
+# downstream `grep "$IPADDRESS" | cut -f N` lookup ignores them. The
+# file uses commented section headers (Production / UP FOR GRABS /
+# master / release / bookmarks) to keep groups visually organized.
+GITDEMOFARMMAP_SRC=$GITDEMOFARM/ip_map_branch.txt
+GITDEMOFARMMAP=$(mktemp)
+grep -v '^#' "$GITDEMOFARMMAP_SRC" > "$GITDEMOFARMMAP"
 PASSWORDRESETSCRIPT=$GITDEMOFARM/set_pass.php
 OPENEMRAPACHECONF=$GITDEMOFARM/openemr-alpine.conf
 GITTRANS=$GITMAIN/translations_development_openemr
