@@ -207,14 +207,12 @@ do
 
  if [ "$demo" == "empty" ]; then
   OPENEMR=$WEB/openemr
-  WORDPRESS=$WEB/wordpress
   FILESSERVEDIR=$WEB/files
   DOCKERDEMO=$DOCKERDEMOORIGINAL
   FINALWEB=$WEB
  else
   DOCKERDEMO=${DOCKERDEMOORIGINAL}_${demo}
   OPENEMR=${WEB}/${demo}/openemr
-  WORDPRESS=${WEB}/${demo}/wordpress
   FILESSERVEDIR=$WEB/${demo}/files
   FINALWEB=$WEB/${demo}
  fi
