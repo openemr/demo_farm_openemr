@@ -260,12 +260,6 @@ IPADDRESS=$DOCKERDEMO
  echo "$dd"
  echo -n "dd option is " >> $LOG
  echo "$dd" >> $LOG
- # Grab demo ssh option
- ds=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 9`
- echo -n "ds option is "
- echo "$ds"
- echo -n "ds option is " >> $LOG
- echo "$ds" >> $LOG
  ppapi=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 10`
  echo -n "ppapi option is "
  echo "$ppapi"
