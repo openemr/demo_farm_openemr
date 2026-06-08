@@ -256,8 +256,7 @@ primeLetsencrypt () {
                -d nine.openemr.io \
                -d ten.openemr.io \
                -d eleven.openemr.io \
-               -d edu.open-emr.org \
-               -d fh-gmi.openemr.io
+               -d edu.open-emr.org
 }
 
 renewLetsencrypt () {
