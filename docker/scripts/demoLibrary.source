@@ -10,19 +10,6 @@
 # Bash library for openemr demo farm
 #
 
-# ============================================================================
-# FLEX IMAGE TAGS
-# ============================================================================
-# Per-cluster runtime image. Each tag = one (alpine version, PHP version) combo
-# from openemr-devops's flex image set.
-#   - PHP 8.3 / 8.4 / 8.5 are served on Alpine 3.23
-#   - PHP 8.2          is served on Alpine 3.22
-FLEX_IMAGE_3_23_PHP_8_5="openemr/openemr:flex-3.23-php-8.5"
-FLEX_IMAGE_3_23_PHP_8_4="openemr/openemr:flex-3.23-php-8.4"
-FLEX_IMAGE_3_23_PHP_8_3="openemr/openemr:flex-3.23-php-8.3"
-FLEX_IMAGE_3_22_PHP_8_4="openemr/openemr:flex-3.22-php-8.4"
-FLEX_IMAGE_3_22_PHP_8_2="openemr/openemr:flex-3.22-php-8.2"
-
 # This is the wrapper to start the demo, so only need to modify the specifics in 1 place
 # rather than 2. Picks the right flex image + instance count per cluster, then
 # delegates to startDemo() which does the docker run.
@@ -35,51 +22,51 @@ startDemoWrapper() {
     # Ordered by cluster number for legibility.
     case "$1" in
         one)
-            image="${FLEX_IMAGE_3_23_PHP_8_3}"
+            image="openemr/openemr:flex-3.23-php-8.3"
             count=2
             ;;
         two)
-            image="${FLEX_IMAGE_3_22_PHP_8_2}"
+            image="openemr/openemr:flex-3.22-php-8.2"
             count=2
             ;;
         three)
-            image="${FLEX_IMAGE_3_22_PHP_8_4}"
+            image="openemr/openemr:flex-3.22-php-8.4"
             count=2
             ;;
         four)
-            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            image="openemr/openemr:flex-3.23-php-8.5"
             count=3
             ;;
         five)
-            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            image="openemr/openemr:flex-3.23-php-8.5"
             count=3
             ;;
         six)
-            image="${FLEX_IMAGE_3_22_PHP_8_4}"
+            image="openemr/openemr:flex-3.22-php-8.4"
             count=2
             ;;
         seven)
-            image="${FLEX_IMAGE_3_23_PHP_8_4}"
+            image="openemr/openemr:flex-3.23-php-8.4"
             count=2
             ;;
         eight)
-            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            image="openemr/openemr:flex-3.23-php-8.5"
             count=2
             ;;
         ten)
-            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            image="openemr/openemr:flex-3.23-php-8.5"
             count=2
             ;;
         eleven)
-            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            image="openemr/openemr:flex-3.23-php-8.5"
             count=2
             ;;
         edu)
-            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            image="openemr/openemr:flex-3.23-php-8.5"
             count=2
             ;;
         *)
-            image="${FLEX_IMAGE_3_23_PHP_8_5}"
+            image="openemr/openemr:flex-3.23-php-8.5"
             count=1
             ;;
     esac
@@ -124,7 +111,7 @@ stopDemo () {
 # Will start an openemr demo
 # 1st parameter is the demo name (one, two, three, etc.)
 # 2nd parameter is the mysql name (mysql-openemr etc.)
-# 3rd parameter is the flex image tag (one of the FLEX_IMAGE_* vars above)
+# 3rd parameter is the flex image tag (e.g. openemr/openemr:flex-3.23-php-8.5)
 # 4th parameter is to set how many demos it will contain (can select a number from 1 - 10)
 #
 # Demo farm runs on the upstream openemr/flex image (which carries
