@@ -41,10 +41,9 @@ cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/trans
 
 # restart openemr demo docker containers
 # (note do not restart nginx, php, mysql, and phpmyadmin dockers)
+# (also note demo 'five' is at beginning since this is the production demo)
 # (also note doing the demo 'four' at end to be more efficient since it will set up 3 subdemos)
-# (also note demo 'five' is at beginning since this is the "main" demos)
-# (also note that demo 'edu' are just refreshing subdemos to allow persistent demos that
-#  do not reset; for example `edu empty` subdemo is not being reset)
+# (also note placed the `edu` demo docker at the end)
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh five
 sleep 30m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh one
@@ -65,8 +64,6 @@ bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh eleven
 sleep 5m
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh four
 sleep 5m
-#bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu empty
-#bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu a
 bash ~/demo_farm_openemr/docker/scripts/restartDemo.sh edu
 
 # Reclaim disk: drop images that are no longer tagged (the prior

@@ -666,9 +666,8 @@ IPADDRESS=$DOCKERDEMO
  fi
  
  if $packageServe ; then
-  #Package the development version into a tarball and zip file to be available thru web browser
-  # This is basically to allow download of most recent cvs version from the cvs Demo appliance
-  # It will also ease transfer/testing openemr on windows systems when using the Developer appliance
+  # Package the development version into a tarball and zip file to be
+  # available thru web browser (useful for testing on Windows etc.).
   echo "Creating OpenEMR Development packages"
   echo "Creating OpenEMR Development packages" >> $LOG
 

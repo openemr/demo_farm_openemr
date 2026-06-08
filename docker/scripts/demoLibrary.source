@@ -17,7 +17,6 @@
 # from openemr-devops's flex image set.
 #   - PHP 8.3 / 8.4 / 8.5 are served on Alpine 3.23
 #   - PHP 8.2          is served on Alpine 3.22
-# TODO: confirm exact tag scheme once openemr-devops publishes flex to Docker Hub.
 FLEX_IMAGE_3_23_PHP_8_5="openemr/openemr:flex-3.23-php-8.5"
 FLEX_IMAGE_3_23_PHP_8_4="openemr/openemr:flex-3.23-php-8.4"
 FLEX_IMAGE_3_23_PHP_8_3="openemr/openemr:flex-3.23-php-8.3"
@@ -44,7 +43,6 @@ startDemoWrapper() {
             count=2
             ;;
         three)
-            # FUTURE: 8.0.0 release demo (rel-800)
             image="${FLEX_IMAGE_3_22_PHP_8_4}"
             count=2
             ;;
@@ -57,7 +55,6 @@ startDemoWrapper() {
             count=3
             ;;
         six)
-            # FUTURE: 7.0.4 release demo (rel-704)
             image="${FLEX_IMAGE_3_22_PHP_8_4}"
             count=2
             ;;
@@ -66,12 +63,10 @@ startDemoWrapper() {
             count=2
             ;;
         eight)
-            # FUTURE: 8.1.0 release demo (rel-810)
             image="${FLEX_IMAGE_3_23_PHP_8_5}"
             count=2
             ;;
         ten)
-            # bookmark cluster
             image="${FLEX_IMAGE_3_23_PHP_8_5}"
             count=2
             ;;
@@ -80,7 +75,6 @@ startDemoWrapper() {
             count=2
             ;;
         edu)
-            # bookmark cluster
             image="${FLEX_IMAGE_3_23_PHP_8_5}"
             count=2
             ;;
