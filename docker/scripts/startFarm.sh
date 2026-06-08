@@ -95,6 +95,8 @@ startDemoWrapper "seven"
 sleep 5m
 startDemoWrapper "eight"
 sleep 5m
+startDemoWrapper "nine"
+sleep 5m
 startDemoWrapper "ten"
 sleep 5m
 startDemoWrapper "eleven"
