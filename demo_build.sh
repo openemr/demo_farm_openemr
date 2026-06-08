@@ -87,9 +87,6 @@ else
  lightResetDemo=$1
 fi
 
-# PUBLIC REPOS (note the openemr repo is mapped in GITDEMOFARMMAP)
-TRANSLATIONSREPO=https://github.com/openemr/translations_development_openemr.git
-
 # PATH VARIABLES AND CREATED NEEDED DIRS
 # Demo farm runs every cluster on the flex (Alpine) base image as of #116,
 # so the web root is always Alpine's /var/www/localhost/htdocs.
@@ -123,7 +120,6 @@ grep -v '^#' "$GITDEMOFARMMAP_SRC" > "$GITDEMOFARMMAP"
 PASSWORDRESETSCRIPT=$GITDEMOFARM/set_pass.php
 OPENEMRAPACHECONF=$GITDEMOFARM/openemr-alpine.conf
 GITTRANS=$GITMAIN/translations_development_openemr
-TRANSSERVEDIR=$WEB/translations
 TMPDIR=/tmp/openemr-tmp
 
 if $lightReset; then
@@ -242,12 +238,6 @@ IPADDRESS=$DOCKERDEMO
  echo "$GITBRANCH"
  echo -n "git branch is " >> $LOG
  echo "$GITBRANCH" >> $LOG
- # Grab serve development translation set option
- sdt=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 4`
- echo -n "sdt option is "
- echo "$sdt"
- echo -n "sdt option is " >> $LOG
- echo "$sdt" >> $LOG
  # Grab use development translation set option
  udt=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 5`
  echo -n "udt option is "
@@ -308,12 +298,6 @@ IPADDRESS=$DOCKERDEMO
  echo "$useCapsule" >> $LOG
 
  # SET OPTIONS
- # set if serve development translation set
- if [ "$sdt" == "1"  ]; then
-  translationServe=true;
- else
-  translationServe=false;
- fi
  # set if use development translation set
  if [ "$udt" == "1"  ]; then
   translationsDevelopment=true;
@@ -388,16 +372,6 @@ IPADDRESS=$DOCKERDEMO
    cd $GIT
    git checkout $GITBRANCH
    cd $GITMAIN
-  fi
-  if $translationServe ; then
-   # download the translations git repo and place the set sql file for serving
-   echo "Placing OpenEMR Development translation set"
-   echo "Placing OpenEMR Development translation set" >> $LOG
-   git clone $TRANSLATIONSREPO
-   mkdir -p $TRANSSERVEDIR
-   cp $GITTRANS/languageTranslations_utf8.sql $TRANSSERVEDIR/
-   echo "Done Placing OpenEMR Development translation set"
-   echo "Done Placing OpenEMR Development translation set" >> $LOG
   fi
  else
   echo "ERROR, The OpenEMR git repository already exist"
