@@ -116,7 +116,7 @@ GITDEMOFARM=$GITMAIN/demo_farm_openemr
 # Strip '#' comment lines from ip_map_branch.txt up front so every
 # downstream `grep "$IPADDRESS" | cut -f N` lookup ignores them. The
 # file uses commented section headers (Production / UP FOR GRABS /
-# master / release / bookmarks) to keep groups visually organized.
+# master / release / parked) to keep groups visually organized.
 GITDEMOFARMMAP_SRC=$GITDEMOFARM/ip_map_branch.txt
 GITDEMOFARMMAP=$(mktemp)
 grep -v '^#' "$GITDEMOFARMMAP_SRC" > "$GITDEMOFARMMAP"
