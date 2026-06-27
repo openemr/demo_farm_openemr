@@ -252,6 +252,13 @@ fetch_release_targets() {
     local b
     while IFS= read -r b; do
         [[ -z "$b" || "$b" == "master" ]] && continue
+        # Only accept rel-<digits> branches (rel-704, rel-810, ...). Anything
+        # else (e.g. an unforeseen feature-branch slip) is skipped with a
+        # warning rather than silently treated as a release branch.
+        if [[ ! "$b" =~ ^rel-[0-9]+$ ]]; then
+            echo "WARNING: skipping non-rel branch in release-targets.yml: $b" >&2
+            continue
+        fi
         RT_REL_BRANCHES+=("$b")
     done <<< "$branches"
 
@@ -341,6 +348,34 @@ fetch_flex_dockerfile_args() {
 
     [[ -n "$MASTER_FLEX_ALPINE" ]] || fail "could not parse ALPINE_VERSION ARG from master's docker/flex/Dockerfile"
     [[ -n "$MASTER_FLEX_PHP"    ]] || fail "could not parse PHP_VERSION ARG from master's docker/flex/Dockerfile"
+}
+
+# validate_master_flex_pair
+# Cross-check: the (ALPINE, PHP) tuple from master's docker/flex/Dockerfile
+# must actually be a buildable combination per the flex workflow matrix
+# (docker-build-<NN>.yml + docker-build-edge.yml). If the Dockerfile says
+# "PHP 8.5 on Alpine 3.23" but the 3.23 workflow doesn't list 8.5, the
+# up-for-grabs flex image would reference a non-existent tag -- fail loud
+# at derive time rather than surface a 404 later.
+#
+# Requires fetch_flex_matrix + fetch_flex_dockerfile_args to have run first.
+validate_master_flex_pair() {
+    [[ -n "$MASTER_FLEX_ALPINE" && -n "$MASTER_FLEX_PHP" ]] || \
+        fail "validate_master_flex_pair: master flex ARGs not parsed yet (fetch_flex_dockerfile_args must run first)"
+    [[ -n "$FLEX_ALPINES" ]] || \
+        fail "validate_master_flex_pair: flex matrix not populated yet (fetch_flex_matrix must run first)"
+
+    local php_list="${FLEX_PHPS_FOR[$MASTER_FLEX_ALPINE]:-}"
+    if [[ -z "$php_list" ]]; then
+        fail "master docker/flex/Dockerfile ALPINE_VERSION=$MASTER_FLEX_ALPINE is not present in the flex workflow matrix (matrix: $(declare_flex_matrix_msg))"
+    fi
+    local p
+    for p in $php_list; do
+        if [[ "$p" == "$MASTER_FLEX_PHP" ]]; then
+            return 0
+        fi
+    done
+    fail "master docker/flex/Dockerfile (ALPINE=$MASTER_FLEX_ALPINE, PHP=$MASTER_FLEX_PHP) tuple is not present in the flex workflow matrix: Alpine $MASTER_FLEX_ALPINE supports PHP [$php_list], but not $MASTER_FLEX_PHP"
 }
 
 # list_upstream_dir <ref> <path-under-repo>
@@ -617,8 +652,8 @@ read_current_ip_map() {
             esac
             continue
         fi
-        # other comment
-        [[ "$line" =~ ^#  ]] && continue
+        # other comment (any `#`-prefixed line that wasn't a section header)
+        [[ "$line" =~ ^# ]] && continue
         # header line (first non-comment, non-blank)
         if [[ -z "$HEADER_LINE" && "$line" == docker_number* ]]; then
             HEADER_LINE="$line"
@@ -739,6 +774,8 @@ read_current_demolib() {
 
     [[ -n "$CUR_DEMOLIB_DEFAULT_IMAGE" ]] || \
         fail "could not parse demoLibrary.source startDemoWrapper (*) default image"
+    [[ -n "$CUR_DEMOLIB_DEFAULT_COUNT" ]] || \
+        fail "could not parse demoLibrary.source startDemoWrapper (*) default count"
 }
 
 #------------------------------------------------------------------------------
@@ -1289,7 +1326,7 @@ render_demolib() {
                     done
                     printf '        *)\n'
                     printf '            image="%s"\n' "$CUR_DEMOLIB_DEFAULT_IMAGE"
-                    printf '            count=%s\n' "${CUR_DEMOLIB_DEFAULT_COUNT:-1}"
+                    printf '            count=%s\n' "$CUR_DEMOLIB_DEFAULT_COUNT"
                     printf '            ;;\n'
                     printf '    esac\n'
                     emitted_case=1
@@ -1401,6 +1438,7 @@ main() {
     fetch_supported_php_versions
     fetch_flex_matrix
     fetch_flex_dockerfile_args
+    validate_master_flex_pair
     read_current_ip_map
     read_current_demolib
     compute_desired_state

@@ -363,7 +363,7 @@ IPADDRESS=$DOCKERDEMO
   cd $GITMAIN
   # `--branch <ref>` accepts both branch names and tag names; combined with
   # `--depth 1` this gives a shallow clone of the exact ref.
-  git clone "$OPENEMRREPO" --branch "$GITBRANCH" --depth 1
+  git clone --branch "$GITBRANCH" --depth 1 "$OPENEMRREPO"
  else
   echo "ERROR, The OpenEMR git repository already exist"
   echo "ERROR, The OpenEMR git repository already exist" >> $LOG

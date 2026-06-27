@@ -84,13 +84,15 @@ for fixture_dir in "$FIXTURES_DIR"/*/; do
     fi
 
     fixture_ok=1
+    diff_out="$(mktemp)"
     for f in ip_map_branch.txt docker/scripts/demoLibrary.source; do
-        if ! diff -u "$expected_dir/$f" "$workspace/$f" >/tmp/diff.out 2>&1; then
+        if ! diff -u "$expected_dir/$f" "$workspace/$f" >"$diff_out" 2>&1; then
             echo "  FAIL: $f differs from expected"
-            sed 's/^/    | /' /tmp/diff.out
+            sed 's/^/    | /' "$diff_out"
             fixture_ok=0
         fi
     done
+    rm -f "$diff_out"
     if [[ $fixture_ok -eq 1 ]]; then
         echo "  PASS"
         PASS=$((PASS+1))

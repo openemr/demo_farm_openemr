@@ -3,7 +3,7 @@
 Reconciliation bot that derives `ip_map_branch.txt` + `docker/scripts/demoLibrary.source`
 from upstream `openemr/openemr` state.
 
-See the G6 design in [`openemr/openemr` release-mechanism-gaps doc](https://github.com/openemr/openemr) for full background. Short version:
+See the G6 design in the [release-mechanism migration plan](https://github.com/openemr/openemr/pull/12598) (PR #12598 on `openemr/openemr`, `docs/release-mechanism-migration-from-devops.md`) for full background. Short version:
 
 - **What:** reads upstream `release-targets.yml`, per-branch `docker/release/Dockerfile`
   ARGs (Alpine + PHP), master's `docker/flex/Dockerfile` ARGs (the **anchor**
@@ -122,11 +122,11 @@ Add a new fixture by copying an existing one, modifying inputs, then
 re-capturing expected:
 
 ```sh
-WS=$(mktemp -d) && cp -a fixtures/<your-name>/current/. $WS/ && \
+WS=$(mktemp -d) && cp -a fixtures-and-tests/fixtures/<your-name>/current/. $WS/ && \
   ./derive.sh --current-dir $WS \
-    --upstream-base "file://$PWD/fixtures/<your-name>/upstream" \
+    --upstream-base "file://$PWD/fixtures-and-tests/fixtures/<your-name>/upstream" \
     --write && \
-  cp -a $WS/. fixtures/<your-name>/expected/ && rm -rf $WS
+  cp -a $WS/. fixtures-and-tests/fixtures/<your-name>/expected/ && rm -rf $WS
 ```
 
 ## PR scope
