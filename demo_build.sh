@@ -271,11 +271,9 @@ IPADDRESS=$DOCKERDEMO
  echo "$mrp"
  echo -n "mariadb p is " >> $LOG
  echo "$mrp" >> $LOG
- branchOrTag=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 13`
- echo -n "github repo branch/tag is  "
- echo "$branchOrTag"
- echo -n "github repo branch/tag is " >> $LOG
- echo "$branchOrTag" >> $LOG
+ # col 13 (branch_tag) is deprecated; col position preserved with value "0".
+ # demo_build.sh no longer reads it -- the clone below uses
+ # `git clone --branch <ref> --depth 1` which works for both branches and tags.
  ddu=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 14`
  echo -n "ddu option is "
  echo "$ddu"
@@ -363,16 +361,9 @@ IPADDRESS=$DOCKERDEMO
   echo "Downloading the OpenEMR git repository" >> $LOG
   mkdir -p $GITMAIN
   cd $GITMAIN
-  if [ "$branchOrTag" != "tag" ]; then
-   # using a branch, so can do less expensive clone
-   git clone $OPENEMRREPO --branch $GITBRANCH --depth 1
-  else
-   # using a tag, so need to do more expensive full clone
-   git clone $OPENEMRREPO
-   cd $GIT
-   git checkout $GITBRANCH
-   cd $GITMAIN
-  fi
+  # `--branch <ref>` accepts both branch names and tag names; combined with
+  # `--depth 1` this gives a shallow clone of the exact ref.
+  git clone "$OPENEMRREPO" --branch "$GITBRANCH" --depth 1
  else
   echo "ERROR, The OpenEMR git repository already exist"
   echo "ERROR, The OpenEMR git repository already exist" >> $LOG

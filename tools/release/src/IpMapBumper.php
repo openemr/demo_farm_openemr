@@ -3,11 +3,17 @@
 /**
  * Bump production-demo tag rows in ip_map_branch.txt.
  *
- * Demo farm rows use either a git branch (branch_tag=branch) or a release tag
- * (branch_tag=tag). The "production" demos pin to a tag like v8_0_0_3. When
- * openemr/openemr cuts a new tag in the same major.minor line, those rows
- * should advance to the new tag; rows on a different major.minor line, or
- * branch-pinned rows, are left alone.
+ * Demo farm rows pin to either a git branch (e.g. "master", "rel-810") or a
+ * release tag (e.g. "v8_0_0_3") in the branch column. The "production" demos
+ * pin to a tag; when openemr/openemr cuts a new tag in the same major.minor
+ * line, those rows should advance to the new tag. Rows on a different
+ * major.minor line, or branch-pinned rows, are left alone.
+ *
+ * Tag rows are identified solely by regex-matching the branch column against
+ * the OpenEMR tag pattern (v<MAJOR>_<MINOR>_<PATCH>[_<MICRO>]). The legacy
+ * branch_tag column is no longer consulted (it is deprecated and now always
+ * holds "0"; demo_build.sh uses `git clone --branch <ref> --depth 1` which
+ * works for both branches and tags).
  *
  * Pure: takes file contents in, returns file contents out. Tested directly
  * without filesystem mocking.
@@ -33,7 +39,6 @@ final readonly class IpMapBumper
 
     public function __construct(
         public string $branchColumn = 'branch',
-        public string $branchTagColumn = 'branch_tag',
     ) {
     }
 
@@ -61,7 +66,6 @@ final readonly class IpMapBumper
         }
         $headers = explode("\t", $lines[0]);
         $branchIndex = $this->columnIndex($headers, $this->branchColumn);
-        $branchTagIndex = $this->columnIndex($headers, $this->branchTagColumn);
 
         $rowsRewritten = 0;
         for ($i = 1, $n = count($lines); $i < $n; $i++) {
@@ -70,10 +74,7 @@ final readonly class IpMapBumper
                 continue;
             }
             $cells = explode("\t", $line);
-            if (!isset($cells[$branchIndex], $cells[$branchTagIndex])) {
-                continue;
-            }
-            if ($cells[$branchTagIndex] !== 'tag') {
+            if (!isset($cells[$branchIndex])) {
                 continue;
             }
             $existing = $cells[$branchIndex];
@@ -82,6 +83,7 @@ final readonly class IpMapBumper
             }
             $existingParts = $this->parseTag($existing);
             if ($existingParts === null) {
+                // Not a tag row (e.g. "master", "rel-810") -- leave alone.
                 continue;
             }
             if ($existingParts['major'] !== $newMajor || $existingParts['minor'] !== $newMinor) {

@@ -22,18 +22,52 @@
 #
 # Section ownership (per G6 design):
 #
-#   Production (five + aliases)        -- fixed cluster IDs; branch_tag from
-#                                         latest holder's openemr_version_ref;
-#                                         flex from latest holder's Dockerfile
+#   Production (five + aliases)        -- fixed cluster IDs; branch column =
+#                                         latest holder's openemr_version_ref
+#                                         (e.g. v8_0_0_3); description
+#                                         template-regenerated using the
+#                                         latest holder's docker_tags primary
+#                                         version (e.g. 8.0.0); flex from
+#                                         latest holder's release Dockerfile
 #   Up-for-grabs (four + aliases)      -- fixed cluster IDs; row PRESERVED
 #                                         (community claims as overrides);
 #                                         flex from master's Dockerfile always
 #   Master demos                       -- sticky cluster IDs (new from parked);
-#                                         branch master; flex master Alpine +
-#                                         cluster's assigned PHP
-#   Release demos                      -- sticky cluster IDs (new from parked);
-#                                         branch = rel branch name; flex from
-#                                         that rel branch's Dockerfile
+#                                         branch = master; flex image is
+#                                         flex-<picked-Alpine>-php-<PHP> where
+#                                         picked-Alpine = highest non-edge
+#                                         Alpine in the flex matrix (read from
+#                                         master's docker-build-*.yml workflows)
+#                                         that supports the cluster's PHP
+#   Release demos                      -- one cluster per non-master row in
+#                                         release-targets.yml (multirow per
+#                                         rel-branch -> one cluster per row).
+#                                         Sticky assignment per row, 3-tier
+#                                         priority:
+#                                           (1) existing release-demo cluster
+#                                               with col 3 == row's
+#                                               openemr_version_ref
+#                                           (2) existing release-demo cluster
+#                                               with col 3 == row's branch
+#                                               field (single-row lifecycle:
+#                                               rel-810 -> v8_1_0)
+#                                           (3) claim from parked bench.
+#                                         Col 3 = row's openemr_version_ref
+#                                         (tag like v8_0_0_3 OR branch like
+#                                         rel-810). Description template-
+#                                         regenerated: "Release Demo" label
+#                                         if col 3 looks like a tag,
+#                                         "Development Demo" if it looks like
+#                                         a branch. Version from docker_tags
+#                                         primary (shortest pure-numeric tag).
+#                                         Flex from that rel branch's
+#                                         release Dockerfile.
+#                                         The latest row ALSO drives the
+#                                         production demos in addition to its
+#                                         own release demo cluster.
+#                                         Release-demo clusters not claimed
+#                                         in a given run are released to
+#                                         parked.
 #   Parked                             -- overflow bench; rows PRESERVED
 #   Miscellaneous                      -- hand-curated; rows PRESERVED
 #
@@ -131,14 +165,64 @@ fetch_upstream() {
 }
 
 #------------------------------------------------------------------------------
+# release-targets row-shape helpers
+#------------------------------------------------------------------------------
+
+# extract_primary_version <docker_tags>
+# Echoes the "primary" human version string for the row.
+#
+# Algorithm: split by comma; among entries matching pure-numeric-dot
+# (`^\d+(\.\d+)*$`), echo the shortest. This intentionally prefers the
+# release-line family tag (e.g. "8.0.0" out of "8.0.0,8.0.0.3,latest") to
+# the patch tag, because the human-facing description should reflect the
+# release line, not the latest patch.
+#
+# Fails loud if docker_tags has no numeric tag.
+extract_primary_version() {
+    local tags="$1"
+    [[ -n "$tags" ]] || fail "extract_primary_version: empty docker_tags"
+
+    local best="" entry
+    IFS=',' read -ra parts <<< "$tags"
+    for entry in "${parts[@]}"; do
+        # trim whitespace
+        entry="${entry#"${entry%%[![:space:]]*}"}"
+        entry="${entry%"${entry##*[![:space:]]}"}"
+        # match pure numeric.dot form
+        if [[ "$entry" =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
+            if [[ -z "$best" || ${#entry} -lt ${#best} ]]; then
+                best="$entry"
+            fi
+        fi
+    done
+    [[ -n "$best" ]] || fail "extract_primary_version: no numeric tag found in docker_tags '$tags'"
+    printf '%s\n' "$best"
+}
+
+# is_tag_ref <value>
+# Returns 0 (true) if <value> looks like a release tag (e.g. v8_0_0_3,
+# v7_0_4, v8_1_1), else 1 (false -- typically a branch name like rel-810).
+is_tag_ref() {
+    local v="$1"
+    [[ "$v" =~ ^v[0-9]+_[0-9]+_[0-9]+(_[0-9]+)?$ ]]
+}
+
+#------------------------------------------------------------------------------
 # upstream input parsers
 #------------------------------------------------------------------------------
 
 # Side-effect: writes to globals RELEASE_TARGETS_FILE,
-# RT_LATEST_BRANCH, RT_LATEST_VERSION_REF, RT_REL_BRANCHES (array of distinct
-# rel-* branches with at least one releasable row, sorted by version desc),
-# RT_BRANCH_VERSION_REF (associative: rel-branch -> version_ref to use, picking
-# the "primary" non-unreleased row for that branch).
+# RT_LATEST_BRANCH, RT_LATEST_VERSION_REF, RT_LATEST_DOCKER_TAGS,
+# RT_LATEST_PRIMARY_VERSION (e.g. "8.0.0"), RT_REL_BRANCHES (array of distinct
+# rel-* branches with at least one releasable row, sorted asc by version),
+# and per-row arrays driving release-demo generation:
+#   RT_ROW_BRANCHES       -- parallel arrays indexed by row#, in
+#   RT_ROW_VERSION_REFS      iteration order (branch asc, then yml order
+#   RT_ROW_DOCKER_TAGS       within branch). Each non-unreleased, non-master
+#   RT_ROW_PRIMARY_VERSIONS  row in release-targets.yml is one entry.
+#
+# The latest row appears once in these arrays (it is BOTH the production
+# anchor and one release demo cluster).
 fetch_release_targets() {
     RELEASE_TARGETS_FILE="$WORKDIR/release-targets.yml"
     fetch_upstream master ".github/release-targets.yml" "$RELEASE_TARGETS_FILE"
@@ -152,45 +236,58 @@ fetch_release_targets() {
 
     RT_LATEST_BRANCH="$(yq -r '.[] | select(.unreleased != true) | select(.docker_tags | split(",") | .[] == "latest") | .branch' "$RELEASE_TARGETS_FILE")"
     RT_LATEST_VERSION_REF="$(yq -r '.[] | select(.unreleased != true) | select(.docker_tags | split(",") | .[] == "latest") | .openemr_version_ref' "$RELEASE_TARGETS_FILE")"
+    RT_LATEST_DOCKER_TAGS="$(yq -r '.[] | select(.unreleased != true) | select(.docker_tags | split(",") | .[] == "latest") | .docker_tags' "$RELEASE_TARGETS_FILE")"
 
-    [[ -n "$RT_LATEST_BRANCH" && -n "$RT_LATEST_VERSION_REF" ]] || \
-        fail "could not extract latest holder's branch/version_ref from release-targets.yml"
+    [[ -n "$RT_LATEST_BRANCH" && -n "$RT_LATEST_VERSION_REF" && -n "$RT_LATEST_DOCKER_TAGS" ]] || \
+        fail "could not extract latest holder's branch/version_ref/docker_tags from release-targets.yml"
+
+    RT_LATEST_PRIMARY_VERSION="$(extract_primary_version "$RT_LATEST_DOCKER_TAGS")"
 
     # 2) collect rel-* branches (excluding master, excluding unreleased-only rows).
-    #    For each rel branch, pick the version_ref of its "primary" row -- defined
-    #    as the row whose openemr_version_ref equals the branch name (the dev
-    #    pointer), falling back to its first non-unreleased row.
-    declare -gA RT_BRANCH_VERSION_REF=()
     RT_REL_BRANCHES=()
-
     local branches
     branches="$(yq -r '
         [.[] | select(.unreleased != true) | .branch] | unique | .[]
     ' "$RELEASE_TARGETS_FILE")"
-
     local b
     while IFS= read -r b; do
         [[ -z "$b" || "$b" == "master" ]] && continue
-        local vref
-        # prefer the row whose version_ref == branch name (the "dev pointer")
-        vref="$(BRANCH="$b" yq -r '[.[] | select(.unreleased != true) | select(.branch == strenv(BRANCH)) | select(.openemr_version_ref == strenv(BRANCH))] | .[0].openemr_version_ref // ""' "$RELEASE_TARGETS_FILE")"
-        if [[ -z "$vref" || "$vref" == "null" ]]; then
-            # fall back to the first non-unreleased row's version_ref
-            vref="$(BRANCH="$b" yq -r '[.[] | select(.unreleased != true) | select(.branch == strenv(BRANCH))] | .[0].openemr_version_ref // ""' "$RELEASE_TARGETS_FILE")"
-        fi
-        [[ -n "$vref" && "$vref" != "null" ]] || fail "no version_ref resolvable for rel branch $b"
-        RT_BRANCH_VERSION_REF["$b"]="$vref"
         RT_REL_BRANCHES+=("$b")
     done <<< "$branches"
 
     # sort rel branches ascending by version (rel-704 < rel-800 < rel-810).
-    # Use the numeric component (rel-704 -> 704).
     local sorted
     sorted="$(printf '%s\n' "${RT_REL_BRANCHES[@]}" | awk -F- '{print $2"\t"$0}' | sort -n | cut -f2-)"
     RT_REL_BRANCHES=()
     while IFS= read -r b; do
         [[ -n "$b" ]] && RT_REL_BRANCHES+=("$b")
     done <<< "$sorted"
+
+    # 3) build per-row arrays. For each non-master rel branch (asc), emit each
+    #    non-unreleased row of that branch in its release-targets.yml order.
+    declare -ga RT_ROW_BRANCHES=()
+    declare -ga RT_ROW_VERSION_REFS=()
+    declare -ga RT_ROW_DOCKER_TAGS=()
+    declare -ga RT_ROW_PRIMARY_VERSIONS=()
+
+    local rb
+    for rb in "${RT_REL_BRANCHES[@]}"; do
+        local refs_tsv
+        refs_tsv="$(BRANCH="$rb" yq -r '
+            [.[] | select(.unreleased != true) | select(.branch == strenv(BRANCH))]
+            | .[] | [.openemr_version_ref, .docker_tags] | @tsv
+        ' "$RELEASE_TARGETS_FILE")"
+        [[ -n "$refs_tsv" ]] || fail "no non-unreleased rows for rel branch $rb"
+
+        while IFS=$'\t' read -r vref dtags; do
+            [[ -z "$vref" || "$vref" == "null" ]] && fail "row with null openemr_version_ref under branch $rb"
+            [[ -z "$dtags" || "$dtags" == "null" ]] && fail "row with null docker_tags under branch $rb"
+            RT_ROW_BRANCHES+=("$rb")
+            RT_ROW_VERSION_REFS+=("$vref")
+            RT_ROW_DOCKER_TAGS+=("$dtags")
+            RT_ROW_PRIMARY_VERSIONS+=("$(extract_primary_version "$dtags")")
+        done <<< "$refs_tsv"
+    done
 }
 
 # fetch_dockerfile_args <branch>
@@ -215,6 +312,35 @@ fetch_dockerfile_args() {
 
     [[ -n "$DF_ALPINE" ]] || fail "could not parse ALPINE_VERSION ARG from $branch's docker/release/Dockerfile"
     [[ -n "$DF_PHP"    ]] || fail "could not parse PHP_VERSION ARG from $branch's docker/release/Dockerfile"
+}
+
+# fetch_flex_dockerfile_args
+# Reads master's docker/flex/Dockerfile and sets MASTER_FLEX_ALPINE +
+# MASTER_FLEX_PHP. The flex Dockerfile is the anchor for:
+#   - master-demo Alpine selection (upper bound; drop down if PHP unsupported)
+#   - up-for-grabs flex image (uses both alpine + php verbatim)
+# Fail loud on parse failure.
+MASTER_FLEX_ALPINE=""
+MASTER_FLEX_PHP=""
+fetch_flex_dockerfile_args() {
+    local dest="$WORKDIR/Dockerfile.master.flex"
+    fetch_upstream master "docker/flex/Dockerfile" "$dest"
+
+    MASTER_FLEX_ALPINE="$(awk '
+        /^ARG[[:space:]]+ALPINE_VERSION=/ {
+            sub(/^ARG[[:space:]]+ALPINE_VERSION=/, "")
+            print
+            exit
+        }' "$dest")"
+    MASTER_FLEX_PHP="$(awk '
+        /^ARG[[:space:]]+PHP_VERSION=/ {
+            sub(/^ARG[[:space:]]+PHP_VERSION=/, "")
+            print
+            exit
+        }' "$dest")"
+
+    [[ -n "$MASTER_FLEX_ALPINE" ]] || fail "could not parse ALPINE_VERSION ARG from master's docker/flex/Dockerfile"
+    [[ -n "$MASTER_FLEX_PHP"    ]] || fail "could not parse PHP_VERSION ARG from master's docker/flex/Dockerfile"
 }
 
 # list_upstream_dir <ref> <path-under-repo>
@@ -288,6 +414,156 @@ fetch_supported_php_versions() {
     PHP_MATRIX="$(printf '%s\n' "$php_dotted" | tr '\n' ' ' | sed 's/ $//')"
 }
 
+# fetch_flex_matrix
+# Reads upstream master's .github/workflows/docker-build-*.yml files
+# (skipping docker-build-flex-core.yml -- that's the reusable workflow, not a
+# build target). Each per-Alpine workflow declares its (alpine_version,
+# php_versions) pair under jobs.build.with.
+#
+# Sets globals:
+#   FLEX_ALPINES                                 -- space-separated list of
+#                                                   alpine versions, file-order
+#   FLEX_PHPS_FOR[<alpine>]                      -- space-separated PHP versions
+#                                                   supported on that alpine
+#
+# Note: "edge" is a valid alpine_version (early-adopter builds); it appears in
+# FLEX_ALPINES + FLEX_PHPS_FOR. pick_master_demo_alpine excludes it.
+declare -gA FLEX_PHPS_FOR=()
+FLEX_ALPINES=""
+
+fetch_flex_matrix() {
+    local entries
+    entries="$(list_upstream_dir master ".github/workflows")"
+    [[ -n "$entries" ]] || \
+        fail "no entries found under .github/workflows/ on upstream master (cannot derive flex matrix)"
+
+    # Filter to flex-build workflow files only:
+    #   docker-build-<digits>.yml  (e.g. docker-build-322.yml -> Alpine 3.22)
+    #   docker-build-edge.yml      (early-adopter Alpine edge)
+    # Explicitly excludes:
+    #   docker-build-flex-core.yml -- reusable workflow, not a build target
+    #   docker-build-release.yml   -- production builds, not flex
+    #   anything else added later that doesn't match the flex pattern
+    local files
+    files="$(printf '%s\n' "$entries" \
+        | grep -E '^docker-build-([0-9]+|edge)\.yml$' \
+        || true)"
+
+    [[ -n "$files" ]] || \
+        fail "no flex docker-build-*.yml workflow files found on upstream master (looking for docker-build-<digits>.yml or docker-build-edge.yml)"
+
+    FLEX_ALPINES=""
+    local alpines_seen=""
+    local wf
+    while IFS= read -r wf; do
+        [[ -z "$wf" ]] && continue
+        local dest="$WORKDIR/$wf"
+        fetch_upstream master ".github/workflows/$wf" "$dest"
+
+        local alpine
+        alpine="$(yq -r '.jobs.build.with.alpine_version // ""' "$dest")"
+        [[ -n "$alpine" && "$alpine" != "null" ]] || \
+            fail "could not parse jobs.build.with.alpine_version from .github/workflows/$wf"
+
+        # php_versions is a JSON-array-as-string per the workflow convention,
+        # e.g. '["8.2", "8.3", "8.4"]'. Parse as JSON.
+        local php_json
+        php_json="$(yq -r '.jobs.build.with.php_versions // ""' "$dest")"
+        [[ -n "$php_json" && "$php_json" != "null" ]] || \
+            fail "could not parse jobs.build.with.php_versions from .github/workflows/$wf"
+
+        local php_list
+        php_list="$(printf '%s\n' "$php_json" \
+            | yq -r -p=json '.[]' 2>/dev/null \
+            | tr '\n' ' ' \
+            | sed 's/ $//')"
+
+        [[ -n "$php_list" ]] || \
+            fail "could not parse php_versions JSON array from .github/workflows/$wf (value: $php_json)"
+
+        if [[ -n "${FLEX_PHPS_FOR[$alpine]:-}" ]]; then
+            fail "duplicate alpine_version '$alpine' across docker-build-*.yml files"
+        fi
+        FLEX_PHPS_FOR["$alpine"]="$php_list"
+        alpines_seen+="${alpines_seen:+ }$alpine"
+    done <<< "$files"
+
+    FLEX_ALPINES="$alpines_seen"
+}
+
+# pick_master_demo_alpine <php_version>
+# Echoes the Alpine version to use for a master-demo cluster on <php_version>.
+#
+# Algorithm (anchored to master's docker/flex/Dockerfile):
+#   1. Start at MASTER_FLEX_ALPINE (the ARG value from master flex Dockerfile).
+#   2. If the flex matrix says that Alpine supports <want_php> -> return it.
+#   3. Otherwise, walk the matrix Alpines in DESCENDING numeric order, skip
+#      "edge" and any Alpine >= MASTER_FLEX_ALPINE, and return the first one
+#      that supports <want_php>.
+#   4. Fail loud if no candidate found.
+#
+# The master flex Dockerfile is the upper bound -- never return higher.
+pick_master_demo_alpine() {
+    local want_php="$1"
+    [[ -n "$MASTER_FLEX_ALPINE" ]] || \
+        fail "pick_master_demo_alpine: MASTER_FLEX_ALPINE not set (fetch_flex_dockerfile_args must run first)"
+
+    local start="$MASTER_FLEX_ALPINE"
+
+    # Step 2: does the starting Alpine support want_php?
+    local php
+    if [[ -n "${FLEX_PHPS_FOR[$start]:-}" ]]; then
+        for php in ${FLEX_PHPS_FOR[$start]}; do
+            if [[ "$php" == "$want_php" ]]; then
+                printf '%s\n' "$start"
+                return 0
+            fi
+        done
+    fi
+
+    # Step 3: walk lower Alpines in descending order.
+    local sorted_desc
+    sorted_desc="$(printf '%s\n' $FLEX_ALPINES | grep -v '^edge$' | sort -V -r)"
+
+    local alpine
+    while IFS= read -r alpine; do
+        [[ -z "$alpine" ]] && continue
+        # Skip anything >= start. Only consider strictly lower Alpines here;
+        # start itself was already checked above.
+        # sort -V handles "3.23" vs "3.22" correctly.
+        local lower
+        lower="$(printf '%s\n%s\n' "$alpine" "$start" | sort -V | head -n1)"
+        # If "alpine" sorts first (i.e. lower) AND alpine != start, it's a
+        # legitimate fallback candidate. Equal-to-start is filtered (already
+        # checked) and higher-than-start is forbidden by the upper-bound rule.
+        if [[ "$alpine" == "$start" ]]; then
+            continue
+        fi
+        if [[ "$lower" != "$alpine" ]]; then
+            # alpine > start; skip (never go higher than master flex Alpine)
+            continue
+        fi
+        for php in ${FLEX_PHPS_FOR[$alpine]}; do
+            if [[ "$php" == "$want_php" ]]; then
+                printf '%s\n' "$alpine"
+                return 0
+            fi
+        done
+    done <<< "$sorted_desc"
+
+    fail "no Alpine in the flex matrix supports PHP $want_php starting from master flex Alpine $start (matrix: $(declare_flex_matrix_msg))"
+}
+
+# Human-readable matrix dump for fail-loud error messages.
+declare_flex_matrix_msg() {
+    local alpine
+    local out=""
+    for alpine in $FLEX_ALPINES; do
+        out+="${out:+; }${alpine}=[${FLEX_PHPS_FOR[$alpine]}]"
+    done
+    printf '%s' "$out"
+}
+
 #------------------------------------------------------------------------------
 # current-state parser: ip_map_branch.txt
 #------------------------------------------------------------------------------
@@ -297,7 +573,7 @@ fetch_supported_php_versions() {
 #
 #   CUR_SECTION       -- "production" | "up-for-grabs" | "master" | "release"
 #                        | "parked" | "misc"
-#   CUR_BRANCH        -- branch column
+#   CUR_BRANCH        -- branch column (branch or tag)
 #   CUR_REPO          -- openemr_repo column
 #   CUR_ROW           -- the full TSV row (preserved verbatim for sections the
 #                        bot doesn't rewrite)
@@ -484,18 +760,23 @@ DES_ORDER_PARKED=()
 DES_ORDER_MISC=()
 
 # Replace columns in a preserved row. Modifies the TSV row's:
-#   col 3 (branch) and col 13 (branch_tag), leaving everything else intact.
+#   col 3 (branch) and col 13 (branch_tag(not used)), leaving everything else
+#   intact.
 #
-# rewrite_row <orig-row> <new-branch> <new-branch-tag-mode>
-#   new-branch-tag-mode: literal "tag", "branch", or specific tag value
-#                       (passed through as-is)
+# rewrite_row <orig-row> <new-branch>
+#   new-branch: branch name (e.g. "master", "rel-810") or tag (e.g.
+#               "v8_0_0_3"); written to col 3. Col 13 is always normalized
+#               to "0" -- the branch_tag column is deprecated (its position
+#               is preserved but the value is no longer functionally used;
+#               demo_build.sh now uses `git clone --branch <ref> --depth 1`
+#               which works for both branches and tags).
 rewrite_row_branch_and_tag() {
-    local orig="$1" new_branch="$2" new_tag_field="$3"
-    awk -v OFS=$'\t' -v nb="$new_branch" -v nt="$new_tag_field" '
+    local orig="$1" new_branch="$2"
+    awk -v OFS=$'\t' -v nb="$new_branch" '
         BEGIN { FS="\t" }
         {
             $3 = nb
-            $13 = nt
+            $13 = "0"
             print
         }
     ' <<< "$orig"
@@ -538,8 +819,8 @@ synth_master_row() {
     # build a fresh template matching the schema.
     if [[ -n "${CUR_ROW[$cluster]:-}" ]]; then
         local row="${CUR_ROW[$cluster]}"
-        # Rewrite branch (master), branch_tag (branch), description.
-        row="$(rewrite_row_branch_and_tag "$row" "master" "branch")"
+        # Rewrite branch (master), branch_tag (deprecated -> 0), description.
+        row="$(rewrite_row_branch_and_tag "$row" "master")"
         row="$(rewrite_row_description "$row" "$desc")"
         printf '%s\n' "$row"
     else
@@ -554,32 +835,39 @@ synth_master_row() {
     fi
 }
 
-# Compose a fresh release-demo row for a cluster + rel branch + alpine + php.
+# Compose a fresh release-demo row for a cluster.
+#
+# Args:
+#   cluster      -- cluster name (base or _a alias)
+#   col3         -- value to write into col 3 (the row's openemr_version_ref;
+#                   e.g. "v8_0_0_3" for a tag-pinned row, "rel-810" for a
+#                   branch-pinned dev row)
+#   primary_ver  -- human-facing version string (from docker_tags primary),
+#                   e.g. "8.0.0" for "8.0.0,8.0.0.3,latest"
+#   alpine, php  -- from that rel branch's docker/release/Dockerfile
+#
+# Description label is "Release Demo" if col3 looks like a tag
+# (v\d+_\d+_\d+(_\d+)?), else "Development Demo".
 synth_release_row() {
-    local cluster="$1" rel_branch="$2" alpine="$3" php="$4"
-    local base_cluster="${cluster%_a}"
+    local cluster="$1" col3="$2" primary_ver="$3" alpine="$4" php="$5"
     local with_data=0
     [[ "$cluster" == *_a ]] && with_data=1
 
-    # Derive a human version from the rel branch (rel-810 -> 8.1.0).
-    local relnum="${rel_branch#rel-}"
-    local human_ver
-    if [[ ${#relnum} -eq 3 ]]; then
-        human_ver="${relnum:0:1}.${relnum:1:1}.${relnum:2:1}"
-    else
-        human_ver="$rel_branch"
+    local label="Development Demo"
+    if is_tag_ref "$col3"; then
+        label="Release Demo"
     fi
 
     local desc
     if [[ $with_data -eq 1 ]]; then
-        desc="Public OpenEMR ${human_ver} Development Demo With Demo Data On Alpine ${alpine} (with PHP ${php})"
+        desc="Public OpenEMR ${primary_ver} ${label} With Demo Data On Alpine ${alpine} (with PHP ${php})"
     else
-        desc="Public OpenEMR ${human_ver} Development Demo on Alpine ${alpine} (with PHP ${php})"
+        desc="Public OpenEMR ${primary_ver} ${label} on Alpine ${alpine} (with PHP ${php})"
     fi
 
     if [[ -n "${CUR_ROW[$cluster]:-}" ]]; then
         local row="${CUR_ROW[$cluster]}"
-        row="$(rewrite_row_branch_and_tag "$row" "$rel_branch" "branch")"
+        row="$(rewrite_row_branch_and_tag "$row" "$col3")"
         row="$(rewrite_row_description "$row" "$desc")"
         printf '%s\n' "$row"
     else
@@ -617,33 +905,41 @@ compute_desired_state() {
     local prod_clusters="${CUR_CLUSTERS_BY_SECTION["production"]:-}"
     [[ -n "$prod_clusters" ]] || fail "current ip_map_branch.txt has no Production section clusters"
 
-    # Latest holder dictates production branch_tag + flex image
+    # Latest holder dictates production branch column + flex image + description
     fetch_dockerfile_args "$RT_LATEST_BRANCH"
     local prod_alpine="$DF_ALPINE"
     local prod_php="$DF_PHP"
     local prod_tag="$RT_LATEST_VERSION_REF"
+    local prod_ver="$RT_LATEST_PRIMARY_VERSION"
 
     local c
     for c in $prod_clusters; do
         DES_SECTION["$c"]="production"
         DES_ORDER_PRODUCTION+=("$c")
         DES_IMAGE["$c"]="openemr/openemr:flex-${prod_alpine}-php-${prod_php}"
-        # production rows: rewrite branch_tag to literal version ref;
-        # branch column = the version ref (current file follows that convention,
-        # e.g. "v8_0_0_3" in column 3); branch_tag column = "tag".
+        # production rows: rewrite branch column to latest holder's
+        # openemr_version_ref (e.g. "v8_0_0_3" in column 3); branch_tag
+        # column = "0" (deprecated); description regenerated from template
+        # using the latest holder's docker_tags primary version.
         local row="${CUR_ROW[$c]}"
-        row="$(rewrite_row_branch_and_tag "$row" "$prod_tag" "tag")"
+        row="$(rewrite_row_branch_and_tag "$row" "$prod_tag")"
+        local desc
+        case "$c" in
+            *_a) desc="Alternate Public OpenEMR ${prod_ver} Production Demo" ;;
+            *_b) desc="Another Alternate Public OpenEMR ${prod_ver} Production Demo" ;;
+            *)   desc="Public OpenEMR ${prod_ver} Production Demo" ;;
+        esac
+        row="$(rewrite_row_description "$row" "$desc")"
         DES_ROWS["$c"]="$row"
     done
     # count = number of production base+alias clusters (3 today)
     local prod_count="${#DES_ORDER_PRODUCTION[@]}"
     for c in "${DES_ORDER_PRODUCTION[@]}"; do DES_COUNT["$c"]="$prod_count"; done
 
-    # --- Up-for-grabs: rows preserved (community claims); flex from master
-    fetch_dockerfile_args master
-    local master_alpine="$DF_ALPINE"
-    local master_php_dockerfile="$DF_PHP"
-    local upgrab_image="openemr/openemr:flex-${master_alpine}-php-${master_php_dockerfile}"
+    # --- Up-for-grabs: rows preserved (community claims); flex from master's
+    # docker/flex/Dockerfile (both alpine AND php taken verbatim from its ARGs).
+    # The flex Dockerfile -- not release -- is the anchor for up-for-grabs.
+    local upgrab_image="openemr/openemr:flex-${MASTER_FLEX_ALPINE}-php-${MASTER_FLEX_PHP}"
 
     local upgrab_clusters="${CUR_CLUSTERS_BY_SECTION["up-for-grabs"]:-}"
     [[ -n "$upgrab_clusters" ]] || fail "current ip_map_branch.txt has no Up-for-grabs section clusters"
@@ -685,8 +981,13 @@ compute_desired_state() {
         used_master_clusters["$cluster"]=1
         DES_SECTION["$cluster"]="master"
         DES_ORDER_MASTER+=("$cluster")
-        DES_ROWS["$cluster"]="$(synth_master_row "$cluster" "$php" "$master_alpine")"
-        DES_IMAGE["$cluster"]="openemr/openemr:flex-${master_alpine}-php-${php}"
+        # Pick the highest non-edge Alpine in the flex matrix that supports
+        # this PHP. Not every PHP is available on every Alpine -- e.g. Alpine
+        # 3.23 dropped PHP 8.2, so PHP 8.2 has to fall back to 3.22.
+        local picked_alpine
+        picked_alpine="$(pick_master_demo_alpine "$php")"
+        DES_ROWS["$cluster"]="$(synth_master_row "$cluster" "$php" "$picked_alpine")"
+        DES_IMAGE["$cluster"]="openemr/openemr:flex-${picked_alpine}-php-${php}"
         # aliases
         local alias
         IFS=',' read -ra aliases <<< "${CUR_ALIASES[$cluster]:-}"
@@ -694,7 +995,7 @@ compute_desired_state() {
             [[ -z "$alias" ]] && continue
             DES_SECTION["$alias"]="master"
             DES_ORDER_MASTER+=("$alias")
-            DES_ROWS["$alias"]="$(synth_master_row "$alias" "$php" "$master_alpine")"
+            DES_ROWS["$alias"]="$(synth_master_row "$alias" "$php" "$picked_alpine")"
         done
     done
     # count for master-demo clusters = base+aliases per cluster.
@@ -717,35 +1018,64 @@ compute_desired_state() {
         fi
     done
 
-    # Release demos: one cluster per non-latest, non-unreleased rel branch
-    declare -A relbranch_to_cluster=()
+    # --- Release demos: one cluster per non-master row in release-targets.yml.
+    # Sticky assignment per row, 3-tier priority:
+    #   (1) existing release-demo cluster whose CURRENT col 3 == row's
+    #       openemr_version_ref (e.g. row v8_0_0_3 reuses a cluster already
+    #       pinned to v8_0_0_3)
+    #   (2) existing release-demo cluster whose CURRENT col 3 == row's
+    #       branch field (covers the single-row lifecycle where the cluster
+    #       was previously pinned to e.g. rel-810 and the row's openemr_version_ref
+    #       has rolled forward to v8_1_0)
+    #   (3) claim from parked bench (new row case)
+    # Each row contributes one cluster (+ aliases). Multirow per branch ->
+    # multiple clusters per branch (each row gets its own cluster).
+    #
+    # After all rows processed: release-demo clusters present in current file
+    # but not claimed in this run fall through to parked (retired branch case).
+    declare -A release_cur_col3_to_cluster=()
     local rc
     for rc in ${CUR_CLUSTERS_BY_SECTION["release"]:-}; do
         case "$rc" in
             *_a|*_b) continue ;;
         esac
-        local br="${CUR_BRANCH[$rc]:-}"
-        [[ -n "$br" ]] && relbranch_to_cluster["$br"]="$rc"
+        local col3="${CUR_BRANCH[$rc]:-}"
+        [[ -n "$col3" ]] && release_cur_col3_to_cluster["$col3"]="$rc"
     done
 
+    declare -A claimed_release_clusters=()
     declare -A used_release_clusters=()
-    local rb
-    for rb in "${RT_REL_BRANCHES[@]}"; do
-        # skip the latest holder -- production already covers it
-        [[ "$rb" == "$RT_LATEST_BRANCH" ]] && continue
+    local i
+    for (( i=0; i<${#RT_ROW_BRANCHES[@]}; i++ )); do
+        local rb="${RT_ROW_BRANCHES[$i]}"
+        local vref="${RT_ROW_VERSION_REFS[$i]}"
+        local pver="${RT_ROW_PRIMARY_VERSIONS[$i]}"
 
-        local cluster
-        if [[ -n "${relbranch_to_cluster[$rb]:-}" ]]; then
-            cluster="${relbranch_to_cluster[$rb]}"
-        else
-            cluster="$(take_from_parked "release-demo $rb")"
+        # Tier 1: existing release cluster whose CURRENT col 3 == vref
+        local cluster=""
+        local cand="${release_cur_col3_to_cluster[$vref]:-}"
+        if [[ -n "$cand" && -z "${claimed_release_clusters[$cand]:-}" ]]; then
+            cluster="$cand"
         fi
+        # Tier 2: existing release cluster whose CURRENT col 3 == row's branch
+        if [[ -z "$cluster" ]]; then
+            cand="${release_cur_col3_to_cluster[$rb]:-}"
+            if [[ -n "$cand" && -z "${claimed_release_clusters[$cand]:-}" ]]; then
+                cluster="$cand"
+            fi
+        fi
+        # Tier 3: claim from parked
+        if [[ -z "$cluster" ]]; then
+            cluster="$(take_from_parked "release-demo $rb ($vref)")"
+        fi
+
+        claimed_release_clusters["$cluster"]=1
         used_release_clusters["$cluster"]=1
         DES_SECTION["$cluster"]="release"
         DES_ORDER_RELEASE+=("$cluster")
         fetch_dockerfile_args "$rb"
         local rb_alpine="$DF_ALPINE" rb_php="$DF_PHP"
-        DES_ROWS["$cluster"]="$(synth_release_row "$cluster" "$rb" "$rb_alpine" "$rb_php")"
+        DES_ROWS["$cluster"]="$(synth_release_row "$cluster" "$vref" "$pver" "$rb_alpine" "$rb_php")"
         DES_IMAGE["$cluster"]="openemr/openemr:flex-${rb_alpine}-php-${rb_php}"
         # aliases
         local alias
@@ -754,7 +1084,7 @@ compute_desired_state() {
             [[ -z "$alias" ]] && continue
             DES_SECTION["$alias"]="release"
             DES_ORDER_RELEASE+=("$alias")
-            DES_ROWS["$alias"]="$(synth_release_row "$alias" "$rb" "$rb_alpine" "$rb_php")"
+            DES_ROWS["$alias"]="$(synth_release_row "$alias" "$vref" "$pver" "$rb_alpine" "$rb_php")"
         done
         # count
         local n=1
@@ -820,7 +1150,7 @@ compute_desired_state() {
                 # the parked convention -- per current file's parked rows)
                 local row="${CUR_ROW[$cand]}"
                 row="$(rewrite_row_description "$row" "[parked]")"
-                row="$(rewrite_row_branch_and_tag "$row" "master" "branch")"
+                row="$(rewrite_row_branch_and_tag "$row" "master")"
                 DES_ROWS["$cand"]="$row"
                 DES_IMAGE["$cand"]="${CUR_DEMOLIB_IMAGE[$cand]:-$CUR_DEMOLIB_DEFAULT_IMAGE}"
                 DES_COUNT["$cand"]="${CUR_DEMOLIB_COUNT[$cand]:-2}"
@@ -832,7 +1162,7 @@ compute_desired_state() {
                     DES_ORDER_PARKED+=("$alias")
                     local arow="${CUR_ROW[$alias]}"
                     arow="$(rewrite_row_description "$arow" "[parked]")"
-                    arow="$(rewrite_row_branch_and_tag "$arow" "master" "branch")"
+                    arow="$(rewrite_row_branch_and_tag "$arow" "master")"
                     DES_ROWS["$alias"]="$arow"
                 done
             fi
@@ -1005,6 +1335,7 @@ diff_and_report() {
     echo "Latest holder: $RT_LATEST_BRANCH -> $RT_LATEST_VERSION_REF"
     echo "Rel branches: ${RT_REL_BRANCHES[*]}"
     echo "Supported PHP matrix: $PHP_MATRIX"
+    echo "Flex matrix: $(declare_flex_matrix_msg)"
     echo
     if [[ $has_diff -eq 0 ]]; then
         echo "No diff: current state matches desired state."
@@ -1030,6 +1361,7 @@ diff_and_report() {
             echo "**Latest holder:** \`$RT_LATEST_BRANCH\` -> \`$RT_LATEST_VERSION_REF\`"
             echo "**Rel branches:** \`${RT_REL_BRANCHES[*]}\`"
             echo "**Supported PHP matrix:** \`$PHP_MATRIX\`"
+            echo "**Flex matrix:** \`$(declare_flex_matrix_msg)\`"
             echo
             if [[ $has_diff -eq 0 ]]; then
                 echo "No diff: current state matches desired state."
@@ -1067,6 +1399,8 @@ diff_and_report() {
 main() {
     fetch_release_targets
     fetch_supported_php_versions
+    fetch_flex_matrix
+    fetch_flex_dockerfile_args
     read_current_ip_map
     read_current_demolib
     compute_desired_state
