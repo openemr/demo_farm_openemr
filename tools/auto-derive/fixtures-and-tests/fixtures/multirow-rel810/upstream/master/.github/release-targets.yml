@@ -1,0 +1,19 @@
+- branch: master
+  docker_tags: 8.2.0,dev
+  openemr_version_ref: master
+
+- branch: rel-810
+  docker_tags: 8.1.2,next
+  openemr_version_ref: rel-810
+
+- branch: rel-810
+  docker_tags: 8.1.1
+  openemr_version_ref: v8_1_1
+
+- branch: rel-800
+  docker_tags: 8.0.0,8.0.0.3,latest
+  openemr_version_ref: v8_0_0_3
+
+- branch: rel-704
+  docker_tags: 7.0.4
+  openemr_version_ref: v7_0_4
