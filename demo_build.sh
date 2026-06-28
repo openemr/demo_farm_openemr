@@ -373,10 +373,10 @@ IPADDRESS=$DOCKERDEMO
  echo "Copy git OpenEMR to web directory"
  echo "Copy git OpenEMR to web directory" >> $LOG
  mkdir -p $OPENEMR
- rm -fr $OPENEMR/*
+ rm -fr "${OPENEMR:?}"/*
  rsync --recursive --exclude .git $GIT/* $OPENEMR/
  if ! $packageServe; then
-   rm -fr $GIT
+   rm -fr "${GIT:?}"
  fi
 
  #INSTALL AND CONFIGURE OPENEMR
@@ -516,13 +516,24 @@ IPADDRESS=$DOCKERDEMO
  fi
 
  if $useCapsuleBoolean; then
+  # Defensive: capsule file must be a non-empty flat segment (no slashes,
+  # not "." or ".."). Source is ip_map_branch.txt's capsule column; this
+  # guards against typos or malicious edits that could turn the later
+  # `rm -fr "${OPENEMR:?}/${useCapsuleFile}"` into something destructive
+  # like `rm -fr "${OPENEMR:?}/"` (empty) or path traversal via `..`.
+  case "$useCapsuleFile" in
+   '' | */* | . | ..)
+    echo "ERROR: invalid useCapsuleFile value: '$useCapsuleFile' (must be a non-empty flat segment with no slashes or .. traversal)" | tee -a $LOG >&2
+    exit 1
+    ;;
+  esac
   # load the capsule
   echo "Load $useCapsuleFile capsule"
   echo "Load $useCapsuleFile capsule" >> $LOG
   # First, check to ensure the capsule exists
   if [ -f "$CAPSULES/${useCapsuleFile}.tgz" ]; then
    # ensure unpackaged directory is cleared prior to using
-   rm -fr "$OPENEMR/${useCapsuleFile}"
+   rm -fr "${OPENEMR:?}/${useCapsuleFile}"
    cp "$CAPSULES/${useCapsuleFile}.tgz" "$OPENEMR/"
    tar -xzf "${useCapsuleFile}.tgz"
    # Note need to first clear the current database
@@ -544,7 +555,7 @@ IPADDRESS=$DOCKERDEMO
     chown apache:apache "$OPENEMR/sites/default/documents/certificates/oapublic.key"
    fi
    # clear unpackaged directory
-   rm -fr "$OPENEMR/${useCapsuleFile}"
+   rm -fr "${OPENEMR:?}/${useCapsuleFile}"
    if $demoDataUpgrade; then
     # Run the sql upgrade script. This allows using capsule on most recent codebase.
     echo "Upgrading capsule from $demoDataUpgradeFrom"
@@ -673,7 +684,7 @@ IPADDRESS=$DOCKERDEMO
    composer global remove phing/phing &>> $LOG
 
    # remove the node_modules directory
-   rm -fr $TMPDIR/openemr/node_modules &>> $LOG
+   rm -fr "${TMPDIR:?}/openemr/node_modules" &>> "$LOG"
 
    # optimize
    composer dump-autoload -o &>> $LOG
@@ -706,8 +717,8 @@ IPADDRESS=$DOCKERDEMO
   date > date-cvs.txt
 
   # Clean up
-  rm -fr $TMPDIR
-  rm -fr $GIT
+  rm -fr "${TMPDIR:?}"
+  rm -fr "${GIT:?}"
   echo "Done creating OpenEMR Development packages"
   echo "Done creating OpenEMR Development packages" >> $LOG
  fi
