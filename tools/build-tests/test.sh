@@ -24,11 +24,20 @@
 #                                     extra/capsules/<name>.tgz
 #   expected/action-log.txt      -- the golden, with $WORK paths replaced
 #                                   by the literal token <WORK>.
+#                                   OR
+#   expected/fail.txt             -- substring expected in stderr/stdout
+#                                   when the script is supposed to abort
+#                                   (e.g., the useCapsuleFile guard). The
+#                                   harness asserts exit != 0 AND the
+#                                   substring is present; action-log.txt
+#                                   is not required for fail-expected
+#                                   fixtures.
 #
 # To regenerate a fixture's golden after intentional changes to
 # demo_build.sh, run:
 #   UPDATE_GOLDENS=1 ./tools/build-tests/test.sh
-# and review the diff before committing.
+# and review the diff before committing. (UPDATE_GOLDENS is a no-op for
+# fail-expected fixtures -- fail.txt is hand-authored.)
 
 set -euo pipefail
 
@@ -130,6 +139,7 @@ run_one_fixture () {
     local ip_map="$fixture_dir/ip_map_branch.txt"
     local extra_dir="$fixture_dir/extra"
     local expected="$fixture_dir/expected/action-log.txt"
+    local fail_marker="$fixture_dir/expected/fail.txt"
 
     if [[ ! -f "$inputs" ]]; then
         echo "  FAIL: missing $inputs"
@@ -186,6 +196,27 @@ run_one_fixture () {
         bash "$DEMO_BUILD" --dry-run $EXTRA_ARGS >"$work/script.stdout" 2>"$work/script.stderr"
     local exit_code=$?
     set -e
+
+    if [[ -f "$fail_marker" ]]; then
+        # Fail-expected fixture: assert exit != 0 AND substring present in
+        # combined stderr/stdout. Skips action-log diffing entirely.
+        local expected_msg
+        expected_msg="$(cat "$fail_marker")"
+        if [[ $exit_code -eq 0 ]]; then
+            echo "  FAIL: expected non-zero exit (fail marker present) but got 0"
+            return 1
+        fi
+        if ! cat "$work/script.stdout" "$work/script.stderr" | grep -qF "$expected_msg"; then
+            echo "  FAIL: expected error substring '$expected_msg' not found in output"
+            echo "  stdout (tail):"
+            tail -n 20 "$work/script.stdout" | sed 's/^/    | /'
+            echo "  stderr (tail):"
+            tail -n 20 "$work/script.stderr" | sed 's/^/    | /'
+            return 1
+        fi
+        echo "  PASS (expected fail: '$expected_msg', exit=$exit_code)"
+        return 0
+    fi
 
     if [[ $exit_code -ne 0 ]]; then
         echo "  FAIL: demo_build.sh --dry-run exited $exit_code"

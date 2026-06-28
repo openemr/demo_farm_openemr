@@ -53,6 +53,21 @@ unset _arg
 
 ACTION_LOG="${ACTION_LOG:-/dev/null}"
 
+# _emit_action_log -- internal: read a single line from stdin, redact
+# common credential patterns, append to ACTION_LOG. Best-effort: covers
+# the two credential shapes this script currently emits (mariadb -p<pass>
+# from $rpassparam and rootpass=<pass> from $mrp). Phase 2's live-run
+# work will need to extend this (composer github auth tokens, Authorization
+# headers) — for Phase 1 dry-run those values are stubbed to placeholders
+# before reaching the log, so they don't need redaction yet. Do not treat
+# ACTION_LOG as safe for production debugging without further review.
+_emit_action_log () {
+  sed -E \
+    -e 's/(-p)[^[:space:]\\]+/\1<REDACTED>/g' \
+    -e 's/(rootpass=)[^[:space:]\\]+/\1<REDACTED>/g' \
+    >> "$ACTION_LOG"
+}
+
 # run_action <cmd> <arg>... -- argv form. Log a normalized ACTION line, then
 # execute the command in live mode or skip in dry-run. Use for commands
 # without shell metacharacters (no pipes, no redirects).
@@ -61,7 +76,7 @@ run_action () {
     printf 'ACTION:'
     printf ' %q' "$@"
     printf '\n'
-  } >> "$ACTION_LOG"
+  } | _emit_action_log
   if ! $dryRun; then
     "$@"
   fi
@@ -70,8 +85,16 @@ run_action () {
 # run_action_sh <shell-command-string> -- shell form. Log ACTION_SH, then
 # eval the string. Use for commands with pipes, redirects, or compound
 # logic; variable expansion happens at the call site via double-quoting.
+#
+# Trust assumption: the wrapped string is built from script-internal
+# variables whose values originate in ip_map_branch.txt and the demo-farm
+# docker env (DOCKERDEMO, DOCKERMYSQLHOST, etc.) -- not from user input.
+# This script is not designed to safely process attacker-controlled values
+# in those vars; production callers must ensure ip_map_branch.txt is
+# authored by trusted operators and env vars come from the demo-farm
+# infrastructure.
 run_action_sh () {
-  printf 'ACTION_SH: %s\n' "$1" >> "$ACTION_LOG"
+  printf 'ACTION_SH: %s\n' "$1" | _emit_action_log
   if ! $dryRun; then
     eval "$1"
   fi
@@ -91,7 +114,7 @@ run_action_capture () {
     printf 'ACTION_CAPTURE:'
     printf ' %q' "$@"
     printf '\n'
-  } >> "$ACTION_LOG"
+  } | _emit_action_log
   if $dryRun; then
     printf '%s\n' "$_stub"
   else
@@ -740,8 +763,11 @@ IPADDRESS=$DOCKERDEMO
   echo "Creating OpenEMR Development packages"
   echo "Creating OpenEMR Development packages" >> $LOG
 
-  # Prepare the development package
-  run_action mkdir -p $TMPDIR/openemr
+  # Prepare the development package. mkdir is intentionally unwrapped:
+  # subsequent `cd $TMPDIR/openemr` needs the directory to exist even in
+  # dry-run, where the rsync below is skipped. Matches the same pattern
+  # used for $WEB/log and $OPENEMR earlier in the script.
+  mkdir -p $TMPDIR/openemr
   run_action_sh "rsync --recursive --exclude .git $GIT/* $TMPDIR/openemr/"
   #Build openemr package
   if [ ! -d $TMPDIR/openemr/vendor ]; then
@@ -789,8 +815,10 @@ IPADDRESS=$DOCKERDEMO
    run_action chmod a+w $TMPDIR/openemr/interface/modules/zend_modules/config/application.config.php
   fi
 
-  # Create the web file directory
-  run_action mkdir $FILESSERVEDIR
+  # Create the web file directory. Unwrapped: subsequent `cd $FILESSERVEDIR`
+  # needs the dir to exist in dry-run, where the tar/zip/md5sum writes
+  # below are all skipped.
+  mkdir $FILESSERVEDIR
 
   # Save the tar.gz cvs package
   cd $TMPDIR

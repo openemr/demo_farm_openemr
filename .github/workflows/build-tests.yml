@@ -10,10 +10,6 @@ name: build-tests (dry-run)
 # Phase 2 (separate PR, future) will add a slower nightly job that
 # actually executes the script end-to-end against a compose stack;
 # this fast job is the per-PR signal.
-#
-# Workflow path includes derive-ip-map.yml because the auto-derive bot
-# can land changes to demo_build.sh / ip_map_branch.txt — those should
-# trigger this suite too.
 
 on:
   pull_request:
