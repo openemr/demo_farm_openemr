@@ -1,0 +1,82 @@
+name: Derive ip_map (dry-run)
+
+# Dry-run reconciliation of ip_map_branch.txt + docker/scripts/demoLibrary.source
+# against upstream openemr/openemr state. Outputs a diff artifact + step summary.
+#
+# PR #1 scope: NO live PR opening (that's PR #2). NO retirement of bump-tag.yml
+# (that's PR #3). This workflow just runs the algorithm in dry-run mode so the
+# diff is visible before any live mutation happens.
+
+on:
+  pull_request:
+    paths:
+      - 'tools/auto-derive/**'
+      - '.github/workflows/derive-ip-map.yml'
+  schedule:
+    # Daily 07:00 UTC, 1h after openemr's docker-release-orchestrator (06:00).
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: derive-ip-map-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'scheduled' }}
+  cancel-in-progress: false
+
+jobs:
+  derive:
+    if: github.repository_owner == 'openemr' && github.repository == 'openemr/demo_farm_openemr'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install yq
+        run: |
+          set -euo pipefail
+          YQ_VERSION=v4.53.3
+          curl -fsSL "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" \
+            -o /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+          yq --version
+
+      - name: Run derive.sh in dry-run mode
+        id: derive
+        run: |
+          set -euo pipefail
+          ./tools/auto-derive/derive.sh --dry-run | tee /tmp/derive-output.txt
+
+      - name: Upload diff artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: derive-output
+          path: /tmp/derive-output.txt
+          if-no-files-found: warn
+
+  test:
+    # Fixture test suite -- validates derive.sh against canned scenarios.
+    # Runs on PR + schedule + dispatch so a broken algorithm is caught
+    # before it would produce a misleading dry-run diff.
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install yq
+        run: |
+          set -euo pipefail
+          YQ_VERSION=v4.53.3
+          curl -fsSL "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" \
+            -o /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+          yq --version
+
+      - name: Run fixture test suite
+        run: |
+          ./tools/auto-derive/fixtures-and-tests/test.sh

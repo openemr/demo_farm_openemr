@@ -1,0 +1,10 @@
+# Reusable workflow -- skipped by derive.sh. Should not be parsed.
+on:
+  workflow_call:
+    inputs:
+      alpine_version:
+        type: string
+        required: true
+      php_versions:
+        type: string
+        required: true

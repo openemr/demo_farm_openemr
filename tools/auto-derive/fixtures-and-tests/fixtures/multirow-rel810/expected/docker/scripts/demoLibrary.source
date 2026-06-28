@@ -1,0 +1,304 @@
+#!/bin/bash
+#
+# Copyright (C) 2017 Brady Miller <brady.g.miller@gmail.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# Bash library for openemr demo farm
+#
+
+# This is the wrapper to start the demo, so only need to modify the specifics in 1 place
+# rather than 2. Picks the right flex image + instance count per cluster, then
+# delegates to startDemo() which does the docker run.
+# 1st (and only) parameter is the demo name (one, two, three, etc.)
+startDemoWrapper() {
+    local image
+    local count
+    # Each cluster gets its own block so per-cluster docker changes
+    # (image bump, count change, etc.) are a single localized edit.
+    # Ordered by cluster number for legibility.
+    case "$1" in
+        one)
+            image="openemr/openemr:flex-3.23-php-8.3"
+            count=2
+            ;;
+        two)
+            image="openemr/openemr:flex-3.22-php-8.2"
+            count=2
+            ;;
+        three)
+            image="openemr/openemr:flex-3.22-php-8.4"
+            count=2
+            ;;
+        four)
+            image="openemr/openemr:flex-3.23-php-8.5"
+            count=3
+            ;;
+        five)
+            image="openemr/openemr:flex-3.22-php-8.4"
+            count=3
+            ;;
+        six)
+            image="openemr/openemr:flex-3.22-php-8.4"
+            count=2
+            ;;
+        seven)
+            image="openemr/openemr:flex-3.23-php-8.4"
+            count=2
+            ;;
+        eight)
+            image="openemr/openemr:flex-3.23-php-8.5"
+            count=2
+            ;;
+        nine)
+            image="openemr/openemr:flex-3.23-php-8.5"
+            count=2
+            ;;
+        ten)
+            image="openemr/openemr:flex-3.23-php-8.5"
+            count=2
+            ;;
+        eleven)
+            image="openemr/openemr:flex-3.23-php-8.5"
+            count=2
+            ;;
+        edu)
+            image="openemr/openemr:flex-3.23-php-8.5"
+            count=2
+            ;;
+        *)
+            image="openemr/openemr:flex-3.23-php-8.5"
+            count=1
+            ;;
+    esac
+    startDemo "$1" "mysql-openemr" "${image}" "${count}"
+}
+
+# Will stop and clear an openemr demo
+# 1st parameter is the demo name (one, two, three, etc.)
+# 2nd parameter is the mysql root password
+stopDemo () {
+    local MYSQLIP=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr`
+
+    # Stop the docker
+    echo "Stop ${1}-openemr docker"
+    docker stop ${1}-openemr
+    docker rm ${1}-openemr
+
+    # Remove the database stuff
+    echo "Clear ${1}-openemr databases and users"
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_a
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_b
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_c
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_d
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_e
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_f
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_g
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_h
+    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_i
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_a';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_b';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_c';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_d';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_e';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_f';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_g';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_h';FLUSH PRIVILEGES;"
+    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_i';FLUSH PRIVILEGES;"
+}
+
+# Will start an openemr demo
+# 1st parameter is the demo name (one, two, three, etc.)
+# 2nd parameter is the mysql name (mysql-openemr etc.)
+# 3rd parameter is the flex image tag (e.g. openemr/openemr:flex-3.23-php-8.5)
+# 4th parameter is to set how many demos it will contain (can select a number from 1 - 10)
+#
+# Demo farm runs on the upstream openemr/flex image (which carries
+# Alpine + PHP + base packages). The flex image's default CMD runs
+# openemr.sh (single-OpenEMR dev/test usage); we override it at
+# `docker run` time to clone the demo_farm_openemr repo into the
+# container and dispatch to demo_build.sh, which sets up N OpenEMR
+# instances per ip_map_branch.txt. The two CMDs never run together
+# in the same container.
+startDemo () {
+    # Start docker
+    echo "Start ${1}-openemr docker"
+    docker run --detach --name ${1}-openemr \
+                        --env "DOCKERDEMO=${1}" \
+                        --env "DOCKERMYSQLHOST=${2}" \
+                        --env "DOCKERNUMBERDEMOS=${4}" \
+                        --env "OPENEMR_DOCKER_ENV_TAG=demo-farm" \
+                        --env "THROTTLE_DOWN_WAIT_MILLISECONDS=700" \
+                        --env "THROTTLE_DOWN_DIE_MILLISECONDS=10000" \
+                        -v ~/capsules:/home/openemr/capsules:ro \
+                        -v ~/translations_development_openemr:/home/openemr/git/translations_development_openemr:ro \
+                        -v ~/demo_farm_openemr/docker/stunnel/stunnel.conf:/etc/stunnel/stunnel.conf:ro \
+                        -v ~/demo_farm_openemr/docker/postfix/alpine/main.cf:/etc/postfix/main.cf:ro \
+                        -v ~/cred/sasl_passwd:/etc/postfix/sasl_passwd:ro \
+                        -v ~/cred/sasl_passwd.db:/etc/postfix/sasl_passwd.db:ro \
+                        -v ~/cred/github-key:/home/openemr/github-key:ro \
+                        --net mynet \
+                        ${3} \
+                        bash -c "mkdir -p /home/openemr/git && cd /home/openemr/git && git clone https://github.com/openemr/demo_farm_openemr.git && bash /home/openemr/git/demo_farm_openemr/demo_build.sh"
+}
+
+# Will restart an openemr subdemo. This does not restart the docker, just the subdemo.
+# 1st parameter is the demo name (one, two, three, etc.)
+# 2nd parameter is the demo subname (a, b, c, etc.)(also can be 'empty' which is for the main subdemo)
+# 3rd parameter is the mysql root password
+restartSubdemo () {
+    local MYSQLIP=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr`
+
+    # Remove the database stuff
+    if [ "$2" == "empty" ]; then
+        mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}
+    else
+        mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}_${2}
+    fi
+
+    # Now need to reset the demo within the docker
+    docker exec -t ${1}-openemr bash -c "cd /home/openemr/git/demo_farm_openemr &&
+                                         git fetch &&
+                                         git pull origin master &&
+                                         cd ~/ &&
+                                         bash /home/openemr/git/demo_farm_openemr/demo_build.sh ${2}"
+}
+
+startMysql () {
+    docker run --detach --name mysql-openemr \
+                        --env "MYSQL_ROOT_PASSWORD=hey" \
+                        --net mynet \
+                        --ulimit nofile=65536:65536 \
+                        mariadb:10.6 \
+                        --max-connections=450 \
+                        --character-set-server=utf8mb4
+}
+
+restartMysql () {
+    docker stop mysql-openemr
+    docker rm mysql-openemr
+    startMysql
+}
+
+startPhp () {
+    docker run --detach --name php-serve \
+                        -v ~/html:/usr/share/nginx/html:ro \
+                        -v ~/cred/openemr-demo-server.pem:/home/ssh/openemr-demo-server.pem:ro \
+                        --net mynet \
+                        openemr/php-ssh:7.1-fpm-alpine
+}
+
+restartPhp () {
+    docker stop php-serve
+    docker rm php-serve
+    startPhp
+}
+
+startNginx () {
+    docker run --detach --name reverse-proxy \
+                        -p 80:80 \
+                        -p 443:443 \
+                        -v ~/demo_farm_openemr/docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \
+                        -v ~/cred/.htpasswd:/etc/nginx/.htpasswd:ro \
+                        -v ~/html:/usr/share/nginx/html:ro \
+                        -v certs:/etc/letsencrypt \
+                        -v certs-data:/data/letsencrypt \
+                        --net mynet \
+                        nginx
+}
+
+restartNginx () {
+    docker stop reverse-proxy
+    docker rm reverse-proxy
+    startNginx
+}
+
+startPhpmyadmin () {
+    docker run --detach --name phpmyadmin-openemr \
+                        --env "PMA_HOST=mysql-openemr" \
+                        --net mynet \
+                         phpmyadmin/phpmyadmin
+}
+
+restartPhpmyadmin () {
+    docker stop phpmyadmin-openemr
+    docker rm phpmyadmin-openemr
+    startPhpmyadmin
+}
+
+primeLetsencrypt () {
+    docker run -it --rm \
+               -v certs:/etc/letsencrypt \
+               -v certs-data:/data/letsencrypt \
+               certbot/certbot \
+               certonly \
+               --webroot --webroot-path=/data/letsencrypt \
+               -d openemr.io \
+               -d www.openemr.io \
+               -d translations.openemr.io \
+               -d admin.openemr.io \
+               -d edu.openemr.io \
+               -d phpmyadmin.openemr.io \
+               -d demo.openemr.io \
+               -d one.openemr.io \
+               -d two.openemr.io \
+               -d three.openemr.io \
+               -d four.openemr.io \
+               -d five.openemr.io \
+               -d six.openemr.io \
+               -d seven.openemr.io \
+               -d eight.openemr.io \
+               -d nine.openemr.io \
+               -d ten.openemr.io \
+               -d eleven.openemr.io \
+               -d edu.open-emr.org
+}
+
+renewLetsencrypt () {
+    docker run -t --rm \
+               -v certs:/etc/letsencrypt \
+               -v certs-data:/data/letsencrypt \
+               -v /var/log/letsencrypt:/var/log/letsencrypt \
+               certbot/certbot \
+               renew \
+               --webroot --webroot-path=/data/letsencrypt
+}
+
+# Will snapshot an openemr demo.
+# 1st parameter is the demo name (one, two, three, etc.)
+# 2nd parameter is the demo subname (a, b, c, etc.)(also can be 'empty' which is for the main subdemo)
+# 3rd parameter is the mysql root password
+snapshotDemo() {
+    local MYSQLIP=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr`
+    local currentTime=`date "+%Y-%m-%d-%H-%M-%S"`
+    local snapshotName="${1}-${2}-${currentTime}"
+    local capsules=~/capsules
+    local tmp="${capsules}/tmp"
+    local tmpPath="${tmp}/${snapshotName}"
+
+    echo "creating snapshot; note this will only work on Alpine OS's secondary to hard-coding of www path in this script"
+    echo "mysqlip: ${MYSQLIP}"
+    echo "snapshotName: ${snapshotName}"
+    echo "tmpPath: ${tmpPath}"
+
+    mkdir -p "${tmpPath}"
+    if [ "$2" == "empty" ]; then
+        echo "snapshot of empty subname (ie. the one without a letter)"
+        mysqldump --ignore-table=${1}.onsite_activity_view --hex-blob -u root -p${3} -h ${MYSQLIP} ${1} > "${tmpPath}/backup.sql"
+        docker cp "${1}-openemr:/var/www/localhost/htdocs/openemr/sites" "${tmpPath}"
+    else
+        echo "snapshot of non-empty subname (ie. with a letter)"
+        mysqldump --ignore-table=${1}_${2}.onsite_activity_view --hex-blob -u root -p${3} -h ${MYSQLIP} ${1}_${2} > "${tmpPath}/backup.sql"
+        docker cp "${1}-openemr:/var/www/localhost/htdocs/${2}/openemr/sites" "${tmpPath}"
+    fi
+    cd "${tmp}"
+    tar -czf "${snapshotName}.tgz" "${snapshotName}"
+    mv "${snapshotName}.tgz" "${capsules}/"
+    rm -fr "${tmpPath}"
+    cd ~
+}
