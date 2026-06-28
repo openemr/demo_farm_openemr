@@ -146,7 +146,8 @@ It fires on three triggers:
    + PR) or `dry-run` (preview only, no branch/PR side effects, output
    uploaded as the `derive-output` artifact).
 
-In all three trigger paths the **reconcile** job:
+Triggers 1 + 2 always invoke the **reconcile** job; trigger 3 picks
+between `reconcile` and `dry-run` per the input. The **reconcile** job:
 
 - Runs `derive.sh --write` and checks `ip_map_branch.txt` +
   `docker/scripts/demoLibrary.source` for any diff vs `master`. Diff
