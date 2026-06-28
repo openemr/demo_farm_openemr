@@ -75,7 +75,7 @@ See the G6 design in the [release-mechanism migration plan](https://github.com/o
 # dry-run against your demo_farm checkout
 ./derive.sh --dry-run
 
-# write mode (mutates files in place -- PR #2 will use this)
+# write mode (mutates files in place -- this is what the daily reconcile uses)
 ./derive.sh --write
 ```
 
@@ -129,12 +129,44 @@ WS=$(mktemp -d) && cp -a fixtures-and-tests/fixtures/<your-name>/current/. $WS/ 
   cp -a $WS/. fixtures-and-tests/fixtures/<your-name>/expected/ && rm -rf $WS
 ```
 
+## Daily reconcile + auto-PR
+
+The `derive-ip-map` workflow runs daily at 07:00 UTC in **reconcile** mode:
+
+- Runs `derive.sh --write` and checks `ip_map_branch.txt` +
+  `docker/scripts/demoLibrary.source` for any diff vs `master`. Diff
+  detection is scoped to those two files so unrelated edits to
+  `tools/auto-derive/` can't trip a bot PR.
+- On diff: force-pushes the stable branch `auto-derive/reconciliation` and
+  opens (or updates, if already open) a PR titled
+  `[auto-derive] reconcile demo_farm against upstream openemr master`.
+- On no diff: if a reconciliation PR is open from a prior run, closes it
+  and deletes the remote branch (upstream drift reverted).
+
+The branch is **stable + force-pushed**, so the bot updates the same PR
+across days rather than spamming new ones. Merge to land the reconciled
+state; the bot quiets until the next genuine drift.
+
+`workflow_dispatch` defaults to `reconcile` too; pick `dry-run` from the
+input dropdown to preview the algorithm's output without any branch/PR
+side effects (uploaded as the `derive-output` artifact).
+
+**Caveat:** the bot PR is created via `GITHUB_TOKEN`, so downstream
+workflows (rabbit, CI) don't run on it automatically. The fixture suite
+job in this same workflow is the authoritative algorithm validator. To
+manually re-trigger CI on the PR, push an empty commit:
+
+```sh
+git commit --allow-empty -m 'trigger ci' && git push
+```
+
 ## PR scope
 
-This is **PR #1** of the auto-derive workstream:
+The auto-derive workstream:
 
-- PR #1 (this): scaffold + dry-run output (artifact + step summary). No
-  live PR opening.
-- PR #2: add live PR opening on diff (peter-evans force-push pattern).
+- PR #1: scaffold + dry-run output (artifact + step summary). No live PR
+  opening.
+- PR #2 (this): write + auto-PR mode (force-push stable branch, open or
+  update PR on diff, close on no-diff).
 - PR #3: atomic flip -- wire `repository_dispatch` consumers + retire
   `.github/workflows/bump-tag.yml` + the `tools/release/` PHP toolchain.
