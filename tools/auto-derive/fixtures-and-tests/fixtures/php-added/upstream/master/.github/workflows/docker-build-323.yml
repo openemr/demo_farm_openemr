@@ -1,0 +1,6 @@
+jobs:
+  build:
+    uses: ./.github/workflows/docker-build-flex-core.yml
+    with:
+      alpine_version: "3.23"
+      php_versions: '["8.3", "8.4", "8.5", "8.6"]'
