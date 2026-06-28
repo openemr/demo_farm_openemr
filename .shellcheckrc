@@ -1,0 +1,45 @@
+# ShellCheck configuration for demo_farm_openemr
+#
+# Scope: this file silences pre-existing violations across the repo so that
+# the ShellCheck workflow can be enabled without first rewriting every script.
+# Every silenced check below represents real cleanup work that should land in
+# follow-up PRs -- this file is a ratchet, not a permanent blessing. Once a
+# category of violations is fixed in the tree, the matching entry here should
+# be dropped so new occurrences get caught.
+#
+# Compare to the upstream openemr/openemr .shellcheckrc, which uses
+# `enable=all` and has no `disable=` lines because that codebase has been
+# cleaned up. This repo isn't there yet.
+
+external-sources=true
+
+# Pre-existing style/info notices. ShellCheck's `severity=warning` rc directive
+# is ignored when invoked with `--format=checkstyle` (the workflow's mode),
+# so we silence these by code instead of by severity.
+disable=SC1001  # `\=` is a regular `=` (1)
+disable=SC2001  # use bash substitution instead of sed (2)
+disable=SC2005  # useless echo (1)
+disable=SC2006  # use `$(...)` instead of backticks (88)
+disable=SC2016  # expressions don't expand in single quotes (5)
+disable=SC2086  # double quote to prevent globbing/word splitting (1255) -- bulk of repo noise
+disable=SC2129  # consider `{ cmd1; cmd2; } > file` (2)
+disable=SC2196  # `egrep` is non-standard (2)
+
+# Pre-existing POSIX-sh warnings, all emitted from demo_build.sh which carries
+# a stale `#!/bin/sh` shebang but uses bash features (arrays, `[[`, `==`)
+# throughout. The right fix is to switch the shebang to bash; until then,
+# ShellCheck flags every bashism as undefined-in-POSIX. (77 violations)
+disable=SC3014  # `==` in place of `=`
+disable=SC3028  # `RANDOM` undefined
+disable=SC3030  # arrays undefined
+disable=SC3037  # `echo` flags undefined
+disable=SC3054  # array references undefined
+
+# Pre-existing bash warnings deferred to follow-up cleanup PRs.
+disable=SC1090  # can't follow non-constant source (9 violations)
+disable=SC2034  # appears unused (7 violations)
+disable=SC2046  # quote to prevent word splitting (1 violation)
+disable=SC2048  # use `"${array[@]}"` with quotes (1 violation)
+disable=SC2115  # use `"${var:?}"` to guard `rm -rf` (3 violations) -- real footgun
+disable=SC2155  # declare and assign separately (4 violations) -- masks return values
+disable=SC2164  # `cd ... || exit` (25 violations)
