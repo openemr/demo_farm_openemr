@@ -206,7 +206,11 @@ run_one_fixture () {
             echo "  FAIL: expected non-zero exit (fail marker present) but got 0"
             return 1
         fi
-        if ! cat "$work/script.stdout" "$work/script.stderr" | grep -qF "$expected_msg"; then
+        # grep the files directly rather than `cat … | grep -qF`: under
+        # `set -o pipefail` (enabled at the top of this script), grep
+        # closing stdin early on a match makes cat exit with SIGPIPE,
+        # which would turn a passing case into a false failure.
+        if ! grep -qF -- "$expected_msg" "$work/script.stdout" "$work/script.stderr"; then
             echo "  FAIL: expected error substring '$expected_msg' not found in output"
             echo "  stdout (tail):"
             tail -n 20 "$work/script.stdout" | sed 's/^/    | /'
@@ -220,6 +224,19 @@ run_one_fixture () {
 
     if [[ $exit_code -ne 0 ]]; then
         echo "  FAIL: demo_build.sh --dry-run exited $exit_code"
+        echo "  stdout (tail):"
+        tail -n 20 "$work/script.stdout" | sed 's/^/    | /'
+        echo "  stderr (tail):"
+        tail -n 20 "$work/script.stderr" | sed 's/^/    | /'
+        return 1
+    fi
+
+    # Defensive: if a regression makes demo_build.sh exit 0 without
+    # producing an action log, fail this fixture cleanly rather than
+    # letting `sed -i` on a missing file trip `set -e` and abort the
+    # whole harness mid-run.
+    if [[ ! -f "$action_log" ]]; then
+        echo "  FAIL: missing action log $action_log (script exited 0 but produced no log)"
         echo "  stdout (tail):"
         tail -n 20 "$work/script.stdout" | sed 's/^/    | /'
         echo "  stderr (tail):"
