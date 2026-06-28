@@ -1,4 +1,4 @@
-name: ShellCheck
+name: ShellCheck (ratchet in progress)
 on:
   push:
     branches:
@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   shellcheck:
-    name: ShellCheck
+    name: ShellCheck (ratchet in progress)
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v7
