@@ -9,9 +9,9 @@ ACTION: chmod -R a+w <WORK>/web/openemr/sites/default/documents
 ACTION_CAPTURE: cat /home/openemr/github-key
 ACTION_CAPTURE: curl -H Authorization:\ token\ \<DRY_RUN_GITHUB_KEY\> https://api.github.com/rate_limit
 ACTION_SH: composer install --no-dev &>> <WORK>/web/log/logSetup.txt
-ACTION_SH: npm install --unsafe-p<REDACTED> &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: npm install --unsafe-perm &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: npm run build &>> <WORK>/web/log/logSetup.txt
-ACTION_SH: npm install --unsafe-p<REDACTED> &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: npm install --unsafe-perm &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: composer global require phing/phing &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: /root/.composer/vendor/bin/phing vendor-clean &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: /root/.composer/vendor/bin/phing assets-clean &>> <WORK>/web/log/logSetup.txt
@@ -38,9 +38,9 @@ ACTION: chmod -R a+w <WORK>/web/a/openemr/sites/default/documents
 ACTION_CAPTURE: cat /home/openemr/github-key
 ACTION_CAPTURE: curl -H Authorization:\ token\ \<DRY_RUN_GITHUB_KEY\> https://api.github.com/rate_limit
 ACTION_SH: composer install --no-dev &>> <WORK>/web/log/logSetup.txt
-ACTION_SH: npm install --unsafe-p<REDACTED> &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: npm install --unsafe-perm &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: npm run build &>> <WORK>/web/log/logSetup.txt
-ACTION_SH: npm install --unsafe-p<REDACTED> &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: npm install --unsafe-perm &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: composer global require phing/phing &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: /root/.composer/vendor/bin/phing vendor-clean &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: /root/.composer/vendor/bin/phing assets-clean &>> <WORK>/web/log/logSetup.txt
@@ -67,9 +67,9 @@ ACTION: chmod -R a+w <WORK>/web/b/openemr/sites/default/documents
 ACTION_CAPTURE: cat /home/openemr/github-key
 ACTION_CAPTURE: curl -H Authorization:\ token\ \<DRY_RUN_GITHUB_KEY\> https://api.github.com/rate_limit
 ACTION_SH: composer install --no-dev &>> <WORK>/web/log/logSetup.txt
-ACTION_SH: npm install --unsafe-p<REDACTED> &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: npm install --unsafe-perm &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: npm run build &>> <WORK>/web/log/logSetup.txt
-ACTION_SH: npm install --unsafe-p<REDACTED> &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: npm install --unsafe-perm &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: composer global require phing/phing &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: /root/.composer/vendor/bin/phing vendor-clean &>> <WORK>/web/log/logSetup.txt
 ACTION_SH: /root/.composer/vendor/bin/phing assets-clean &>> <WORK>/web/log/logSetup.txt

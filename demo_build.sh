@@ -62,8 +62,11 @@ ACTION_LOG="${ACTION_LOG:-/dev/null}"
 # before reaching the log, so they don't need redaction yet. Do not treat
 # ACTION_LOG as safe for production debugging without further review.
 _emit_action_log () {
+  # Anchor the `-p` pattern to start-of-line OR preceded by whitespace
+  # so it only matches the standalone mariadb `-p<password>` flag and
+  # not the embedded `-p` inside longer flags like `--unsafe-perm`.
   sed -E \
-    -e 's/(-p)[^[:space:]\\]+/\1<REDACTED>/g' \
+    -e 's/(^|[[:space:]])(-p)[^[:space:]\\]+/\1\2<REDACTED>/g' \
     -e 's/(rootpass=)[^[:space:]\\]+/\1<REDACTED>/g' \
     >> "$ACTION_LOG"
 }
