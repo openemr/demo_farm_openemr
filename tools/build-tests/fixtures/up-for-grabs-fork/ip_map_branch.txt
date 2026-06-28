@@ -1,0 +1,2 @@
+docker_number	openemr_repo	branch	serve_development_translations(not used)	use_development_translations	serve_packages	legacy_patching(not used)	demo_data	demo_ssh(not used)	patient_portals_and_api	external_link	root_sql_pass	branch_tag(not used)	demo_data_upgrade_from	fun_stuff	pass_reset	capsule	description
+four_a	https://github.com/juggernautsei/openemr.git	calendar-twig-migration	0	0	0	0	demo_5_0_0_5.sql	0	1	four.openemr.io/a	hey	0	5.0.0	0	0	0	Up-for-grabs fork demo (non-canonical URL + branch + demo data)

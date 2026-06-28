@@ -1,0 +1,40 @@
+name: build-tests (dry-run)
+
+# Phase 1 of issue #146: per-PR regression coverage for demo_build.sh.
+#
+# Runs `demo_build.sh --dry-run` against each fixture in
+# tools/build-tests/fixtures/ and diffs the captured action log against
+# the golden. Catches the PR #142 / #145 class of bug (control-flow,
+# field-index, quoting) at PR time, in seconds rather than minutes.
+#
+# Phase 2 (separate PR, future) will add a slower nightly job that
+# actually executes the script end-to-end against a compose stack;
+# this fast job is the per-PR signal.
+#
+# Workflow path includes derive-ip-map.yml because the auto-derive bot
+# can land changes to demo_build.sh / ip_map_branch.txt — those should
+# trigger this suite too.
+
+on:
+  pull_request:
+    paths:
+      - demo_build.sh
+      - tools/build-tests/**
+      - .github/workflows/build-tests.yml
+  workflow_dispatch:
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Run fixture test suite
+        run: |
+          set -euo pipefail
+          ./tools/build-tests/test.sh

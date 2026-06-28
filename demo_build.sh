@@ -9,13 +9,105 @@
 #This script is for the OpenEMR demo farms
 #
 
+# === BUILD-TIME TESTING SUPPORT (issue #146) ===============================
+# Parse CLI args + set up the action-log emitter that --dry-run mode and the
+# fixture-test harness in tools/build-tests/ depend on. None of this is
+# load-bearing for production execution: with no flags and no ACTION_LOG env
+# var, the helpers degrade to "echo nothing, then exec the command" -- i.e.,
+# behave like the previous direct invocations.
+#
+# Args:
+#   --dry-run            Skip side-effecting commands (composer, npm,
+#                        mariadb, apk, curl, httpd, postfix, stunnel,
+#                        system-path writes). Pure parsing/branching
+#                        still runs. Used by tools/build-tests/.
+#   <subdemoName>        Optional positional. If present, run a light
+#                        reset of just that subdemo (preserves existing
+#                        legacy behavior).
+#
+# Env-var overrides (defaulted to production paths; only set in tests):
+#   ACTION_LOG           File path to append ACTION lines to. Default
+#                        /dev/null in production -- emitter is a no-op
+#                        when not under test.
+#   WEB, webUser, GITMAIN, GITDEMOFARM, CAPSULES, OPENEMRTMPDIR
+#                        Override hardcoded paths for fixture isolation
+#                        (see "PATH VARIABLES" block below).
+
+dryRun=false
+lightReset=false
+lightResetDemo=""
+for _arg in "$@"; do
+  case "$_arg" in
+    --dry-run) dryRun=true ;;
+    --*)
+      echo "Unknown flag: $_arg" >&2
+      exit 2
+      ;;
+    *)
+      lightReset=true
+      lightResetDemo="$_arg"
+      ;;
+  esac
+done
+unset _arg
+
+ACTION_LOG="${ACTION_LOG:-/dev/null}"
+
+# run_action <cmd> <arg>... -- argv form. Log a normalized ACTION line, then
+# execute the command in live mode or skip in dry-run. Use for commands
+# without shell metacharacters (no pipes, no redirects).
+run_action () {
+  {
+    printf 'ACTION:'
+    printf ' %q' "$@"
+    printf '\n'
+  } >> "$ACTION_LOG"
+  if ! $dryRun; then
+    "$@"
+  fi
+}
+
+# run_action_sh <shell-command-string> -- shell form. Log ACTION_SH, then
+# eval the string. Use for commands with pipes, redirects, or compound
+# logic; variable expansion happens at the call site via double-quoting.
+run_action_sh () {
+  printf 'ACTION_SH: %s\n' "$1" >> "$ACTION_LOG"
+  if ! $dryRun; then
+    eval "$1"
+  fi
+}
+
+# run_action_capture [--stub <value>] <cmd> <arg>... -- log + execute (live)
+# or log + emit <value> on stdout (dry-run). Use when the script captures
+# command output into a variable: $(run_action_capture ...). The stub keeps
+# downstream parsing (jq, conditionals) sane in dry-run mode.
+run_action_capture () {
+  local _stub=""
+  if [ "$1" = "--stub" ]; then
+    _stub="$2"
+    shift 2
+  fi
+  {
+    printf 'ACTION_CAPTURE:'
+    printf ' %q' "$@"
+    printf '\n'
+  } >> "$ACTION_LOG"
+  if $dryRun; then
+    printf '%s\n' "$_stub"
+  else
+    "$@"
+  fi
+}
+# === END BUILD-TIME TESTING SUPPORT ========================================
+
 # Install demo-farm-specific runtime dependencies that the flex base image
 # doesn't bundle. apk add is idempotent — if already installed (e.g., on a
 # restartSubdemo re-invocation inside a running container) this is a fast
 # no-op rather than an error.
-apk add --no-cache postfix stunnel
+run_action apk add --no-cache postfix stunnel
 
 getRandomThemeOne () {
+    if $dryRun; then echo '<RANDOM_THEME_1>'; return; fi
     THEME[0]='style_ash_blue.css'
     THEME[1]='style_burgundy.css'
     THEME[2]='style_cadmium_yellow.css'
@@ -60,6 +152,7 @@ getRandomThemeOne () {
 }
 
 getRandomThemeTwo () {
+    if $dryRun; then echo '<RANDOM_THEME_2>'; return; fi
     THEME[0]='style_cobalt_blue.css'
     THEME[1]='style_forest_green.css'
     THEME[2]='style_light.css'
@@ -79,21 +172,16 @@ collect_var () {
    echo `grep -i "^[[:space:]]*$1[[:space:]=]" $2 | cut -d \= -f 2 | cut -d \; -f 1 | sed "s/[ 	'\"]//gi"`
 }
 
-# If there is a parameter, then just pursue a light reset of the subdemo
-if [ -z "$1" ]; then
- lightReset=false;
-else
- lightReset=true;
- lightResetDemo=$1
-fi
+# (lightReset / lightResetDemo are now set by the unified arg parser at the
+# top of the script; the legacy "$1" check used to live here.)
 
 # PATH VARIABLES AND CREATED NEEDED DIRS
 # Demo farm runs every cluster on the flex (Alpine) base image as of #116,
 # so the web root is always Alpine's /var/www/localhost/htdocs.
-WEB=/var/www/localhost/htdocs
+WEB="${WEB:-/var/www/localhost/htdocs}"
 # Web server user: alpine images use 'apache'. Used when dropping privileges
 # to run OpenEMR CLI scripts (RootCliGuard in openemr#12267 refuses root).
-webUser=apache
+webUser="${webUser:-apache}"
 LOG=$WEB/log/logSetup.txt
 mkdir -p $WEB/log
 
@@ -106,10 +194,10 @@ mkdir -p $WEB/log
 # PHP_VERSION_ABBR is set by the flex image (e.g. "85" for PHP 8.5).
 echo "start log" > $WEB/log/logPhp.txt
 chmod 666 $WEB/log/logPhp.txt
-echo "error_log = $WEB/log/logPhp.txt" > /etc/php${PHP_VERSION_ABBR}/conf.d/99-demo-farm-error-log.ini
-CAPSULES=/home/openemr/capsules
-GITMAIN=/home/openemr/git
-GITDEMOFARM=$GITMAIN/demo_farm_openemr
+run_action_sh "echo 'error_log = $WEB/log/logPhp.txt' > /etc/php${PHP_VERSION_ABBR}/conf.d/99-demo-farm-error-log.ini"
+CAPSULES="${CAPSULES:-/home/openemr/capsules}"
+GITMAIN="${GITMAIN:-/home/openemr/git}"
+GITDEMOFARM="${GITDEMOFARM:-$GITMAIN/demo_farm_openemr}"
 # Strip '#' comment lines from ip_map_branch.txt up front so every
 # downstream `grep "$IPADDRESS" | cut -f N` lookup ignores them. The
 # file uses commented section headers (Production / UP FOR GRABS /
@@ -120,7 +208,10 @@ grep -v '^#' "$GITDEMOFARMMAP_SRC" > "$GITDEMOFARMMAP"
 PASSWORDRESETSCRIPT=$GITDEMOFARM/set_pass.php
 OPENEMRAPACHECONF=$GITDEMOFARM/openemr-alpine.conf
 GITTRANS=$GITMAIN/translations_development_openemr
-TMPDIR=/tmp/openemr-tmp
+# OPENEMRTMPDIR (vs TMPDIR(1), used implicitly by mktemp et al.) overrides
+# the staging directory for the openemr CVS package built in the packageServe
+# branch. Production default matches pre-refactor behavior.
+TMPDIR="${OPENEMRTMPDIR:-/tmp/openemr-tmp}"
 
 if $lightReset; then
  echo "This is a light reset"
@@ -363,7 +454,7 @@ IPADDRESS=$DOCKERDEMO
   cd $GITMAIN
   # `--branch <ref>` accepts both branch names and tag names; combined with
   # `--depth 1` this gives a shallow clone of the exact ref.
-  git clone --branch "$GITBRANCH" --depth 1 "$OPENEMRREPO"
+  run_action git clone --branch "$GITBRANCH" --depth 1 "$OPENEMRREPO"
  else
   echo "ERROR, The OpenEMR git repository already exist"
   echo "ERROR, The OpenEMR git repository already exist" >> $LOG
@@ -373,10 +464,10 @@ IPADDRESS=$DOCKERDEMO
  echo "Copy git OpenEMR to web directory"
  echo "Copy git OpenEMR to web directory" >> $LOG
  mkdir -p $OPENEMR
- rm -fr "${OPENEMR:?}"/*
- rsync --recursive --exclude .git $GIT/* $OPENEMR/
+ run_action_sh "rm -fr \"${OPENEMR:?}\"/*"
+ run_action_sh "rsync --recursive --exclude .git $GIT/* $OPENEMR/"
  if ! $packageServe; then
-   rm -fr "${GIT:?}"
+   run_action rm -fr "${GIT:?}"
  fi
 
  #INSTALL AND CONFIGURE OPENEMR
@@ -384,12 +475,12 @@ IPADDRESS=$DOCKERDEMO
  echo "Configuring OpenEMR" >> $LOG
  #
  # Set file and directory permissions
- chmod 666 $OPENEMR/sites/default/sqlconf.php
- chmod -R a+w $OPENEMR/sites/default/documents
+ run_action chmod 666 $OPENEMR/sites/default/sqlconf.php
+ run_action chmod -R a+w $OPENEMR/sites/default/documents
 
  if [ -f $OPENEMR/interface/modules/zend_modules/config/application.config.php ] ; then
   # This is specifically for Zend code that is currently under development, so it works on the demos.
-  chmod a+w $OPENEMR/interface/modules/zend_modules/config/application.config.php
+  run_action chmod a+w $OPENEMR/interface/modules/zend_modules/config/application.config.php
   echo "Configuring Zend file permission: application.config.php"
   echo "Configuring Zend file permission: application.config.php" >> $LOG
  fi
@@ -398,44 +489,46 @@ IPADDRESS=$DOCKERDEMO
  if [ ! -d $OPENEMR/vendor ]; then
   cd $OPENEMR
 
-  # install php dependencies
-  GITHUB_KEY_COMPOSER=`cat /home/openemr/github-key`
-  githubTokenRateLimitRequest=`curl -H "Authorization: token $GITHUB_KEY_COMPOSER" https://api.github.com/rate_limit`
+  # install php dependencies. In dry-run we stub a fake key and a rate-limit
+  # of 0 so the "Not using composer github api token" branch is exercised
+  # deterministically (the other branch would log the real github key).
+  GITHUB_KEY_COMPOSER=$(run_action_capture --stub '<DRY_RUN_GITHUB_KEY>' cat /home/openemr/github-key)
+  githubTokenRateLimitRequest=$(run_action_capture --stub '{"rate":{"remaining":0}}' curl -H "Authorization: token $GITHUB_KEY_COMPOSER" https://api.github.com/rate_limit)
   githubTokenRateLimit=`echo $githubTokenRateLimitRequest | jq '.rate.remaining'`
   echo "Number of github api requests remaining is $githubTokenRateLimit"
   echo "Number of github api requests remaining is $githubTokenRateLimit" >> $LOG
   if [ "$githubTokenRateLimit" -gt 1000 ]; then
    echo "Using composer github api token"
    echo "Using composer github api token" >> $LOG
-   composer config --global --auth github-oauth.github.com $GITHUB_KEY_COMPOSER
+   run_action composer config --global --auth github-oauth.github.com $GITHUB_KEY_COMPOSER
   else
    echo "Not using composer github api token"
    echo "Not using composer github api token" >> $LOG
   fi
-  composer install --no-dev &>> $LOG
+  run_action_sh "composer install --no-dev &>> $LOG"
 
   if [ -f $OPENEMR/package.json ]; then
    # install frontend dependencies (need unsafe-perm to run as root)
-   npm install --unsafe-perm &>> $LOG
+   run_action_sh "npm install --unsafe-perm &>> $LOG"
    # build css
-   npm run build &>> $LOG
+   run_action_sh "npm run build &>> $LOG"
   fi
 
   if [ -f $OPENEMR/ccdaservice/package.json ]; then
    # install ccdaservice dependencies (need unsafe-perm to run as root)
    cd $OPENEMR/ccdaservice
-   npm install --unsafe-perm &>> $LOG
+   run_action_sh "npm install --unsafe-perm &>> $LOG"
    cd $OPENEMR
   fi
 
   # clean up
-  composer global require phing/phing &>> $LOG
-  /root/.composer/vendor/bin/phing vendor-clean &>> $LOG
-  /root/.composer/vendor/bin/phing assets-clean &>> $LOG
-  composer global remove phing/phing &>> $LOG
+  run_action_sh "composer global require phing/phing &>> $LOG"
+  run_action_sh "/root/.composer/vendor/bin/phing vendor-clean &>> $LOG"
+  run_action_sh "/root/.composer/vendor/bin/phing assets-clean &>> $LOG"
+  run_action_sh "composer global remove phing/phing &>> $LOG"
 
   # optimize
-  composer dump-autoload -o &>> $LOG
+  run_action_sh "composer dump-autoload -o &>> $LOG"
  fi
 
  #
@@ -447,28 +540,28 @@ IPADDRESS=$DOCKERDEMO
  export OPENEMR_ENABLE_INSTALLER_AUTO=1
  INST=$OPENEMR/contrib/util/installScripts/InstallerAuto.php
  INSTTEMP=$OPENEMR/contrib/util/installScripts/InstallerAutoTemp.php
- sed -e 's@^exit;@ @' <$INST >$INSTTEMP
+ run_action_sh "sed -e 's@^exit;@ @' <$INST >$INSTTEMP"
  DOCKERPARAMETERS="server=${DOCKERMYSQLHOST} loginhost=% login=${DOCKERDEMO} pass=${DOCKERDEMO} dbname=${DOCKERDEMO}"
- 
+
  # Drop privileges to the web user: RootCliGuard refuses root for the Installer class (openemr#12267).
  if $translationsDevelopment ; then
   echo "Using online development translation set"
   echo "Using online development translation set" >> $LOG
   if [ -z "$mrp" ] ; then
-   su -p -s /bin/sh "$webUser" -c "php -f $INSTTEMP development_translations=yes $DOCKERPARAMETERS" >> $LOG
+   run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $INSTTEMP development_translations=yes $DOCKERPARAMETERS\" >> $LOG"
   else
-   su -p -s /bin/sh "$webUser" -c "php -f $INSTTEMP development_translations=yes rootpass=$mrp $DOCKERPARAMETERS" >> $LOG
+   run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $INSTTEMP development_translations=yes rootpass=$mrp $DOCKERPARAMETERS\" >> $LOG"
   fi
  else
   echo "Using included translation set"
   echo "Using included translation set" >> $LOG
   if [ -z "$mrp" ] ; then
-   su -p -s /bin/sh "$webUser" -c "php -f $INSTTEMP $DOCKERPARAMETERS" >> $LOG
+   run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $INSTTEMP $DOCKERPARAMETERS\" >> $LOG"
   else
-   su -p -s /bin/sh "$webUser" -c "php -f $INSTTEMP rootpass=$mrp $DOCKERPARAMETERS" >> $LOG
+   run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $INSTTEMP rootpass=$mrp $DOCKERPARAMETERS\" >> $LOG"
   fi
  fi
- rm -f $INSTTEMP
+ run_action rm -f $INSTTEMP
 
  if $demoData; then
   # Need to insert the demo data, which is in $dd item in the pieces directory
@@ -478,8 +571,8 @@ IPADDRESS=$DOCKERDEMO
   if [ -f "$GITDEMOFARM/pieces/$dd" ]; then
     # Now insert the data
     #  -Note need to first clear the current database (can make this an option in future if need to add data without clearing database)
-    mariadb-dump --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print "SET FOREIGN_KEY_CHECKS=0;" } { print $0 } END { print "SET FOREIGN_KEY_CHECKS=1;" } ' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO
-    mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$GITDEMOFARM/pieces/$dd"
+    run_action_sh "mariadb-dump --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print \"SET FOREIGN_KEY_CHECKS=0;\" } { print \$0 } END { print \"SET FOREIGN_KEY_CHECKS=1;\" } ' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO"
+    run_action_sh "mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < \"$GITDEMOFARM/pieces/$dd\""
     echo "Completed inserting demo data from $dd"
     echo "Completed inserting demo data from $dd" >> $LOG
   else
@@ -490,19 +583,19 @@ IPADDRESS=$DOCKERDEMO
    # Run the sql upgrade script. This allows using demo data on most recent codebase.
    echo "Upgrading demo data from $demoDataUpgradeFrom"
    echo "Upgrading demo data from $demoDataUpgradeFrom" >> $LOG
-   sed -e "s@!empty(\$_POST\['form_submit'\])@true@" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php
-   sed -i "s@\$form_old_version = \$_POST\['form_old_version'\];@\$form_old_version = '${demoDataUpgradeFrom}';@" $OPENEMR/sql_upgrade_temp.php
-   sed -i "1s@^@<?php \$_GET['site'] = 'default'; ?>@" $OPENEMR/sql_upgrade_temp.php
+   run_action_sh "sed -e \"s@!empty(\\\$_POST\\['form_submit'\\])@true@\" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php"
+   run_action_sh "sed -i \"s@\\\$form_old_version = \\\$_POST\\['form_old_version'\\];@\\\$form_old_version = '${demoDataUpgradeFrom}';@\" $OPENEMR/sql_upgrade_temp.php"
+   run_action_sh "sed -i \"1s@^@<?php \\\$_GET['site'] = 'default'; ?>@\" $OPENEMR/sql_upgrade_temp.php"
    # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
-   su -p -s /bin/sh "$webUser" -c "php -f $OPENEMR/sql_upgrade_temp.php" >> $LOG
-   rm -f $OPENEMR/sql_upgrade_temp.php
+   run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $OPENEMR/sql_upgrade_temp.php\" >> $LOG"
+   run_action rm -f $OPENEMR/sql_upgrade_temp.php
    # Also need to change encoding/collation when using OpenEMR versions at 6 or greater
    VERSION_MAJOR=$(collect_var \$v_major $OPENEMR/version.php)
    if [ -n "$VERSION_MAJOR" ] && [ "$VERSION_MAJOR" -ge "6" ]; then
     echo "Upgrading database/collation to utf8mbf since using version ${VERSION_MAJOR}"
     echo "Upgrading database/collation to utf8mbf since using version ${VERSION_MAJOR}" >> $LOG
-     mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat("ALTER DATABASE `",TABLE_SCHEMA,"` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;") as _sql FROM `information_schema`.`TABLES` where `TABLE_SCHEMA` like "'"${DOCKERDEMO}"'" and `TABLE_TYPE`="BASE TABLE" group by `TABLE_SCHEMA`;' | egrep '^ALTER' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam
-     mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat("ALTER TABLE `",TABLE_SCHEMA,"`.`",TABLE_NAME,"` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;") as _sql FROM `information_schema`.`TABLES` where `TABLE_SCHEMA` like "'"${DOCKERDEMO}"'" and `TABLE_TYPE`="BASE TABLE" group by `TABLE_SCHEMA`, `TABLE_NAME`;' | egrep '^ALTER' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam
+     run_action_sh "mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat(\"ALTER DATABASE \`\",TABLE_SCHEMA,\"\` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;\") as _sql FROM \`information_schema\`.\`TABLES\` where \`TABLE_SCHEMA\` like \"'\"${DOCKERDEMO}\"'\" and \`TABLE_TYPE\`=\"BASE TABLE\" group by \`TABLE_SCHEMA\`;' | egrep '^ALTER' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam"
+     run_action_sh "mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat(\"ALTER TABLE \`\",TABLE_SCHEMA,\"\`.\`\",TABLE_NAME,\"\` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;\") as _sql FROM \`information_schema\`.\`TABLES\` where \`TABLE_SCHEMA\` like \"'\"${DOCKERDEMO}\"'\" and \`TABLE_TYPE\`=\"BASE TABLE\" group by \`TABLE_SCHEMA\`, \`TABLE_NAME\`;' | egrep '^ALTER' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam"
    fi
   fi
   if $translationsDevelopment ; then
@@ -533,39 +626,39 @@ IPADDRESS=$DOCKERDEMO
   # First, check to ensure the capsule exists
   if [ -f "$CAPSULES/${useCapsuleFile}.tgz" ]; then
    # ensure unpackaged directory is cleared prior to using
-   rm -fr "${OPENEMR:?}/${useCapsuleFile}"
-   cp "$CAPSULES/${useCapsuleFile}.tgz" "$OPENEMR/"
-   tar -xzf "${useCapsuleFile}.tgz"
+   run_action rm -fr "${OPENEMR:?}/${useCapsuleFile}"
+   run_action cp "$CAPSULES/${useCapsuleFile}.tgz" "$OPENEMR/"
+   run_action tar -xzf "${useCapsuleFile}.tgz"
    # Note need to first clear the current database
-   mariadb-dump --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print "SET FOREIGN_KEY_CHECKS=0;" } { print $0 } END { print "SET FOREIGN_KEY_CHECKS=1;" } ' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO
-   mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < "$OPENEMR/${useCapsuleFile}/backup.sql"
-   cp "$OPENEMR/sites/default/sqlconf.php" "$OPENEMR/"
-   rsync --delete --recursive --links "$OPENEMR/${useCapsuleFile}/sites" "$OPENEMR/"
-   cp "$OPENEMR/sqlconf.php" "$OPENEMR/sites/default/sqlconf.php"
-   rm "$OPENEMR/sqlconf.php"
-   chmod -R a+w $OPENEMR/sites/default/documents
+   run_action_sh "mariadb-dump --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print \"SET FOREIGN_KEY_CHECKS=0;\" } { print \$0 } END { print \"SET FOREIGN_KEY_CHECKS=1;\" } ' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO"
+   run_action_sh "mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < \"$OPENEMR/${useCapsuleFile}/backup.sql\""
+   run_action cp "$OPENEMR/sites/default/sqlconf.php" "$OPENEMR/"
+   run_action rsync --delete --recursive --links "$OPENEMR/${useCapsuleFile}/sites" "$OPENEMR/"
+   run_action cp "$OPENEMR/sqlconf.php" "$OPENEMR/sites/default/sqlconf.php"
+   run_action rm "$OPENEMR/sqlconf.php"
+   run_action chmod -R a+w $OPENEMR/sites/default/documents
    if [ -f "$OPENEMR/sites/default/documents/certificates/oaprivate.key" ]; then
     # this file needs special treatment in the alpine demo dockers to work correctly
-    chmod 640 "$OPENEMR/sites/default/documents/certificates/oaprivate.key"
-    chown apache:apache "$OPENEMR/sites/default/documents/certificates/oaprivate.key"
+    run_action chmod 640 "$OPENEMR/sites/default/documents/certificates/oaprivate.key"
+    run_action chown apache:apache "$OPENEMR/sites/default/documents/certificates/oaprivate.key"
    fi
    if [ -f "$OPENEMR/sites/default/documents/certificates/oapublic.key" ]; then
     # this file needs special treatment in the alpine demo dockers to work correctly
-    chmod 660 "$OPENEMR/sites/default/documents/certificates/oapublic.key"
-    chown apache:apache "$OPENEMR/sites/default/documents/certificates/oapublic.key"
+    run_action chmod 660 "$OPENEMR/sites/default/documents/certificates/oapublic.key"
+    run_action chown apache:apache "$OPENEMR/sites/default/documents/certificates/oapublic.key"
    fi
    # clear unpackaged directory
-   rm -fr "${OPENEMR:?}/${useCapsuleFile}"
+   run_action rm -fr "${OPENEMR:?}/${useCapsuleFile}"
    if $demoDataUpgrade; then
     # Run the sql upgrade script. This allows using capsule on most recent codebase.
     echo "Upgrading capsule from $demoDataUpgradeFrom"
     echo "Upgrading capsule from $demoDataUpgradeFrom" >> $LOG
-    sed -e "s@!empty(\$_POST\['form_submit'\])@true@" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php
-    sed -i "s@\$form_old_version = \$_POST\['form_old_version'\];@\$form_old_version = '${demoDataUpgradeFrom}';@" $OPENEMR/sql_upgrade_temp.php
-    sed -i "1s@^@<?php \$_GET['site'] = 'default'; ?>@" $OPENEMR/sql_upgrade_temp.php
+    run_action_sh "sed -e \"s@!empty(\\\$_POST\\['form_submit'\\])@true@\" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php"
+    run_action_sh "sed -i \"s@\\\$form_old_version = \\\$_POST\\['form_old_version'\\];@\\\$form_old_version = '${demoDataUpgradeFrom}';@\" $OPENEMR/sql_upgrade_temp.php"
+    run_action_sh "sed -i \"1s@^@<?php \\\$_GET['site'] = 'default'; ?>@\" $OPENEMR/sql_upgrade_temp.php"
     # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
-    su -p -s /bin/sh "$webUser" -c "php -f $OPENEMR/sql_upgrade_temp.php" >> $LOG
-    rm -f $OPENEMR/sql_upgrade_temp.php
+    run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $OPENEMR/sql_upgrade_temp.php\" >> $LOG"
+    run_action rm -f $OPENEMR/sql_upgrade_temp.php
    fi
   else
    echo "ERROR: $useCapsuleFile capsule did not exist, so could not use"
@@ -575,7 +668,7 @@ IPADDRESS=$DOCKERDEMO
 
  #set up external link in global
  EXTERNALLINKBASE=$(echo "$EXTERNALLINK" | cut -d '/' -f 1)
- mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
+ run_action mariadb --skip-ssl -h "$DOCKERMYSQLHOST" -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
 
  #random theme generator
  if $randomTheme; then
@@ -591,7 +684,7 @@ IPADDRESS=$DOCKERDEMO
   echo -n "random theme is " >> $LOG
   echo "$RANDOM_THEME" >> $LOG
   #set the random theme
-  mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
+  run_action mariadb --skip-ssl -h "$DOCKERMYSQLHOST" -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
  fi
 
  # Enable patient portal + REST/FHIR/OAuth APIs for demos with the
@@ -599,7 +692,7 @@ IPADDRESS=$DOCKERDEMO
  if [ "$ppapi" = "1" ]; then
   echo "Setting up patient portal and API globals"
   echo "Setting up patient portal and API globals" >> $LOG
-  mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e "
+  run_action mariadb --skip-ssl -h "$DOCKERMYSQLHOST" -u root $rpassparam -e "
     UPDATE ${DOCKERDEMO}.globals SET gl_value='1' WHERE gl_name='portal_onsite_two_enable';
     UPDATE ${DOCKERDEMO}.globals SET gl_value='1' WHERE gl_name='rest_api';
     UPDATE ${DOCKERDEMO}.globals SET gl_value='1' WHERE gl_name='rest_fhir_api';
@@ -611,13 +704,13 @@ IPADDRESS=$DOCKERDEMO
  fi
 
  #reinstitute file permissions
- chmod 644 $OPENEMR/sites/default/sqlconf.php
+ run_action chmod 644 $OPENEMR/sites/default/sqlconf.php
  echo "Done configuring OpenEMR"
  echo "Done configuring OpenEMR" >> $LOG
 
  # Set up to allow demo and testing of hl7 labs feature
- mkdir $OPENEMR/sites/default/procedure_results
- chmod -R a+w $OPENEMR/sites/default/procedure_results
+ run_action mkdir $OPENEMR/sites/default/procedure_results
+ run_action chmod -R a+w $OPENEMR/sites/default/procedure_results
 
  # Set up swagger api to work
  if [ -f $OPENEMR/swagger/openemr-api.yaml ]; then
@@ -628,15 +721,15 @@ IPADDRESS=$DOCKERDEMO
   else
     demoPath="/${demo}"
   fi
-  sed -i "s@/apis/default/@${demoPath}/openemr/apis/default/@" $OPENEMR/swagger/openemr-api.yaml
-  sed -i "s@/oauth2/default/authorize@${demoPath}/openemr/oauth2/default/authorize@" $OPENEMR/swagger/openemr-api.yaml
-  sed -i "s@/oauth2/default/token@${demoPath}/openemr/oauth2/default/token@" $OPENEMR/swagger/openemr-api.yaml
+  run_action sed -i "s@/apis/default/@${demoPath}/openemr/apis/default/@" $OPENEMR/swagger/openemr-api.yaml
+  run_action sed -i "s@/oauth2/default/authorize@${demoPath}/openemr/oauth2/default/authorize@" $OPENEMR/swagger/openemr-api.yaml
+  run_action sed -i "s@/oauth2/default/token@${demoPath}/openemr/oauth2/default/token@" $OPENEMR/swagger/openemr-api.yaml
  fi
 
  #Security stuff
  #1. remove the library/openflashchart/php-ofc-library/ofc_upload_image.php file if it exists
  if [ -f $OPENEMR/library/openflashchart/php-ofc-library/ofc_upload_image.php ]; then
-  rm -f $OPENEMR/library/openflashchart/php-ofc-library/ofc_upload_image.php
+  run_action rm -f $OPENEMR/library/openflashchart/php-ofc-library/ofc_upload_image.php
   echo "Removed ofc_upload_image.php file"
   echo "Removed ofc_upload_image.php file" >> $LOG
  fi
@@ -648,77 +741,77 @@ IPADDRESS=$DOCKERDEMO
   echo "Creating OpenEMR Development packages" >> $LOG
 
   # Prepare the development package
-  mkdir -p $TMPDIR/openemr
-  rsync --recursive --exclude .git $GIT/* $TMPDIR/openemr/
+  run_action mkdir -p $TMPDIR/openemr
+  run_action_sh "rsync --recursive --exclude .git $GIT/* $TMPDIR/openemr/"
   #Build openemr package
   if [ ! -d $TMPDIR/openemr/vendor ]; then
    cd $TMPDIR/openemr
 
-   # install php dependencies
-   GITHUB_KEY_COMPOSER=`cat /home/openemr/github-key`
-   githubTokenRateLimitRequestPackage=`curl -H "Authorization: token $GITHUB_KEY_COMPOSER" https://api.github.com/rate_limit`
+   # install php dependencies (see twin block above for the dry-run stub rationale)
+   GITHUB_KEY_COMPOSER=$(run_action_capture --stub '<DRY_RUN_GITHUB_KEY>' cat /home/openemr/github-key)
+   githubTokenRateLimitRequestPackage=$(run_action_capture --stub '{"rate":{"remaining":0}}' curl -H "Authorization: token $GITHUB_KEY_COMPOSER" https://api.github.com/rate_limit)
    githubTokenRateLimitPackage=`echo $githubTokenRateLimitRequestPackage | jq '.rate.remaining'`
    echo "Number of github api requests remaining is $githubTokenRateLimitPackage"
    echo "Number of github api requests remaining is $githubTokenRateLimitPackage" >> $LOG
    if [ "$githubTokenRateLimitPackage" -gt 1000 ]; then
     echo "Using composer github api token"
     echo "Using composer github api token" >> $LOG
-    composer config --global --auth github-oauth.github.com $GITHUB_KEY_COMPOSER
+    run_action composer config --global --auth github-oauth.github.com $GITHUB_KEY_COMPOSER
    else
     echo "Not using composer github api token"
     echo "Not using composer github api token" >> $LOG
    fi
-   composer install --no-dev &>> $LOG
+   run_action_sh "composer install --no-dev &>> $LOG"
 
    if [ -f $TMPDIR/openemr/package.json ]; then
     # install frontend dependencies (need unsafe-perm to run as root)
-    npm install --unsafe-perm &>> $LOG
+    run_action_sh "npm install --unsafe-perm &>> $LOG"
     # build css
-    npm run build &>> $LOG
+    run_action_sh "npm run build &>> $LOG"
    fi
 
    # clean up
-   composer global require phing/phing &>> $LOG
-   /root/.composer/vendor/bin/phing vendor-clean &>> $LOG
-   /root/.composer/vendor/bin/phing assets-clean &>> $LOG
-   composer global remove phing/phing &>> $LOG
+   run_action_sh "composer global require phing/phing &>> $LOG"
+   run_action_sh "/root/.composer/vendor/bin/phing vendor-clean &>> $LOG"
+   run_action_sh "/root/.composer/vendor/bin/phing assets-clean &>> $LOG"
+   run_action_sh "composer global remove phing/phing &>> $LOG"
 
    # remove the node_modules directory
-   rm -fr "${TMPDIR:?}/openemr/node_modules" &>> "$LOG"
+   run_action_sh "rm -fr \"${TMPDIR:?}/openemr/node_modules\" &>> \"$LOG\""
 
    # optimize
-   composer dump-autoload -o &>> $LOG
+   run_action_sh "composer dump-autoload -o &>> $LOG"
   fi
-  chmod    a+w $TMPDIR/openemr/sites/default/sqlconf.php
-  chmod -R a+w $TMPDIR/openemr/sites/default/documents
+  run_action chmod a+w $TMPDIR/openemr/sites/default/sqlconf.php
+  run_action chmod -R a+w $TMPDIR/openemr/sites/default/documents
   if [ -f $TMPDIR/openemr/interface/modules/zend_modules/config/application.config.php ] ; then
    # This is specifically for Zend code that is currently under development(added in version 4.1.3).
-   chmod   a+w $TMPDIR/openemr/interface/modules/zend_modules/config/application.config.php
+   run_action chmod a+w $TMPDIR/openemr/interface/modules/zend_modules/config/application.config.php
   fi
 
   # Create the web file directory
-  mkdir $FILESSERVEDIR
+  run_action mkdir $FILESSERVEDIR
 
   # Save the tar.gz cvs package
   cd $TMPDIR
-  rm -f $FILESSERVEDIR/openemr-cvs.tar.gz
-  tar -czf $FILESSERVEDIR/openemr-cvs.tar.gz openemr
+  run_action rm -f $FILESSERVEDIR/openemr-cvs.tar.gz
+  run_action tar -czf $FILESSERVEDIR/openemr-cvs.tar.gz openemr
   cd $FILESSERVEDIR
-  md5sum openemr-cvs.tar.gz > openemr-linux-md5.txt
+  run_action_sh "md5sum openemr-cvs.tar.gz > openemr-linux-md5.txt"
 
   # Save the .zip cvs package
   cd $TMPDIR
-  rm -f $FILESSERVEDIR/openemr-cvs.zip
-  zip -rq $FILESSERVEDIR/openemr-cvs.zip openemr
+  run_action rm -f $FILESSERVEDIR/openemr-cvs.zip
+  run_action zip -rq $FILESSERVEDIR/openemr-cvs.zip openemr
   cd $FILESSERVEDIR
-  md5sum openemr-cvs.zip > openemr-windows-md5.txt
+  run_action_sh "md5sum openemr-cvs.zip > openemr-windows-md5.txt"
 
   # Create the time stamp
-  date > date-cvs.txt
+  run_action_sh "date > date-cvs.txt"
 
   # Clean up
-  rm -fr "${TMPDIR:?}"
-  rm -fr "${GIT:?}"
+  run_action rm -fr "${TMPDIR:?}"
+  run_action rm -fr "${GIT:?}"
   echo "Done creating OpenEMR Development packages"
   echo "Done creating OpenEMR Development packages" >> $LOG
  fi
@@ -731,14 +824,14 @@ done
 
 # Start Postfix for restarts, uses stunnel to communicate to aws ses email server.
 if ! $lightReset; then
-  stunnel /etc/stunnel/stunnel.conf >> $LOG
-  postfix start >> $LOG
+  run_action_sh "stunnel /etc/stunnel/stunnel.conf >> $LOG"
+  run_action_sh "postfix start >> $LOG"
 fi
 
 #restart apache and secure sensitive directories
 if ! $lightReset; then
- cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
- httpd -k start >> $LOG
+ run_action cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
+ run_action_sh "httpd -k start >> $LOG"
 fi
 
 echo "Demo install script is complete"
@@ -754,5 +847,5 @@ echo "$timeEnd" >> $LOG
 if ! $lightReset; then
   # to stop docker image from exiting
   echo "hold docker open"
-  tail -F -n0 /etc/hosts
+  run_action tail -F -n0 /etc/hosts
 fi
