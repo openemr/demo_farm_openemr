@@ -1,33 +1,224 @@
-name: Derive ip_map (dry-run)
+name: Derive ip_map (reconcile)
 
-# Dry-run reconciliation of ip_map_branch.txt + docker/scripts/demoLibrary.source
-# against upstream openemr/openemr state. Outputs a diff artifact + step summary.
+# Reconciliation of ip_map_branch.txt + docker/scripts/demoLibrary.source
+# against upstream openemr/openemr state.
 #
-# PR #1 scope: NO live PR opening (that's PR #2). NO retirement of bump-tag.yml
-# (that's PR #3). This workflow just runs the algorithm in dry-run mode so the
-# diff is visible before any live mutation happens.
+# Daily schedule runs in `reconcile` mode: writes the reconciled files, and
+# if there is a diff vs master in either output file, force-pushes a stable
+# branch `auto-derive/reconciliation` and opens (or updates) a PR. If the
+# next day's run shows no diff, the open PR is closed automatically.
+#
+# `workflow_dispatch` defaults to `reconcile` too; choose `dry-run` to
+# preview the algorithm's output without any branch/PR side effects.
+#
+# PR #1 scope: NO live PR opening (dry-run only). PR #2 (this): adds the
+# write + auto-PR mode. PR #3 will retire bump-tag.yml.
 
 on:
-  pull_request:
-    paths:
-      - 'tools/auto-derive/**'
-      - '.github/workflows/derive-ip-map.yml'
   schedule:
     # Daily 07:00 UTC, 1h after openemr's docker-release-orchestrator (06:00).
     - cron: '0 7 * * *'
   workflow_dispatch:
-
-permissions:
-  contents: read
+    inputs:
+      mode:
+        description: 'reconcile (write + PR) or dry-run (preview only)'
+        type: choice
+        options:
+          - reconcile
+          - dry-run
+        default: reconcile
+  pull_request:
+    paths:
+      - tools/auto-derive/**
+      - .github/workflows/derive-ip-map.yml
+      - demo_build.sh
+      - ip_map_branch.txt
+      - docker/scripts/demoLibrary.source
 
 concurrency:
-  group: derive-ip-map-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'scheduled' }}
+  group: derive-ip-map-scheduled
   cancel-in-progress: false
 
 jobs:
-  derive:
-    if: github.repository_owner == 'openemr' && github.repository == 'openemr/demo_farm_openemr'
+  reconcile:
+    # Daily schedule, or explicit reconcile dispatch. Guarded to upstream repo
+    # so forks don't accidentally try to open PRs against themselves. Also
+    # gated on the fixture test job: a broken algorithm must not get to
+    # force-push or open a PR.
+    needs: test
+    if: |
+      needs.test.result == 'success'
+      && github.repository_owner == 'openemr'
+      && github.repository == 'openemr/demo_farm_openemr'
+      && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.mode == 'reconcile'))
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      RECONCILE_BRANCH: auto-derive/reconciliation
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          # Pin to master so a workflow_dispatch fired from a topic branch
+          # doesn't carry unrelated commits into the bot's reconciliation
+          # branch base.
+          ref: master
+          fetch-depth: 0
+          # NOTE: persist-credentials stays default (true) so `git push` works.
+          # Upstream openemr reads happen via curl inside derive.sh, not git.
+
+      - name: Install yq
+        run: |
+          set -euo pipefail
+          YQ_VERSION=v4.53.3
+          curl -fsSL "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" \
+            -o /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+          yq --version
+
+      - name: Configure git identity
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+      - name: Run derive.sh --write
+        run: |
+          set -euo pipefail
+          ./tools/auto-derive/derive.sh --write
+
+      - name: Check for changes vs master (scoped to output files)
+        id: diff
+        run: |
+          set -euo pipefail
+          # Scope diff detection to the bot's two output files only. This way
+          # an unrelated edit to tools/auto-derive/ etc. on master won't trip
+          # the bot into opening a reconciliation PR for changes it didn't make.
+          if git diff --quiet -- ip_map_branch.txt docker/scripts/demoLibrary.source; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No reconciliation diff vs master in output files."
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Reconciliation diff detected in output files:"
+            git diff --stat -- ip_map_branch.txt docker/scripts/demoLibrary.source
+          fi
+
+      - name: Find existing reconciliation PR (if any)
+        id: existing_pr
+        run: |
+          set -euo pipefail
+          pr_number="$(gh pr list \
+            --head "$RECONCILE_BRANCH" \
+            --base master \
+            --state open \
+            --json number \
+            --jq '.[0].number // ""')"
+          echo "pr_number=$pr_number" >> "$GITHUB_OUTPUT"
+          if [[ -n "$pr_number" ]]; then
+            echo "Existing reconciliation PR: #$pr_number"
+          else
+            echo "No existing reconciliation PR."
+          fi
+
+      - name: Close existing PR if no diff
+        if: steps.diff.outputs.has_changes == 'false' && steps.existing_pr.outputs.pr_number != ''
+        run: |
+          set -euo pipefail
+          gh pr close "${{ steps.existing_pr.outputs.pr_number }}" \
+            --comment "Closing automatically: latest reconciliation against upstream openemr master shows no diff vs master. The branch becomes obsolete; a future reconciliation with a real diff will open a fresh PR."
+          # Also delete the branch on remote since it's now stale.
+          git push origin --delete "$RECONCILE_BRANCH" || true
+
+      - name: Force-push reconciliation branch
+        if: steps.diff.outputs.has_changes == 'true'
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          # Capture a fresh dry-run report header for the commit message.
+          # Cheap re-run; upstream fetches in derive.sh are short.
+          summary="$(./tools/auto-derive/derive.sh --dry-run | sed -n '/^## demo_farm auto-derive/,/^=== /p' | head -n 20 || true)"
+          git checkout -B "$RECONCILE_BRANCH"
+          # Stage only the bot's output files; never sweep unrelated changes.
+          git add ip_map_branch.txt docker/scripts/demoLibrary.source
+          # Write the commit message to a tempfile so we don't have to wrestle
+          # with YAML block-scalar indentation eating a bash heredoc.
+          msg_file="$(mktemp)"
+          {
+            printf 'chore(auto-derive): reconcile demo_farm against upstream openemr master\n\n'
+            printf 'This commit is auto-generated by the derive-ip-map workflow.\n'
+            printf 'Run: %s\n\n' "$RUN_URL"
+            printf '%s\n' "$summary"
+          } > "$msg_file"
+          git commit -F "$msg_file"
+          # --force-with-lease is safe even if a prior PR was merged + branch
+          # deleted: lease is against our local view of the remote ref.
+          git push --force-with-lease origin "$RECONCILE_BRANCH"
+
+      - name: Build PR body
+        if: steps.diff.outputs.has_changes == 'true'
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          # Render diff against master BEFORE we switch off the reconciliation
+          # branch -- diff target is the local `master` ref which still tracks
+          # origin/master via fetch-depth: 0. We compute the diff from working
+          # tree at HEAD of RECONCILE_BRANCH (committed) vs master.
+          stat="$(git diff --stat master -- ip_map_branch.txt docker/scripts/demoLibrary.source)"
+          full_diff="$(git diff master -- ip_map_branch.txt docker/scripts/demoLibrary.source)"
+          # Write PR body to a file so YAML block-scalar indentation doesn't
+          # interfere with the markdown body (and we can pass via --body-file).
+          body_file="${RUNNER_TEMP:-/tmp}/pr-body.md"
+          {
+            printf '**Auto-generated reconciliation** by [derive-ip-map](%s) against upstream openemr master state at %s.\n\n' \
+              "$RUN_URL" "$(date -u +'%Y-%m-%d %H:%M UTC')"
+            printf '## Change summary\n\n'
+            printf '```\n%s\n```\n\n' "$stat"
+            printf '<details>\n<summary>Full diff</summary>\n\n'
+            printf '```diff\n%s\n```\n\n' "$full_diff"
+            printf '</details>\n\n'
+            printf '## Behavior\n\n'
+            printf 'This PR is **idempotent across daily runs**. If left unmerged, the bot will:\n'
+            printf '- Force-push fresh reconciliation tomorrow (if upstream state has drifted further)\n'
+            printf '- Close this PR automatically (if upstream reverts and the diff disappears)\n\n'
+            printf 'Merging will land the reconciled state and the bot will stop nagging until the next genuine drift.\n\n'
+            printf '## CI note\n\n'
+            printf 'This PR was created by `GITHUB_TOKEN`, so downstream workflows (rabbit, CI) do NOT run on it automatically. PR #135'"'"'s fixture suite is the authoritative validator for the algorithm; if you want to manually run CI here, push an empty commit.\n'
+          } > "$body_file"
+          echo "PR body written to $body_file ($(wc -c <"$body_file") bytes)"
+
+      - name: Create or update PR
+        if: steps.diff.outputs.has_changes == 'true'
+        env:
+          EXISTING_PR: ${{ steps.existing_pr.outputs.pr_number }}
+        run: |
+          set -euo pipefail
+          title="[auto-derive] reconcile demo_farm against upstream openemr master"
+          body_file="${RUNNER_TEMP:-/tmp}/pr-body.md"
+          if [[ -n "$EXISTING_PR" ]]; then
+            gh pr edit "$EXISTING_PR" \
+              --title "$title" \
+              --body-file "$body_file"
+            echo "Updated existing PR #$EXISTING_PR"
+          else
+            gh pr create \
+              --base master \
+              --head "$RECONCILE_BRANCH" \
+              --title "$title" \
+              --body-file "$body_file"
+          fi
+
+  dry-run:
+    # Manual dry-run inspection without writing/pushing. Useful for debugging
+    # the bot's algorithm without affecting any PR state.
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.mode == 'dry-run' }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -43,8 +234,7 @@ jobs:
           chmod +x /usr/local/bin/yq
           yq --version
 
-      - name: Run derive.sh in dry-run mode
-        id: derive
+      - name: Run derive.sh --dry-run
         run: |
           set -euo pipefail
           ./tools/auto-derive/derive.sh --dry-run | tee /tmp/derive-output.txt
@@ -58,10 +248,12 @@ jobs:
           if-no-files-found: warn
 
   test:
-    # Fixture test suite -- validates derive.sh against canned scenarios.
-    # Runs on PR + schedule + dispatch so a broken algorithm is caught
-    # before it would produce a misleading dry-run diff.
+    # Fixture test suite -- unchanged from PR #1. Validates derive.sh against
+    # canned scenarios so a broken algorithm is caught before it would produce
+    # a misleading reconciliation diff.
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -79,4 +271,5 @@ jobs:
 
       - name: Run fixture test suite
         run: |
+          set -euo pipefail
           ./tools/auto-derive/fixtures-and-tests/test.sh
