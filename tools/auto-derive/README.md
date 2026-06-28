@@ -162,11 +162,12 @@ git commit --allow-empty -m 'trigger ci' && git push
 
 ## PR scope
 
-The auto-derive workstream:
+The auto-derive workstream (all shipped):
 
 - PR #1: scaffold + dry-run output (artifact + step summary). No live PR
   opening.
-- PR #2 (this): write + auto-PR mode (force-push stable branch, open or
+- PR #2: write + auto-PR mode (force-push stable branch, open or
   update PR on diff, close on no-diff).
-- PR #3: atomic flip -- wire `repository_dispatch` consumers + retire
-  `.github/workflows/bump-tag.yml` + the `tools/release/` PHP toolchain.
+- PR #3: atomic flip -- wired `repository_dispatch types=release-targets-changed`
+  listener and retired `.github/workflows/bump-tag.yml` + the
+  `tools/release/` PHP toolchain.

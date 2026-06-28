@@ -11,8 +11,10 @@ name: Derive ip_map (reconcile)
 # `workflow_dispatch` defaults to `reconcile` too; choose `dry-run` to
 # preview the algorithm's output without any branch/PR side effects.
 #
-# PR #1 scope: NO live PR opening (dry-run only). PR #2 (this): adds the
-# write + auto-PR mode. PR #3 will retire bump-tag.yml.
+# `repository_dispatch types=release-targets-changed` fires from the
+# openemr/openemr side whenever `.github/release-targets.yml` is pushed to
+# master, so the bot reconciles immediately rather than waiting for the
+# next 07:00 UTC tick.
 
 on:
   schedule:
@@ -27,6 +29,8 @@ on:
           - reconcile
           - dry-run
         default: reconcile
+  repository_dispatch:
+    types: [release-targets-changed]
   pull_request:
     paths:
       - tools/auto-derive/**
@@ -41,16 +45,21 @@ concurrency:
 
 jobs:
   reconcile:
-    # Daily schedule, or explicit reconcile dispatch. Guarded to upstream repo
-    # so forks don't accidentally try to open PRs against themselves. Also
-    # gated on the fixture test job: a broken algorithm must not get to
-    # force-push or open a PR.
+    # Daily schedule, explicit reconcile dispatch, or cross-repo
+    # `release-targets-changed` event from openemr/openemr. Guarded to
+    # upstream repo so forks don't accidentally try to open PRs against
+    # themselves. Also gated on the fixture test job: a broken algorithm
+    # must not get to force-push or open a PR.
     needs: test
     if: |
       needs.test.result == 'success'
       && github.repository_owner == 'openemr'
       && github.repository == 'openemr/demo_farm_openemr'
-      && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.mode == 'reconcile'))
+      && (
+        github.event_name == 'schedule'
+        || github.event_name == 'repository_dispatch'
+        || (github.event_name == 'workflow_dispatch' && github.event.inputs.mode == 'reconcile')
+      )
     runs-on: ubuntu-24.04
     permissions:
       contents: write
