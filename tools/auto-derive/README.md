@@ -16,7 +16,7 @@ See the G6 design in the [release-mechanism migration plan](https://github.com/o
 - **Sticky cluster identity:** each cluster maps to an externally-referenced
   subdomain (e.g. `eight` -> `eight.openemr.io`), so the bot reads the current
   file as state and applies a diff rather than rendering from scratch.
-- **Section ownership** (per [G6 matrix](#)):
+- **Section ownership** (per G6 matrix — see the design doc linked above):
   - Production (`five` family): fixed clusters; `branch` column set to
     the `latest`-tagged row's `openemr_version_ref` (e.g. `v8_0_0_3`);
     description regenerated from a template using the latest row's
@@ -129,9 +129,24 @@ WS=$(mktemp -d) && cp -a fixtures-and-tests/fixtures/<your-name>/current/. $WS/ 
   cp -a $WS/. fixtures-and-tests/fixtures/<your-name>/expected/ && rm -rf $WS
 ```
 
-## Daily reconcile + auto-PR
+## Triggers + reconcile + auto-PR
 
-The `derive-ip-map` workflow runs daily at 07:00 UTC in **reconcile** mode:
+The `derive-ip-map` workflow runs `derive.sh --write` and opens a PR on diff.
+It fires on three triggers:
+
+1. **Daily 07:00 UTC cron** — load-bearing self-healing fallback; catches
+   any drift that wasn't picked up by an event trigger (e.g., the bot was
+   down during a push, or a maintainer hand-edited demo_farm state).
+2. **`repository_dispatch` event `release-targets-changed`** — fired by
+   openemr/openemr's `.github/workflows/notify-release-targets-changed.yml`
+   on push to master touching `.github/release-targets.yml`. Eliminates the
+   up-to-24h lag for the most common trigger condition (a release-targets
+   row changes → demo_farm reconciles within minutes).
+3. **Manual `workflow_dispatch`** — input dropdown picks `reconcile` (write
+   + PR) or `dry-run` (preview only, no branch/PR side effects, output
+   uploaded as the `derive-output` artifact).
+
+In all three trigger paths the **reconcile** job:
 
 - Runs `derive.sh --write` and checks `ip_map_branch.txt` +
   `docker/scripts/demoLibrary.source` for any diff vs `master`. Diff
@@ -146,10 +161,6 @@ The `derive-ip-map` workflow runs daily at 07:00 UTC in **reconcile** mode:
 The branch is **stable + force-pushed**, so the bot updates the same PR
 across days rather than spamming new ones. Merge to land the reconciled
 state; the bot quiets until the next genuine drift.
-
-`workflow_dispatch` defaults to `reconcile` too; pick `dry-run` from the
-input dropdown to preview the algorithm's output without any branch/PR
-side effects (uploaded as the `derive-output` artifact).
 
 **Caveat:** the bot PR is created via `GITHUB_TOKEN`, so downstream
 workflows (rabbit, CI) don't run on it automatically. The fixture suite
