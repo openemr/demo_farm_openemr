@@ -40,6 +40,5 @@ disable=SC1090  # can't follow non-constant source (9 violations)
 disable=SC2034  # appears unused (7 violations)
 disable=SC2046  # quote to prevent word splitting (1 violation)
 disable=SC2048  # use `"${array[@]}"` with quotes (1 violation)
-disable=SC2115  # use `"${var:?}"` to guard `rm -rf` (3 violations) -- real footgun
 disable=SC2155  # declare and assign separately (4 violations) -- masks return values
 disable=SC2164  # `cd ... || exit` (25 violations)
