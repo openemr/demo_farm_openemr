@@ -516,6 +516,17 @@ IPADDRESS=$DOCKERDEMO
  fi
 
  if $useCapsuleBoolean; then
+  # Defensive: capsule file must be a non-empty flat segment (no slashes,
+  # not "." or ".."). Source is ip_map_branch.txt's capsule column; this
+  # guards against typos or malicious edits that could turn the later
+  # `rm -fr "${OPENEMR:?}/${useCapsuleFile}"` into something destructive
+  # like `rm -fr "${OPENEMR:?}/"` (empty) or path traversal via `..`.
+  case "$useCapsuleFile" in
+   '' | */* | . | ..)
+    echo "ERROR: invalid useCapsuleFile value: '$useCapsuleFile' (must be a non-empty flat segment with no slashes or .. traversal)" | tee -a $LOG >&2
+    exit 1
+    ;;
+  esac
   # load the capsule
   echo "Load $useCapsuleFile capsule"
   echo "Load $useCapsuleFile capsule" >> $LOG
