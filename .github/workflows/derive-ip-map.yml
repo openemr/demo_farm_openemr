@@ -27,6 +27,13 @@ on:
           - reconcile
           - dry-run
         default: reconcile
+  pull_request:
+    paths:
+      - tools/auto-derive/**
+      - .github/workflows/derive-ip-map.yml
+      - demo_build.sh
+      - ip_map_branch.txt
+      - docker/scripts/demoLibrary.source
 
 concurrency:
   group: derive-ip-map-scheduled
@@ -35,11 +42,15 @@ concurrency:
 jobs:
   reconcile:
     # Daily schedule, or explicit reconcile dispatch. Guarded to upstream repo
-    # so forks don't accidentally try to open PRs against themselves.
+    # so forks don't accidentally try to open PRs against themselves. Also
+    # gated on the fixture test job: a broken algorithm must not get to
+    # force-push or open a PR.
+    needs: test
     if: |
-      github.repository_owner == 'openemr'
+      needs.test.result == 'success'
+      && github.repository_owner == 'openemr'
       && github.repository == 'openemr/demo_farm_openemr'
-      && (github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'reconcile')
+      && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.mode == 'reconcile'))
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -51,6 +62,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
+          # Pin to master so a workflow_dispatch fired from a topic branch
+          # doesn't carry unrelated commits into the bot's reconciliation
+          # branch base.
+          ref: master
           fetch-depth: 0
           # NOTE: persist-credentials stays default (true) so `git push` works.
           # Upstream openemr reads happen via curl inside derive.sh, not git.
@@ -153,7 +168,7 @@ jobs:
           # branch -- diff target is the local `master` ref which still tracks
           # origin/master via fetch-depth: 0. We compute the diff from working
           # tree at HEAD of RECONCILE_BRANCH (committed) vs master.
-          stat="$(git diff master -- ip_map_branch.txt docker/scripts/demoLibrary.source --stat)"
+          stat="$(git diff --stat master -- ip_map_branch.txt docker/scripts/demoLibrary.source)"
           full_diff="$(git diff master -- ip_map_branch.txt docker/scripts/demoLibrary.source)"
           # Write PR body to a file so YAML block-scalar indentation doesn't
           # interfere with the markdown body (and we can pass via --body-file).
