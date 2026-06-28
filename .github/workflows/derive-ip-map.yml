@@ -192,8 +192,11 @@ jobs:
             printf '</details>\n\n'
             printf '## Behavior\n\n'
             printf 'This PR is **idempotent across daily runs**. If left unmerged, the bot will:\n'
-            printf '- Force-push fresh reconciliation tomorrow (if upstream state has drifted further)\n'
-            printf '- Close this PR automatically (if upstream reverts and the diff disappears)\n\n'
+            # The two bullet lines below MUST use `%s\n` form: bash's printf
+            # builtin parses a leading `-` in the format string as an option
+            # flag and aborts with "invalid option" -- breaking the entire job.
+            printf '%s\n' '- Force-push fresh reconciliation tomorrow (if upstream state has drifted further)'
+            printf '%s\n\n' '- Close this PR automatically (if upstream reverts and the diff disappears)'
             printf 'Merging will land the reconciled state and the bot will stop nagging until the next genuine drift.\n\n'
             printf '## CI note\n\n'
             printf 'This PR was created by `GITHUB_TOKEN`, so downstream workflows (rabbit, CI) do NOT run on it automatically. PR #135'"'"'s fixture suite is the authoritative validator for the algorithm; if you want to manually run CI here, push an empty commit.\n'
