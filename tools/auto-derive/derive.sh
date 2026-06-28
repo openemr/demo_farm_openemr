@@ -976,6 +976,8 @@ compute_desired_state() {
     # --- Up-for-grabs: rows preserved (community claims); flex from master's
     # docker/flex/Dockerfile (both alpine AND php taken verbatim from its ARGs).
     # The flex Dockerfile -- not release -- is the anchor for up-for-grabs.
+    # Note: parked rows below use this same flex image (same invariant: parked
+    # is an idle slot tracking master's current flex anchor).
     local upgrab_image="openemr/openemr:flex-${MASTER_FLEX_ALPINE}-php-${MASTER_FLEX_PHP}"
 
     local upgrab_clusters="${CUR_CLUSTERS_BY_SECTION["up-for-grabs"]:-}"
@@ -1161,11 +1163,15 @@ compute_desired_state() {
         local des_sec="${DES_SECTION[$cand]:-unset}"
 
         if [[ "$cur_sec" == "parked" && "$des_sec" != "claimed" && "$des_sec" != "master" && "$des_sec" != "release" ]]; then
-            # still parked
+            # still parked -- drift-correct to the parked invariant:
+            #   col 3 branch = master, description = [parked], image = master flex
             DES_SECTION["$cand"]="parked"
             DES_ORDER_PARKED+=("$cand")
-            DES_ROWS["$cand"]="${CUR_ROW[$cand]}"
-            DES_IMAGE["$cand"]="${CUR_DEMOLIB_IMAGE[$cand]:-$CUR_DEMOLIB_DEFAULT_IMAGE}"
+            local row="${CUR_ROW[$cand]}"
+            row="$(rewrite_row_description "$row" "[parked]")"
+            row="$(rewrite_row_branch_and_tag "$row" "master")"
+            DES_ROWS["$cand"]="$row"
+            DES_IMAGE["$cand"]="$upgrab_image"
             DES_COUNT["$cand"]="${CUR_DEMOLIB_COUNT[$cand]:-2}"
             local alias
             IFS=',' read -ra aliases <<< "${CUR_ALIASES[$cand]:-}"
@@ -1173,7 +1179,10 @@ compute_desired_state() {
                 [[ -z "$alias" ]] && continue
                 DES_SECTION["$alias"]="parked"
                 DES_ORDER_PARKED+=("$alias")
-                DES_ROWS["$alias"]="${CUR_ROW[$alias]}"
+                local arow="${CUR_ROW[$alias]}"
+                arow="$(rewrite_row_description "$arow" "[parked]")"
+                arow="$(rewrite_row_branch_and_tag "$arow" "master")"
+                DES_ROWS["$alias"]="$arow"
             done
             continue
         fi
@@ -1183,13 +1192,15 @@ compute_desired_state() {
             if [[ "$des_sec" != "master" && "$des_sec" != "release" ]]; then
                 DES_SECTION["$cand"]="parked"
                 DES_ORDER_PARKED+=("$cand")
-                # Preserve the row (rewrite description to [parked] to match
-                # the parked convention -- per current file's parked rows)
+                # Preserve the row (rewrite description to [parked] and branch
+                # to master to match the parked invariant). Reset the image to
+                # the master flex anchor too -- the previous master/release
+                # image is no longer authoritative for a parked slot.
                 local row="${CUR_ROW[$cand]}"
                 row="$(rewrite_row_description "$row" "[parked]")"
                 row="$(rewrite_row_branch_and_tag "$row" "master")"
                 DES_ROWS["$cand"]="$row"
-                DES_IMAGE["$cand"]="${CUR_DEMOLIB_IMAGE[$cand]:-$CUR_DEMOLIB_DEFAULT_IMAGE}"
+                DES_IMAGE["$cand"]="$upgrab_image"
                 DES_COUNT["$cand"]="${CUR_DEMOLIB_COUNT[$cand]:-2}"
                 local alias
                 IFS=',' read -ra aliases <<< "${CUR_ALIASES[$cand]:-}"

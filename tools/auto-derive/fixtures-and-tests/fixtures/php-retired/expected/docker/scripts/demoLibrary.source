@@ -26,7 +26,7 @@ startDemoWrapper() {
             count=2
             ;;
         two)
-            image="openemr/openemr:flex-3.23-php-8.2"
+            image="openemr/openemr:flex-3.23-php-8.5"
             count=2
             ;;
         three)
