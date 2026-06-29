@@ -30,10 +30,16 @@ cd ~/ || exit 1
 cp ~/translations_development_openemr/languageTranslations_utf8.sql ~/html/translations/
 
 # update optional wkhtmltopdf-openemr
-cd ~/wkhtmltopdf-openemr || exit 1
-git fetch origin
-git pull origin master
-cd ~/ || exit 1
+# Comment marks this repo as optional. Pre-cd-guard code tolerated a
+# missing directory because the unguarded `cd` silently failed; preserve
+# that "skip if absent" semantic explicitly now that cd is hard-exit on
+# failure.
+if [ -d ~/wkhtmltopdf-openemr ]; then
+  cd ~/wkhtmltopdf-openemr || exit 1
+  git fetch origin
+  git pull origin master
+  cd ~/ || exit 1
+fi
 
 # rebuild simple website and copy translations to website
 cp -r ~/demo_farm_openemr/docker/html/* ~/html/
