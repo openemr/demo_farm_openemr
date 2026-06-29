@@ -110,9 +110,16 @@ echo "    work dir: $WORK"
 
 # Source fixture inputs. Required: DOCKERDEMO. Optional: DOCKERNUMBERDEMOS,
 # EXTRA_ARGS, INTEGRATION_IMAGE (per-fixture image override).
+#
+# PHP_VERSION_ABBR is intentionally NOT consumed here: the flex base
+# image bakes it in (e.g., "82" for flex-3.22-php-8.2), and we never
+# override it via --env on the container. The fixture inputs.env still
+# carries the var because Phase 1 dry-run runs outside any flex image
+# and needs the value for the script's `echo … > /etc/php${ABBR}/...`
+# path. Sourcing-and-not-using here would imply a contract Phase 2
+# doesn't actually have.
 DOCKERDEMO=""
 DOCKERNUMBERDEMOS=""
-PHP_VERSION_ABBR=""
 EXTRA_ARGS=""
 INTEGRATION_IMAGE=""
 # shellcheck disable=SC1091
