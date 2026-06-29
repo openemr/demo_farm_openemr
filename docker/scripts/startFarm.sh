@@ -35,6 +35,7 @@
 #
 
 # Bring in the demo function library
+# shellcheck source=docker/scripts/demoLibrary.source
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 
 # to collect the standard docker images

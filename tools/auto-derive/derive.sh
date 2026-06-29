@@ -668,6 +668,7 @@ read_current_ip_map() {
         CUR_ROW["$cluster"]="$line"
         # split columns
         IFS=$'\t' read -ra cols <<< "$line"
+        # shellcheck disable=SC2034  # populated for parity with the documented CUR_* parser family (see L612); not currently consumed but kept for future derive logic
         CUR_REPO["$cluster"]="${cols[1]:-}"
         CUR_BRANCH["$cluster"]="${cols[2]:-}"
 
@@ -687,13 +688,11 @@ read_current_ip_map() {
 
     # Build alias map: for each base cluster X, list its _a / _b siblings.
     local c base
-    declare -gA seen_base=()
     for c in "${CUR_ORDER[@]}"; do
         case "$c" in
             *_a|*_b) ;;  # aliases handled via their base
             *)
                 base="$c"
-                seen_base["$base"]=1
                 local aliases=""
                 local cand
                 for cand in "${CUR_ORDER[@]}"; do
@@ -838,10 +837,6 @@ synth_master_row() {
     local cluster="$1" php="$2" alpine="$3"
     local with_data=0
     [[ "$cluster" == *_a ]] && with_data=1
-
-    local base_cluster="${cluster%_a}"
-    local subdomain="$base_cluster.openemr.io"
-    [[ "$cluster" == *_a ]] && subdomain="$base_cluster.openemr.io/a"
 
     # Description casing convention from current file: non-alias rows use
     # "on Alpine"; alias (_a) rows use "On Alpine". Preserved verbatim.

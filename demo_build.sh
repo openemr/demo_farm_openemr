@@ -238,9 +238,7 @@ GITDEMOFARM="${GITDEMOFARM:-$GITMAIN/demo_farm_openemr}"
 GITDEMOFARMMAP_SRC=$GITDEMOFARM/ip_map_branch.txt
 GITDEMOFARMMAP=$(mktemp)
 grep -v '^#' "$GITDEMOFARMMAP_SRC" > "$GITDEMOFARMMAP"
-PASSWORDRESETSCRIPT=$GITDEMOFARM/set_pass.php
 OPENEMRAPACHECONF=$GITDEMOFARM/openemr-alpine.conf
-GITTRANS=$GITMAIN/translations_development_openemr
 # OPENEMRTMPDIR (vs TMPDIR(1), used implicitly by mktemp et al.) overrides
 # the staging directory for the openemr CVS package built in the packageServe
 # branch. Production default matches pre-refactor behavior.
@@ -318,12 +316,10 @@ do
   OPENEMR=$WEB/openemr
   FILESSERVEDIR=$WEB/files
   DOCKERDEMO=$DOCKERDEMOORIGINAL
-  FINALWEB=$WEB
  else
   DOCKERDEMO=${DOCKERDEMOORIGINAL}_${demo}
   OPENEMR=${WEB}/${demo}/openemr
   FILESSERVEDIR=$WEB/${demo}/files
-  FINALWEB=$WEB/${demo}
  fi
 
  # Collect ip address or docker demo number
@@ -456,13 +452,6 @@ IPADDRESS=$DOCKERDEMO
   randomTheme=false;
  else
   randomTheme=true;
- fi
- # set if doing password reset
- # (if 1, then will reset just admin, if 2, then will reset all the official demo users)
- if [ "$passReset" == "0" ]; then
-  passResetAuto=false;
- else
-  passResetAuto=true;
  fi
  # set if using a capsule
  if [ "$useCapsule" == "0" ]; then
@@ -854,10 +843,6 @@ IPADDRESS=$DOCKERDEMO
   echo "Done creating OpenEMR Development packages" >> $LOG
  fi
 
- #if $passResetAuto; then
-  # run the auto reset password script every 5 minutes
-  #nohup php -f ${PASSWORDRESETSCRIPT} ${FINALWEB} 300 ${passReset} >/dev/null 2>&1 &
- #fi
 done
 
 # Start Postfix for restarts, uses stunnel to communicate to aws ses email server.
