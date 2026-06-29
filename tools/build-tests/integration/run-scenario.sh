@@ -37,12 +37,13 @@ SCENARIO=""
 # (Alpine 3.22 / PHP 8.2). Per-fixture inputs.env may override via
 # INTEGRATION_IMAGE.
 IMAGE="openemr/openemr:flex-3.22-php-8.2"
+IMAGE_FROM_CLI=0  # set when --image is passed; takes precedence over inputs.env
 TIMEOUT_SECONDS=900   # 15 min ceiling for composer + npm + mariadb populate
 UPDATE_GOLDENS="${UPDATE_GOLDENS:-0}"
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --image)   IMAGE="$2"; shift 2 ;;
+        --image)   IMAGE="$2"; IMAGE_FROM_CLI=1; shift 2 ;;
         --timeout) TIMEOUT_SECONDS="$2"; shift 2 ;;
         --*)       echo "Unknown flag: $1" >&2; exit 2 ;;
         *)
@@ -121,7 +122,10 @@ if [[ -z "$DOCKERDEMO" ]]; then
     echo "FAIL: $FIXTURE_DIR/inputs.env must set DOCKERDEMO" >&2
     exit 1
 fi
-if [[ -n "$INTEGRATION_IMAGE" ]]; then
+if [[ -n "$INTEGRATION_IMAGE" && "$IMAGE_FROM_CLI" -eq 0 ]]; then
+    # Fixture override only applies when --image wasn't explicitly passed;
+    # CLI wins so callers can A/B-test against a different image without
+    # editing the fixture.
     IMAGE="$INTEGRATION_IMAGE"
 fi
 
