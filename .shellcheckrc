@@ -33,6 +33,8 @@ disable=SC3014  # `==` in place of `=`
 disable=SC3028  # `RANDOM` undefined
 disable=SC3030  # arrays undefined
 disable=SC3037  # `echo` flags undefined
+disable=SC3043  # `local` undefined -- used by the build-tests helpers added in #146
+disable=SC3050  # `printf %q` undefined -- used by the build-tests action-log emitter (#146)
 disable=SC3054  # array references undefined
 
 # Pre-existing bash warnings deferred to follow-up cleanup PRs.

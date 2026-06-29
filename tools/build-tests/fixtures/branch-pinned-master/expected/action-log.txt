@@ -1,0 +1,37 @@
+ACTION: apk add --no-cache postfix stunnel
+ACTION_SH: echo 'error_log = <WORK>/web/log/logPhp.txt' > /etc/php85/conf.d/99-demo-farm-error-log.ini
+ACTION: git clone --branch master --depth 1 https://github.com/openemr/openemr.git
+ACTION_SH: rm -fr "<WORK>/web/openemr"/*
+ACTION_SH: rsync --recursive --exclude .git <WORK>/git/openemr/* <WORK>/web/openemr/
+ACTION: rm -fr <WORK>/git/openemr
+ACTION: chmod 666 <WORK>/web/openemr/sites/default/sqlconf.php
+ACTION: chmod -R a+w <WORK>/web/openemr/sites/default/documents
+ACTION_CAPTURE: cat /home/openemr/github-key
+ACTION_CAPTURE: curl -H Authorization:\ token\ \<DRY_RUN_GITHUB_KEY\> https://api.github.com/rate_limit
+ACTION_SH: composer install --no-dev &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: npm install --unsafe-perm &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: npm run build &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: npm install --unsafe-perm &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: composer global require phing/phing &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: /root/.composer/vendor/bin/phing vendor-clean &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: /root/.composer/vendor/bin/phing assets-clean &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: composer global remove phing/phing &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: composer dump-autoload -o &>> <WORK>/web/log/logSetup.txt
+ACTION_SH: sed -e 's@^exit;@ @' <<WORK>/web/openemr/contrib/util/installScripts/InstallerAuto.php ><WORK>/web/openemr/contrib/util/installScripts/InstallerAutoTemp.php
+ACTION_SH: su -p -s /bin/sh "root" -c "php -f <WORK>/web/openemr/contrib/util/installScripts/InstallerAutoTemp.php development_translations=yes rootpass=<REDACTED> server=mysql loginhost=% login=two pass=two dbname=two" >> <WORK>/web/log/logSetup.txt
+ACTION: rm -f <WORK>/web/openemr/contrib/util/installScripts/InstallerAutoTemp.php
+ACTION: mariadb --skip-ssl -h mysql -u root -p<REDACTED> -e UPDATE\ two.globals\ SET\ gl_value=\'https://two.openemr.io\'\ WHERE\ gl_name=\'site_addr_oath\'
+ACTION: mariadb --skip-ssl -h mysql -u root -p<REDACTED> -e UPDATE\ two.globals\ SET\ gl_value=\'\<RANDOM_THEME_2\>\'\ WHERE\ gl_name=\'css_header\'
+ACTION: mariadb --skip-ssl -h mysql -u root -p<REDACTED> -e $'\n    UPDATE two.globals SET gl_value=\'1\' WHERE gl_name=\'portal_onsite_two_enable\';\n    UPDATE two.globals SET gl_value=\'1\' WHERE gl_name=\'rest_api\';\n    UPDATE two.globals SET gl_value=\'1\' WHERE gl_name=\'rest_fhir_api\';\n    UPDATE two.globals SET gl_value=\'1\' WHERE gl_name=\'rest_portal_api\';\n    UPDATE two.globals SET gl_value=\'3\' WHERE gl_name=\'oauth_password_grant\';\n    UPDATE two.globals SET gl_value=\'1\' WHERE gl_name=\'rest_system_scopes_api\';\n    UPDATE two.globals SET gl_value=\'3\' WHERE gl_name=\'ccda_alt_service_enable\';\n  '
+ACTION: chmod 644 <WORK>/web/openemr/sites/default/sqlconf.php
+ACTION: mkdir <WORK>/web/openemr/sites/default/procedure_results
+ACTION: chmod -R a+w <WORK>/web/openemr/sites/default/procedure_results
+ACTION: sed -i s@/apis/default/@/openemr/apis/default/@ <WORK>/web/openemr/swagger/openemr-api.yaml
+ACTION: sed -i s@/oauth2/default/authorize@/openemr/oauth2/default/authorize@ <WORK>/web/openemr/swagger/openemr-api.yaml
+ACTION: sed -i s@/oauth2/default/token@/openemr/oauth2/default/token@ <WORK>/web/openemr/swagger/openemr-api.yaml
+ACTION: rm -f <WORK>/web/openemr/library/openflashchart/php-ofc-library/ofc_upload_image.php
+ACTION_SH: stunnel /etc/stunnel/stunnel.conf >> <WORK>/web/log/logSetup.txt
+ACTION_SH: postfix start >> <WORK>/web/log/logSetup.txt
+ACTION: cp <WORK>/git/demo_farm_openemr/openemr-alpine.conf /etc/apache2/conf.d/openemr.conf
+ACTION_SH: httpd -k start >> <WORK>/web/log/logSetup.txt
+ACTION: tail -F -n0 /etc/hosts
