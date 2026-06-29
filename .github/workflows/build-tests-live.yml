@@ -1,0 +1,87 @@
+name: build-tests (live integration)
+
+# Phase 2 of issue #146: actually runs demo_build.sh end-to-end against
+# a real mariadb + openemr flex container, then checks the resulting
+# state (schemas + globals table) and diffs the captured action log
+# against a per-scenario golden.
+#
+# Matrix-parallel: one job per scenario on its own ubuntu-24.04 runner.
+# Wall time = slowest scenario (~8-10 min) instead of sum (~25 min); each
+# scenario gets a fresh VM so leftover state from one can never affect
+# another. Scenario list MUST stay in sync with tools/build-tests/
+# integration/run-all.sh (the local-execution wrapper).
+#
+# Trigger (three paths, complementary):
+#   - pull_request: per-push feedback on PRs that touch the live-test
+#     surface. Made feasible by the matrix below -- slowest cell is
+#     ~10 min, so it's tractable as blocking CI for a low-volume repo.
+#   - schedule: 08:00 UTC daily, 1h after the auto-derive reconcile
+#     job. Catches the class of regression no PR could -- upstream
+#     image bumps (Alpine, mariadb 10.6 → 10.7, openemr/flex) that
+#     break demo_build.sh's assumptions without anyone editing it.
+#   - workflow_dispatch: manual reruns (debug a flaky scheduled run
+#     without waiting for tomorrow's tick).
+
+on:
+  pull_request:
+    paths:
+      - demo_build.sh
+      - tools/build-tests/**
+      - .github/workflows/build-tests-live.yml
+  schedule:
+    # Daily 08:00 UTC, 1h after the derive-ip-map reconcile job (07:00).
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  live:
+    name: live (${{ matrix.scenario }})
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    # Per-cell ceiling: 20 min covers composer + npm + webpack + InstallerAuto
+    # with plenty of slack for slow CI runners. Sequential default was 60
+    # for all three.
+    timeout-minutes: 20
+    strategy:
+      # Don't cancel sibling cells on a single failure -- we want to see
+      # all results when debugging (otherwise rerunning just the failed
+      # cell still leaves the question "would the others have passed?").
+      fail-fast: false
+      matrix:
+        # MUST stay in sync with tools/build-tests/integration/run-all.sh.
+        # The 4 omitted Phase 1 fixtures (light-reset, multi-demo,
+        # capsule-path-traversal, up-for-grabs-fork) stay dry-run-only --
+        # see run-all.sh for the cost/signal rationale.
+        scenario:
+          - branch-pinned-master
+          - tag-pinned-with-data
+          - release-packageserve
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Pre-pull base images
+        # All three current scenarios target the same flex tag. If a
+        # fixture overrides INTEGRATION_IMAGE, the runner will pull
+        # that on-demand at first `docker run` inside run-scenario.sh.
+        run: |
+          set -euo pipefail
+          docker pull mariadb:10.6
+          docker pull openemr/openemr:flex-3.22-php-8.2
+
+      - name: Run scenario ${{ matrix.scenario }} (live)
+        # On failure, run-scenario.sh prints the openemr container logs
+        # + the demo_build.sh setup-log tail to stderr; both surface in
+        # the workflow log. No need for separate artifact upload at this
+        # stage -- the action log is also seeded as a golden in the repo,
+        # so reviewers can see it without running CI.
+        run: |
+          set -euo pipefail
+          ./tools/build-tests/integration/run-scenario.sh ${{ matrix.scenario }}

@@ -1,0 +1,59 @@
+ACTION: apk add --no-cache postfix stunnel
+ACTION_SH: echo 'error_log = /var/www/localhost/htdocs/log/logPhp.txt' > /etc/php82/conf.d/99-demo-farm-error-log.ini
+ACTION: git clone --branch v7_0_4 --depth 1 https://github.com/openemr/openemr.git
+ACTION_SH: rm -fr "/var/www/localhost/htdocs/openemr"/*
+ACTION_SH: rsync --recursive --exclude .git /home/openemr/git/openemr/* /var/www/localhost/htdocs/openemr/
+ACTION: chmod 666 /var/www/localhost/htdocs/openemr/sites/default/sqlconf.php
+ACTION: chmod -R a+w /var/www/localhost/htdocs/openemr/sites/default/documents
+ACTION: chmod a+w /var/www/localhost/htdocs/openemr/interface/modules/zend_modules/config/application.config.php
+ACTION_CAPTURE: cat /home/openemr/github-key
+ACTION_CAPTURE: curl -H Authorization:\ token\  https://api.github.com/rate_limit
+ACTION_SH: composer install --no-dev &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: npm install --unsafe-perm &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: npm run build &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: npm install --unsafe-perm &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: composer global require phing/phing &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: /root/.composer/vendor/bin/phing vendor-clean &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: /root/.composer/vendor/bin/phing assets-clean &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: composer global remove phing/phing &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: composer dump-autoload -o &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: sed -e 's@^exit;@ @' </var/www/localhost/htdocs/openemr/contrib/util/installScripts/InstallerAuto.php >/var/www/localhost/htdocs/openemr/contrib/util/installScripts/InstallerAutoTemp.php
+ACTION_SH: su -p -s /bin/sh "apache" -c "php -f /var/www/localhost/htdocs/openemr/contrib/util/installScripts/InstallerAutoTemp.php rootpass=<REDACTED> server=<MARIADB_HOST> loginhost=% login=six pass=six dbname=six" >> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION: rm -f /var/www/localhost/htdocs/openemr/contrib/util/installScripts/InstallerAutoTemp.php
+ACTION: mariadb --skip-ssl -h <MARIADB_HOST> -u root -p<REDACTED> -e UPDATE\ six.globals\ SET\ gl_value=\'https://six.openemr.io\'\ WHERE\ gl_name=\'site_addr_oath\'
+ACTION: mariadb --skip-ssl -h <MARIADB_HOST> -u root -p<REDACTED> -e $'\n    UPDATE six.globals SET gl_value=\'1\' WHERE gl_name=\'portal_onsite_two_enable\';\n    UPDATE six.globals SET gl_value=\'1\' WHERE gl_name=\'rest_api\';\n    UPDATE six.globals SET gl_value=\'1\' WHERE gl_name=\'rest_fhir_api\';\n    UPDATE six.globals SET gl_value=\'1\' WHERE gl_name=\'rest_portal_api\';\n    UPDATE six.globals SET gl_value=\'3\' WHERE gl_name=\'oauth_password_grant\';\n    UPDATE six.globals SET gl_value=\'1\' WHERE gl_name=\'rest_system_scopes_api\';\n    UPDATE six.globals SET gl_value=\'3\' WHERE gl_name=\'ccda_alt_service_enable\';\n  '
+ACTION: chmod 644 /var/www/localhost/htdocs/openemr/sites/default/sqlconf.php
+ACTION: mkdir /var/www/localhost/htdocs/openemr/sites/default/procedure_results
+ACTION: chmod -R a+w /var/www/localhost/htdocs/openemr/sites/default/procedure_results
+ACTION: sed -i s@/apis/default/@/openemr/apis/default/@ /var/www/localhost/htdocs/openemr/swagger/openemr-api.yaml
+ACTION: sed -i s@/oauth2/default/authorize@/openemr/oauth2/default/authorize@ /var/www/localhost/htdocs/openemr/swagger/openemr-api.yaml
+ACTION: sed -i s@/oauth2/default/token@/openemr/oauth2/default/token@ /var/www/localhost/htdocs/openemr/swagger/openemr-api.yaml
+ACTION_SH: rsync --recursive --exclude .git /home/openemr/git/openemr/* /tmp/openemr-tmp/openemr/
+ACTION_CAPTURE: cat /home/openemr/github-key
+ACTION_CAPTURE: curl -H Authorization:\ token\  https://api.github.com/rate_limit
+ACTION_SH: composer install --no-dev &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: npm install --unsafe-perm &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: npm run build &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: composer global require phing/phing &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: /root/.composer/vendor/bin/phing vendor-clean &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: /root/.composer/vendor/bin/phing assets-clean &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: composer global remove phing/phing &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: rm -fr "/tmp/openemr-tmp/openemr/node_modules" &>> "/var/www/localhost/htdocs/log/logSetup.txt"
+ACTION_SH: composer dump-autoload -o &>> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION: chmod a+w /tmp/openemr-tmp/openemr/sites/default/sqlconf.php
+ACTION: chmod -R a+w /tmp/openemr-tmp/openemr/sites/default/documents
+ACTION: chmod a+w /tmp/openemr-tmp/openemr/interface/modules/zend_modules/config/application.config.php
+ACTION: rm -f /var/www/localhost/htdocs/files/openemr-cvs.tar.gz
+ACTION: tar -czf /var/www/localhost/htdocs/files/openemr-cvs.tar.gz openemr
+ACTION_SH: md5sum openemr-cvs.tar.gz > openemr-linux-md5.txt
+ACTION: rm -f /var/www/localhost/htdocs/files/openemr-cvs.zip
+ACTION: zip -rq /var/www/localhost/htdocs/files/openemr-cvs.zip openemr
+ACTION_SH: md5sum openemr-cvs.zip > openemr-windows-md5.txt
+ACTION_SH: date > date-cvs.txt
+ACTION: rm -fr /tmp/openemr-tmp
+ACTION: rm -fr /home/openemr/git/openemr
+ACTION_SH: stunnel /etc/stunnel/stunnel.conf >> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION_SH: postfix start >> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION: cp /home/openemr/git/demo_farm_openemr/openemr-alpine.conf /etc/apache2/conf.d/openemr.conf
+ACTION_SH: httpd -k start >> /var/www/localhost/htdocs/log/logSetup.txt
+ACTION: tail -F -n0 /etc/hosts
