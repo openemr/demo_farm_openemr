@@ -54,22 +54,28 @@ docker pull openemr/openemr:flex-3.22-php-8.2
 docker network create mynet
 
 # update demo_farm_openemr repo
-cd ~/demo_farm_openemr
+cd ~/demo_farm_openemr || exit 1
 git fetch origin
 git pull origin master
-cd ~/
+cd ~/ || exit 1
 
 # update translations_development_openemr repo and place in html dir
-cd ~/translations_development_openemr
+cd ~/translations_development_openemr || exit 1
 git fetch origin
 git pull origin master
-cd ~/
+cd ~/ || exit 1
 
 # update optional wkhtmltopdf-openemr
-cd ~/wkhtmltopdf-openemr
-git fetch origin
-git pull origin master
-cd ~/
+# Comment + the install-instructions header above mark this repo as
+# optional. Pre-cd-guard code tolerated a missing directory because the
+# unguarded `cd` silently failed; preserve that "skip if absent"
+# semantic explicitly now that cd is hard-exit on failure.
+if [ -d ~/wkhtmltopdf-openemr ]; then
+  cd ~/wkhtmltopdf-openemr || exit 1
+  git fetch origin
+  git pull origin master
+  cd ~/ || exit 1
+fi
 
 # rebuild simple website and copy translations to website
 cp -r ~/demo_farm_openemr/docker/html/* ~/html/

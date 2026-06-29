@@ -11,10 +11,10 @@
 #
 
 # update demo_farm_openemr repo which contains the website
-cd ~/demo_farm_openemr
+cd ~/demo_farm_openemr || exit 1
 git fetch origin
 git pull origin master
-cd ~/
+cd ~/ || exit 1
 
 # copy over website
 cp -r ~/demo_farm_openemr/docker/html/* ~/html/

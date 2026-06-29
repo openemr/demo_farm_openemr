@@ -19,4 +19,3 @@ disable=SC2006  # use `$(...)` instead of backticks (88 violations)
 disable=SC2034  # appears unused (7 violations)
 disable=SC2086  # double quote to prevent globbing/word splitting (1255) -- bulk of repo noise
 disable=SC2155  # declare and assign separately (4 violations) -- masks return values
-disable=SC2164  # `cd ... || exit` (25 violations)
