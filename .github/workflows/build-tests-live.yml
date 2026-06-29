@@ -11,14 +11,16 @@ name: build-tests (live integration)
 # another. Scenario list MUST stay in sync with tools/build-tests/
 # integration/run-all.sh (the local-execution wrapper).
 #
-# Trigger:
-#   - pull_request: ON during Phase 2 PR development (visible feedback
-#     on every push). This will be dropped before merge -- per-PR is too
-#     slow for the value once we have nightly coverage.
-#   - workflow_dispatch: manual reruns (kept post-merge).
-#   - schedule: TODO -- add `cron: '0 8 * * *'` (daily 08:00 UTC, 1h
-#     after the auto-derive reconcile job) before merging this PR, in
-#     the same commit that drops `pull_request`.
+# Trigger (three paths, complementary):
+#   - pull_request: per-push feedback on PRs that touch the live-test
+#     surface. Made feasible by the matrix below -- slowest cell is
+#     ~10 min, so it's tractable as blocking CI for a low-volume repo.
+#   - schedule: 08:00 UTC daily, 1h after the auto-derive reconcile
+#     job. Catches the class of regression no PR could -- upstream
+#     image bumps (Alpine, mariadb 10.6 → 10.7, openemr/flex) that
+#     break demo_build.sh's assumptions without anyone editing it.
+#   - workflow_dispatch: manual reruns (debug a flaky scheduled run
+#     without waiting for tomorrow's tick).
 
 on:
   pull_request:
@@ -26,6 +28,9 @@ on:
       - demo_build.sh
       - tools/build-tests/**
       - .github/workflows/build-tests-live.yml
+  schedule:
+    # Daily 08:00 UTC, 1h after the derive-ip-map reconcile job (07:00).
+    - cron: '0 8 * * *'
   workflow_dispatch:
 
 concurrency:
