@@ -484,7 +484,7 @@ IPADDRESS=$DOCKERDEMO
   echo "Downloading the OpenEMR git repository"
   echo "Downloading the OpenEMR git repository" >> $LOG
   mkdir -p $GITMAIN
-  cd $GITMAIN
+  cd $GITMAIN || exit 1
   # `--branch <ref>` accepts both branch names and tag names; combined with
   # `--depth 1` this gives a shallow clone of the exact ref.
   run_action git clone --branch "$GITBRANCH" --depth 1 "$OPENEMRREPO"
@@ -520,7 +520,7 @@ IPADDRESS=$DOCKERDEMO
 
  #Build openemr package
  if [ ! -d $OPENEMR/vendor ]; then
-  cd $OPENEMR
+  cd $OPENEMR || exit 1
 
   # install php dependencies. In dry-run we stub a fake key and a rate-limit
   # of 0 so the "Not using composer github api token" branch is exercised
@@ -549,9 +549,9 @@ IPADDRESS=$DOCKERDEMO
 
   if [ -f $OPENEMR/ccdaservice/package.json ]; then
    # install ccdaservice dependencies (need unsafe-perm to run as root)
-   cd $OPENEMR/ccdaservice
+   cd $OPENEMR/ccdaservice || exit 1
    run_action_sh "npm install --unsafe-perm &>> $LOG"
-   cd $OPENEMR
+   cd $OPENEMR || exit 1
   fi
 
   # clean up
@@ -781,7 +781,7 @@ IPADDRESS=$DOCKERDEMO
   run_action_sh "rsync --recursive --exclude .git $GIT/* $TMPDIR/openemr/"
   #Build openemr package
   if [ ! -d $TMPDIR/openemr/vendor ]; then
-   cd $TMPDIR/openemr
+   cd $TMPDIR/openemr || exit 1
 
    # install php dependencies (see twin block above for the dry-run stub rationale)
    GITHUB_KEY_COMPOSER=$(run_action_capture --stub '<DRY_RUN_GITHUB_KEY>' cat /home/openemr/github-key)
@@ -831,17 +831,17 @@ IPADDRESS=$DOCKERDEMO
   mkdir $FILESSERVEDIR
 
   # Save the tar.gz cvs package
-  cd $TMPDIR
+  cd $TMPDIR || exit 1
   run_action rm -f $FILESSERVEDIR/openemr-cvs.tar.gz
   run_action tar -czf $FILESSERVEDIR/openemr-cvs.tar.gz openemr
-  cd $FILESSERVEDIR
+  cd $FILESSERVEDIR || exit 1
   run_action_sh "md5sum openemr-cvs.tar.gz > openemr-linux-md5.txt"
 
   # Save the .zip cvs package
-  cd $TMPDIR
+  cd $TMPDIR || exit 1
   run_action rm -f $FILESSERVEDIR/openemr-cvs.zip
   run_action zip -rq $FILESSERVEDIR/openemr-cvs.zip openemr
-  cd $FILESSERVEDIR
+  cd $FILESSERVEDIR || exit 1
   run_action_sh "md5sum openemr-cvs.zip > openemr-windows-md5.txt"
 
   # Create the time stamp
