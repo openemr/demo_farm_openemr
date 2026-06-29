@@ -19,6 +19,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 RUNNER="$SCRIPT_DIR/run-scenario.sh"
 
+# MUST stay in sync with the matrix in
+# .github/workflows/build-tests-live.yml. CI parallelizes these via the
+# matrix; this script runs them sequentially for local use.
 LIVE_SCENARIOS=(
     branch-pinned-master
     tag-pinned-with-data
