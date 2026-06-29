@@ -269,6 +269,7 @@ for db in "${expected_dbs[@]}"; do
     if ! grep -qFx "$db" <<<"$db_list"; then
         echo "FAIL: expected database '$db' not found in mariadb" >&2
         echo "  databases present:" >&2
+        # shellcheck disable=SC2001  # consistent sed idiom across this file's failure paths
         echo "$db_list" | sed 's/^/    | /' >&2
         exit 1
     fi

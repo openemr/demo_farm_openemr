@@ -66,6 +66,7 @@ for fixture_dir in "$FIXTURES_DIR"/*/; do
             PASS=$((PASS+1))
         else
             echo "  FAIL: expected failure with substring '$expected_msg'; got exit=$exit_code, output:"
+            # shellcheck disable=SC2001  # consistent sed idiom across this file's failure paths
             echo "$output" | sed 's/^/    | /'
             FAIL=$((FAIL+1))
             FAILED_NAMES+=("$name")
@@ -76,6 +77,7 @@ for fixture_dir in "$FIXTURES_DIR"/*/; do
 
     if [[ $exit_code -ne 0 ]]; then
         echo "  FAIL: derive.sh exited $exit_code"
+        # shellcheck disable=SC2001  # consistent sed idiom across this file's failure paths
         echo "$output" | sed 's/^/    | /'
         FAIL=$((FAIL+1))
         FAILED_NAMES+=("$name")

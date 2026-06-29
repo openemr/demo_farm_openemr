@@ -117,6 +117,7 @@ setup_work_tree () {
         # and the script branches on $v_major >= 6 (utf8mb4 collation block).
         # Default to a modern major so the branch is exercised. Per-fixture
         # extra/web/<sub>/openemr/version.php may override.
+        # shellcheck disable=SC2016  # literal $v_major in output is intentional
         printf '<?php\n$v_major = "7";\n' > "$oe/version.php"
     done
 }
