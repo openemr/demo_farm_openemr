@@ -1,0 +1,65 @@
+name: build-tests (live integration)
+
+# Phase 2 of issue #146: actually runs demo_build.sh end-to-end against
+# a real mariadb + openemr flex container, then checks the resulting
+# state (schemas + globals table) and diffs the captured action log
+# against a per-scenario golden.
+#
+# Slow (~20-45 min). Three scenarios: branch-pinned-master,
+# tag-pinned-with-data, release-packageserve. Chosen to exercise
+# distinct expensive code paths (master clone, tag clone + demoData +
+# utf8mb4 ALTERs, packageServe tar/zip flow).
+#
+# Trigger:
+#   - pull_request: ON during Phase 2 PR development (visible feedback
+#     on every push). This will be dropped before merge -- per-PR is too
+#     slow for the value once we have nightly coverage.
+#   - workflow_dispatch: manual reruns (kept post-merge).
+#   - schedule: TODO -- add `cron: '0 8 * * *'` (daily 08:00 UTC, 1h
+#     after the auto-derive reconcile job) before merging this PR, in
+#     the same commit that drops `pull_request`.
+
+on:
+  pull_request:
+    paths:
+      - demo_build.sh
+      - tools/build-tests/**
+      - .github/workflows/build-tests-live.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  live:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Pre-pull openemr flex images
+        # All three scenarios currently target flex-3.22 tags (php-8.2
+        # for two, php-8.4 for five/six). Pull serially so docker layer
+        # dedup works; saves wall time vs the runner first hitting these
+        # mid-scenario.
+        run: |
+          set -euo pipefail
+          docker pull mariadb:10.6
+          docker pull openemr/openemr:flex-3.22-php-8.2
+          docker pull openemr/openemr:flex-3.22-php-8.4
+
+      - name: Run Phase 2 integration suite
+        # On failure, run-scenario.sh prints the openemr container logs
+        # + the demo_build.sh setup-log tail to stderr; both surface in
+        # the workflow log. No need for separate artifact upload at this
+        # stage -- the action log is also seeded as a golden in the repo,
+        # so reviewers can see it without running CI.
+        run: |
+          set -euo pipefail
+          ./tools/build-tests/integration/run-all.sh
