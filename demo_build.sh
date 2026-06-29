@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Copyright (C) 2014 Brady Miller <brady@sparmy.com>
 #
 #This program is free software; you can redistribute it and/or modify
@@ -202,7 +202,7 @@ getRandomThemeTwo () {
 #function to collect variables from config files
 # 1st param is variable name, 2nd param is filename
 collect_var () {
-   echo `grep -i "^[[:space:]]*$1[[:space:]=]" $2 | cut -d \= -f 2 | cut -d \; -f 1 | sed "s/[ 	'\"]//gi"`
+   grep -i "^[[:space:]]*$1[[:space:]=]" "$2" | cut -d = -f 2 | cut -d ';' -f 1 | sed "s/[ 	'\"]//gi"
 }
 
 # (lightReset / lightResetDemo are now set by the unified arg parser at the
@@ -311,7 +311,7 @@ fi
 
 DOCKERDEMOORIGINAL=$DOCKERDEMO
 
-for demo in ${demosGo[*]}
+for demo in "${demosGo[@]}"
 do
 
  if [ "$demo" == "empty" ]; then

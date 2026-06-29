@@ -13,34 +13,10 @@
 
 external-sources=true
 
-# Pre-existing style/info notices. ShellCheck's `severity=warning` rc directive
-# is ignored when invoked with `--format=checkstyle` (the workflow's mode),
-# so we silence these by code instead of by severity.
-disable=SC1001  # `\=` is a regular `=` (1)
-disable=SC2001  # use bash substitution instead of sed (2)
-disable=SC2005  # useless echo (1)
-disable=SC2006  # use `$(...)` instead of backticks (88)
-disable=SC2016  # expressions don't expand in single quotes (5)
-disable=SC2086  # double quote to prevent globbing/word splitting (1255) -- bulk of repo noise
-disable=SC2129  # consider `{ cmd1; cmd2; } > file` (2)
-disable=SC2196  # `egrep` is non-standard (2)
-
-# Pre-existing POSIX-sh warnings, all emitted from demo_build.sh which carries
-# a stale `#!/bin/sh` shebang but uses bash features (arrays, `[[`, `==`)
-# throughout. The right fix is to switch the shebang to bash; until then,
-# ShellCheck flags every bashism as undefined-in-POSIX. (77 violations)
-disable=SC3014  # `==` in place of `=`
-disable=SC3028  # `RANDOM` undefined
-disable=SC3030  # arrays undefined
-disable=SC3037  # `echo` flags undefined
-disable=SC3043  # `local` undefined -- used by the build-tests helpers added in #146
-disable=SC3050  # `printf %q` undefined -- used by the build-tests action-log emitter (#146)
-disable=SC3054  # array references undefined
-
 # Pre-existing bash warnings deferred to follow-up cleanup PRs.
 disable=SC1090  # can't follow non-constant source (9 violations)
+disable=SC2006  # use `$(...)` instead of backticks (88 violations)
 disable=SC2034  # appears unused (7 violations)
-disable=SC2046  # quote to prevent word splitting (1 violation)
-disable=SC2048  # use `"${array[@]}"` with quotes (1 violation)
+disable=SC2086  # double quote to prevent globbing/word splitting (1255) -- bulk of repo noise
 disable=SC2155  # declare and assign separately (4 violations) -- masks return values
 disable=SC2164  # `cd ... || exit` (25 violations)

@@ -1327,6 +1327,7 @@ render_demolib() {
                 fi
                 if [[ "$line" =~ ^[[:space:]]+case[[:space:]]+\"\$1\" ]]; then
                     # emit new case body
+                    # shellcheck disable=SC2016  # literal $1 emitted into generated bash
                     printf '    case "$1" in\n'
                     local cluster
                     for cluster in "${all_bases[@]}"; do
