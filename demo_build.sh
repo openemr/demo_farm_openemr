@@ -55,12 +55,17 @@ ACTION_LOG="${ACTION_LOG:-/dev/null}"
 
 # _emit_action_log -- internal: read a single line from stdin, redact
 # common credential patterns, append to ACTION_LOG. Best-effort: covers
-# the two credential shapes this script currently emits (mariadb -p<pass>
-# from $rpassparam and rootpass=<pass> from $mrp). Phase 2's live-run
-# work will need to extend this (composer github auth tokens, Authorization
-# headers) — for Phase 1 dry-run those values are stubbed to placeholders
-# before reaching the log, so they don't need redaction yet. Do not treat
-# ACTION_LOG as safe for production debugging without further review.
+# every credential shape this script currently emits:
+#   - mariadb `-p<pass>` from $rpassparam
+#   - InstallerAuto `rootpass=<pass>` from $mrp
+#   - curl `Authorization: token <github-key>` (rate_limit probe)
+#   - composer config `--auth github-oauth.github.com <github-key>`
+# In Phase 1 dry-run the github-key values are stubbed to placeholders
+# (<DRY_RUN_GITHUB_KEY>) which the `[A-Za-z0-9_]+` body match doesn't
+# touch (the `<>` get %q-escaped to `\<\>`). In Phase 2 live runs with
+# a real /home/openemr/github-key mounted, the raw token would otherwise
+# land in ACTION_LOG — the Authorization / --auth patterns prevent that.
+# ACTION_LOG should still be reviewed before being enabled in production.
 _emit_action_log () {
   # Anchor the `-p` pattern to start-of-line OR preceded by whitespace
   # so it only matches the standalone mariadb `-p<password>` flag and
@@ -68,6 +73,8 @@ _emit_action_log () {
   sed -E \
     -e 's/(^|[[:space:]])(-p)[^[:space:]\\]+/\1\2<REDACTED>/g' \
     -e 's/(rootpass=)[^[:space:]\\]+/\1<REDACTED>/g' \
+    -e 's/(Authorization:\\ token\\ )[A-Za-z0-9_]+/\1<REDACTED>/g' \
+    -e 's/(--auth\\ github-oauth\.github\.com\\ )[A-Za-z0-9_]+/\1<REDACTED>/g' \
     >> "$ACTION_LOG"
 }
 

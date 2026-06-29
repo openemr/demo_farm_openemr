@@ -17,9 +17,11 @@
 #                                   "two" and "two_a" rows).
 #   extra/                       -- (optional) tree of files copied OVER
 #                                   the kitchen-sink work tree post-setup,
-#                                   mirroring its layout. Use for
-#                                   per-scenario marker contents:
-#                                     extra/openemr/version.php           (sets $v_major)
+#                                   mirroring its layout (the work tree
+#                                   places openemr at $WEB/openemr, so
+#                                   fixture overrides need the web/ prefix).
+#                                   Use for per-scenario marker contents:
+#                                     extra/web/openemr/version.php       (sets $v_major)
 #                                     extra/git/demo_farm_openemr/pieces/demo_5_0_0_5.sql
 #                                     extra/capsules/<name>.tgz
 #   expected/action-log.txt      -- the golden, with $WORK paths replaced
