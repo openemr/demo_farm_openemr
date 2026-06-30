@@ -9,6 +9,12 @@
 #
 # Bash library for openemr demo farm
 #
+# Per-file shellcheck ratchet (issue #146 cleanup PR C2): the 80 SC2086 /
+# SC2006 / SC2155 violations in this file are deferred to PR C3. The
+# file-level disable here lets C2's drop of the repo-wide SC2086 +
+# SC2006 disables land cleanly; C3 will fix each site individually and
+# remove this directive.
+# shellcheck disable=SC2086,SC2006,SC2155
 
 # This is the wrapper to start the demo, so only need to modify the specifics in 1 place
 # rather than 2. Picks the right flex image + instance count per cluster, then

@@ -558,6 +558,7 @@ pick_master_demo_alpine() {
 
     # Step 3: walk lower Alpines in descending order.
     local sorted_desc
+    # shellcheck disable=SC2086  # $FLEX_ALPINES is intentionally word-split: space-separated list of alpine versions, each becomes a separate `printf %s\n` arg
     sorted_desc="$(printf '%s\n' $FLEX_ALPINES | grep -v '^edge$' | sort -V -r)"
 
     local alpine
