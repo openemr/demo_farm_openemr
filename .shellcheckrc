@@ -12,6 +12,3 @@
 # cleaned up. This repo isn't there yet.
 
 external-sources=true
-
-# Pre-existing bash warnings deferred to follow-up cleanup PRs.
-disable=SC2155  # declare and assign separately (4 violations) -- masks return values
