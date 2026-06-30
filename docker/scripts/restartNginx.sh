@@ -11,6 +11,7 @@
 #
 
 # Bring in the demo function library
+# shellcheck source=docker/scripts/demoLibrary.source
 source ~/demo_farm_openemr/docker/scripts/demoLibrary.source
 
 restartNginx
