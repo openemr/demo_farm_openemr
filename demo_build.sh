@@ -467,8 +467,13 @@ IPADDRESS=$DOCKERDEMO
  else
   randomTheme=true;
  fi
- # set if doing password reset
- # (if 1, then will reset just admin, if 2, then will reset all the official demo users)
+ # set if doing password reset. Modes mirror set_pass.php's $mode arg:
+ #   0 = disabled
+ #   1 = just admin, OpenEMR <6.0.0    } legacy; no current production
+ #   2 = all official users, <6.0.0    } demos run pre-6 anymore
+ #   3 = just admin, OpenEMR 6.0.0+
+ #   4 = all official users, 6.0.0+
+ # Production demos on demo.openemr.io (rows five/five_a/five_b) use mode 4.
  if [ "$passReset" == "0" ]; then
   # shellcheck disable=SC2034  # consumed by the commented-out password-reset block at end of loop; openemr/openemr#5991
   passResetAuto=false;
