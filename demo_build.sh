@@ -238,6 +238,16 @@ GITDEMOFARM="${GITDEMOFARM:-$GITMAIN/demo_farm_openemr}"
 GITDEMOFARMMAP_SRC=$GITDEMOFARM/ip_map_branch.txt
 GITDEMOFARMMAP=$(mktemp)
 grep -v '^#' "$GITDEMOFARMMAP_SRC" > "$GITDEMOFARMMAP"
+# PASSWORDRESETSCRIPT, FINALWEB (assigned per-iteration below), passResetAuto
+# (derived from $passReset / column 16 below), and the commented-out invocation
+# near the end of the demosGo loop body are kept together as the entry points
+# for the automated password-reset daemon. The feature is currently disabled
+# pending the bug tracked at openemr/openemr#5991 (see commits 4e3a2ba +
+# a393d37, Dec 2022). The pass_reset column is still populated in
+# ip_map_branch.txt for production rows on the assumption that re-enabling is
+# a one-line uncomment, not a rewrite.
+# shellcheck disable=SC2034  # consumed by the commented-out re-enable site; openemr/openemr#5991
+PASSWORDRESETSCRIPT=$GITDEMOFARM/set_pass.php
 OPENEMRAPACHECONF=$GITDEMOFARM/openemr-alpine.conf
 # OPENEMRTMPDIR (vs TMPDIR(1), used implicitly by mktemp et al.) overrides
 # the staging directory for the openemr CVS package built in the packageServe
@@ -316,10 +326,14 @@ do
   OPENEMR=$WEB/openemr
   FILESSERVEDIR=$WEB/files
   DOCKERDEMO=$DOCKERDEMOORIGINAL
+  # shellcheck disable=SC2034  # consumed by the commented-out password-reset block at end of loop; openemr/openemr#5991
+  FINALWEB=$WEB
  else
   DOCKERDEMO=${DOCKERDEMOORIGINAL}_${demo}
   OPENEMR=${WEB}/${demo}/openemr
   FILESSERVEDIR=$WEB/${demo}/files
+  # shellcheck disable=SC2034  # consumed by the commented-out password-reset block at end of loop; openemr/openemr#5991
+  FINALWEB=$WEB/${demo}
  fi
 
  # Collect ip address or docker demo number
@@ -452,6 +466,15 @@ IPADDRESS=$DOCKERDEMO
   randomTheme=false;
  else
   randomTheme=true;
+ fi
+ # set if doing password reset
+ # (if 1, then will reset just admin, if 2, then will reset all the official demo users)
+ if [ "$passReset" == "0" ]; then
+  # shellcheck disable=SC2034  # consumed by the commented-out password-reset block at end of loop; openemr/openemr#5991
+  passResetAuto=false;
+ else
+  # shellcheck disable=SC2034  # consumed by the commented-out password-reset block at end of loop; openemr/openemr#5991
+  passResetAuto=true;
  fi
  # set if using a capsule
  if [ "$useCapsule" == "0" ]; then
@@ -843,6 +866,16 @@ IPADDRESS=$DOCKERDEMO
   echo "Done creating OpenEMR Development packages" >> $LOG
  fi
 
+ # Automated password-reset daemon: temporarily disabled per
+ # openemr/openemr#5991 (see commits 4e3a2ba + a393d37, Dec 2022).
+ # When the upstream bug is fixed, uncomment the `if/nohup/fi` lines
+ # below to re-enable; the variables PASSWORDRESETSCRIPT, FINALWEB,
+ # passResetAuto, and the column-16 $passReset value are all kept in
+ # place expressly so re-enabling is a 3-line uncomment, not a rewrite.
+ #if $passResetAuto; then
+  # run the auto reset password script every 5 minutes
+  #nohup php -f ${PASSWORDRESETSCRIPT} ${FINALWEB} 300 ${passReset} >/dev/null 2>&1 &
+ #fi
 done
 
 # Start Postfix for restarts, uses stunnel to communicate to aws ses email server.
