@@ -185,6 +185,7 @@ run_one_fixture () {
     # log matters here; the script's verbose status output would drown
     # the test summary otherwise.
     set +e
+    # shellcheck disable=SC2086  # $EXTRA_ARGS is intentionally word-split: empty -> zero args, set -> multiple positional args
     DOCKERDEMO="$DOCKERDEMO" \
     DOCKERMYSQLHOST="$DOCKERMYSQLHOST" \
     DOCKERNUMBERDEMOS="$DOCKERNUMBERDEMOS" \

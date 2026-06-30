@@ -181,7 +181,7 @@ getRandomThemeOne () {
     #choose randomly from 36 choices (0-35)
     RANDOM_THEME_INT=$((RANDOM % 36))
 
-    echo ${THEME[${RANDOM_THEME_INT}]}
+    echo "${THEME[${RANDOM_THEME_INT}]}"
 }
 
 getRandomThemeTwo () {
@@ -196,7 +196,7 @@ getRandomThemeTwo () {
     #choose randomly from 6 choices (0-5)
     RANDOM_THEME_INT=$((RANDOM % 6))
 
-    echo ${THEME[${RANDOM_THEME_INT}]}
+    echo "${THEME[${RANDOM_THEME_INT}]}"
 }
 
 #function to collect variables from config files
@@ -216,7 +216,7 @@ WEB="${WEB:-/var/www/localhost/htdocs}"
 # to run OpenEMR CLI scripts (RootCliGuard in openemr#12267 refuses root).
 webUser="${webUser:-apache}"
 LOG=$WEB/log/logSetup.txt
-mkdir -p $WEB/log
+mkdir -p "$WEB"/log
 
 # Expose two static endpoints under <cluster>.openemr.io/log/* that the
 # wiki demo pages link to: logPhp.txt (PHP error log) and logSetup.txt
@@ -225,8 +225,8 @@ mkdir -p $WEB/log
 # Dockerfile, error_log directive in a baked-in php.ini); with flex we
 # do it at runtime here so flex's normal openemr.sh flow is unaffected.
 # PHP_VERSION_ABBR is set by the flex image (e.g. "85" for PHP 8.5).
-echo "start log" > $WEB/log/logPhp.txt
-chmod 666 $WEB/log/logPhp.txt
+echo "start log" > "$WEB"/log/logPhp.txt
+chmod 666 "$WEB"/log/logPhp.txt
 run_action_sh "echo 'error_log = $WEB/log/logPhp.txt' > /etc/php${PHP_VERSION_ABBR}/conf.d/99-demo-farm-error-log.ini"
 CAPSULES="${CAPSULES:-/home/openemr/capsules}"
 GITMAIN="${GITMAIN:-/home/openemr/git}"
@@ -256,65 +256,65 @@ TMPDIR="${OPENEMRTMPDIR:-/tmp/openemr-tmp}"
 
 if $lightReset; then
  echo "This is a light reset"
- echo "This is a light reset" >> $LOG
+ echo "This is a light reset" >> "$LOG"
 fi
 
 # Note: Apache is not running yet in alpine, so no need to stop it here.
 # (It is started below after complete setup.)
 
 # Record start time
-timeStart=`date -u`
+timeStart=$(date -u)
 echo -n "Started Build: "
 echo "$timeStart"
-echo -n "Started Build: " >> $LOG
-echo "$timeStart" >> $LOG
+echo -n "Started Build: " >> "$LOG"
+echo "$timeStart" >> "$LOG"
 
 if $lightReset; then
  demosGo=("$lightResetDemo")
  echo -n "subdemo reset mode for: "
  echo "$lightResetDemo"
- echo -n "subdemo reset mode for: " >> $LOG
+ echo -n "subdemo reset mode for: " >> "$LOG"
  echo "$lightResetDemo"
 elif [ "$DOCKERNUMBERDEMOS" == "10" ]; then
  demosGo=("empty" "a" "b" "c" "d" "e" "f" "g" "h" "i")
  echo "10 demos mode"
- echo "10 demos mode" >> $LOG
+ echo "10 demos mode" >> "$LOG"
 elif [ "$DOCKERNUMBERDEMOS" == "9" ]; then
  demosGo=("empty" "a" "b" "c" "d" "e" "f" "g" "h")
  echo "9 demos mode"
- echo "9 demos mode" >> $LOG
+ echo "9 demos mode" >> "$LOG"
 elif [ "$DOCKERNUMBERDEMOS" == "8" ]; then
  demosGo=("empty" "a" "b" "c" "d" "e" "f" "g")
  echo "8 demos mode"
- echo "8 demos mode" >> $LOG
+ echo "8 demos mode" >> "$LOG"
 elif [ "$DOCKERNUMBERDEMOS" == "7" ]; then
  demosGo=("empty" "a" "b" "c" "d" "e" "f")
  echo "7 demos mode"
- echo "7 demos mode" >> $LOG
+ echo "7 demos mode" >> "$LOG"
 elif [ "$DOCKERNUMBERDEMOS" == "6" ]; then
  demosGo=("empty" "a" "b" "c" "d" "e")
  echo "6 demos mode"
- echo "6 demos mode" >> $LOG
+ echo "6 demos mode" >> "$LOG"
 elif [ "$DOCKERNUMBERDEMOS" == "5" ]; then
  demosGo=("empty" "a" "b" "c" "d")
  echo "5 demos mode"
- echo "5 demos mode" >> $LOG
+ echo "5 demos mode" >> "$LOG"
 elif [ "$DOCKERNUMBERDEMOS" == "4" ]; then
  demosGo=("empty" "a" "b" "c")
  echo "4 demos mode"
- echo "4 demos mode" >> $LOG
+ echo "4 demos mode" >> "$LOG"
 elif [ "$DOCKERNUMBERDEMOS" == "3" ]; then
  demosGo=("empty" "a" "b")
  echo "3 demos mode"
- echo "3 demos mode" >> $LOG
+ echo "3 demos mode" >> "$LOG"
 elif [ "$DOCKERNUMBERDEMOS" == "2" ]; then
  demosGo=("empty" "a")
  echo "2 demos mode"
- echo "2 demos mode" >> $LOG
+ echo "2 demos mode" >> "$LOG"
 else
  demosGo=("empty")
  echo "Single demo mode"
- echo "Single demo mode" >> $LOG
+ echo "Single demo mode" >> "$LOG"
 fi
 
 DOCKERDEMOORIGINAL=$DOCKERDEMO
@@ -339,95 +339,95 @@ do
  # Collect ip address or docker demo number
 echo -n "Docker Demo is "
 echo "$DOCKERDEMO"
-echo -n "Docker Demo is " >> $LOG
-echo "$DOCKERDEMO" >> $LOG
+echo -n "Docker Demo is " >> "$LOG"
+echo "$DOCKERDEMO" >> "$LOG"
 IPADDRESS=$DOCKERDEMO
 
  # COLLECT MAPPED BRANCH AND OPTIONS
  # Grab repo link
- OPENEMRREPO=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 2`
+ OPENEMRREPO=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 2)
  echo -n "git repo is "
  echo "$OPENEMRREPO"
- echo -n "git repo is " >> $LOG
- echo "$OPENEMRREPO" >> $LOG
+ echo -n "git repo is " >> "$LOG"
+ echo "$OPENEMRREPO" >> "$LOG"
  # Parse out the repo name and set the $GIT variable
  OPENEMRREPOFULLNAME=$(basename "$OPENEMRREPO")
  echo -n "git repo full name is "
  echo "$OPENEMRREPOFULLNAME"
- echo -n "git repo full name is " >> $LOG
- echo "$OPENEMRREPOFULLNAME" >> $LOG
+ echo -n "git repo full name is " >> "$LOG"
+ echo "$OPENEMRREPOFULLNAME" >> "$LOG"
  OPENEMRREPONAME="${OPENEMRREPOFULLNAME%.*}"
  echo -n "git repo name is "
  echo "$OPENEMRREPONAME"
- echo -n "git repo name is " >> $LOG
- echo "$OPENEMRREPONAME" >> $LOG
+ echo -n "git repo name is " >> "$LOG"
+ echo "$OPENEMRREPONAME" >> "$LOG"
  GIT=$GITMAIN/$OPENEMRREPONAME
  echo -n "git repo local path is "
  echo "$GIT"
- echo -n "git repo local path is " >> $LOG
- echo "$GIT" >> $LOG
+ echo -n "git repo local path is " >> "$LOG"
+ echo "$GIT" >> "$LOG"
  # Grab branch
- GITBRANCH=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 3`
+ GITBRANCH=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 3)
  echo -n "git branch is "
  echo "$GITBRANCH"
- echo -n "git branch is " >> $LOG
- echo "$GITBRANCH" >> $LOG
+ echo -n "git branch is " >> "$LOG"
+ echo "$GITBRANCH" >> "$LOG"
  # Grab use development translation set option
- udt=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 5`
+ udt=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 5)
  echo -n "udt option is "
  echo "$udt"
- echo -n "udt option is " >> $LOG
- echo "$udt" >> $LOG
+ echo -n "udt option is " >> "$LOG"
+ echo "$udt" >> "$LOG"
  # Grab serve packages option
- sp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 6`
+ sp=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 6)
  echo -n "sp option is "
  echo "$sp"
- echo -n "sp option is " >> $LOG
- echo "$sp" >> $LOG
+ echo -n "sp option is " >> "$LOG"
+ echo "$sp" >> "$LOG"
  # Grab demo data option
- dd=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 8`
+ dd=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 8)
  echo -n "dd option is "
  echo "$dd"
- echo -n "dd option is " >> $LOG
- echo "$dd" >> $LOG
- ppapi=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 10`
+ echo -n "dd option is " >> "$LOG"
+ echo "$dd" >> "$LOG"
+ ppapi=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 10)
  echo -n "ppapi option is "
  echo "$ppapi"
- echo -n "ppapi option is " >> $LOG
- echo "$ppapi" >> $LOG
- EXTERNALLINK=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 11`
+ echo -n "ppapi option is " >> "$LOG"
+ echo "$ppapi" >> "$LOG"
+ EXTERNALLINK=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 11)
  echo -n "external link is "
  echo "$EXTERNALLINK"
- echo -n "external link is " >> $LOG
- echo "$EXTERNALLINK" >> $LOG
- mrp=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 12`
+ echo -n "external link is " >> "$LOG"
+ echo "$EXTERNALLINK" >> "$LOG"
+ mrp=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 12)
  echo -n "mariadb p is "
  echo "$mrp"
- echo -n "mariadb p is " >> $LOG
- echo "$mrp" >> $LOG
+ echo -n "mariadb p is " >> "$LOG"
+ echo "$mrp" >> "$LOG"
  # col 13 (branch_tag) is deprecated; col position preserved with value "0".
  # demo_build.sh no longer reads it -- the clone below uses
  # `git clone --branch <ref> --depth 1` which works for both branches and tags.
- ddu=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 14`
+ ddu=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 14)
  echo -n "ddu option is "
  echo "$ddu"
- echo -n "ddu option is " >> $LOG
- echo "$ddu" >> $LOG
- funStuff=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 15`
+ echo -n "ddu option is " >> "$LOG"
+ echo "$ddu" >> "$LOG"
+ funStuff=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 15)
  echo -n "funStuff option is "
  echo "$funStuff"
- echo -n "funStuff option is " >> $LOG
- echo "$funStuff" >> $LOG
- passReset=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 16`
+ echo -n "funStuff option is " >> "$LOG"
+ echo "$funStuff" >> "$LOG"
+ passReset=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 16)
  echo -n "passReset option is "
  echo "$passReset"
- echo -n "passReset option is " >> $LOG
- echo "$passReset" >> $LOG
- useCapsule=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 17`
+ echo -n "passReset option is " >> "$LOG"
+ echo "$passReset" >> "$LOG"
+ useCapsule=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 17)
  echo -n "useCapsule option is "
  echo "$useCapsule"
- echo -n "useCapsule option is " >> $LOG
- echo "$useCapsule" >> $LOG
+ echo -n "useCapsule option is " >> "$LOG"
+ echo "$useCapsule" >> "$LOG"
 
  # SET OPTIONS
  # set if use development translation set
@@ -490,30 +490,30 @@ IPADDRESS=$DOCKERDEMO
  fi
 
  # COLLECT and output demo description
- desc=`cat $GITDEMOFARMMAP | grep "$IPADDRESS" | tr -d '\n' | cut -f 18`
+ desc=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 18)
  echo -n "Demo description: "
  echo "$desc"
- echo -n "Demo description: " >> $LOG
- echo "$desc" >> $LOG
+ echo -n "Demo description: " >> "$LOG"
+ echo "$desc" >> "$LOG"
 
  # COLLECT THE GIT REPO (it should not exist yet, but will check)
- if ! [ -d $GIT ]; then
+ if ! [ -d "$GIT" ]; then
   echo "Downloading the OpenEMR git repository"
-  echo "Downloading the OpenEMR git repository" >> $LOG
-  mkdir -p $GITMAIN
-  cd $GITMAIN || exit 1
+  echo "Downloading the OpenEMR git repository" >> "$LOG"
+  mkdir -p "$GITMAIN"
+  cd "$GITMAIN" || exit 1
   # `--branch <ref>` accepts both branch names and tag names; combined with
   # `--depth 1` this gives a shallow clone of the exact ref.
   run_action git clone --branch "$GITBRANCH" --depth 1 "$OPENEMRREPO"
  else
   echo "ERROR, The OpenEMR git repository already exist"
-  echo "ERROR, The OpenEMR git repository already exist" >> $LOG
+  echo "ERROR, The OpenEMR git repository already exist" >> "$LOG"
  fi
 
  # COPY THE GIT REPO OPENEMR COPY TO THE WEB DIRECTOY
  echo "Copy git OpenEMR to web directory"
- echo "Copy git OpenEMR to web directory" >> $LOG
- mkdir -p $OPENEMR
+ echo "Copy git OpenEMR to web directory" >> "$LOG"
+ mkdir -p "$OPENEMR"
  run_action_sh "rm -fr \"${OPENEMR:?}\"/*"
  run_action_sh "rsync --recursive --exclude .git $GIT/* $OPENEMR/"
  if ! $packageServe; then
@@ -522,53 +522,53 @@ IPADDRESS=$DOCKERDEMO
 
  #INSTALL AND CONFIGURE OPENEMR
  echo "Configuring OpenEMR"
- echo "Configuring OpenEMR" >> $LOG
+ echo "Configuring OpenEMR" >> "$LOG"
  #
  # Set file and directory permissions
- run_action chmod 666 $OPENEMR/sites/default/sqlconf.php
- run_action chmod -R a+w $OPENEMR/sites/default/documents
+ run_action chmod 666 "$OPENEMR"/sites/default/sqlconf.php
+ run_action chmod -R a+w "$OPENEMR"/sites/default/documents
 
- if [ -f $OPENEMR/interface/modules/zend_modules/config/application.config.php ] ; then
+ if [ -f "$OPENEMR"/interface/modules/zend_modules/config/application.config.php ] ; then
   # This is specifically for Zend code that is currently under development, so it works on the demos.
-  run_action chmod a+w $OPENEMR/interface/modules/zend_modules/config/application.config.php
+  run_action chmod a+w "$OPENEMR"/interface/modules/zend_modules/config/application.config.php
   echo "Configuring Zend file permission: application.config.php"
-  echo "Configuring Zend file permission: application.config.php" >> $LOG
+  echo "Configuring Zend file permission: application.config.php" >> "$LOG"
  fi
 
  #Build openemr package
- if [ ! -d $OPENEMR/vendor ]; then
-  cd $OPENEMR || exit 1
+ if [ ! -d "$OPENEMR"/vendor ]; then
+  cd "$OPENEMR" || exit 1
 
   # install php dependencies. In dry-run we stub a fake key and a rate-limit
   # of 0 so the "Not using composer github api token" branch is exercised
   # deterministically (the other branch would log the real github key).
   GITHUB_KEY_COMPOSER=$(run_action_capture --stub '<DRY_RUN_GITHUB_KEY>' cat /home/openemr/github-key)
   githubTokenRateLimitRequest=$(run_action_capture --stub '{"rate":{"remaining":0}}' curl -H "Authorization: token $GITHUB_KEY_COMPOSER" https://api.github.com/rate_limit)
-  githubTokenRateLimit=`echo $githubTokenRateLimitRequest | jq '.rate.remaining'`
+  githubTokenRateLimit=$(echo "$githubTokenRateLimitRequest" | jq '.rate.remaining')
   echo "Number of github api requests remaining is $githubTokenRateLimit"
-  echo "Number of github api requests remaining is $githubTokenRateLimit" >> $LOG
+  echo "Number of github api requests remaining is $githubTokenRateLimit" >> "$LOG"
   if [ "$githubTokenRateLimit" -gt 1000 ]; then
    echo "Using composer github api token"
-   echo "Using composer github api token" >> $LOG
-   run_action composer config --global --auth github-oauth.github.com $GITHUB_KEY_COMPOSER
+   echo "Using composer github api token" >> "$LOG"
+   run_action composer config --global --auth github-oauth.github.com "$GITHUB_KEY_COMPOSER"
   else
    echo "Not using composer github api token"
-   echo "Not using composer github api token" >> $LOG
+   echo "Not using composer github api token" >> "$LOG"
   fi
   run_action_sh "composer install --no-dev &>> $LOG"
 
-  if [ -f $OPENEMR/package.json ]; then
+  if [ -f "$OPENEMR"/package.json ]; then
    # install frontend dependencies (need unsafe-perm to run as root)
    run_action_sh "npm install --unsafe-perm &>> $LOG"
    # build css
    run_action_sh "npm run build &>> $LOG"
   fi
 
-  if [ -f $OPENEMR/ccdaservice/package.json ]; then
+  if [ -f "$OPENEMR"/ccdaservice/package.json ]; then
    # install ccdaservice dependencies (need unsafe-perm to run as root)
-   cd $OPENEMR/ccdaservice || exit 1
+   cd "$OPENEMR"/ccdaservice || exit 1
    run_action_sh "npm install --unsafe-perm &>> $LOG"
-   cd $OPENEMR || exit 1
+   cd "$OPENEMR" || exit 1
   fi
 
   # clean up
@@ -596,7 +596,7 @@ IPADDRESS=$DOCKERDEMO
  # Drop privileges to the web user: RootCliGuard refuses root for the Installer class (openemr#12267).
  if $translationsDevelopment ; then
   echo "Using online development translation set"
-  echo "Using online development translation set" >> $LOG
+  echo "Using online development translation set" >> "$LOG"
   if [ -z "$mrp" ] ; then
    run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $INSTTEMP development_translations=yes $DOCKERPARAMETERS\" >> $LOG"
   else
@@ -604,19 +604,19 @@ IPADDRESS=$DOCKERDEMO
   fi
  else
   echo "Using included translation set"
-  echo "Using included translation set" >> $LOG
+  echo "Using included translation set" >> "$LOG"
   if [ -z "$mrp" ] ; then
    run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $INSTTEMP $DOCKERPARAMETERS\" >> $LOG"
   else
    run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $INSTTEMP rootpass=$mrp $DOCKERPARAMETERS\" >> $LOG"
   fi
  fi
- run_action rm -f $INSTTEMP
+ run_action rm -f "$INSTTEMP"
 
  if $demoData; then
   # Need to insert the demo data, which is in $dd item in the pieces directory
   echo "Inserting demo data from $dd"
-  echo "Inserting demo data from $dd" >> $LOG
+  echo "Inserting demo data from $dd" >> "$LOG"
   # First, check to ensure the file exists
   if [ -f "$GITDEMOFARM/pieces/$dd" ]; then
     # Now insert the data
@@ -624,26 +624,26 @@ IPADDRESS=$DOCKERDEMO
     run_action_sh "mariadb-dump --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam --add-drop-table --no-data $DOCKERDEMO | grep ^DROP | awk ' BEGIN { print \"SET FOREIGN_KEY_CHECKS=0;\" } { print \$0 } END { print \"SET FOREIGN_KEY_CHECKS=1;\" } ' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO"
     run_action_sh "mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < \"$GITDEMOFARM/pieces/$dd\""
     echo "Completed inserting demo data from $dd"
-    echo "Completed inserting demo data from $dd" >> $LOG
+    echo "Completed inserting demo data from $dd" >> "$LOG"
   else
    echo "Error, $dd data does not exist"
-   echo "Error, $dd data does not exist" >> $LOG
+   echo "Error, $dd data does not exist" >> "$LOG"
   fi
   if $demoDataUpgrade; then
    # Run the sql upgrade script. This allows using demo data on most recent codebase.
    echo "Upgrading demo data from $demoDataUpgradeFrom"
-   echo "Upgrading demo data from $demoDataUpgradeFrom" >> $LOG
+   echo "Upgrading demo data from $demoDataUpgradeFrom" >> "$LOG"
    run_action_sh "sed -e \"s@!empty(\\\$_POST\\['form_submit'\\])@true@\" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php"
    run_action_sh "sed -i \"s@\\\$form_old_version = \\\$_POST\\['form_old_version'\\];@\\\$form_old_version = '${demoDataUpgradeFrom}';@\" $OPENEMR/sql_upgrade_temp.php"
    run_action_sh "sed -i \"1s@^@<?php \\\$_GET['site'] = 'default'; ?>@\" $OPENEMR/sql_upgrade_temp.php"
    # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
    run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $OPENEMR/sql_upgrade_temp.php\" >> $LOG"
-   run_action rm -f $OPENEMR/sql_upgrade_temp.php
+   run_action rm -f "$OPENEMR"/sql_upgrade_temp.php
    # Also need to change encoding/collation when using OpenEMR versions at 6 or greater
-   VERSION_MAJOR=$(collect_var \$v_major $OPENEMR/version.php)
+   VERSION_MAJOR=$(collect_var \$v_major "$OPENEMR"/version.php)
    if [ -n "$VERSION_MAJOR" ] && [ "$VERSION_MAJOR" -ge "6" ]; then
     echo "Upgrading database/collation to utf8mbf since using version ${VERSION_MAJOR}"
-    echo "Upgrading database/collation to utf8mbf since using version ${VERSION_MAJOR}" >> $LOG
+    echo "Upgrading database/collation to utf8mbf since using version ${VERSION_MAJOR}" >> "$LOG"
      run_action_sh "mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat(\"ALTER DATABASE \`\",TABLE_SCHEMA,\"\` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;\") as _sql FROM \`information_schema\`.\`TABLES\` where \`TABLE_SCHEMA\` like \"'\"${DOCKERDEMO}\"'\" and \`TABLE_TYPE\`=\"BASE TABLE\" group by \`TABLE_SCHEMA\`;' | egrep '^ALTER' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam"
      run_action_sh "mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam -e 'SELECT concat(\"ALTER TABLE \`\",TABLE_SCHEMA,\"\`.\`\",TABLE_NAME,\"\` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;\") as _sql FROM \`information_schema\`.\`TABLES\` where \`TABLE_SCHEMA\` like \"'\"${DOCKERDEMO}\"'\" and \`TABLE_TYPE\`=\"BASE TABLE\" group by \`TABLE_SCHEMA\`, \`TABLE_NAME\`;' | egrep '^ALTER' | mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam"
    fi
@@ -651,7 +651,7 @@ IPADDRESS=$DOCKERDEMO
   if $translationsDevelopment ; then
    # Need to bring the development translations back in (only can support this in docker mode)
     echo "TODO: Need to support bringing in the translations here in the future"
-    echo "TODO: Need to support bringing in the translations here in the future" >> $LOG
+    echo "TODO: Need to support bringing in the translations here in the future" >> "$LOG"
     # below is way to slow; need to figure out how to get the innodb optimizations in here (as do in main codebase inserts)
     # plan to make a temp file in /home/openemr/temp/languageTranslations_utf8_temp.sql and modify it for the innodb optimizations
     # mariadb --skip-ssl -h $DOCKERMYSQLHOST -u root $rpassparam $DOCKERDEMO < /home/openemr/git/translations_development_openemr/languageTranslations_utf8.sql
@@ -666,13 +666,13 @@ IPADDRESS=$DOCKERDEMO
   # like `rm -fr "${OPENEMR:?}/"` (empty) or path traversal via `..`.
   case "$useCapsuleFile" in
    '' | */* | . | ..)
-    echo "ERROR: invalid useCapsuleFile value: '$useCapsuleFile' (must be a non-empty flat segment with no slashes or .. traversal)" | tee -a $LOG >&2
+    echo "ERROR: invalid useCapsuleFile value: '$useCapsuleFile' (must be a non-empty flat segment with no slashes or .. traversal)" | tee -a "$LOG" >&2
     exit 1
     ;;
   esac
   # load the capsule
   echo "Load $useCapsuleFile capsule"
-  echo "Load $useCapsuleFile capsule" >> $LOG
+  echo "Load $useCapsuleFile capsule" >> "$LOG"
   # First, check to ensure the capsule exists
   if [ -f "$CAPSULES/${useCapsuleFile}.tgz" ]; then
    # ensure unpackaged directory is cleared prior to using
@@ -686,7 +686,7 @@ IPADDRESS=$DOCKERDEMO
    run_action rsync --delete --recursive --links "$OPENEMR/${useCapsuleFile}/sites" "$OPENEMR/"
    run_action cp "$OPENEMR/sqlconf.php" "$OPENEMR/sites/default/sqlconf.php"
    run_action rm "$OPENEMR/sqlconf.php"
-   run_action chmod -R a+w $OPENEMR/sites/default/documents
+   run_action chmod -R a+w "$OPENEMR"/sites/default/documents
    if [ -f "$OPENEMR/sites/default/documents/certificates/oaprivate.key" ]; then
     # this file needs special treatment in the alpine demo dockers to work correctly
     run_action chmod 640 "$OPENEMR/sites/default/documents/certificates/oaprivate.key"
@@ -702,22 +702,23 @@ IPADDRESS=$DOCKERDEMO
    if $demoDataUpgrade; then
     # Run the sql upgrade script. This allows using capsule on most recent codebase.
     echo "Upgrading capsule from $demoDataUpgradeFrom"
-    echo "Upgrading capsule from $demoDataUpgradeFrom" >> $LOG
+    echo "Upgrading capsule from $demoDataUpgradeFrom" >> "$LOG"
     run_action_sh "sed -e \"s@!empty(\\\$_POST\\['form_submit'\\])@true@\" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php"
     run_action_sh "sed -i \"s@\\\$form_old_version = \\\$_POST\\['form_old_version'\\];@\\\$form_old_version = '${demoDataUpgradeFrom}';@\" $OPENEMR/sql_upgrade_temp.php"
     run_action_sh "sed -i \"1s@^@<?php \\\$_GET['site'] = 'default'; ?>@\" $OPENEMR/sql_upgrade_temp.php"
     # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
     run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $OPENEMR/sql_upgrade_temp.php\" >> $LOG"
-    run_action rm -f $OPENEMR/sql_upgrade_temp.php
+    run_action rm -f "$OPENEMR"/sql_upgrade_temp.php
    fi
   else
    echo "ERROR: $useCapsuleFile capsule did not exist, so could not use"
-   echo "ERROR: $useCapsuleFile capsule did not exist, so could not use" >> $LOG
+   echo "ERROR: $useCapsuleFile capsule did not exist, so could not use" >> "$LOG"
   fi
  fi
 
  #set up external link in global
  EXTERNALLINKBASE=$(echo "$EXTERNALLINK" | cut -d '/' -f 1)
+ # shellcheck disable=SC2086  # $rpassparam is intentionally word-split: empty when no $mrp (yields zero args), "-p<pass>" when set (yields one arg)
  run_action mariadb --skip-ssl -h "$DOCKERMYSQLHOST" -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='https://${EXTERNALLINKBASE}' WHERE gl_name='site_addr_oath'"
 
  #random theme generator
@@ -725,15 +726,16 @@ IPADDRESS=$DOCKERDEMO
   #collect the random theme
 
   if [ "$funStuff" == "2" ]; then
-   RANDOM_THEME=`getRandomThemeTwo`
+   RANDOM_THEME=$(getRandomThemeTwo)
   else # "$funStuff" == "1"
-   RANDOM_THEME=`getRandomThemeOne`
+   RANDOM_THEME=$(getRandomThemeOne)
   fi
   echo -n "random theme is "
   echo "$RANDOM_THEME"
-  echo -n "random theme is " >> $LOG
-  echo "$RANDOM_THEME" >> $LOG
+  echo -n "random theme is " >> "$LOG"
+  echo "$RANDOM_THEME" >> "$LOG"
   #set the random theme
+  # shellcheck disable=SC2086  # $rpassparam is intentionally word-split: empty when no $mrp (yields zero args), "-p<pass>" when set (yields one arg)
   run_action mariadb --skip-ssl -h "$DOCKERMYSQLHOST" -u root $rpassparam -e "UPDATE ${DOCKERDEMO}.globals SET gl_value='${RANDOM_THEME}' WHERE gl_name='css_header'"
  fi
 
@@ -741,7 +743,8 @@ IPADDRESS=$DOCKERDEMO
  # patient_portals_and_api flag set in ip_map_branch.txt.
  if [ "$ppapi" = "1" ]; then
   echo "Setting up patient portal and API globals"
-  echo "Setting up patient portal and API globals" >> $LOG
+  echo "Setting up patient portal and API globals" >> "$LOG"
+  # shellcheck disable=SC2086  # $rpassparam is intentionally word-split: empty when no $mrp (yields zero args), "-p<pass>" when set (yields one arg)
   run_action mariadb --skip-ssl -h "$DOCKERMYSQLHOST" -u root $rpassparam -e "
     UPDATE ${DOCKERDEMO}.globals SET gl_value='1' WHERE gl_name='portal_onsite_two_enable';
     UPDATE ${DOCKERDEMO}.globals SET gl_value='1' WHERE gl_name='rest_api';
@@ -754,69 +757,69 @@ IPADDRESS=$DOCKERDEMO
  fi
 
  #reinstitute file permissions
- run_action chmod 644 $OPENEMR/sites/default/sqlconf.php
+ run_action chmod 644 "$OPENEMR"/sites/default/sqlconf.php
  echo "Done configuring OpenEMR"
- echo "Done configuring OpenEMR" >> $LOG
+ echo "Done configuring OpenEMR" >> "$LOG"
 
  # Set up to allow demo and testing of hl7 labs feature
- run_action mkdir $OPENEMR/sites/default/procedure_results
- run_action chmod -R a+w $OPENEMR/sites/default/procedure_results
+ run_action mkdir "$OPENEMR"/sites/default/procedure_results
+ run_action chmod -R a+w "$OPENEMR"/sites/default/procedure_results
 
  # Set up swagger api to work
- if [ -f $OPENEMR/swagger/openemr-api.yaml ]; then
+ if [ -f "$OPENEMR"/swagger/openemr-api.yaml ]; then
   echo "Setting up swagger api"
-  echo "Setting up swagger api" >> $LOG
+  echo "Setting up swagger api" >> "$LOG"
   if [ "$demo" == "empty" ]; then
     demoPath=""
   else
     demoPath="/${demo}"
   fi
-  run_action sed -i "s@/apis/default/@${demoPath}/openemr/apis/default/@" $OPENEMR/swagger/openemr-api.yaml
-  run_action sed -i "s@/oauth2/default/authorize@${demoPath}/openemr/oauth2/default/authorize@" $OPENEMR/swagger/openemr-api.yaml
-  run_action sed -i "s@/oauth2/default/token@${demoPath}/openemr/oauth2/default/token@" $OPENEMR/swagger/openemr-api.yaml
+  run_action sed -i "s@/apis/default/@${demoPath}/openemr/apis/default/@" "$OPENEMR"/swagger/openemr-api.yaml
+  run_action sed -i "s@/oauth2/default/authorize@${demoPath}/openemr/oauth2/default/authorize@" "$OPENEMR"/swagger/openemr-api.yaml
+  run_action sed -i "s@/oauth2/default/token@${demoPath}/openemr/oauth2/default/token@" "$OPENEMR"/swagger/openemr-api.yaml
  fi
 
  #Security stuff
  #1. remove the library/openflashchart/php-ofc-library/ofc_upload_image.php file if it exists
- if [ -f $OPENEMR/library/openflashchart/php-ofc-library/ofc_upload_image.php ]; then
-  run_action rm -f $OPENEMR/library/openflashchart/php-ofc-library/ofc_upload_image.php
+ if [ -f "$OPENEMR"/library/openflashchart/php-ofc-library/ofc_upload_image.php ]; then
+  run_action rm -f "$OPENEMR"/library/openflashchart/php-ofc-library/ofc_upload_image.php
   echo "Removed ofc_upload_image.php file"
-  echo "Removed ofc_upload_image.php file" >> $LOG
+  echo "Removed ofc_upload_image.php file" >> "$LOG"
  fi
  
  if $packageServe ; then
   # Package the development version into a tarball and zip file to be
   # available thru web browser (useful for testing on Windows etc.).
   echo "Creating OpenEMR Development packages"
-  echo "Creating OpenEMR Development packages" >> $LOG
+  echo "Creating OpenEMR Development packages" >> "$LOG"
 
   # Prepare the development package. mkdir is intentionally unwrapped:
   # subsequent `cd $TMPDIR/openemr` needs the directory to exist even in
   # dry-run, where the rsync below is skipped. Matches the same pattern
   # used for $WEB/log and $OPENEMR earlier in the script.
-  mkdir -p $TMPDIR/openemr
+  mkdir -p "$TMPDIR"/openemr
   run_action_sh "rsync --recursive --exclude .git $GIT/* $TMPDIR/openemr/"
   #Build openemr package
-  if [ ! -d $TMPDIR/openemr/vendor ]; then
-   cd $TMPDIR/openemr || exit 1
+  if [ ! -d "$TMPDIR"/openemr/vendor ]; then
+   cd "$TMPDIR"/openemr || exit 1
 
    # install php dependencies (see twin block above for the dry-run stub rationale)
    GITHUB_KEY_COMPOSER=$(run_action_capture --stub '<DRY_RUN_GITHUB_KEY>' cat /home/openemr/github-key)
    githubTokenRateLimitRequestPackage=$(run_action_capture --stub '{"rate":{"remaining":0}}' curl -H "Authorization: token $GITHUB_KEY_COMPOSER" https://api.github.com/rate_limit)
-   githubTokenRateLimitPackage=`echo $githubTokenRateLimitRequestPackage | jq '.rate.remaining'`
+   githubTokenRateLimitPackage=$(echo "$githubTokenRateLimitRequestPackage" | jq '.rate.remaining')
    echo "Number of github api requests remaining is $githubTokenRateLimitPackage"
-   echo "Number of github api requests remaining is $githubTokenRateLimitPackage" >> $LOG
+   echo "Number of github api requests remaining is $githubTokenRateLimitPackage" >> "$LOG"
    if [ "$githubTokenRateLimitPackage" -gt 1000 ]; then
     echo "Using composer github api token"
-    echo "Using composer github api token" >> $LOG
-    run_action composer config --global --auth github-oauth.github.com $GITHUB_KEY_COMPOSER
+    echo "Using composer github api token" >> "$LOG"
+    run_action composer config --global --auth github-oauth.github.com "$GITHUB_KEY_COMPOSER"
    else
     echo "Not using composer github api token"
-    echo "Not using composer github api token" >> $LOG
+    echo "Not using composer github api token" >> "$LOG"
    fi
    run_action_sh "composer install --no-dev &>> $LOG"
 
-   if [ -f $TMPDIR/openemr/package.json ]; then
+   if [ -f "$TMPDIR"/openemr/package.json ]; then
     # install frontend dependencies (need unsafe-perm to run as root)
     run_action_sh "npm install --unsafe-perm &>> $LOG"
     # build css
@@ -835,30 +838,30 @@ IPADDRESS=$DOCKERDEMO
    # optimize
    run_action_sh "composer dump-autoload -o &>> $LOG"
   fi
-  run_action chmod a+w $TMPDIR/openemr/sites/default/sqlconf.php
-  run_action chmod -R a+w $TMPDIR/openemr/sites/default/documents
-  if [ -f $TMPDIR/openemr/interface/modules/zend_modules/config/application.config.php ] ; then
+  run_action chmod a+w "$TMPDIR"/openemr/sites/default/sqlconf.php
+  run_action chmod -R a+w "$TMPDIR"/openemr/sites/default/documents
+  if [ -f "$TMPDIR"/openemr/interface/modules/zend_modules/config/application.config.php ] ; then
    # This is specifically for Zend code that is currently under development(added in version 4.1.3).
-   run_action chmod a+w $TMPDIR/openemr/interface/modules/zend_modules/config/application.config.php
+   run_action chmod a+w "$TMPDIR"/openemr/interface/modules/zend_modules/config/application.config.php
   fi
 
   # Create the web file directory. Unwrapped: subsequent `cd $FILESSERVEDIR`
   # needs the dir to exist in dry-run, where the tar/zip/md5sum writes
   # below are all skipped.
-  mkdir $FILESSERVEDIR
+  mkdir "$FILESSERVEDIR"
 
   # Save the tar.gz cvs package
-  cd $TMPDIR || exit 1
-  run_action rm -f $FILESSERVEDIR/openemr-cvs.tar.gz
-  run_action tar -czf $FILESSERVEDIR/openemr-cvs.tar.gz openemr
-  cd $FILESSERVEDIR || exit 1
+  cd "$TMPDIR" || exit 1
+  run_action rm -f "$FILESSERVEDIR"/openemr-cvs.tar.gz
+  run_action tar -czf "$FILESSERVEDIR"/openemr-cvs.tar.gz openemr
+  cd "$FILESSERVEDIR" || exit 1
   run_action_sh "md5sum openemr-cvs.tar.gz > openemr-linux-md5.txt"
 
   # Save the .zip cvs package
-  cd $TMPDIR || exit 1
-  run_action rm -f $FILESSERVEDIR/openemr-cvs.zip
-  run_action zip -rq $FILESSERVEDIR/openemr-cvs.zip openemr
-  cd $FILESSERVEDIR || exit 1
+  cd "$TMPDIR" || exit 1
+  run_action rm -f "$FILESSERVEDIR"/openemr-cvs.zip
+  run_action zip -rq "$FILESSERVEDIR"/openemr-cvs.zip openemr
+  cd "$FILESSERVEDIR" || exit 1
   run_action_sh "md5sum openemr-cvs.zip > openemr-windows-md5.txt"
 
   # Create the time stamp
@@ -868,7 +871,7 @@ IPADDRESS=$DOCKERDEMO
   run_action rm -fr "${TMPDIR:?}"
   run_action rm -fr "${GIT:?}"
   echo "Done creating OpenEMR Development packages"
-  echo "Done creating OpenEMR Development packages" >> $LOG
+  echo "Done creating OpenEMR Development packages" >> "$LOG"
  fi
 
  # Automated password-reset daemon: temporarily disabled per
@@ -891,19 +894,19 @@ fi
 
 #restart apache and secure sensitive directories
 if ! $lightReset; then
- run_action cp $OPENEMRAPACHECONF /etc/apache2/conf.d/openemr.conf
+ run_action cp "$OPENEMRAPACHECONF" /etc/apache2/conf.d/openemr.conf
  run_action_sh "httpd -k start >> $LOG"
 fi
 
 echo "Demo install script is complete"
-echo "Demo install script is complete" >> $LOG
+echo "Demo install script is complete" >> "$LOG"
 
 # Record end time
-timeEnd=`date -u`
+timeEnd=$(date -u)
 echo -n "Completed Build: "
 echo "$timeEnd"
-echo -n "Completed Build: " >> $LOG
-echo "$timeEnd" >> $LOG
+echo -n "Completed Build: " >> "$LOG"
+echo "$timeEnd" >> "$LOG"
 
 if ! $lightReset; then
   # to stop docker image from exiting
