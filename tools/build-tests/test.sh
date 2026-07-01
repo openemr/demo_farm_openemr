@@ -10,11 +10,14 @@
 #                                   DOCKERNUMBERDEMOS, PHP_VERSION_ABBR,
 #                                   EXTRA_ARGS (appended after --dry-run).
 #   ip_map_branch.txt            -- the ip_map subset the script will read.
-#                                   Should contain ONLY the row(s) needed
-#                                   for this scenario to avoid the
-#                                   grep "$IPADDRESS" substring-match
-#                                   ambiguity (e.g., "two" matches both
-#                                   "two" and "two_a" rows).
+#                                   Historically had to be single-row to
+#                                   dodge the grep "$IPADDRESS" substring
+#                                   ambiguity ("two" matched "two_a" too);
+#                                   demo_build.sh now uses an anchored
+#                                   `awk '$1 == ip'` lookup so multi-row
+#                                   fixtures are fine. Existing fixtures
+#                                   stay single-row -- changing them would
+#                                   be churn without adding coverage.
 #   extra/                       -- (optional) tree of files copied OVER
 #                                   the kitchen-sink work tree post-setup,
 #                                   mirroring its layout (the work tree
