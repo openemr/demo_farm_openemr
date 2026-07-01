@@ -25,10 +25,10 @@ six	https://github.com/openemr/openemr.git	v7_0_4	0	0	1	0	0	0	1	six.openemr.io	h
 six_a	https://github.com/openemr/openemr.git	v7_0_4	0	0	0	0	demo_5_0_0_5.sql	0	1	six.openemr.io/a	hey	0	5.0.0	0	0	0	Public OpenEMR 7.0.4 Release Demo With Demo Data On Alpine 3.22 (with PHP 8.4)
 three	https://github.com/openemr/openemr.git	v8_0_0_3	0	0	1	0	0	0	1	three.openemr.io	hey	0	0	0	0	0	Public OpenEMR 8.0.0 Release Demo on Alpine 3.22 (with PHP 8.4)
 three_a	https://github.com/openemr/openemr.git	v8_0_0_3	0	0	0	0	demo_5_0_0_5.sql	0	1	three.openemr.io/a	hey	0	5.0.0	0	0	0	Public OpenEMR 8.0.0 Release Demo With Demo Data On Alpine 3.22 (with PHP 8.4)
-eight	https://github.com/openemr/openemr.git	rel-810	0	0	0	0	0	0	1	eight.openemr.io	hey	0	0	0	0	0	Public OpenEMR 8.1.1 Development Demo on Alpine 3.23 (with PHP 8.5)
-eight_a	https://github.com/openemr/openemr.git	rel-810	0	0	0	0	demo_5_0_0_5.sql	0	1	eight.openemr.io/a	hey	0	5.0.0	0	0	0	Public OpenEMR 8.1.1 Development Demo With Demo Data On Alpine 3.23 (with PHP 8.5)
 
 # === Parked ===
+eight	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	eight.openemr.io	hey	0	0	0	0	0	[parked]
+eight_a	https://github.com/openemr/openemr.git	master	0	0	0	0	demo_5_0_0_5.sql	0	1	eight.openemr.io/a	hey	0	5.0.0	0	0	0	[parked]
 nine	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	nine.openemr.io	hey	0	0	0	0	0	[parked]
 nine_a	https://github.com/openemr/openemr.git	master	0	0	0	0	demo_5_0_0_5.sql	0	1	nine.openemr.io/a	hey	0	5.0.0	0	0	0	[parked]
 ten	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	ten.openemr.io	hey	0	0	0	0	0	[parked]
