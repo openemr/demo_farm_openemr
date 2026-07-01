@@ -9,12 +9,13 @@
 #
 # Bash library for openemr demo farm
 #
-# Per-file shellcheck ratchet (issue #146 cleanup PR C2): the 80 SC2086 /
-# SC2006 / SC2155 violations in this file are deferred to PR C3. The
-# file-level disable here lets C2's drop of the repo-wide SC2086 +
-# SC2006 disables land cleanly; C3 will fix each site individually and
-# remove this directive.
-# shellcheck disable=SC2086,SC2006,SC2155
+# Per-file shellcheck ratchet (issue #146 cleanup, post-C2 + C3a):
+# the 72 SC2086 violations in this file remain deferred to PR C3b.
+# C3a closed out SC2006 (4 sites) and SC2155 (4 sites — surfaced after
+# SC2006 fix at the same code positions, same masked-warning pattern
+# as C2's SC2002 fold-in). C3b will fix each SC2086 site individually
+# and remove this directive.
+# shellcheck disable=SC2086
 
 # This is the wrapper to start the demo, so only need to modify the specifics in 1 place
 # rather than 2. Picks the right flex image + instance count per cluster, then
@@ -87,7 +88,8 @@ startDemoWrapper() {
 # 1st parameter is the demo name (one, two, three, etc.)
 # 2nd parameter is the mysql root password
 stopDemo () {
-    local MYSQLIP=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr`
+    local MYSQLIP
+    MYSQLIP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr)
 
     # Stop the docker
     echo "Stop ${1}-openemr docker"
@@ -158,7 +160,8 @@ startDemo () {
 # 2nd parameter is the demo subname (a, b, c, etc.)(also can be 'empty' which is for the main subdemo)
 # 3rd parameter is the mysql root password
 restartSubdemo () {
-    local MYSQLIP=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr`
+    local MYSQLIP
+    MYSQLIP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr)
 
     # Remove the database stuff
     if [ "$2" == "empty" ]; then
@@ -280,8 +283,10 @@ renewLetsencrypt () {
 # 2nd parameter is the demo subname (a, b, c, etc.)(also can be 'empty' which is for the main subdemo)
 # 3rd parameter is the mysql root password
 snapshotDemo() {
-    local MYSQLIP=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr`
-    local currentTime=`date "+%Y-%m-%d-%H-%M-%S"`
+    local MYSQLIP
+    MYSQLIP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-openemr)
+    local currentTime
+    currentTime=$(date "+%Y-%m-%d-%H-%M-%S")
     local snapshotName="${1}-${2}-${currentTime}"
     local capsules=~/capsules
     local tmp="${capsules}/tmp"
