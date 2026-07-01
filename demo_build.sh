@@ -401,10 +401,17 @@ IPADDRESS=$DOCKERDEMO
  echo -n "external link is " >> "$LOG"
  echo "$EXTERNALLINK" >> "$LOG"
  mrp=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 12)
+ # Log presence, not the value: $LOG is exposed at <cluster>.openemr.io/log/
+ # via the demo dockers (see L226-235 header comment), so writing the actual
+ # password would bake it into a publicly-accessible URL. Current $mrp is
+ # literally "hey" for every production row, but if it's ever set to a real
+ # secret this defends without needing to remember to redact.
+ if [ -n "$mrp" ]; then _mrp_disp="<REDACTED>"; else _mrp_disp="<empty>"; fi
  echo -n "mariadb p is "
- echo "$mrp"
+ echo "$_mrp_disp"
  echo -n "mariadb p is " >> "$LOG"
- echo "$mrp" >> "$LOG"
+ echo "$_mrp_disp" >> "$LOG"
+ unset _mrp_disp
  # col 13 (branch_tag) is deprecated; col position preserved with value "0".
  # demo_build.sh no longer reads it -- the clone below uses
  # `git clone --branch <ref> --depth 1` which works for both branches and tags.
