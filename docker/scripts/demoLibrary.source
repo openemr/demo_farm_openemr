@@ -90,26 +90,26 @@ stopDemo () {
 
     # Remove the database stuff
     echo "Clear ${1}-openemr databases and users"
-    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"
-    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_a
-    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_b
-    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_c
-    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_d
-    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_e
-    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_f
-    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_g
-    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_h
-    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_i
-    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}';FLUSH PRIVILEGES;"
-    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_a';FLUSH PRIVILEGES;"
-    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_b';FLUSH PRIVILEGES;"
-    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_c';FLUSH PRIVILEGES;"
-    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_d';FLUSH PRIVILEGES;"
-    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_e';FLUSH PRIVILEGES;"
-    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_f';FLUSH PRIVILEGES;"
-    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_g';FLUSH PRIVILEGES;"
-    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_h';FLUSH PRIVILEGES;"
-    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_i';FLUSH PRIVILEGES;"
+    MYSQL_PWD="${2}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"
+    MYSQL_PWD="${2}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"_a
+    MYSQL_PWD="${2}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"_b
+    MYSQL_PWD="${2}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"_c
+    MYSQL_PWD="${2}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"_d
+    MYSQL_PWD="${2}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"_e
+    MYSQL_PWD="${2}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"_f
+    MYSQL_PWD="${2}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"_g
+    MYSQL_PWD="${2}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"_h
+    MYSQL_PWD="${2}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"_i
+    MYSQL_PWD="${2}" mysql -f -h "${MYSQLIP}" -u root -e "DROP USER '${1}';FLUSH PRIVILEGES;"
+    MYSQL_PWD="${2}" mysql -f -h "${MYSQLIP}" -u root -e "DROP USER '${1}_a';FLUSH PRIVILEGES;"
+    MYSQL_PWD="${2}" mysql -f -h "${MYSQLIP}" -u root -e "DROP USER '${1}_b';FLUSH PRIVILEGES;"
+    MYSQL_PWD="${2}" mysql -f -h "${MYSQLIP}" -u root -e "DROP USER '${1}_c';FLUSH PRIVILEGES;"
+    MYSQL_PWD="${2}" mysql -f -h "${MYSQLIP}" -u root -e "DROP USER '${1}_d';FLUSH PRIVILEGES;"
+    MYSQL_PWD="${2}" mysql -f -h "${MYSQLIP}" -u root -e "DROP USER '${1}_e';FLUSH PRIVILEGES;"
+    MYSQL_PWD="${2}" mysql -f -h "${MYSQLIP}" -u root -e "DROP USER '${1}_f';FLUSH PRIVILEGES;"
+    MYSQL_PWD="${2}" mysql -f -h "${MYSQLIP}" -u root -e "DROP USER '${1}_g';FLUSH PRIVILEGES;"
+    MYSQL_PWD="${2}" mysql -f -h "${MYSQLIP}" -u root -e "DROP USER '${1}_h';FLUSH PRIVILEGES;"
+    MYSQL_PWD="${2}" mysql -f -h "${MYSQLIP}" -u root -e "DROP USER '${1}_i';FLUSH PRIVILEGES;"
 }
 
 # Will start an openemr demo
@@ -157,9 +157,9 @@ restartSubdemo () {
 
     # Remove the database stuff
     if [ "$2" == "empty" ]; then
-        mysqladmin -f -h "${MYSQLIP}" -u root -p"${3}" drop "${1}"
+        MYSQL_PWD="${3}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"
     else
-        mysqladmin -f -h "${MYSQLIP}" -u root -p"${3}" drop "${1}"_"${2}"
+        MYSQL_PWD="${3}" mysqladmin -f -h "${MYSQLIP}" -u root drop "${1}"_"${2}"
     fi
 
     # Now need to reset the demo within the docker
@@ -292,11 +292,11 @@ snapshotDemo() {
     mkdir -p "${tmpPath}"
     if [ "$2" == "empty" ]; then
         echo "snapshot of empty subname (ie. the one without a letter)"
-        mysqldump --ignore-table="${1}".onsite_activity_view --hex-blob -u root -p"${3}" -h "${MYSQLIP}" "${1}" > "${tmpPath}/backup.sql"
+        MYSQL_PWD="${3}" mysqldump --ignore-table="${1}".onsite_activity_view --hex-blob -u root -h "${MYSQLIP}" "${1}" > "${tmpPath}/backup.sql"
         docker cp "${1}-openemr:/var/www/localhost/htdocs/openemr/sites" "${tmpPath}"
     else
         echo "snapshot of non-empty subname (ie. with a letter)"
-        mysqldump --ignore-table="${1}"_"${2}".onsite_activity_view --hex-blob -u root -p"${3}" -h "${MYSQLIP}" "${1}"_"${2}" > "${tmpPath}/backup.sql"
+        MYSQL_PWD="${3}" mysqldump --ignore-table="${1}"_"${2}".onsite_activity_view --hex-blob -u root -h "${MYSQLIP}" "${1}"_"${2}" > "${tmpPath}/backup.sql"
         docker cp "${1}-openemr:/var/www/localhost/htdocs/${2}/openemr/sites" "${tmpPath}"
     fi
     cd "${tmp}" || return 1
