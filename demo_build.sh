@@ -274,7 +274,7 @@ if $lightReset; then
  echo -n "subdemo reset mode for: "
  echo "$lightResetDemo"
  echo -n "subdemo reset mode for: " >> "$LOG"
- echo "$lightResetDemo"
+ echo "$lightResetDemo" >> "$LOG"
 elif [ "$DOCKERNUMBERDEMOS" == "10" ]; then
  demosGo=("empty" "a" "b" "c" "d" "e" "f" "g" "h" "i")
  echo "10 demos mode"
