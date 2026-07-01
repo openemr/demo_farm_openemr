@@ -9,14 +9,6 @@
 #
 # Bash library for openemr demo farm
 #
-# Per-file shellcheck ratchet (issue #146 cleanup, post-C2 + C3a):
-# the 72 SC2086 violations in this file remain deferred to PR C3b.
-# C3a closed out SC2006 (4 sites) and SC2155 (4 sites — surfaced after
-# SC2006 fix at the same code positions, same masked-warning pattern
-# as C2's SC2002 fold-in). C3b will fix each SC2086 site individually
-# and remove this directive.
-# shellcheck disable=SC2086
-
 # This is the wrapper to start the demo, so only need to modify the specifics in 1 place
 # rather than 2. Picks the right flex image + instance count per cluster, then
 # delegates to startDemo() which does the docker run.
@@ -93,31 +85,31 @@ stopDemo () {
 
     # Stop the docker
     echo "Stop ${1}-openemr docker"
-    docker stop ${1}-openemr
-    docker rm ${1}-openemr
+    docker stop "${1}"-openemr
+    docker rm "${1}"-openemr
 
     # Remove the database stuff
     echo "Clear ${1}-openemr databases and users"
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_a
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_b
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_c
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_d
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_e
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_f
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_g
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_h
-    mysqladmin -f -h ${MYSQLIP} -u root -p${2} drop ${1}_i
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_a';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_b';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_c';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_d';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_e';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_f';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_g';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_h';FLUSH PRIVILEGES;"
-    mysql -f -h ${MYSQLIP} -u root -p${2} -e "DROP USER '${1}_i';FLUSH PRIVILEGES;"
+    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"
+    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_a
+    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_b
+    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_c
+    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_d
+    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_e
+    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_f
+    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_g
+    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_h
+    mysqladmin -f -h "${MYSQLIP}" -u root -p"${2}" drop "${1}"_i
+    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}';FLUSH PRIVILEGES;"
+    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_a';FLUSH PRIVILEGES;"
+    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_b';FLUSH PRIVILEGES;"
+    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_c';FLUSH PRIVILEGES;"
+    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_d';FLUSH PRIVILEGES;"
+    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_e';FLUSH PRIVILEGES;"
+    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_f';FLUSH PRIVILEGES;"
+    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_g';FLUSH PRIVILEGES;"
+    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_h';FLUSH PRIVILEGES;"
+    mysql -f -h "${MYSQLIP}" -u root -p"${2}" -e "DROP USER '${1}_i';FLUSH PRIVILEGES;"
 }
 
 # Will start an openemr demo
@@ -136,7 +128,7 @@ stopDemo () {
 startDemo () {
     # Start docker
     echo "Start ${1}-openemr docker"
-    docker run --detach --name ${1}-openemr \
+    docker run --detach --name "${1}"-openemr \
                         --env "DOCKERDEMO=${1}" \
                         --env "DOCKERMYSQLHOST=${2}" \
                         --env "DOCKERNUMBERDEMOS=${4}" \
@@ -151,7 +143,7 @@ startDemo () {
                         -v ~/cred/sasl_passwd.db:/etc/postfix/sasl_passwd.db:ro \
                         -v ~/cred/github-key:/home/openemr/github-key:ro \
                         --net mynet \
-                        ${3} \
+                        "${3}" \
                         bash -c "mkdir -p /home/openemr/git && cd /home/openemr/git && git clone https://github.com/openemr/demo_farm_openemr.git && bash /home/openemr/git/demo_farm_openemr/demo_build.sh"
 }
 
@@ -165,13 +157,13 @@ restartSubdemo () {
 
     # Remove the database stuff
     if [ "$2" == "empty" ]; then
-        mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}
+        mysqladmin -f -h "${MYSQLIP}" -u root -p"${3}" drop "${1}"
     else
-        mysqladmin -f -h ${MYSQLIP} -u root -p${3} drop ${1}_${2}
+        mysqladmin -f -h "${MYSQLIP}" -u root -p"${3}" drop "${1}"_"${2}"
     fi
 
     # Now need to reset the demo within the docker
-    docker exec -t ${1}-openemr bash -c "cd /home/openemr/git/demo_farm_openemr &&
+    docker exec -t "${1}"-openemr bash -c "cd /home/openemr/git/demo_farm_openemr &&
                                          git fetch &&
                                          git pull origin master &&
                                          cd ~/ &&
@@ -300,11 +292,11 @@ snapshotDemo() {
     mkdir -p "${tmpPath}"
     if [ "$2" == "empty" ]; then
         echo "snapshot of empty subname (ie. the one without a letter)"
-        mysqldump --ignore-table=${1}.onsite_activity_view --hex-blob -u root -p${3} -h ${MYSQLIP} ${1} > "${tmpPath}/backup.sql"
+        mysqldump --ignore-table="${1}".onsite_activity_view --hex-blob -u root -p"${3}" -h "${MYSQLIP}" "${1}" > "${tmpPath}/backup.sql"
         docker cp "${1}-openemr:/var/www/localhost/htdocs/openemr/sites" "${tmpPath}"
     else
         echo "snapshot of non-empty subname (ie. with a letter)"
-        mysqldump --ignore-table=${1}_${2}.onsite_activity_view --hex-blob -u root -p${3} -h ${MYSQLIP} ${1}_${2} > "${tmpPath}/backup.sql"
+        mysqldump --ignore-table="${1}"_"${2}".onsite_activity_view --hex-blob -u root -p"${3}" -h "${MYSQLIP}" "${1}"_"${2}" > "${tmpPath}/backup.sql"
         docker cp "${1}-openemr:/var/www/localhost/htdocs/${2}/openemr/sites" "${tmpPath}"
     fi
     cd "${tmp}" || return 1
