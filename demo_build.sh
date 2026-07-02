@@ -343,9 +343,22 @@ echo -n "Docker Demo is " >> "$LOG"
 echo "$DOCKERDEMO" >> "$LOG"
 IPADDRESS=$DOCKERDEMO
 
+ # Look up this iteration's ip_map row exactly once. Using awk with an
+ # anchored `$1 == ip` field match rather than `grep "$IPADDRESS"` --
+ # the substring grep would also match sibling rows (e.g., IPADDRESS
+ # "two" matched both the "two" and "two_a" rows, then the downstream
+ # `tr -d '\n' | cut -f N` concatenated both and pulled the wrong
+ # field). `exit` after first match makes the lookup unambiguous even
+ # if the map ever has a duplicate key.
+ map_row=$(awk -F$'\t' -v ip="$IPADDRESS" '$1 == ip { print; exit }' "$GITDEMOFARMMAP")
+ if [ -z "$map_row" ]; then
+  echo "ERROR: no demo-map entry for '$IPADDRESS' in $GITDEMOFARMMAP" | tee -a "$LOG" >&2
+  exit 1
+ fi
+
  # COLLECT MAPPED BRANCH AND OPTIONS
  # Grab repo link
- OPENEMRREPO=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 2)
+ OPENEMRREPO=$(printf '%s\n' "$map_row" | cut -f 2)
  echo -n "git repo is "
  echo "$OPENEMRREPO"
  echo -n "git repo is " >> "$LOG"
@@ -367,40 +380,40 @@ IPADDRESS=$DOCKERDEMO
  echo -n "git repo local path is " >> "$LOG"
  echo "$GIT" >> "$LOG"
  # Grab branch
- GITBRANCH=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 3)
+ GITBRANCH=$(printf '%s\n' "$map_row" | cut -f 3)
  echo -n "git branch is "
  echo "$GITBRANCH"
  echo -n "git branch is " >> "$LOG"
  echo "$GITBRANCH" >> "$LOG"
  # Grab use development translation set option
- udt=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 5)
+ udt=$(printf '%s\n' "$map_row" | cut -f 5)
  echo -n "udt option is "
  echo "$udt"
  echo -n "udt option is " >> "$LOG"
  echo "$udt" >> "$LOG"
  # Grab serve packages option
- sp=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 6)
+ sp=$(printf '%s\n' "$map_row" | cut -f 6)
  echo -n "sp option is "
  echo "$sp"
  echo -n "sp option is " >> "$LOG"
  echo "$sp" >> "$LOG"
  # Grab demo data option
- dd=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 8)
+ dd=$(printf '%s\n' "$map_row" | cut -f 8)
  echo -n "dd option is "
  echo "$dd"
  echo -n "dd option is " >> "$LOG"
  echo "$dd" >> "$LOG"
- ppapi=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 10)
+ ppapi=$(printf '%s\n' "$map_row" | cut -f 10)
  echo -n "ppapi option is "
  echo "$ppapi"
  echo -n "ppapi option is " >> "$LOG"
  echo "$ppapi" >> "$LOG"
- EXTERNALLINK=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 11)
+ EXTERNALLINK=$(printf '%s\n' "$map_row" | cut -f 11)
  echo -n "external link is "
  echo "$EXTERNALLINK"
  echo -n "external link is " >> "$LOG"
  echo "$EXTERNALLINK" >> "$LOG"
- mrp=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 12)
+ mrp=$(printf '%s\n' "$map_row" | cut -f 12)
  echo -n "mariadb p is "
  echo "$mrp"
  echo -n "mariadb p is " >> "$LOG"
@@ -408,22 +421,22 @@ IPADDRESS=$DOCKERDEMO
  # col 13 (branch_tag) is deprecated; col position preserved with value "0".
  # demo_build.sh no longer reads it -- the clone below uses
  # `git clone --branch <ref> --depth 1` which works for both branches and tags.
- ddu=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 14)
+ ddu=$(printf '%s\n' "$map_row" | cut -f 14)
  echo -n "ddu option is "
  echo "$ddu"
  echo -n "ddu option is " >> "$LOG"
  echo "$ddu" >> "$LOG"
- funStuff=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 15)
+ funStuff=$(printf '%s\n' "$map_row" | cut -f 15)
  echo -n "funStuff option is "
  echo "$funStuff"
  echo -n "funStuff option is " >> "$LOG"
  echo "$funStuff" >> "$LOG"
- passReset=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 16)
+ passReset=$(printf '%s\n' "$map_row" | cut -f 16)
  echo -n "passReset option is "
  echo "$passReset"
  echo -n "passReset option is " >> "$LOG"
  echo "$passReset" >> "$LOG"
- useCapsule=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 17)
+ useCapsule=$(printf '%s\n' "$map_row" | cut -f 17)
  echo -n "useCapsule option is "
  echo "$useCapsule"
  echo -n "useCapsule option is " >> "$LOG"
@@ -490,7 +503,7 @@ IPADDRESS=$DOCKERDEMO
  fi
 
  # COLLECT and output demo description
- desc=$(grep "$IPADDRESS" "$GITDEMOFARMMAP" | tr -d '\n' | cut -f 18)
+ desc=$(printf '%s\n' "$map_row" | cut -f 18)
  echo -n "Demo description: "
  echo "$desc"
  echo -n "Demo description: " >> "$LOG"
