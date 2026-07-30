@@ -11,8 +11,6 @@ four_a	https://github.com/sjpadgett/openemr.git	fhir-launch	0	0	0	0	demo_5_0_0_5
 four_b	https://github.com/rollingventures/openemr.git	bootstrap5-migration	0	0	0	0	demo_5_0_0_5.sql	0	1	four.openemr.io/b	hey	0	5.0.0	0	0	0	UP FOR GRABS Public OpenEMR Demo - Gamma With Demo Data
 
 # === Master demos (low → high PHP) ===
-two	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	two.openemr.io	hey	0	0	2	0	0	Public OpenEMR Development Demo on Alpine 3.22 (with PHP 8.2)
-two_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	two.openemr.io/a	hey	0	5.0.0	2	0	0	Public OpenEMR Development Demo With Demo Data On Alpine 3.22 (with PHP 8.2)
 one	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	one.openemr.io	hey	0	0	2	0	0	Public OpenEMR Development Demo on Alpine 3.23 (with PHP 8.3)
 one_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	one.openemr.io/a	hey	0	5.0.0	2	0	0	Public OpenEMR Development Demo With Demo Data On Alpine 3.23 (with PHP 8.3)
 seven	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	seven.openemr.io	hey	0	0	2	0	0	Public OpenEMR Development Demo on Alpine 3.23 (with PHP 8.4)
@@ -29,6 +27,8 @@ eight	https://github.com/openemr/openemr.git	v8_2_0	0	0	0	0	0	0	1	eight.openemr.
 eight_a	https://github.com/openemr/openemr.git	v8_2_0	0	0	0	0	demo_5_0_0_5.sql	0	1	eight.openemr.io/a	hey	0	5.0.0	0	0	0	Public OpenEMR 8.2.0 Release Demo With Demo Data On Alpine 3.23 (with PHP 8.5)
 
 # === Parked ===
+two	https://github.com/openemr/openemr.git	master	0	1	0	0	0	0	1	two.openemr.io	hey	0	0	2	0	0	[parked]
+two_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	two.openemr.io/a	hey	0	5.0.0	2	0	0	[parked]
 nine	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	nine.openemr.io	hey	0	0	0	0	0	[parked]
 nine_a	https://github.com/openemr/openemr.git	master	0	0	0	0	demo_5_0_0_5.sql	0	1	nine.openemr.io/a	hey	0	5.0.0	0	0	0	[parked]
 ten	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	ten.openemr.io	hey	0	0	0	0	0	[parked]
