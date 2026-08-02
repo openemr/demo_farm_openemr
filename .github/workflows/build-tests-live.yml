@@ -68,9 +68,12 @@ jobs:
           persist-credentials: false
 
       - name: Pre-pull base images
-        # All three current scenarios target the same flex tag. If a
-        # fixture overrides INTEGRATION_IMAGE, the runner will pull
-        # that on-demand at first `docker run` inside run-scenario.sh.
+        # Pre-pull the default flex tag used by scenarios that don't
+        # override INTEGRATION_IMAGE (tag-pinned-with-data,
+        # release-packageserve). branch-pinned-master overrides to the
+        # flex-3.23-php-8.5 image (openemr master now requires PHP 8.3+
+        # per openemr/openemr#13280), which the runner pulls on-demand
+        # at first `docker run` inside run-scenario.sh.
         run: |
           set -euo pipefail
           docker pull mariadb:10.6
