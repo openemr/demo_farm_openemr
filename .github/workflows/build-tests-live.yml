@@ -68,13 +68,19 @@ jobs:
           persist-credentials: false
 
       - name: Pre-pull base images
-        # All three current scenarios target the same flex tag. If a
-        # fixture overrides INTEGRATION_IMAGE, the runner will pull
-        # that on-demand at first `docker run` inside run-scenario.sh.
+        # Pre-pull the two flex tags the current live fixtures declare
+        # via INTEGRATION_IMAGE: flex-3.22-php-8.2 (tag-pinned-with-data
+        # + release-packageserve, pinned to what those released tags
+        # actually shipped supporting) and flex-3.23-php-8.5
+        # (branch-pinned-master, since openemr master now requires
+        # PHP 8.3+ per openemr/openemr#13280). Any fixture that adds a
+        # new INTEGRATION_IMAGE will be pulled on-demand at first
+        # `docker run` inside run-scenario.sh.
         run: |
           set -euo pipefail
           docker pull mariadb:10.6
           docker pull openemr/openemr:flex-3.22-php-8.2
+          docker pull openemr/openemr:flex-3.23-php-8.5
 
       - name: Run scenario ${{ matrix.scenario }} (live)
         # On failure, run-scenario.sh prints the openemr container logs

@@ -1,5 +1,5 @@
 ACTION: apk add --no-cache postfix stunnel
-ACTION_SH: echo 'error_log = /var/www/localhost/htdocs/log/logPhp.txt' > /etc/php82/conf.d/99-demo-farm-error-log.ini
+ACTION_SH: echo 'error_log = /var/www/localhost/htdocs/log/logPhp.txt' > /etc/php85/conf.d/99-demo-farm-error-log.ini
 ACTION: git clone --branch master --depth 1 https://github.com/openemr/openemr.git
 ACTION_SH: rm -fr "/var/www/localhost/htdocs/openemr"/*
 ACTION_SH: rsync --recursive --exclude .git /home/openemr/git/openemr/* /var/www/localhost/htdocs/openemr/

@@ -33,10 +33,14 @@ FIXTURES_DIR="$REPO_ROOT/tools/build-tests/fixtures"
 DEMO_BUILD="$REPO_ROOT/demo_build.sh"
 
 SCENARIO=""
-# Default to the production flex image tag used by the `two` cluster
-# (Alpine 3.22 / PHP 8.2). Per-fixture inputs.env may override via
-# INTEGRATION_IMAGE.
-IMAGE="openemr/openemr:flex-3.22-php-8.2"
+# Fallback flex tag used only when the fixture's inputs.env does not
+# set INTEGRATION_IMAGE. Pinned to the canonical newest supported flex
+# tag (Alpine 3.23 / PHP 8.5) so a new fixture that forgets to declare
+# an image gets a modern PHP by default. All existing live fixtures
+# should set INTEGRATION_IMAGE explicitly so this fallback never runs;
+# it's not tied to any specific cluster's production image, which would
+# drift as clusters park / unpark / bump PHP over time.
+IMAGE="openemr/openemr:flex-3.23-php-8.5"
 IMAGE_FROM_CLI=0  # set when --image is passed; takes precedence over inputs.env
 TIMEOUT_SECONDS=900   # 15 min ceiling for composer + npm + mariadb populate
 UPDATE_GOLDENS="${UPDATE_GOLDENS:-0}"
