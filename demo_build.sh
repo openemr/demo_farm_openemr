@@ -205,6 +205,83 @@ collect_var () {
    grep -i "^[[:space:]]*$1[[:space:]=]" "$2" | cut -d = -f 2 | cut -d ';' -f 1 | sed "s/[ 	'\"]//gi"
 }
 
+# upgradeOpenEMRDatabase <fromVersion> -- run sql_upgrade.php against the
+# checkout at $OPENEMR, upgrading the demo database from <fromVersion>.
+#
+# Two backends, selected by capability probe against the actual file:
+#
+#   1. rel-820 and master: sql_upgrade.php exposes a --from=VERSION CLI arg
+#      (added by openemr#11906, hardened by openemr#13583 which also
+#      refactored the older $form_old_version = $_POST[...] line away).
+#      Inject $_GET['site'] via cat-and-prepend then pass --from= directly.
+#
+#   2. rel-704 and rel-800: no CLI arg support; sql_upgrade.php's upgrade
+#      block still gates on !empty($_POST['form_submit']) and reads the
+#      from-version from $_POST['form_old_version']. sed-patch both plus
+#      prepend $_GET['site'].
+#
+# The probe grep-matches BOTH the parser signature (str_starts_with($arg,
+# '--from=')) AND the upgrade-gate signature ($cliFromVersion !== null)
+# in sql_upgrade.php. Both required so a legacy script with a stale
+# comment mentioning '--from=' doesn't trigger a false positive and
+# silently no-op the upgrade in CLI mode. Do not "simplify" back to a
+# single-string grep -- that was the pre-review version and it lets
+# comment-only markers pass. Probing capabilities rather than parsing a
+# version string means forks / feature branches / future release
+# branches auto-route correctly.
+# In the dry-run harness $OPENEMR/sql_upgrade.php is a touched empty stub
+# (tools/build-tests/test.sh), so both greps return false and dry-run
+# takes the sed path. The master-cli-upgrade fixture uses the extra/
+# overlay to seed a stub containing both signatures, exercising the
+# CLI path.
+#
+# Bug the version-detect path fixes: on rel-820 and master the previous
+# sed-only implementation silently no-op'd (the target line was gone in
+# those versions), so $form_old_version resolved to '' and every demo
+# upgrade replayed the full chain from 2.9.0 -- adding several minutes
+# per demo build depending on the intended fromVersion. Mirrors the same
+# fix openemr applied to its release/binary docker devtoolsLibrary in
+# openemr#13583.
+#
+# Uses globals: $OPENEMR, $webUser, $LOG
+upgradeOpenEMRDatabase () {
+    local fromVersion="$1"
+    # Defense-in-depth: fromVersion is embedded into command strings that
+    # run_action_sh passes to eval. Realistic values are dot-separated
+    # release numbers (5.0.0, 6.0.0.1, 7.0.4), and demo_farm's ip_map is
+    # a repo-committed file so the "attacker" is at worst a mistaken PR,
+    # not external input -- but a stray quote or shell metachar would
+    # break the build in a hard-to-diagnose way, and the eval-wrapped
+    # legacy sed path runs before the privilege drop. Reject anything
+    # outside the canonical version-string alphabet.
+    if [[ ! "$fromVersion" =~ ^[0-9._-]+$ ]]; then
+        echo "ERROR: upgradeOpenEMRDatabase: invalid fromVersion '$fromVersion' (expected [0-9._-]+)" >&2
+        echo "ERROR: upgradeOpenEMRDatabase: invalid fromVersion '$fromVersion'" >> "$LOG"
+        exit 1
+    fi
+    # Probe for the executable CLI signatures rather than any '--from='
+    # text: the parser (`str_starts_with($arg, '--from=')`) AND the gate
+    # that lets CLI mode bypass the form_submit check
+    # (`$cliFromVersion !== null`). Both required so a legacy
+    # sql_upgrade.php with a stale comment mentioning '--from=' doesn't
+    # trip a false positive and silently no-op the upgrade in CLI mode.
+    if grep -qF "str_starts_with(\$arg, '--from=')" "$OPENEMR/sql_upgrade.php" 2>/dev/null \
+        && grep -qF "\$cliFromVersion !== null" "$OPENEMR/sql_upgrade.php" 2>/dev/null; then
+        # rel-820+, master: CLI mode with --from=
+        run_action_sh "{ echo \"<?php \\\$_GET['site'] = 'default'; ?>\"; cat $OPENEMR/sql_upgrade.php; } > $OPENEMR/sql_upgrade_temp.php"
+        # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
+        run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $OPENEMR/sql_upgrade_temp.php -- --from='${fromVersion}'\" >> $LOG"
+    else
+        # rel-704, rel-800 (and the dry-run empty stub): sed-patch the form_submit gate + inject fromVersion.
+        run_action_sh "sed -e \"s@!empty(\\\$_POST\\['form_submit'\\])@true@\" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php"
+        run_action_sh "sed -i \"s@\\\$form_old_version = \\\$_POST\\['form_old_version'\\];@\\\$form_old_version = '${fromVersion}';@\" $OPENEMR/sql_upgrade_temp.php"
+        run_action_sh "sed -i \"1s@^@<?php \\\$_GET['site'] = 'default'; ?>@\" $OPENEMR/sql_upgrade_temp.php"
+        # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
+        run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $OPENEMR/sql_upgrade_temp.php\" >> $LOG"
+    fi
+    run_action rm -f "$OPENEMR"/sql_upgrade_temp.php
+}
+
 # (lightReset / lightResetDemo are now set by the unified arg parser at the
 # top of the script; the legacy "$1" check used to live here.)
 
@@ -653,12 +730,7 @@ IPADDRESS=$DOCKERDEMO
    # Run the sql upgrade script. This allows using demo data on most recent codebase.
    echo "Upgrading demo data from $demoDataUpgradeFrom"
    echo "Upgrading demo data from $demoDataUpgradeFrom" >> "$LOG"
-   run_action_sh "sed -e \"s@!empty(\\\$_POST\\['form_submit'\\])@true@\" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php"
-   run_action_sh "sed -i \"s@\\\$form_old_version = \\\$_POST\\['form_old_version'\\];@\\\$form_old_version = '${demoDataUpgradeFrom}';@\" $OPENEMR/sql_upgrade_temp.php"
-   run_action_sh "sed -i \"1s@^@<?php \\\$_GET['site'] = 'default'; ?>@\" $OPENEMR/sql_upgrade_temp.php"
-   # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
-   run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $OPENEMR/sql_upgrade_temp.php\" >> $LOG"
-   run_action rm -f "$OPENEMR"/sql_upgrade_temp.php
+   upgradeOpenEMRDatabase "$demoDataUpgradeFrom"
    # Also need to change encoding/collation when using OpenEMR versions at 6 or greater
    VERSION_MAJOR=$(collect_var \$v_major "$OPENEMR"/version.php)
    if [ -n "$VERSION_MAJOR" ] && [ "$VERSION_MAJOR" -ge "6" ]; then
@@ -723,12 +795,7 @@ IPADDRESS=$DOCKERDEMO
     # Run the sql upgrade script. This allows using capsule on most recent codebase.
     echo "Upgrading capsule from $demoDataUpgradeFrom"
     echo "Upgrading capsule from $demoDataUpgradeFrom" >> "$LOG"
-    run_action_sh "sed -e \"s@!empty(\\\$_POST\\['form_submit'\\])@true@\" <$OPENEMR/sql_upgrade.php >$OPENEMR/sql_upgrade_temp.php"
-    run_action_sh "sed -i \"s@\\\$form_old_version = \\\$_POST\\['form_old_version'\\];@\\\$form_old_version = '${demoDataUpgradeFrom}';@\" $OPENEMR/sql_upgrade_temp.php"
-    run_action_sh "sed -i \"1s@^@<?php \\\$_GET['site'] = 'default'; ?>@\" $OPENEMR/sql_upgrade_temp.php"
-    # Drop privileges to the web user: RootCliGuard (openemr#12267) refuses root for OpenEMR CLI scripts.
-    run_action_sh "su -p -s /bin/sh \"$webUser\" -c \"php -f $OPENEMR/sql_upgrade_temp.php\" >> $LOG"
-    run_action rm -f "$OPENEMR"/sql_upgrade_temp.php
+    upgradeOpenEMRDatabase "$demoDataUpgradeFrom"
    fi
   else
    echo "ERROR: $useCapsuleFile capsule did not exist, so could not use"
