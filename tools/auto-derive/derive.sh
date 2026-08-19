@@ -81,6 +81,27 @@ UPSTREAM_BASE="https://raw.githubusercontent.com/openemr/openemr"
 CURRENT_DIR=""
 MODE="dry-run"
 
+# Auth header args for curls that hit GitHub-owned hosts. Both
+# api.github.com and https://raw.githubusercontent.com honor the same
+# Bearer token; using it lifts the caller from the 60/hr anonymous quota
+# (shared across the CI runner IP pool -- lately runs dry on scheduled
+# fires and surfaced as HTTP 403 on api.github.com) to the 1000/hr
+# per-repository quota for the workflow-issued ${{ github.token }} (or
+# 15000/hr on GHEC). Prefer $GH_TOKEN (gh CLI convention, matches what
+# .github/workflows/derive-ip-map-*.yml sets); fall back to
+# $GITHUB_TOKEN (Actions-injected convention).
+#
+# Callers MUST only apply these args to curls whose destination is a
+# GitHub-owned host. fetch_upstream in particular gates on UPSTREAM_BASE
+# starting with https://raw.githubusercontent.com/ so that a user- or
+# workflow-configured non-GitHub upstream never receives the token.
+GITHUB_AUTH_ARGS=()
+_derive_github_token="${GH_TOKEN:-${GITHUB_TOKEN:-}}"
+if [[ -n "$_derive_github_token" ]]; then
+    GITHUB_AUTH_ARGS=(-H "Authorization: Bearer $_derive_github_token")
+fi
+unset _derive_github_token
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --current-dir)
@@ -158,7 +179,15 @@ fetch_upstream() {
         cp "$src" "$dest"
     else
         local url="$UPSTREAM_BASE/$ref/$path"
-        if ! curl -fsSL "$url" -o "$dest"; then
+        # UPSTREAM_BASE is --upstream-base configurable, so only send the
+        # workflow token to the exact HTTPS raw.githubusercontent.com host.
+        # A custom-configured or http:// upstream must NOT receive it (would
+        # exfil to an attacker-controlled host, or over cleartext).
+        local -a request_auth_args=()
+        if [[ "$UPSTREAM_BASE" == https://raw.githubusercontent.com/* ]]; then
+            request_auth_args=("${GITHUB_AUTH_ARGS[@]}")
+        fi
+        if ! curl -fsSL "${request_auth_args[@]}" "$url" -o "$dest"; then
             fail "failed to fetch $url"
         fi
     fi
@@ -401,12 +430,8 @@ list_upstream_dir() {
             fail "list_upstream_dir: cannot derive GitHub API URL from non-raw.githubusercontent.com UPSTREAM_BASE: $UPSTREAM_BASE"
         fi
         local api_url="https://api.github.com/repos/${owner_repo}/contents/${path}?ref=${ref}"
-        local auth_args=()
-        if [[ -n "${GITHUB_TOKEN:-}" ]]; then
-            auth_args=(-H "Authorization: Bearer $GITHUB_TOKEN")
-        fi
         local body
-        if ! body="$(curl -fsSL "${auth_args[@]}" \
+        if ! body="$(curl -fsSL "${GITHUB_AUTH_ARGS[@]}" \
                         -H "Accept: application/vnd.github+json" \
                         "$api_url")"; then
             fail "failed to fetch directory listing from $api_url"
