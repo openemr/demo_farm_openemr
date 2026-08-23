@@ -19,8 +19,6 @@ eleven	https://github.com/openemr/openemr.git	master	0	1	1	0	0	0	1	eleven.openem
 eleven_a	https://github.com/openemr/openemr.git	master	0	1	0	0	demo_5_0_0_5.sql	0	1	eleven.openemr.io/a	hey	0	5.0.0	2	0	0	Public OpenEMR Development Demo With Demo Data On Alpine 3.23 (with PHP 8.5)
 
 # === Release demos (low → high version) ===
-six	https://github.com/openemr/openemr.git	v7_0_4	0	0	0	0	0	0	1	six.openemr.io	hey	0	0	0	0	0	Public OpenEMR 7.0.4 Release Demo on Alpine 3.22 (with PHP 8.4)
-six_a	https://github.com/openemr/openemr.git	v7_0_4	0	0	0	0	demo_5_0_0_5.sql	0	1	six.openemr.io/a	hey	0	5.0.0	0	0	0	Public OpenEMR 7.0.4 Release Demo With Demo Data On Alpine 3.22 (with PHP 8.4)
 three	https://github.com/openemr/openemr.git	v8_0_0_3	0	0	0	0	0	0	1	three.openemr.io	hey	0	0	0	0	0	Public OpenEMR 8.0.0 Release Demo on Alpine 3.22 (with PHP 8.4)
 three_a	https://github.com/openemr/openemr.git	v8_0_0_3	0	0	0	0	demo_5_0_0_5.sql	0	1	three.openemr.io/a	hey	0	5.0.0	0	0	0	Public OpenEMR 8.0.0 Release Demo With Demo Data On Alpine 3.22 (with PHP 8.4)
 eight	https://github.com/openemr/openemr.git	v8_2_0	0	0	0	0	0	0	1	eight.openemr.io	hey	0	0	0	0	0	Public OpenEMR 8.2.0 Release Demo on Alpine 3.23 (with PHP 8.5)
@@ -29,6 +27,8 @@ two	https://github.com/openemr/openemr.git	v8_3_0	0	1	0	0	0	0	1	two.openemr.io	h
 two_a	https://github.com/openemr/openemr.git	v8_3_0	0	1	0	0	demo_5_0_0_5.sql	0	1	two.openemr.io/a	hey	0	5.0.0	2	0	0	Public OpenEMR 8.3.0 Release Demo With Demo Data On Alpine 3.23 (with PHP 8.5)
 
 # === Parked ===
+six	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	six.openemr.io	hey	0	0	0	0	0	[parked]
+six_a	https://github.com/openemr/openemr.git	master	0	0	0	0	demo_5_0_0_5.sql	0	1	six.openemr.io/a	hey	0	5.0.0	0	0	0	[parked]
 nine	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	nine.openemr.io	hey	0	0	0	0	0	[parked]
 nine_a	https://github.com/openemr/openemr.git	master	0	0	0	0	demo_5_0_0_5.sql	0	1	nine.openemr.io/a	hey	0	5.0.0	0	0	0	[parked]
 ten	https://github.com/openemr/openemr.git	master	0	0	0	0	0	0	1	ten.openemr.io	hey	0	0	0	0	0	[parked]
