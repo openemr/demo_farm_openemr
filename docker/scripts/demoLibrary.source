@@ -21,7 +21,7 @@ startDemoWrapper() {
     # Ordered by cluster number for legibility.
     case "$1" in
         one)
-            image="openemr/openemr:flex-3.23-php-8.3"
+            image="openemr/openemr:flex-3.24-php-8.3"
             count=2
             ;;
         two)
@@ -33,7 +33,7 @@ startDemoWrapper() {
             count=2
             ;;
         four)
-            image="openemr/openemr:flex-3.23-php-8.5"
+            image="openemr/openemr:flex-3.24-php-8.5"
             count=3
             ;;
         five)
@@ -41,11 +41,11 @@ startDemoWrapper() {
             count=3
             ;;
         six)
-            image="openemr/openemr:flex-3.23-php-8.5"
+            image="openemr/openemr:flex-3.24-php-8.5"
             count=2
             ;;
         seven)
-            image="openemr/openemr:flex-3.23-php-8.4"
+            image="openemr/openemr:flex-3.24-php-8.4"
             count=2
             ;;
         eight)
@@ -53,19 +53,19 @@ startDemoWrapper() {
             count=2
             ;;
         nine)
-            image="openemr/openemr:flex-3.23-php-8.5"
+            image="openemr/openemr:flex-3.24-php-8.5"
             count=2
             ;;
         ten)
-            image="openemr/openemr:flex-3.23-php-8.5"
+            image="openemr/openemr:flex-3.24-php-8.5"
             count=2
             ;;
         eleven)
-            image="openemr/openemr:flex-3.23-php-8.5"
+            image="openemr/openemr:flex-3.24-php-8.5"
             count=2
             ;;
         edu)
-            image="openemr/openemr:flex-3.23-php-8.5"
+            image="openemr/openemr:flex-3.24-php-8.5"
             count=2
             ;;
         *)
