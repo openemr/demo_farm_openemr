@@ -12,7 +12,6 @@ ACTION_CAPTURE: curl -H Authorization:\ token\  https://api.github.com/rate_limi
 ACTION_SH: composer install --no-dev &>> /var/www/localhost/htdocs/log/logSetup.txt
 ACTION_SH: npm install --unsafe-perm &>> /var/www/localhost/htdocs/log/logSetup.txt
 ACTION_SH: npm run build &>> /var/www/localhost/htdocs/log/logSetup.txt
-ACTION_SH: npm install --unsafe-perm &>> /var/www/localhost/htdocs/log/logSetup.txt
 ACTION_SH: composer global require phing/phing &>> /var/www/localhost/htdocs/log/logSetup.txt
 ACTION_SH: /root/.composer/vendor/bin/phing vendor-clean &>> /var/www/localhost/htdocs/log/logSetup.txt
 ACTION_SH: /root/.composer/vendor/bin/phing assets-clean &>> /var/www/localhost/htdocs/log/logSetup.txt
