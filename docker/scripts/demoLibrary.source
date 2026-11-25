@@ -21,7 +21,7 @@ startDemoWrapper() {
     # Ordered by cluster number for legibility.
     case "$1" in
         one)
-            image="openemr/openemr:flex-3.24-php-8.3"
+            image="openemr/openemr:flex-3.24-php-8.5"
             count=2
             ;;
         two)
